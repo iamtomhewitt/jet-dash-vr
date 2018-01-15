@@ -5,8 +5,9 @@ using UnityEngine;
 public class CubeSpawner : MonoBehaviour 
 {
 	public GameObject cube;
-	public int totalCubes;
 	public Boundary boundary;
+    public CubeSize cubeSize;
+    public int totalCubes;
 
 	void Start()
 	{
@@ -17,7 +18,7 @@ public class CubeSpawner : MonoBehaviour
 	{
 		for (int i = 0; i < totalCubes; i++)
 		{
-			int scale = Random.Range (5, 11);
+            int scale = Random.Range (cubeSize.minSize, cubeSize.maxSize);
 			float y = (scale / 2) + 0.5f;
 			GameObject c = Instantiate (cube, GenerateCubePosition (y), Quaternion.identity) as GameObject;
 			c.transform.localScale = new Vector3 (scale, scale, scale);
@@ -46,4 +47,10 @@ public class Boundary
 {
 	public float xMin, xMax;
 	public float zMin, zMax;
+}
+
+[System.Serializable]
+public class CubeSize
+{
+    public int minSize, maxSize;
 }

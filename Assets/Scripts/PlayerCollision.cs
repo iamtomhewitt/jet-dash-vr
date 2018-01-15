@@ -17,8 +17,7 @@ public class PlayerCollision : MonoBehaviour
         {
             case "Cube":
                 print("Hit a cube!");
-                playerControl.speed = 0f;     
-                playerControl.CancelInvoke("IncreaseSpeed");
+                playerControl.StopMoving();
                 break;
         }
     }
