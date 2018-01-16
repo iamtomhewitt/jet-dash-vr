@@ -19,6 +19,10 @@ public class PlayerCollision : MonoBehaviour
                 print("Hit a cube!");
                 playerControl.StopMoving();
                 break;
+
+            case "Powerup":
+                print("Hit a powerup!");
+                break;
         }
     }
 }
