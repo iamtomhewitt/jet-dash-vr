@@ -40,7 +40,8 @@ public class PlayerControl : MonoBehaviour
         modelSettings.RotateBasedOnMobileInput(modelSettings.model, 1);
         modelSettings.RotateBasedOnMobileInput(cam.transform, 1);
 
-        hud.distanceText.text = transform.position.z.ToString ("F0");
+        hud.SetDistanceText(transform.position.z);
+
 
 		KeyboardControl ();
 	}

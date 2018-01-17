@@ -18,10 +18,13 @@ public class CubeSpawner : MonoBehaviour
 	{
 		for (int i = 0; i < totalCubes; i++)
 		{
+            // Work out a scale and how high the cube has to be so it sits nicely on top of the floor
             int scale = Random.Range (cubeSize.minSize, cubeSize.maxSize);
 			float y = (scale / 2) + 0.5f;
+
 			GameObject c = Instantiate (cube, GenerateCubePosition (y), Quaternion.identity) as GameObject;
 			c.transform.localScale = new Vector3 (scale, scale, scale);
+            c.transform.parent = GameObject.Find("Cubes").transform;
 		}
 	}
 
