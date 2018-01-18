@@ -5,9 +5,10 @@ using UnityEngine;
 public class CubeSpawner : MonoBehaviour 
 {
 	public GameObject cube;
+    public int totalCubes;
+
 	public Boundary boundary;
     public CubeSize cubeSize;
-    public int totalCubes;
 
 	void Start()
 	{

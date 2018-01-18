@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerScore : MonoBehaviour 
 {
-    public int score = 0;
+    private int bonusScore = 0;
     private HUD hud;
 
     void Start()
@@ -14,16 +14,26 @@ public class PlayerScore : MonoBehaviour
 
     void Update()
     {
-        hud.SetScoreText(score);
+        hud.SetScoreText(bonusScore);
     }
 
     public void AddBonusPoints(int points)
     {
-        score += points;
+        bonusScore += points;
     }
 
     public void DoublePoints()
     {
-        score *= 2;
+        bonusScore *= 2;
+    }
+
+    public int GetBonusScore()
+    {
+        return bonusScore;
+    }
+
+    public int GetDistanceScore()
+    {
+        return (int)transform.position.z;
     }
 }

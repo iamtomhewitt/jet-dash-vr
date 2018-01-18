@@ -42,7 +42,6 @@ public class PlayerControl : MonoBehaviour
 
         hud.SetDistanceText(transform.position.z);
 
-
 		KeyboardControl ();
 	}
 
@@ -68,15 +67,6 @@ public class PlayerControl : MonoBehaviour
         speed = 0f;    
         turningSpeed = 0f;
         CancelInvoke("IncreaseSpeed");
-        print("Todo, explode");
-        StartCoroutine(Load());
-    }
-
-    IEnumerator Load()
-    {
-        print("todo, advert after so many restarts");
-        yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
 

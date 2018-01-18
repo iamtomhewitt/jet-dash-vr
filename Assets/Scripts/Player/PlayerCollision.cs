@@ -1,11 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerCollision : MonoBehaviour
 {
-    PlayerControl playerControl;
-    PlayerScore playerScore;
+    public GameObject explosion;
+    public GameObject gameHUD;
+    public GameObject playerModel;
+
+    public Scoreboard scoreboard;
+
+    private PlayerControl playerControl;
+    private PlayerScore playerScore;
 
     void Start()
     {
@@ -18,8 +25,16 @@ public class PlayerCollision : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Cube":
-                print("Hit a cube!");
+                GameObject e = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
+                Destroy(e, 3f);
+
                 playerControl.StopMoving();
+                gameHUD.SetActive(false);
+                playerModel.SetActive(false);
+
+                scoreboard.Show();
+                scoreboard.AnimateDistanceScore(playerScore.GetDistanceScore());
+                scoreboard.AnimateBonusScore(playerScore.GetBonusScore());
                 break;
         }
     }

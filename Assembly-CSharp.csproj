@@ -46,16 +46,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\MatchTransformPosition.cs" />
-     <Compile Include="Assets\PlayerScore.cs" />
-     <Compile Include="Assets\PowerupSpawner.cs" />
      <Compile Include="Assets\Scripts\Cube.cs" />
-     <Compile Include="Assets\Scripts\CubeSpawner.cs" />
-     <Compile Include="Assets\Scripts\HUD.cs" />
-     <Compile Include="Assets\Scripts\PlayerCollision.cs" />
-     <Compile Include="Assets\Scripts\PlayerControl.cs" />
+     <Compile Include="Assets\Scripts\Managers\LevelManager.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerCollision.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerControl.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerScore.cs" />
      <Compile Include="Assets\Scripts\Powerup.cs" />
-     <Compile Include="Assets\Scripts\Rotate.cs" />
+     <Compile Include="Assets\Scripts\Spawners\CubeSpawner.cs" />
+     <Compile Include="Assets\Scripts\Spawners\PowerupSpawner.cs" />
+     <Compile Include="Assets\Scripts\UI\HUD.cs" />
+     <Compile Include="Assets\Scripts\UI\Scoreboard.cs" />
+     <Compile Include="Assets\Scripts\Utilities\MatchTransformPosition.cs" />
+     <Compile Include="Assets\Scripts\Utilities\Rotate.cs" />
      <None Include="Assets\Graphics\Fonts\Anton OFL.txt" />
      <None Include="Assets\Graphics\Fonts\Oswald Bold - OFL.txt" />
      <None Include="Assets\Graphics\Materials\UIGeometryDepthRenderer.shader" />

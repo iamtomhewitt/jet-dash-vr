@@ -1,15 +1,6 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\HUD.cs">
-    <Files>
-      <File FileName="Assets\Scripts\PlayerCollision.cs" Line="57" Column="48" />
-      <File FileName="Assets\PlayerScore.cs" Line="9" Column="5" />
-      <File FileName="Assets\Scripts\HUD.cs" Line="10" Column="27" />
-      <File FileName="Assets\Scripts\PlayerControl.cs" Line="44" Column="9" />
-      <File FileName="Assets\Scripts\Cube.cs" Line="20" Column="13" />
-      <File FileName="Assets\Scripts\Powerup.cs" Line="38" Column="68" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
