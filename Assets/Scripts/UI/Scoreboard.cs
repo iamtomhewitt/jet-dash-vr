@@ -7,20 +7,34 @@ public class Scoreboard : MonoBehaviour
 {
     public Text distanceScoreText;
     public Text bonusScoreText;
+	public Text topSpeed;
+	public Text finalScore;
 
     public void AnimateBonusScore(int score)
     {
-        StartCoroutine(Animate(score, bonusScoreText));
+        StartCoroutine(Animate(score, bonusScoreText, false));
     }
 
 
     public void AnimateDistanceScore(int score)
     {
-        StartCoroutine(Animate(score, distanceScoreText));
+        StartCoroutine(Animate(score, distanceScoreText, false));
     }
 
 
-    IEnumerator Animate(int score, Text text)
+	public void AnimateTopSpeed(int score)
+	{
+		StartCoroutine(Animate(score, topSpeed, false));
+	}
+
+
+	public void AnimateFinalScore(int score)
+	{
+		StartCoroutine(Animate(score, finalScore, true));
+	}
+
+
+	IEnumerator Animate(int score, Text text, bool isFinalScore)
     {
         int displayScore = 0;
         int start = displayScore;
@@ -36,7 +50,10 @@ public class Scoreboard : MonoBehaviour
         displayScore = score;
         text.text = displayScore.ToString();
 
-        GameObject.FindObjectOfType<LevelManager>().ReloadScene();
+		// Final score will take the longest to animate, to only reload the scene when animating final score,
+		// that way nothing gets cut off
+		if (isFinalScore)
+			GameObject.FindObjectOfType<LevelManager> ().ReloadScene ();
     }
 
 

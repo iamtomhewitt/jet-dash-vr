@@ -1,0 +1,17 @@
+main menu done
+
+cube growth done
+
+powerups
+	- hud notification with scale animation done
+	- invincibility hud bar done
+
+crash hud now has top speed and final score
+
+adverts done
+
+back button to main menu done 
+
+Game settings track sensitivity and vr mode
+
+vr mode done

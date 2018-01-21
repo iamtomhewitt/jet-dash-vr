@@ -5,16 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour
 {
-	public float speed;
-	public float speedIncrease;
-	public float speedIncreaseRepeatRate;
-	public float turningSpeed;
+	public 	float speed;
+	public 	float speedIncrease;
+	public 	float speedIncreaseRepeatRate;
+	public 	float turningSpeed;
 
+    public 	GameObject normalCamera;
+	public 	GameObject VRCamera;
+	private GameObject cameraUsed;
 	private HUD hud;
-    public GameObject cam;
+	private float sensitivity;
 
-	public KeyCode left;
-	public KeyCode right;
+	public 	KeyCode left;
+	public 	KeyCode right;
 
     [Space()]
     public ModelSettings modelSettings;
@@ -27,6 +30,30 @@ public class PlayerControl : MonoBehaviour
         modelSettings.originalRotation = modelSettings.model.rotation;
 
 		InvokeRepeating ("IncreaseSpeed", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
+
+		GameSettings gs = GameObject.FindObjectOfType<GameSettings> ();
+
+		if (gs == null) 
+		{
+			normalCamera.SetActive (true);
+			VRCamera.SetActive (false);
+			cameraUsed = normalCamera;
+			sensitivity = 1f;
+		}
+		else if (gs.isVRMode) 
+		{
+			normalCamera.SetActive (false);
+			VRCamera.SetActive (true);
+			cameraUsed = VRCamera;
+			sensitivity = gs.sensitivity;
+		} 
+		else 
+		{
+			normalCamera.SetActive (true);
+			VRCamera.SetActive (false);
+			cameraUsed = normalCamera;
+			sensitivity = gs.sensitivity;
+		}
 	}
 
 	void Update ()
@@ -35,10 +62,10 @@ public class PlayerControl : MonoBehaviour
 		transform.position += transform.forward * Time.deltaTime * speed;
 
         // Move left and right based on accelerometer
-		transform.position += transform.right * Time.deltaTime * turningSpeed * Input.acceleration.x;
+		transform.position += transform.right * Time.deltaTime * turningSpeed * sensitivity * Input.acceleration.x;
 		
         modelSettings.RotateBasedOnMobileInput(modelSettings.model, 1);
-        modelSettings.RotateBasedOnMobileInput(cam.transform, 1);
+        modelSettings.RotateBasedOnMobileInput(cameraUsed.transform, 1);
 
         hud.SetDistanceText(transform.position.z);
 
@@ -48,9 +75,9 @@ public class PlayerControl : MonoBehaviour
 	void KeyboardControl ()
 	{
         if (Input.GetKey(left))
-            transform.position += transform.right * Time.deltaTime * -turningSpeed;
+			transform.position += transform.right * Time.deltaTime * sensitivity * -turningSpeed;
         else if (Input.GetKey(right))
-            transform.position += transform.right * Time.deltaTime * turningSpeed;
+			transform.position += transform.right * Time.deltaTime * sensitivity * turningSpeed;
 	}
 
 	void IncreaseSpeed ()

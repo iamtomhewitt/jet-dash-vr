@@ -5,6 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour 
 {
+	private AdvertManager advertManager;
+
+	void Start()
+	{
+		advertManager = GameObject.FindObjectOfType<AdvertManager> ();
+	}
+
     public void ReloadScene()
     {
         StartCoroutine(Reload());
@@ -12,8 +19,22 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator Reload()
     {
-        print("todo, advert after so many restarts");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
+
+		advertManager.advertCounter++;
+
+		if (advertManager.advertCounter >= 3) 
+		{
+			advertManager.ShowAdvert ();
+			advertManager.advertCounter = 0;
+		}
+
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+	public void LoadScene(string sceneName)
+	{
+		SceneManager.LoadScene (sceneName);
+	}
 }

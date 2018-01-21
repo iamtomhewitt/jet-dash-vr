@@ -24,6 +24,7 @@ public class CubeSpawner : MonoBehaviour
 			float y = (scale / 2) + 0.5f;
 
 			GameObject c = Instantiate (cube, GenerateCubePosition (y), Quaternion.identity) as GameObject;
+			c.GetComponent<Cube> ().Grow (1f, scale);
 			c.transform.localScale = new Vector3 (scale, scale, scale);
             c.transform.parent = GameObject.Find("Cubes").transform;
 		}
@@ -34,6 +35,7 @@ public class CubeSpawner : MonoBehaviour
 		if (other.tag == "Cube") 
 		{
 			other.transform.position = GenerateCubePosition(other.transform.position.y);
+			other.GetComponent<Cube> ().Grow (.5f, (int)other.transform.localScale.x);
 		}
 	}
 

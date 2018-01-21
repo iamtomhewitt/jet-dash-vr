@@ -35,5 +35,15 @@ public class PlayerScore : MonoBehaviour
     public int GetDistanceScore()
     {
         return (int)transform.position.z;
-    }
+	}
+
+	public int GetSpeed()
+	{
+		return (int)GetComponent<PlayerControl> ().speed;
+	}
+
+	public int GetFinalScore()
+	{
+		return GetBonusScore () + GetDistanceScore () + GetSpeed();
+	}
 }
