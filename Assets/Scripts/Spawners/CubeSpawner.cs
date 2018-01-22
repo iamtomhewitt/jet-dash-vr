@@ -13,6 +13,7 @@ public class CubeSpawner : MonoBehaviour
 	void Start()
 	{
 		InitialiseCubes ();
+        InvokeRepeating("ReduceSpawnBoundary", 30f, 30f);
 	}
 
 	void InitialiseCubes()
@@ -46,6 +47,15 @@ public class CubeSpawner : MonoBehaviour
 
 		return new Vector3(transform.position.x + x, y, transform.position.z + z);
 	}
+
+    void ReduceSpawnBoundary()
+    {
+        if (boundary.zMin >= 150)
+            boundary.zMin -= 50;
+
+        if (boundary.zMax >= 400)
+            boundary.zMax -= 50;
+    }
 }
 
 [System.Serializable]

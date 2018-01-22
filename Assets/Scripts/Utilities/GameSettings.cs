@@ -21,4 +21,9 @@ public class GameSettings : MonoBehaviour
 			instance = this;
 		}
 	}
+
+    void Start()
+    {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+    }
 }

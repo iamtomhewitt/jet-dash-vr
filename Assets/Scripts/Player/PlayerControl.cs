@@ -25,6 +25,7 @@ public class PlayerControl : MonoBehaviour
 	void Start ()
 	{
 		hud = GetComponent<HUD> ();
+
 		hud.speedText.text = speed.ToString ();
 
         modelSettings.originalRotation = modelSettings.model.rotation;

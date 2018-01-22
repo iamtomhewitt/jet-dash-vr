@@ -1,10 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player\PlayerCollision.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Spawners\CubeSpawner.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player\PlayerCollision.cs" Line="64" Column="27" />
+      <File FileName="Assets\Scripts\Player\PlayerCollision.cs" Line="47" Column="39" />
       <File FileName="Assets\Scripts\Utilities\Powerup.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\AudioManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\AudioManager.cs" Line="24" Column="5" />
+      <File FileName="Assets\Scripts\Utilities\GameSettings.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player\PlayerControl.cs" Line="28" Column="1" />
+      <File FileName="Assets\PlayerAudio.cs" Line="8" Column="12" />
+      <File FileName="Assets\Scripts\Spawners\CubeSpawner.cs" Line="16" Column="56" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

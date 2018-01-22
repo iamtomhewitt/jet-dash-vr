@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\PlayerAudio.cs" />
      <Compile Include="Assets\Scripts\AudioManager.cs" />
      <Compile Include="Assets\Scripts\Managers\AdvertManager.cs" />
      <Compile Include="Assets\Scripts\Managers\LevelManager.cs" />
@@ -67,7 +68,6 @@
      <None Include="Assets\Graphics\Materials\UIGeometryDepthRenderer.shader" />
      <None Include="Assets\Graphics\Fonts\NotoSans - License.txt" />
      <None Include="Assets\Graphics\Fonts\LiberationSans - OFL.txt" />
-     <None Include="Assets\Changes.txt" />
      <None Include="Assets\Graphics\Fonts\Bangers - OFL.txt" />
  <Reference Include="UnityEngine.Advertisements">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>

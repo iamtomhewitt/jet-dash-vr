@@ -22,8 +22,8 @@ public class AudioManager : MonoBehaviour
 		}
 	}
 
-	void Start()
-	{
-		music.Play ();
-	}
+    public void PlayUISound()
+    {
+        UISelection.Play();
+    }
 }
