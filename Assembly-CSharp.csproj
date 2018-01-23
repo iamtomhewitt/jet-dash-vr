@@ -46,10 +46,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\PlayerAudio.cs" />
-     <Compile Include="Assets\Scripts\AudioManager.cs" />
      <Compile Include="Assets\Scripts\Managers\AdvertManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\AudioManager.cs" />
      <Compile Include="Assets\Scripts\Managers\LevelManager.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerAudio.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerCollision.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerControl.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerScore.cs" />

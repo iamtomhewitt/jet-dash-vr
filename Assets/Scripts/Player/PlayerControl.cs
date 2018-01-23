@@ -13,6 +13,7 @@ public class PlayerControl : MonoBehaviour
     public 	GameObject normalCamera;
 	public 	GameObject VRCamera;
 	private GameObject cameraUsed;
+    private PlayerAudio playerAudio;
 	private HUD hud;
 	private float sensitivity;
 
@@ -25,37 +26,18 @@ public class PlayerControl : MonoBehaviour
 	void Start ()
 	{
 		hud = GetComponent<HUD> ();
+        playerAudio = GetComponent<PlayerAudio>();
 
 		hud.speedText.text = speed.ToString ();
 
+        modelSettings.SelectRandomShip();
         modelSettings.originalRotation = modelSettings.model.rotation;
 
 		InvokeRepeating ("IncreaseSpeed", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
 
-		GameSettings gs = GameObject.FindObjectOfType<GameSettings> ();
-
-		if (gs == null) 
-		{
-			normalCamera.SetActive (true);
-			VRCamera.SetActive (false);
-			cameraUsed = normalCamera;
-			sensitivity = 1f;
-		}
-		else if (gs.isVRMode) 
-		{
-			normalCamera.SetActive (false);
-			VRCamera.SetActive (true);
-			cameraUsed = VRCamera;
-			sensitivity = gs.sensitivity;
-		} 
-		else 
-		{
-			normalCamera.SetActive (true);
-			VRCamera.SetActive (false);
-			cameraUsed = normalCamera;
-			sensitivity = gs.sensitivity;
-		}
+        DetermineGameSettings();
 	}
+
 
 	void Update ()
 	{
@@ -73,6 +55,7 @@ public class PlayerControl : MonoBehaviour
 		KeyboardControl ();
 	}
 
+
 	void KeyboardControl ()
 	{
         if (Input.GetKey(left))
@@ -81,20 +64,59 @@ public class PlayerControl : MonoBehaviour
 			transform.position += transform.right * Time.deltaTime * sensitivity * turningSpeed;
 	}
 
+
 	void IncreaseSpeed ()
 	{
         if (speed < 200)
         {
             speed += speedIncrease;
             hud.speedText.text = speed.ToString();
+
+            float p = (speed / 1000f) + 1f;
+            playerAudio.shipHum.pitch = p;
         }
 	}
+
 
     public void StopMoving()
     {
         speed = 0f;    
         turningSpeed = 0f;
         CancelInvoke("IncreaseSpeed");
+    }
+
+    public void StartMoving()
+    {
+        speed = 20f;
+        turningSpeed = 20f;
+        InvokeRepeating ("IncreaseSpeed", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
+    }
+
+    void DetermineGameSettings()
+    {
+        GameSettings gs = GameObject.FindObjectOfType<GameSettings> ();
+
+        if (gs == null) 
+        {
+            normalCamera.SetActive (true);
+            VRCamera.SetActive (false);
+            cameraUsed = normalCamera;
+            sensitivity = 1f;
+        }
+        else if (gs.isVRMode) 
+        {
+            normalCamera.SetActive (false);
+            VRCamera.SetActive (true);
+            cameraUsed = VRCamera;
+            sensitivity = gs.sensitivity;
+        } 
+        else 
+        {
+            normalCamera.SetActive (true);
+            VRCamera.SetActive (false);
+            cameraUsed = normalCamera;
+            sensitivity = gs.sensitivity;
+        }
     }
 }
 
@@ -103,7 +125,9 @@ public class ModelSettings
 {
     public float rotationSpeed;
     public float rotationLimit;
+    [HideInInspector]
     public Transform model;
+    public GameObject[] models;
     float z = 0f;
 
     [HideInInspector]
@@ -115,5 +139,18 @@ public class ModelSettings
         z = Mathf.Clamp(z, -rotationLimit, rotationLimit);
 
         t.localEulerAngles = new Vector3(t.localEulerAngles.x, t.localEulerAngles.y, -z * direction);
+    }
+
+    public void SelectRandomShip()
+    {
+        for (int i = 0; i < models.Length; i++) 
+        {
+            models[i].SetActive(false);
+        }
+
+        int j = Random.Range(0, models.Length);
+        model = models[j].transform;
+
+        model.gameObject.SetActive(true);
     }
 }

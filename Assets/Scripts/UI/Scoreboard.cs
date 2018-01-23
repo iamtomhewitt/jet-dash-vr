@@ -10,6 +10,13 @@ public class Scoreboard : MonoBehaviour
 	public Text topSpeed;
 	public Text finalScore;
 
+    private PlayerAudio playerAudio;
+
+    void Start()
+    {
+        playerAudio = GameObject.FindObjectOfType<PlayerAudio>();
+    }
+
     public void AnimateBonusScore(int score)
     {
         StartCoroutine(Animate(score, bonusScoreText, false));
@@ -38,6 +45,7 @@ public class Scoreboard : MonoBehaviour
     {
         int displayScore = 0;
         int start = displayScore;
+        playerAudio.score.Play();
 
         for (float timer = 0; timer < 3f; timer += Time.deltaTime)
         {
@@ -49,6 +57,7 @@ public class Scoreboard : MonoBehaviour
 
         displayScore = score;
         text.text = displayScore.ToString();
+        playerAudio.score.Pause();
 
 		// Final score will take the longest to animate, to only reload the scene when animating final score,
 		// that way nothing gets cut off
