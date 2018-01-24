@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour
 {
-	public 	float speed;
-	public 	float speedIncrease;
-	public 	float speedIncreaseRepeatRate;
-	public 	float turningSpeed;
+	public float speed;
+	public float speedIncrease;
+	public float speedIncreaseRepeatRate;
+	public float turningSpeed;
+    public float modelRotationLimit;
+    public float cameraRotationLimit;
 
     public 	GameObject normalCamera;
 	public 	GameObject VRCamera;
@@ -47,8 +49,8 @@ public class PlayerControl : MonoBehaviour
         // Move left and right based on accelerometer
 		transform.position += transform.right * Time.deltaTime * turningSpeed * sensitivity * Input.acceleration.x;
 		
-        modelSettings.RotateBasedOnMobileInput(modelSettings.model, 1);
-        modelSettings.RotateBasedOnMobileInput(cameraUsed.transform, 1);
+        modelSettings.RotateBasedOnMobileInput(modelSettings.model, modelRotationLimit);
+        modelSettings.RotateBasedOnMobileInput(cameraUsed.transform, cameraRotationLimit);
 
         hud.SetDistanceText(transform.position.z);
 
@@ -118,39 +120,39 @@ public class PlayerControl : MonoBehaviour
             sensitivity = gs.sensitivity;
         }
     }
-}
 
-[System.Serializable]
-public class ModelSettings
-{
-    public float rotationSpeed;
-    public float rotationLimit;
-    [HideInInspector]
-    public Transform model;
-    public GameObject[] models;
-    float z = 0f;
-
-    [HideInInspector]
-    public Quaternion originalRotation;
-
-    public void RotateBasedOnMobileInput(Transform t, int direction)
+    [System.Serializable]
+    public class ModelSettings
     {
-        z = Input.acceleration.x * 15f;
-        z = Mathf.Clamp(z, -rotationLimit, rotationLimit);
+        public  GameObject[] models;
+        private float z = 0f;
 
-        t.localEulerAngles = new Vector3(t.localEulerAngles.x, t.localEulerAngles.y, -z * direction);
-    }
+        [HideInInspector]
+        public Quaternion originalRotation;
+        [HideInInspector]
+        public  Transform model;
 
-    public void SelectRandomShip()
-    {
-        for (int i = 0; i < models.Length; i++) 
+        public void RotateBasedOnMobileInput(Transform t, float limit)
         {
-            models[i].SetActive(false);
+            z = Input.acceleration.x * 30f;
+            z = Mathf.Clamp(z, -limit, limit);
+
+            t.localEulerAngles = new Vector3(t.localEulerAngles.x, t.localEulerAngles.y, -z);
         }
 
-        int j = Random.Range(0, models.Length);
-        model = models[j].transform;
+        public void SelectRandomShip()
+        {
+            for (int i = 0; i < models.Length; i++) 
+            {
+                models[i].SetActive(false);
+            }
 
-        model.gameObject.SetActive(true);
+            int j = Random.Range(0, models.Length);
+            model = models[j].transform;
+
+            model.gameObject.SetActive(true);
+        }
     }
 }
+
+

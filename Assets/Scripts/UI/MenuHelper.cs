@@ -32,6 +32,11 @@ public class MenuHelper : MonoBehaviour
 		gameSettings.isVRMode = VRMode;
 	}
 
+    public void PlayUISound()
+    {
+        GameObject.FindObjectOfType<AudioManager>().PlayUISound();
+    }
+
 	public void Play(string scene)
 	{		
 		SceneManager.LoadScene (scene);
