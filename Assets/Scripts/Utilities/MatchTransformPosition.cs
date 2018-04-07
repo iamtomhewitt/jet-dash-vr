@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Utilities
+{
 public class MatchTransformPosition : MonoBehaviour 
 {
     public Transform target;
@@ -11,4 +13,5 @@ public class MatchTransformPosition : MonoBehaviour
     {
         transform.position = target.position + offset;
     }
+}
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Utilities
+{
 public class Rotate : MonoBehaviour 
 {
     public Vector3 speed;
@@ -10,4 +12,5 @@ public class Rotate : MonoBehaviour
     {
         transform.Rotate(speed * Time.deltaTime);
     }
+}
 }

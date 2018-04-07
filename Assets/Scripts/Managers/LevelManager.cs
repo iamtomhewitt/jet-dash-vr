@@ -3,38 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelManager : MonoBehaviour 
+namespace Manager
 {
-	private AdvertManager advertManager;
-
-	void Start()
-	{
-		advertManager = GameObject.FindObjectOfType<AdvertManager> ();
-	}
-
-    public void ReloadScene()
+    public class LevelManager : MonoBehaviour
     {
-        StartCoroutine(Reload());
+        private AdvertManager advertManager;
+
+        void Start()
+        {
+            advertManager = GameObject.FindObjectOfType<AdvertManager>();
+        }
+
+        public void ReloadScene()
+        {
+            StartCoroutine(Reload());
+        }
+
+        IEnumerator Reload()
+        {
+            yield return new WaitForSeconds(4f);
+
+            advertManager.advertCounter++;
+
+            if (advertManager.advertCounter >= 4)
+            {
+                advertManager.ShowAdvert();
+                advertManager.advertCounter = 0;
+            }
+
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        public void LoadScene(string sceneName)
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+
+        public void StopSound(string soundName)
+        {
+            AudioManager.instance.Pause(soundName);
+        }
     }
-
-    IEnumerator Reload()
-    {
-        yield return new WaitForSeconds(4f);
-
-		advertManager.advertCounter++;
-
-		if (advertManager.advertCounter >= 3) 
-		{
-			advertManager.ShowAdvert ();
-			advertManager.advertCounter = 0;
-		}
-
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-	public void LoadScene(string sceneName)
-	{
-		SceneManager.LoadScene (sceneName);
-	}
 }

@@ -3,77 +3,79 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Utilities;
+using Manager;
 
-public class MenuHelper : MonoBehaviour 
+namespace UI
 {
-	public bool VRMode;
-	public Image VRModeImage;
-	public Slider sensitivitySlider;
-    public Text VRCountdownText;
-    public GameObject mainMenu;
-
-	private GameSettings gameSettings;
-    private string gameSceneName;
-
-	void Start()
-	{
-		gameSettings = GameObject.FindObjectOfType<GameSettings> ();
-
-		// Reset GameSettings values
-		gameSettings.isVRMode = VRMode;
-		VRModeImage.enabled = VRMode;
-		gameSettings.sensitivity = sensitivitySlider.value;
-	}
-
-	public void SwitchMode()
-	{
-		VRMode = !VRMode;
-		VRModeImage.enabled = !VRModeImage.enabled;
-		gameSettings.isVRMode = VRMode;
-	}
-
-    public void PlayUISound()
+    public class MenuHelper : MonoBehaviour
     {
-        GameObject.FindObjectOfType<AudioManager>().PlayUISound();
-    }
+        public bool VRMode;
+        public Image VRModeImage;
+        public Slider sensitivitySlider;
+        public Text VRCountdownText;
+        public GameObject mainMenu;
 
-	public void Play(string scene)
-	{		
-		SceneManager.LoadScene (scene);
-	}
+        private string gameSceneName;
 
-	public void SetSensitivity()
-	{
-		gameSettings.sensitivity = sensitivitySlider.value;
-	}
-
-    public void VRHeadsetCountdown()
-    {
-        if (gameSettings.isVRMode)
-            StartCoroutine(HeadsetCountdown());
-        else
-            Play(gameSceneName);
-    }
-
-
-    public void SetPlaySceneName(string n)
-    {
-        gameSceneName = n;
-    }
-
-    IEnumerator HeadsetCountdown()
-    {
-        mainMenu.SetActive(false);
-        int countdown = 10;
-
-        for (int i = countdown; i > 0; i--)
+        void Start()
         {
-            VRCountdownText.text = "PUT ON YOUR VR HEADSET \n" + i;
-            yield return new WaitForSeconds(.8f);
+            // Reset GameSettings values
+            GameSettings.instance.isVRMode = VRMode;
+            VRModeImage.enabled = VRMode;
+            GameSettings.instance.sensitivity = sensitivitySlider.value;
         }
 
-        VRCountdownText.text = "";
+        public void SwitchMode()
+        {
+            VRMode = !VRMode;
+            VRModeImage.enabled = !VRModeImage.enabled;
+            GameSettings.instance.isVRMode = VRMode;
+        }
 
-        Play(gameSceneName);
+        public void PlayUISound()
+        {
+            AudioManager.instance.Play("UI Select");
+        }
+
+        public void Play(string scene)
+        {		
+            SceneManager.LoadScene(scene);
+        }
+
+        public void SetSensitivity()
+        {
+            GameSettings.instance.sensitivity = sensitivitySlider.value;
+        }
+
+        public void VRHeadsetCountdown()
+        {
+            if (GameSettings.instance.isVRMode)
+                StartCoroutine(HeadsetCountdown());
+            else
+                Play(gameSceneName);
+        }
+
+
+        public void SetPlaySceneName(string n)
+        {
+            gameSceneName = n;
+        }
+
+        IEnumerator HeadsetCountdown()
+        {
+            mainMenu.SetActive(false);
+            int countdown = 10;
+
+            for (int i = countdown; i > 0; i--)
+            {
+                VRCountdownText.text = "PUT ON YOUR VR HEADSET \n" + i;
+                yield return new WaitForSeconds(1.5f);
+            }
+
+            VRCountdownText.text = "";
+
+            Play(gameSceneName);
+        }
     }
 }

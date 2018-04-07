@@ -2,28 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameSettings : MonoBehaviour 
+namespace Utilities
 {
-	public bool isVRMode;
-	public float sensitivity;
-
-	static GameSettings instance;
-
-	void Awake()
-	{
-		if (instance) 
-		{
-			DestroyImmediate (gameObject);
-		}
-		else
-		{
-			DontDestroyOnLoad(gameObject);
-			instance = this;
-		}
-	}
-
-    void Start()
+    public class GameSettings : MonoBehaviour
     {
-        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        public bool isVRMode;
+        public float sensitivity;
+
+        public static GameSettings instance;
+
+        void Awake()
+        {
+            if (instance)
+            {
+                DestroyImmediate(gameObject);
+            }
+            else
+            {
+                DontDestroyOnLoad(gameObject);
+                instance = this;
+            }
+        }
+
+        void Start()
+        {
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        }
     }
 }

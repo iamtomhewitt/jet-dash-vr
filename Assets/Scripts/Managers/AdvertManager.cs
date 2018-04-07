@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
+namespace Manager
+{
 public class AdvertManager : MonoBehaviour 
 {
 	public 	int advertCounter = 0;
@@ -55,4 +57,5 @@ public class AdvertManager : MonoBehaviour
 
 		Time.timeScale = currentTimeScale;
 	}
+}
 }

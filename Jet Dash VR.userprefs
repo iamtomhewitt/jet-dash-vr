@@ -1,11 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UI\MenuHelper.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Managers\HighscoreManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\UI\HUD.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UI\MenuHelper.cs" Line="36" Column="6" />
-      <File FileName="Assets\Scripts\Player\PlayerControl.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Managers\AudioManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Managers\HighscoreManager.cs" Line="95" Column="14" />
+      <File FileName="Assets\Scripts\UI\HighscoreDisplayHelper.cs" Line="63" Column="14" />
+      <File FileName="Assets\Scripts\Managers\LevelManager.cs" Line="27" Column="13" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

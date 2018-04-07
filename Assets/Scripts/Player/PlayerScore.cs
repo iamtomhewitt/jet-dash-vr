@@ -1,49 +1,53 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UI;
 
-public class PlayerScore : MonoBehaviour 
+namespace Player
 {
-    private int bonusScore = 0;
-    private HUD hud;
-
-    void Start()
+    public class PlayerScore : MonoBehaviour
     {
-        hud = GetComponent<HUD>();
+        private int bonusScore = 0;
+        private HUD hud;
+
+        void Start()
+        {
+            hud = GetComponent<HUD>();
+        }
+
+        void Update()
+        {
+            hud.SetScoreText(bonusScore);
+        }
+
+        public void AddBonusPoints(int points)
+        {
+            bonusScore += points;
+        }
+
+        public void DoublePoints()
+        {
+            bonusScore *= 2;
+        }
+
+        public int GetBonusScore()
+        {
+            return bonusScore;
+        }
+
+        public int GetDistanceScore()
+        {
+            return (int)transform.position.z;
+        }
+
+        public int GetSpeed()
+        {
+            return (int)GetComponent<PlayerControl>().speed;
+        }
+
+        public int GetFinalScore()
+        {
+            return GetBonusScore() + GetDistanceScore() + GetSpeed();
+        }
     }
-
-    void Update()
-    {
-        hud.SetScoreText(bonusScore);
-    }
-
-    public void AddBonusPoints(int points)
-    {
-        bonusScore += points;
-    }
-
-    public void DoublePoints()
-    {
-        bonusScore *= 2;
-    }
-
-    public int GetBonusScore()
-    {
-        return bonusScore;
-    }
-
-    public int GetDistanceScore()
-    {
-        return (int)transform.position.z;
-	}
-
-	public int GetSpeed()
-	{
-		return (int)GetComponent<PlayerControl> ().speed;
-	}
-
-	public int GetFinalScore()
-	{
-		return GetBonusScore () + GetDistanceScore () + GetSpeed();
-	}
 }
