@@ -19,14 +19,13 @@ namespace Player
         private HUD hud;
         private PlayerControl playerControl;
         private PlayerScore playerScore;
-        private Collider col;
+        private bool godMode;
 
         void Start()
         {
             playerControl = GetComponent<PlayerControl>();
             playerScore = GetComponent<PlayerScore>();
             hud = GetComponent<HUD>();
-            col = GetComponent<Collider>();
         }
 
         void OnCollisionEnter(Collision other)
@@ -34,6 +33,9 @@ namespace Player
             switch (other.gameObject.tag)
             {
                 case "Obstacle":
+                    if (godMode)
+                        return;
+
                     GameObject e = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
                     Destroy(e, 3f);
 
@@ -48,7 +50,6 @@ namespace Player
                     playerControl.StopMoving();
                     playerModel.SetActive(false);
                     gameHUD.SetActive(false);
-
 
                     AudioManager.instance.Play("Player Death");
                     AudioManager.instance.Pause("Ship Hum");
@@ -78,6 +79,7 @@ namespace Player
                             break;
 
                         case PowerupType.Invincibility:
+                            StopAllCoroutines();
                             StartCoroutine(GodMode(5f));
                             AudioManager.instance.Play("Powerup Invincibility");
                             hud.ShowPowerupNotification(powerup.color, "Invincible!");
@@ -91,6 +93,7 @@ namespace Player
 
         IEnumerator GodMode(float duration)
         {
+            godMode = true;
             Vector3 originalScale = new Vector3(15f, 1f, 1f);
             Vector3 targetScale = new Vector3(0f, 1f, 1f);
 
@@ -98,7 +101,6 @@ namespace Player
 
             do
             {
-                col.enabled = false;
                 hud.invincibilityBar.transform.localScale = Vector3.Lerp(originalScale, targetScale, timer / duration);
                 timer += Time.deltaTime;
                 yield return null;
@@ -106,7 +108,7 @@ namespace Player
             while (timer <= duration);
 
             hud.invincibilityBar.transform.localScale = Vector3.zero;
-            col.enabled = true;
+            godMode = false;
         }
     }
 }
