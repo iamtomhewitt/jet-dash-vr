@@ -1,0 +1,7 @@
+- Make everything voxel styled, and improve the thrusters too
+- better colours, everything is a bit dull
+- redo the powerup models
+
+- for future
+	- unlockable spaceships
+	- marker on best score
