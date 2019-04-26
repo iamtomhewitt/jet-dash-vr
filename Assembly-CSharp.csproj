@@ -60,6 +60,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Constant.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Enum.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_IconUtility.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_IgnoreSnapAttribute.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_SceneMeshRender.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Util.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\MonoBehaviour\pg_IgnoreSnap.cs" />
     <Compile Include="Assets\Scripts\Managers\AdvertManager.cs" />
     <Compile Include="Assets\Scripts\Managers\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Managers\HighscoreManager.cs" />
@@ -79,13 +86,16 @@
     <Compile Include="Assets\Scripts\Utilities\GameSettings.cs" />
     <Compile Include="Assets\Scripts\Utilities\MatchTransformPosition.cs" />
     <Compile Include="Assets\Scripts\Utilities\Rotate.cs" />
+    <None Include="Assets\ProCore\ProGrids\Shader\pg_GridShader.shader" />
     <None Include="Assets\Graphics\Fonts\Anton OFL.txt" />
+    <None Include="Assets\ProCore\ProGrids\About\pc_AboutEntry_ProGrids.txt" />
     <None Include="Assets\TODO.txt" />
     <None Include="Assets\Graphics\Fonts\Oswald Bold - OFL.txt" />
     <None Include="Assets\Graphics\Materials\UIGeometryDepthRenderer.shader" />
     <None Include="Assets\Graphics\Fonts\NotoSans - License.txt" />
     <None Include="Assets\Graphics\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\Graphics\Fonts\Bangers - OFL.txt" />
+    <None Include="Assets\ProCore\ProGrids\About\changelog.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Git/jet-dash-vr/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

@@ -33,7 +33,7 @@ namespace Spawner
 
             float x = Random.Range(boundary.xMin, boundary.xMax);
             float z = Random.Range(boundary.zMin, boundary.zMax);
-            Vector3 position = new Vector3(player.transform.position.x + x, 4f, player.transform.position.z + z);
+            Vector3 position = new Vector3(player.transform.position.x + x, 0f, player.transform.position.z + z);
 
             Instantiate(powerup, position, Quaternion.identity);
         }
