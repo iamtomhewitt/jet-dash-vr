@@ -12,21 +12,25 @@ namespace Spawner
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;	
 
-            InvokeRepeating("CheckIfBehindPlayer", 5f, 5f);
+            InvokeRepeating("RelocateObstacle", 5f, 5f);
         }
 
-        void CheckIfBehindPlayer()
+        void RelocateObstacle()
         {
             if (this.transform.position.z < player.transform.position.z - 30f)
             {
                 float x = Random.Range(-300f, 300f);
                 float z = Random.Range(600f, 2000f);
+
                 this.transform.position = new Vector3(player.transform.position.x + x, this.transform.position.y, player.transform.position.z + z);
-                //print ("Cube behind Player, respawning...");
+
                 Grow(.5f, (int)transform.localScale.x);
             }
         }
 
+		/// <summary>
+		/// Makes the obstacle grow over a certain time from scale 0.
+		/// </summary>
         public void Grow(float duration, int scale)
         {
             StartCoroutine(GrowIE(duration, scale));

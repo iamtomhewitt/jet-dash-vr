@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\Utilities\GameSettings.cs" />
     <Compile Include="Assets\Scripts\Utilities\MatchTransformPosition.cs" />
     <Compile Include="Assets\Scripts\Utilities\Rotate.cs" />
+    <Compile Include="Assets\Scripts\Utilities\SunCycle.cs" />
     <None Include="Assets\ProCore\ProGrids\Shader\pg_GridShader.shader" />
     <None Include="Assets\Graphics\Fonts\Anton OFL.txt" />
     <None Include="Assets\ProCore\ProGrids\About\pc_AboutEntry_ProGrids.txt" />

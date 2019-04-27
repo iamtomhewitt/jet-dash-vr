@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Utilities
 {
+	/// <summary>
+	/// Rotates to give a sun moving across the hoirzon, which speeds up at night for a shorter time span.
+	/// </summary>
 	public class SunCycle : MonoBehaviour
 	{
 		public Vector3 daySpeed;

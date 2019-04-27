@@ -35,10 +35,10 @@ namespace Spawner
 
                 GameObject o;
 
-                if (Random.value <= 0.2)
-                    o = Instantiate(obstacles[TUNNEL], GenerateObstaclePosition(initialBoundary, y), Quaternion.identity) as GameObject;
-                else
-                    o = Instantiate(obstacles[Random.Range(CUBE, TUNNEL)], GenerateObstaclePosition(initialBoundary, y), Quaternion.identity) as GameObject;
+                //if (Random.value <= 0.2)
+                //    o = Instantiate(obstacles[TUNNEL], GenerateObstaclePosition(initialBoundary, y), Quaternion.identity) as GameObject;
+                //else
+                    o = Instantiate(obstacles[Random.Range(0, obstacles.Length)], GenerateObstaclePosition(initialBoundary, y), Quaternion.identity) as GameObject;
 
                 o.GetComponent<Obstacle>().Grow(1f, scale);
                 o.transform.localScale = new Vector3(scale, scale, scale);
