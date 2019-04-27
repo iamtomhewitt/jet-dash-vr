@@ -69,20 +69,20 @@ namespace Player
                         case PowerupType.BonusPoints:
                             playerScore.AddBonusPoints(500);
                             AudioManager.instance.Play("Powerup Bonus Points");
-                            hud.ShowPowerupNotification(powerup.color, "+500!");
+                            hud.ShowNotification(powerup.color, "+500!");
                             break;
 
                         case PowerupType.DoublePoints:
                             playerScore.DoublePoints();
                             AudioManager.instance.Play("Powerup Double Points");
-                            hud.ShowPowerupNotification(powerup.color, "x2!");
+                            hud.ShowNotification(powerup.color, "x2!");
                             break;
 
                         case PowerupType.Invincibility:
                             StopAllCoroutines();
                             StartCoroutine(GodMode(5f));
                             AudioManager.instance.Play("Powerup Invincibility");
-                            hud.ShowPowerupNotification(powerup.color, "Invincible!");
+                            hud.ShowNotification(powerup.color, "Invincible!");
                             break;
                     }
 

@@ -2,6 +2,7 @@
 - better colours, everything is a bit dull
 - redo the powerup models
 - for invincible, a circle green shield around the ship
+- redo the menus, make them portrait apart from the game scene
 
 - for future
 	- unlockable spaceships
@@ -23,3 +24,11 @@ Obstacles
 				- Certain sections become different after a set distance e.g. reaching distance of 1000 would start spawning tunnels instead of normal obstacles?
 	- Long Forward Bridges
 		- Although the player would never ride them it would make some nice blend with the shadow
+
+
+
+//////////////////////////////////////////
+
+EACH FUNCTION SHOULD DO ONE THING
+
+//////////////////////////////////////////

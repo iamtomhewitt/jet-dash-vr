@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 50ed8aec2042381448950e91da907448
+guid: ca85338f04a64d3418e2321815dceeed
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Yellow
-    100002: //RootNode
-    400000: Yellow
-    400002: //RootNode
-    2100000: palette
-    2300000: Yellow
-    3300000: Yellow
-    4300000: Yellow
+    100000: //RootNode
+    400000: //RootNode
+    2100000: Lo_poly_Spaceship_05_by_Liz_Reddington_lambert4SG
+    2100002: Lo_poly_Spaceship_05_by_Liz_Reddington_lambert3SG
+    2100004: Lo_poly_Spaceship_05_by_Liz_Reddington_lambert2SG
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: 4
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -73,7 +73,7 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2

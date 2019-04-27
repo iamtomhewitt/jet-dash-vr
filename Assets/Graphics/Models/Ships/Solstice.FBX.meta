@@ -1,14 +1,20 @@
 fileFormatVersion: 2
-guid: d1f05f8214f5cee42af0c239631e282f
+guid: 88c5c32ba926b8848910e8531b94ea09
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: palette
+    2100000: 03 - Default
+    2100002: 02 - Default
+    2100004: 07 - Default
+    2100006: Lo_poly_Spaceship_05_by_Liz_Reddington_lambert4SG
+    2100008: Lo_poly_Spaceship_05_by_Liz_Reddington_lambert3SG
+    2100010: Lo_poly_Spaceship_05_by_Liz_Reddington_lambert2SG
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Orange
+    4300000: Longsword
+    4300002: 3
   externalObjects: {}
   materials:
     importMaterials: 1

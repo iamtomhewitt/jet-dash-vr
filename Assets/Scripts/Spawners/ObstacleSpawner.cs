@@ -18,13 +18,14 @@ namespace Spawner
         private const int PYRAMID = 1;
         private const int TUNNEL = 2;
 
-        void Start()
+		private void Start()
         {
             InitialiseCubes();
             InvokeRepeating("ReduceSpawnBoundary", 30f, 30f);
         }
 
-        void InitialiseCubes()
+
+		private void InitialiseCubes()
         {
             for (int i = 0; i < totalObstacles; i++)
             {
@@ -45,8 +46,10 @@ namespace Spawner
             }
         }
 
-        void OnTriggerEnter(Collider other)
+
+		private void OnTriggerEnter(Collider other)
         {
+			// An obstacle has moved past the player, respawn it in front.
             if (other.tag == "Obstacle")
             {
                 other.transform.position = GenerateObstaclePosition(boundary, other.transform.position.y);
@@ -54,7 +57,8 @@ namespace Spawner
             }
         }
 
-        Vector3 GenerateObstaclePosition(Boundary b, float y)
+
+		private Vector3 GenerateObstaclePosition(Boundary b, float y)
         {
             float x = Random.Range(b.xMin, b.xMax);
             float z = Random.Range(b.zMin, b.zMax);
@@ -62,10 +66,11 @@ namespace Spawner
             return new Vector3(transform.position.x + x, y, transform.position.z + z);
         }
 
+
         /// <summary>
         /// Reduces the spawn boundary to make the cubes appear tighter, making the game harder.
         /// </summary>
-        void ReduceSpawnBoundary()
+        private void ReduceSpawnBoundary()
         {
             if (boundary.zMin >= 150)
                 boundary.zMin -= 50;

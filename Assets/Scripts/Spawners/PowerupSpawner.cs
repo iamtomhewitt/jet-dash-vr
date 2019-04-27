@@ -13,7 +13,7 @@ namespace Spawner
 
         private Transform player;
 
-        void Start()
+        private void Start()
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
 
@@ -21,11 +21,13 @@ namespace Spawner
             {
                 SpawnPowerup();
             }
-
-            //InvokeRepeating("SpawnPowerup", repeatRate, repeatRate);
         }
 
-        void SpawnPowerup()
+
+		/// <summary>
+		/// Spawns a powerup at a random position on the map, in front of the player.
+		/// </summary>
+        private void SpawnPowerup()
         {
             int i = Random.Range(0, powerups.Length);
 
