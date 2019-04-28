@@ -123,7 +123,7 @@
     <Compile Include="Assets\Scripts\Spawners\ObstacleSpawner.cs" />
     <Compile Include="Assets\Scripts\Spawners\Powerup.cs" />
     <Compile Include="Assets\Scripts\Spawners\PowerupSpawner.cs" />
-    <Compile Include="Assets\Scripts\UI\HighscoreDisplayHelper.cs" />
+    <Compile Include="Assets\Scripts\UI\HighscoreEntry.cs" />
     <Compile Include="Assets\Scripts\UI\HUD.cs" />
     <Compile Include="Assets\Scripts\UI\MenuHelper.cs" />
     <Compile Include="Assets\Scripts\UI\Scoreboard.cs" />
@@ -131,6 +131,7 @@
     <Compile Include="Assets\Scripts\Utilities\GameSettings.cs" />
     <Compile Include="Assets\Scripts\Utilities\MatchTransformPosition.cs" />
     <Compile Include="Assets\Scripts\Utilities\Rotate.cs" />
+    <Compile Include="Assets\Scripts\Utilities\SceneHelper.cs" />
     <Compile Include="Assets\Scripts\Utilities\SunCycle.cs" />
     <None Include="Assets\PostProcessing\Resources\Shaders\DepthOfField.shader" />
     <None Include="Assets\ProCore\ProGrids\Shader\pg_GridShader.shader" />
