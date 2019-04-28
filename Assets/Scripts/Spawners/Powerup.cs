@@ -10,13 +10,13 @@ namespace Spawner
         public Color32 color;
         private Transform player;
 
-        void Start()
+		private void Start()
         {
             player = GameObject.FindGameObjectWithTag("Player").transform; 
             InvokeRepeating("CheckIfBehindPlayer", 5f, 5f);
         }
 
-        void OnTriggerEnter(Collider other)
+		private void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Obstacle")
             {
@@ -25,7 +25,7 @@ namespace Spawner
             }
         }
 
-        void CheckIfBehindPlayer()
+		private void CheckIfBehindPlayer()
         {
             if (this.transform.position.z < player.transform.position.z)
             {
