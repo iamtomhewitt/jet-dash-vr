@@ -5,57 +5,61 @@ using UnityEngine.Advertisements;
 
 namespace Manager
 {
-public class AdvertManager : MonoBehaviour 
-{
-	public 	int advertCounter = 0;
-	private string gameID = "1606552";
-	private static AdvertManager instance;
-
-	void Awake()
+	public class AdvertManager : MonoBehaviour
 	{
-		if (instance) 
+		public int advertCounter = 0;
+		private string gameID = "1606552";
+		private static AdvertManager instance;
+
+		private void Awake()
 		{
-			DestroyImmediate (gameObject);
+			if (instance)
+			{
+				DestroyImmediate(gameObject);
+			}
+			else
+			{
+				DontDestroyOnLoad(gameObject);
+				instance = this;
+			}
 		}
-		else
+
+
+		private void Start()
 		{
-			DontDestroyOnLoad(gameObject);
-			instance = this;
+			Advertisement.Initialize(gameID, true);
 		}
-	}
 
-	void Start()
-	{
-		Advertisement.Initialize (gameID, true);
-	}
 
-	public void ShowAdvert()
-	{
-		StartCoroutine (ShowAdvertWhenReady ());
-	}
+		public void ShowAdvert()
+		{
+			StartCoroutine(ShowAdvertWhenReady());
+		}
 
-	IEnumerator ShowAdvertWhenReady()
-	{
-		while (!Advertisement.IsReady ())
+
+		private IEnumerator ShowAdvertWhenReady()
+		{
+			while (!Advertisement.IsReady())
+				yield return null;
+
+			Advertisement.Show();
+
+			#if UNITY_EDITOR
+			yield return StartCoroutine(WaitForAd());
+			#endif
+		}
+
+
+		private IEnumerator WaitForAd()
+		{
+			float currentTimeScale = Time.timeScale;
+			Time.timeScale = 0f;
 			yield return null;
 
-		Advertisement.Show ();
+			while (Advertisement.isShowing)
+				yield return null;
 
-		#if UNITY_EDITOR
-		yield return StartCoroutine(WaitForAd ());
-		#endif
+			Time.timeScale = currentTimeScale;
+		}
 	}
-
-	IEnumerator WaitForAd()
-	{
-		float currentTimeScale = Time.timeScale;
-		Time.timeScale = 0f;
-		yield return null;
-
-		while (Advertisement.isShowing)
-			yield return null;
-
-		Time.timeScale = currentTimeScale;
-	}
-}
 }

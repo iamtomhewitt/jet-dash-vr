@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Utilities
 {
-public class Rotate : MonoBehaviour 
-{
-    public Vector3 speed;
+	public class Rotate : MonoBehaviour
+	{
+		public Vector3 speed;
 
-    void Update()
-    {
-        transform.Rotate(speed * Time.deltaTime);
-    }
-}
+		void Update()
+		{
+			transform.Rotate(speed * Time.deltaTime);
+		}
+	}
 }

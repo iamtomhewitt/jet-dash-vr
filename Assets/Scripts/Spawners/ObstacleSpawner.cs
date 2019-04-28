@@ -9,22 +9,22 @@ namespace Spawner
         public GameObject[] obstacles;
         public int totalObstacles;
         public ObstacleSize obstacleSize;
+		public Material[] colours;
 
         [Space()]
         public Boundary boundary;
         public Boundary initialBoundary;
 
-        private const int CUBE = 0;
-        private const int PYRAMID = 1;
-        private const int TUNNEL = 2;
-
-        void Start()
+		private void Start()
         {
-            InitialiseCubes();
+            InitialiseObstacles();
             InvokeRepeating("ReduceSpawnBoundary", 30f, 30f);
         }
 
-        void InitialiseCubes()
+		/// <summary>
+		/// Instantiates all the obstacles that will be used in the game.
+		/// </summary>
+		private void InitialiseObstacles()
         {
             for (int i = 0; i < totalObstacles; i++)
             {
@@ -32,21 +32,18 @@ namespace Spawner
                 int scale = Random.Range(obstacleSize.minSize, obstacleSize.maxSize);
                 float y = (scale / 2) + 0.5f;
 
-                GameObject o;
-
-                if (Random.value <= 0.2)
-                    o = Instantiate(obstacles[TUNNEL], GenerateObstaclePosition(initialBoundary, y), Quaternion.identity) as GameObject;
-                else
-                    o = Instantiate(obstacles[Random.Range(CUBE, TUNNEL)], GenerateObstaclePosition(initialBoundary, y), Quaternion.identity) as GameObject;
-
+                GameObject o = Instantiate(obstacles[Random.Range(0, obstacles.Length)], GenerateObstaclePosition(initialBoundary, y), Quaternion.identity) as GameObject;
                 o.GetComponent<Obstacle>().Grow(1f, scale);
                 o.transform.localScale = new Vector3(scale, scale, scale);
                 o.transform.parent = GameObject.Find("Obstacles").transform;
+				o.GetComponent<Renderer>().material = colours[Random.Range(0, colours.Length)];
             }
         }
 
-        void OnTriggerEnter(Collider other)
+
+		private void OnTriggerEnter(Collider other)
         {
+			// An obstacle has moved past the player, respawn it in front.
             if (other.tag == "Obstacle")
             {
                 other.transform.position = GenerateObstaclePosition(boundary, other.transform.position.y);
@@ -54,7 +51,8 @@ namespace Spawner
             }
         }
 
-        Vector3 GenerateObstaclePosition(Boundary b, float y)
+
+		private Vector3 GenerateObstaclePosition(Boundary b, float y)
         {
             float x = Random.Range(b.xMin, b.xMax);
             float z = Random.Range(b.zMin, b.zMax);
@@ -62,10 +60,11 @@ namespace Spawner
             return new Vector3(transform.position.x + x, y, transform.position.z + z);
         }
 
+
         /// <summary>
         /// Reduces the spawn boundary to make the cubes appear tighter, making the game harder.
         /// </summary>
-        void ReduceSpawnBoundary()
+        private void ReduceSpawnBoundary()
         {
             if (boundary.zMin >= 150)
                 boundary.zMin -= 50;

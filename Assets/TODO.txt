@@ -1,0 +1,13 @@
+- for invincible, a circle green shield around the ship
+- redo the menus, make them portrait apart from the game scene
+
+- for future
+	- unlockable spaceships
+	- marker on best score
+
+
+//////////////////////////////////////////
+
+EACH FUNCTION SHOULD DO ONE THING
+
+//////////////////////////////////////////

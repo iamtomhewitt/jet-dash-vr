@@ -20,16 +20,18 @@ namespace Player
         public 	GameObject normalCamera;
         public 	GameObject VRCamera;
         private GameObject cameraUsed;
+
         private HUD hud;
+
         private float sensitivity;
 
-        public 	KeyCode left;
-        public 	KeyCode right;
+        public KeyCode left;
+        public KeyCode right;
 
         [Space()]
         public ModelSettings modelSettings;
 
-        void Start()
+        private void Start()
         {
             hud = GetComponent<HUD>();
             hud.speedText.text = speed.ToString();
@@ -38,15 +40,16 @@ namespace Player
             modelSettings.originalRotation = modelSettings.model.rotation;
 
             InvokeRepeating("IncreaseSpeed", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
+			InvokeRepeating("CheckSpeedStreak", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
 
-            DetermineGameSettings();
+			DetermineGameSettings();
 
             AudioManager.instance.Play("Ship Hum");
             AudioManager.instance.Play("Starting Bass");
         }
 
 
-        void Update()
+        private void Update()
         {
             // Move forward
             transform.position += transform.forward * Time.deltaTime * speed;
@@ -63,7 +66,7 @@ namespace Player
         }
 
 
-        void KeyboardControl()
+        private void KeyboardControl()
         {
             if (Input.GetKey(left))
                 transform.position += transform.right * Time.deltaTime * sensitivity * -turningSpeed;
@@ -73,7 +76,7 @@ namespace Player
         }
 
 
-        void IncreaseSpeed()
+        private void IncreaseSpeed()
         {
             if (speed < 200)
             {
@@ -81,15 +84,19 @@ namespace Player
                 hud.speedText.text = speed.ToString();
 
                 float p = (speed / 1000f) + 1f;
-                AudioManager.instance.GetSound("Ship Hum").pitch = p;
-
-                if (speed % 50 == 0)
-                {
-                    hud.ShowPowerupNotification(Color.white, speed + " Speed Streak!");
-                    AudioManager.instance.Play("Speed Streak");
-                }
+                AudioManager.instance.GetSound("Ship Hum").pitch = p;                
             }
         }
+
+
+		private void CheckSpeedStreak()
+		{
+			if (speed % 50 == 0)
+			{
+				hud.ShowNotification(Color.white, speed + " Speed Streak!");
+				AudioManager.instance.Play("Speed Streak");
+			}
+		}
 
 
         public void StopMoving()
@@ -99,6 +106,7 @@ namespace Player
             CancelInvoke("IncreaseSpeed");
         }
 
+
         public void StartMoving()
         {
             speed = 20f;
@@ -106,7 +114,11 @@ namespace Player
             InvokeRepeating("IncreaseSpeed", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
         }
 
-        void DetermineGameSettings()
+
+		/// <summary>
+		/// Sets up the cameras and the sensitivity based upon what was selected in the main menu.
+		/// </summary>
+        private void DetermineGameSettings()
         {
             GameSettings gs = GameSettings.instance;
 
@@ -133,6 +145,10 @@ namespace Player
             }
         }
 
+		/// <summary>
+		/// A data class that holds player model information. It is also responsible for rotating the model based on mobile accelerometer,
+		/// and for selecting a random ship at the start of the game.
+		/// </summary>
         [System.Serializable]
         public class ModelSettings
         {
@@ -144,6 +160,9 @@ namespace Player
             [HideInInspector]
             public Transform model;
 
+			/// <summary>
+			/// Rotates the ship based on the mobile accelerometer.
+			/// </summary>
             public void RotateBasedOnMobileInput(Transform t, float limit)
             {
                 z = Input.acceleration.x * 30f;
@@ -152,6 +171,9 @@ namespace Player
                 t.localEulerAngles = new Vector3(t.localEulerAngles.x, t.localEulerAngles.y, -z);
             }
 
+			/// <summary>
+			/// Activates a random ship at the start of the game.
+			/// </summary>
             public void SelectRandomShip()
             {
                 for (int i = 0; i < models.Length; i++)

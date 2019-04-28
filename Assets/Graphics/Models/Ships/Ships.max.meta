@@ -1,0 +1,260 @@
+fileFormatVersion: 2
+guid: 9309b5f53d0de664b8fda3cfb47e36ab
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Spaceship 002
+    100004: Spaceship 1
+    100006: Longsword
+    100008: 006
+    100010: 007
+    100012: 008
+    100014: 009
+    100016: 010
+    100018: 011
+    100020: 012
+    100022: 013
+    100024: 014
+    100026: 015
+    100028: 016
+    100030: 017
+    100032: 018
+    100034: 019
+    100036: 020
+    100038: 021
+    100040: 022
+    100042: 023
+    100044: 024
+    100046: 025
+    100048: 026
+    100050: 2
+    100052: 3
+    100054: 4
+    100056: 5
+    100058: 1
+    400000: //RootNode
+    400002: Spaceship 002
+    400004: Spaceship 1
+    400006: Longsword
+    400008: 006
+    400010: 007
+    400012: 008
+    400014: 009
+    400016: 010
+    400018: 011
+    400020: 012
+    400022: 013
+    400024: 014
+    400026: 015
+    400028: 016
+    400030: 017
+    400032: 018
+    400034: 019
+    400036: 020
+    400038: 021
+    400040: 022
+    400042: 023
+    400044: 024
+    400046: 025
+    400048: 026
+    400050: 2
+    400052: 3
+    400054: 4
+    400056: 5
+    400058: 1
+    2100000: 03 - Default
+    2100002: 07 - Default
+    2100004: 01 - Default
+    2100006: No Name
+    2100008: 02 - Default
+    2100010: Lo_poly_Spaceship_05_by_Liz_Reddington_lambert4SG
+    2100012: Lo_poly_Spaceship_05_by_Liz_Reddington_lambert3SG
+    2100014: Lo_poly_Spaceship_05_by_Liz_Reddington_lambert2SG
+    2100016: Lo_poly_Spaceship_01_by_Liz_Reddington_lambert2SG
+    2100018: Lo_poly_Spaceship_01_by_Liz_Reddington_lambert4SG
+    2100020: Lo_poly_Spaceship_01_by_Liz_Reddington_lambert3SG
+    2100022: Lo_poly_Spaceship_02_by_Liz_Reddington_lambert4SG
+    2100024: Lo_poly_Spaceship_02_by_Liz_Reddington_lambert3SG
+    2100026: Lo_poly_Spaceship_02_by_Liz_Reddington_lambert2SG
+    2100028: Lo_poly_Spaceship_03_by_Liz_Reddington_lambert4SG
+    2100030: Lo_poly_Spaceship_03_by_Liz_Reddington_lambert3SG
+    2100032: Lo_poly_Spaceship_03_by_Liz_Reddington_lambert2SG
+    2100034: Lo_poly_Spaceship_04_by_Liz_Reddington_lambert4SG
+    2100036: Lo_poly_Spaceship_04_by_Liz_Reddington_lambert3SG
+    2100038: Lo_poly_Spaceship_04_by_Liz_Reddington_lambert2SG
+    2300000: Spaceship 002
+    2300002: Spaceship 1
+    2300004: //RootNode
+    2300006: Longsword
+    2300008: 006
+    2300010: 007
+    2300012: 008
+    2300014: 009
+    2300016: 010
+    2300018: 011
+    2300020: 012
+    2300022: 013
+    2300024: 014
+    2300026: 015
+    2300028: 016
+    2300030: 017
+    2300032: 018
+    2300034: 019
+    2300036: 020
+    2300038: 021
+    2300040: 022
+    2300042: 023
+    2300044: 024
+    2300046: 025
+    2300048: 026
+    2300050: 2
+    2300052: 3
+    2300054: 4
+    2300056: 5
+    2300058: 1
+    3300000: Spaceship 002
+    3300002: Spaceship 1
+    3300004: //RootNode
+    3300006: Longsword
+    3300008: 006
+    3300010: 007
+    3300012: 008
+    3300014: 009
+    3300016: 010
+    3300018: 011
+    3300020: 012
+    3300022: 013
+    3300024: 014
+    3300026: 015
+    3300028: 016
+    3300030: 017
+    3300032: 018
+    3300034: 019
+    3300036: 020
+    3300038: 021
+    3300040: 022
+    3300042: 023
+    3300044: 024
+    3300046: 025
+    3300048: 026
+    3300050: 2
+    3300052: 3
+    3300054: 4
+    3300056: 5
+    3300058: 1
+    4300000: Spaceship 1
+    4300002: Spaceship 002
+    4300004: Longsword
+    4300006: 2
+    4300008: 3
+    4300010: 4
+    4300012: 5
+    4300014: 006
+    4300016: 007
+    4300018: 008
+    4300020: 009
+    4300022: 010
+    4300024: 011
+    4300026: 012
+    4300028: 013
+    4300030: 014
+    4300032: 015
+    4300034: 016
+    4300036: 017
+    4300038: 018
+    4300040: 019
+    4300042: 020
+    4300044: 021
+    4300046: 022
+    4300048: 023
+    4300050: 024
+    4300052: 025
+    4300054: 026
+    4300056: 1
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

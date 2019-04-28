@@ -13,10 +13,10 @@ namespace Manager
         private int localHighscore;
 
         private const string playerPrefsKey = "LocalHighscore";
-        private const string uploadedKey = "hasUploadedHighscore";
-        private const string privateCode = "VqnbsBo9LEe_iN-ksRCzyQ84P3n4pBLE6rPNBPAsjIpg";
-        private const string publicCode = "5ac7c821d6024519e07786bd";
-        private const string url = "http://dreamlo.com/lb/";
+        private const string uploadedKey	= "hasUploadedHighscore";
+        private const string privateCode	= "VqnbsBo9LEe_iN-ksRCzyQ84P3n4pBLE6rPNBPAsjIpg";
+        private const string publicCode		= "5ac7c821d6024519e07786bd";
+        private const string url			= "http://dreamlo.com/lb/";
 
         public static HighscoreManager instance;
 
@@ -46,7 +46,7 @@ namespace Manager
             StartCoroutine(UploadNewHighscore(username, score));
         }
 
-        IEnumerator UploadNewHighscore(string username, int score)
+		private IEnumerator UploadNewHighscore(string username, int score)
         {
             string id = System.DateTime.Now.ToString("MMddyyyyhhmmss");
 
@@ -85,7 +85,7 @@ namespace Manager
         }
 
 
-        void FormatHighscores(string textStream)
+		private void FormatHighscores(string textStream)
         {
             string[] entries = textStream.Split(new char[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
 
@@ -116,7 +116,7 @@ namespace Manager
         }
 
 
-        void Awake()
+		private void Awake()
         {
             if (instance)
             {
