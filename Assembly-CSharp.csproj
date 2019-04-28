@@ -131,7 +131,6 @@
     <Compile Include="Assets\Scripts\Utilities\GameSettings.cs" />
     <Compile Include="Assets\Scripts\Utilities\MatchTransformPosition.cs" />
     <Compile Include="Assets\Scripts\Utilities\Rotate.cs" />
-    <Compile Include="Assets\Scripts\Utilities\SceneHelper.cs" />
     <Compile Include="Assets\Scripts\Utilities\SunCycle.cs" />
     <None Include="Assets\PostProcessing\Resources\Shaders\DepthOfField.shader" />
     <None Include="Assets\ProCore\ProGrids\Shader\pg_GridShader.shader" />

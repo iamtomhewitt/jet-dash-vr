@@ -64,6 +64,8 @@ namespace UI
 
         IEnumerator HeadsetCountdown()
         {
+			Screen.orientation = ScreenOrientation.LandscapeLeft;
+
             mainMenu.SetActive(false);
             int countdown = 10;
 

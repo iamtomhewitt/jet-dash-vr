@@ -14,18 +14,15 @@ namespace Manager
 		public Highscore[] highscoresList;
 		public HighscoreEntry[] entries;
 		public Text localHighscoreText;
+		public Text statusText;
 		public InputField usernameInputField;
 
 		private void Start()
 		{
 			localHighscoreText.text = "Local Highscore: " + LoadLocalHighscore();
+			statusText.text = "";
 
-			for (int i = 0; i < entries.Length; i++)
-			{
-				entries[i].SetName("Fetching");
-				entries[i].SetScore(0);
-				entries[i].SetRank(i + 1 + ".");
-			}
+			InitialiseLeaderboard();
 
 			InvokeRepeating("Refresh", 0f, 15f);
 
@@ -77,15 +74,29 @@ namespace Manager
 		/// <returns></returns>
 		private IEnumerator DownloadHighscores()
 		{
-			UnityWebRequest www = UnityWebRequest.Get(GameSettings.url + GameSettings.publicCode + "/pipe/0/10");
-			yield return www.SendWebRequest();
+			UnityWebRequest request = UnityWebRequest.Get(GameSettings.url + GameSettings.publicCode + "/pipe/0/10");
+			yield return request.SendWebRequest();
 
-			if (string.IsNullOrEmpty(www.error))
+			if (string.IsNullOrEmpty(request.error))
 			{
-				highscoresList = ToHighscoreList(www.downloadHandler.text);
+				if (request.downloadHandler.text.StartsWith("ERROR"))
+				{
+					ClearLeaderboard();
+					statusText.text = "Could not get highscores:\n" + request.downloadHandler.text;
+				}
+
+				else
+				{
+					highscoresList = ToHighscoreList(request.downloadHandler.text);
+					statusText.text = "";
+				}
 			}
 			else
-				print("Error downloading: " + www.error);
+			{
+				print("Error downloading: " + request.error);
+				ClearLeaderboard();
+				statusText.text = "Could not get highscores:\n" + request.error + "\n" + "Are you connected to the internet?";
+			}
 		}
 
 
@@ -136,11 +147,13 @@ namespace Manager
 				if (string.IsNullOrEmpty(www.error))
 				{
 					print("Upload successful!");
+					statusText.text = "";
 					PlayerPrefs.SetInt(GameSettings.uploadedKey, 1);
 				}
 				else
 				{
 					print("Error uploading: " + www.error);
+					statusText.text = "Error uploading:\n"+www.error;
 				}
 
 				// And reset the input field
@@ -198,6 +211,34 @@ namespace Manager
 			}
 
 			return highscoresList;
+		}
+
+
+		/// <summary>
+		/// Populates the leaderboard with some placeholders.
+		/// </summary>
+		private void InitialiseLeaderboard()
+		{
+			for (int i = 0; i < entries.Length; i++)
+			{
+				entries[i].SetName("Fetching");
+				entries[i].SetScore(0);
+				entries[i].SetRank(i + 1 + ".");
+			}
+		}
+
+
+		/// <summary>
+		/// Sets everything in the leadboard to a nothing value.
+		/// </summary>
+		private void ClearLeaderboard()
+		{
+			for (int i = 0; i < entries.Length; i++)
+			{
+				entries[i].SetName("");
+				entries[i].SetScore(0);
+				entries[i].SetRank(i + 1 + ".");
+			}
 		}
 	}
 
