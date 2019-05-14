@@ -15,6 +15,7 @@ namespace UI
         public Slider sensitivitySlider;
         public Text VRCountdownText;
         public GameObject mainMenu;
+		public GameObject shipModel;
 
         private string gameSceneName;
 
@@ -22,11 +23,11 @@ namespace UI
         {
             // Reset GameSettings values
             GameSettings.instance.isVRMode = VRMode;
-            VRModeImage.enabled = VRMode;
             GameSettings.instance.sensitivity = sensitivitySlider.value;
-        }
+			VRModeImage.enabled = VRMode;
+		}
 
-        public void SwitchMode()
+		public void SwitchMode()
         {
             VRMode = !VRMode;
             VRModeImage.enabled = !VRModeImage.enabled;
@@ -56,7 +57,6 @@ namespace UI
                 Play(gameSceneName);
         }
 
-
         public void SetPlaySceneName(string n)
         {
             gameSceneName = n;
@@ -67,6 +67,8 @@ namespace UI
 			Screen.orientation = ScreenOrientation.LandscapeLeft;
 
             mainMenu.SetActive(false);
+			shipModel.SetActive(false);
+
             int countdown = 10;
 
             for (int i = countdown; i > 0; i--)
