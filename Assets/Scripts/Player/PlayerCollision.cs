@@ -1,10 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UI;
 using Spawner;
 using Manager;
+using Utilities;
 
 namespace Player
 {
@@ -17,18 +18,20 @@ namespace Player
         public Scoreboard scoreboard;
 
         private HUD hud;
+
         private PlayerControl playerControl;
         private PlayerScore playerScore;
-        private bool godMode;
 
-        void Start()
+        public bool godMode;
+
+		private void Start()
         {
             playerControl = GetComponent<PlayerControl>();
             playerScore = GetComponent<PlayerScore>();
             hud = GetComponent<HUD>();
         }
 
-        void OnCollisionEnter(Collision other)
+		private void OnCollisionEnter(Collision other)
         {
             switch (other.gameObject.tag)
             {
@@ -45,9 +48,10 @@ namespace Player
                     scoreboard.AnimateTopSpeed(playerScore.GetSpeed());
                     scoreboard.AnimateFinalScore(playerScore.GetFinalScore());
 
-                    HighscoreManager.instance.SaveLocalHighscore(playerScore.GetFinalScore());
+					// Have to do this manually as having an instance of HighscoreManager causes problems with the way scores are displayed on the highscore scene
+					SaveHighscore();
 
-                    playerControl.StopMoving();
+					playerControl.StopMoving();
                     playerModel.SetActive(false);
                     gameHUD.SetActive(false);
 
@@ -57,7 +61,7 @@ namespace Player
             }
         }
 
-        void OnTriggerEnter(Collider other)
+		private void OnTriggerEnter(Collider other)
         {
             switch (other.gameObject.tag)
             {
@@ -91,7 +95,11 @@ namespace Player
             }
         }
 
-        IEnumerator GodMode(float duration)
+
+		/// <summary>
+		/// Makes the player invincible for a set amount of time. Also shows the invincibility bar.
+		/// </summary>
+		private IEnumerator GodMode(float duration)
         {
             godMode = true;
             Vector3 originalScale = new Vector3(15f, 1f, 1f);
@@ -110,5 +118,23 @@ namespace Player
             hud.invincibilityBar.transform.localScale = Vector3.zero;
             godMode = false;
         }
-    }
+
+
+		/// <summary>
+		/// Saves the players score to the PlayerPrefs.
+		/// </summary>
+		private void SaveHighscore()
+		{
+			int currentHighscore = PlayerPrefs.GetInt(GameSettings.playerPrefsKey);
+			int score = playerScore.GetFinalScore();
+			if (score > currentHighscore)
+			{
+				print("New highscore of " + score + "! Saving...");
+				PlayerPrefs.SetInt(GameSettings.playerPrefsKey, score);
+
+				// Player has got a new highscore, which obvs hasnt been uploaded yet
+				PlayerPrefs.SetInt(GameSettings.uploadedKey, 0);
+			}
+		}
+	}
 }

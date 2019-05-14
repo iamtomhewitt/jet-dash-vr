@@ -3,145 +3,257 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UI;
+using UnityEngine.Networking;
+using UnityEngine.UI;
+using Utilities;
 
 namespace Manager
 {
-    public class HighscoreManager : MonoBehaviour
-    {
-        public Highscore[] highscoresList;
+	public class HighscoreManager : MonoBehaviour
+	{
+		public Highscore[] highscoresList;
+		public HighscoreEntry[] entries;
+		public Text localHighscoreText;
+		public Text statusText;
+		public InputField usernameInputField;
 
-        private int localHighscore;
+		private void Start()
+		{
+			localHighscoreText.text = "Local Highscore: " + LoadLocalHighscore();
+			statusText.text = "";
 
-        private const string playerPrefsKey = "LocalHighscore";
-        private const string uploadedKey	= "hasUploadedHighscore";
-        private const string privateCode	= "VqnbsBo9LEe_iN-ksRCzyQ84P3n4pBLE6rPNBPAsjIpg";
-        private const string publicCode		= "5ac7c821d6024519e07786bd";
-        private const string url			= "http://dreamlo.com/lb/";
+			InitialiseLeaderboard();
 
-        public static HighscoreManager instance;
+			InvokeRepeating("Refresh", 0f, 15f);
 
-        public void SaveLocalHighscore(int score)
-        {
-            int currentHighscore = LoadLocalHighscore();
-
-            if (score > currentHighscore)
-            {
-                print("New highscore of " + score + "! Saving...");
-                PlayerPrefs.SetInt(playerPrefsKey, score);
-
-                // Player has got a new highscore, which obvs hasnt been uploaded yet
-                PlayerPrefs.SetInt(uploadedKey, 0);
-            }
-        }
+			// Debug, resets score
+			//PlayerPrefs.SetInt(GameSettings.uploadedKey, 0);
+			//PlayerPrefs.SetInt(GameSettings.playerPrefsKey, 1);
+		}
 
 
-        public int LoadLocalHighscore()
-        {
-            return PlayerPrefs.GetInt(playerPrefsKey);
-        }
+		/// <summary>
+		/// Convience method to periodically download and refresh the highscores.
+		/// </summary>
+		private void Refresh()
+		{
+			StartCoroutine(DisplayHighScores());
+		}
 
 
-        public void AddNewHighscore(string username, int score)
-        {
-            StartCoroutine(UploadNewHighscore(username, score));
-        }
+		/// <summary>
+		/// Saves the current local highscore.
+		/// </summary>
+		public void SaveLocalHighscore(int score)
+		{
+			int currentHighscore = LoadLocalHighscore();
 
-		private IEnumerator UploadNewHighscore(string username, int score)
-        {
-            string id = System.DateTime.Now.ToString("MMddyyyyhhmmss");
+			if (score > currentHighscore)
+			{
+				print("New highscore of " + score + "! Saving...");
+				PlayerPrefs.SetInt(GameSettings.playerPrefsKey, score);
 
-            WWW www = new WWW(url + privateCode + "/add/" + WWW.EscapeURL(id+username) + "/" + score);
-            yield return www;
-
-            if (string.IsNullOrEmpty(www.error))
-            {
-                print("Upload successful!");
-                PlayerPrefs.SetInt(uploadedKey, 1);
-            }
-            else
-            {
-                print("Error uploading: " + www.error);
-            }
-        }
+				// Player has got a new highscore, which obvs hasnt been uploaded yet
+				PlayerPrefs.SetInt(GameSettings.uploadedKey, 0);
+			}
+		}
 
 
-        public void DownloadHighscores()
-        {
-            StartCoroutine(DownloadHighscoresFromWebsite());
-        }
-
-        IEnumerator DownloadHighscoresFromWebsite()
-        {
-            WWW www = new WWW(url + publicCode + "/pipe/0/10");
-            yield return www;
-
-            if (string.IsNullOrEmpty(www.error))
-            {
-                FormatHighscores(www.text);
-                GameObject.FindObjectOfType<HighscoreDisplayHelper>().OnHighscoresDownloaded(highscoresList);
-            }
-            else
-                print("Error downloading: " + www.error);
-        }
+		/// <summary>
+		/// Loads the local highscore using PlayerPrefs.
+		/// </summary>
+		private int LoadLocalHighscore()
+		{
+			return PlayerPrefs.GetInt(GameSettings.playerPrefsKey);
+		}
 
 
-		private void FormatHighscores(string textStream)
-        {
-            string[] entries = textStream.Split(new char[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
+		/// <summary>
+		/// Downloads the highscores from the website, and formats it.
+		/// </summary>
+		/// <returns></returns>
+		private IEnumerator DownloadHighscores()
+		{
+			UnityWebRequest request = UnityWebRequest.Get(GameSettings.url + GameSettings.publicCode + "/pipe/0/10");
+			yield return request.SendWebRequest();
 
-            highscoresList = new Highscore[entries.Length];
+			if (string.IsNullOrEmpty(request.error))
+			{
+				if (request.downloadHandler.text.StartsWith("ERROR"))
+				{
+					ClearLeaderboard();
+					statusText.text = "Could not get highscores:\n" + request.downloadHandler.text;
+				}
 
-            for (int i = 0; i < entries.Length; i++)
-            {
-                string[] entryInfo = entries[i].Split(new char[] { '|' });
-
-                // Get the username from online
-                string usr = entryInfo[0];
-
-                // Replace with spaces
-                string username = usr.Replace('+', ' ');
-
-                // Get the date from the username. The day will always be 14 in length
-                //string date = DateTime.ParseExact(username.Substring(0, 14), "MMddyyyyhhmmss", null).ToString();
-
-                // Dont want the date included in the username, so substring itself to show only the username
-                username = username.Substring(14, (username.Length-14));
-
-                int score = int.Parse(entryInfo[1]);
-
-                highscoresList[i] = new Highscore(username, score);
-
-                //print(highscoresList[i].username + ": " + highscoresList[i].score + " Date: "+date);
-            }
-        }
-
-
-		private void Awake()
-        {
-            if (instance)
-            {
-                DestroyImmediate(this.gameObject);
-            }
-            else
-            {
-                DontDestroyOnLoad(this.gameObject);
-                instance = this;
-            }
-
-            //AddNewHighscore("Tom (The Developer)", 31994);
-        }
-    }
+				else
+				{
+					highscoresList = ToHighscoreList(request.downloadHandler.text);
+					statusText.text = "";
+				}
+			}
+			else
+			{
+				print("Error downloading: " + request.error);
+				ClearLeaderboard();
+				statusText.text = "Could not get highscores:\n" + request.error + "\n" + "Are you connected to the internet?";
+			}
+		}
 
 
-    public struct Highscore
-    {
-        public string username;
-        public int score;
+		/// <summary>
+		/// Starts the UploadHighscore Coroutine. This method is used on a Unity Button.
+		/// </summary>
+		public void Upload()
+		{
+			StartCoroutine(UploadHighscore());
+		}
 
-        public Highscore(string username, int score)
-        {
-            this.username = username;
-            this.score = score;
-        }
-    }
+
+		/// <summary>
+		/// Uploads a new score onto the website, based on the correct conditions.
+		/// </summary>
+		private IEnumerator UploadHighscore()
+		{
+			int localHighscore = LoadLocalHighscore();
+			string username = usernameInputField.text;
+
+			// If an invalid score
+			if (localHighscore <= 0)
+			{
+				usernameInputField.placeholder.GetComponent<Text>().text = "Score cannot be 0!";
+			}
+
+			// If no nickname set
+			else if (string.IsNullOrEmpty(usernameInputField.text))
+			{
+				usernameInputField.placeholder.GetComponent<Text>().text = "Enter a nickname!";
+			}
+
+			// If the score has already been uploaded
+			else if (PlayerPrefs.GetInt("hasUploadedHighscore") != 0)
+			{
+				usernameInputField.text = "";
+				usernameInputField.placeholder.GetComponent<Text>().text = "Already uploaded!";
+			}
+
+			// Otherwise, upload the score
+			else
+			{
+				string id = System.DateTime.Now.ToString("MMddyyyyhhmmss");
+
+				WWW www = new WWW(GameSettings.url + GameSettings.privateCode + "/add/" + WWW.EscapeURL(id + username) + "/" + localHighscore);
+				yield return www;
+
+				if (string.IsNullOrEmpty(www.error))
+				{
+					print("Upload successful!");
+					statusText.text = "";
+					PlayerPrefs.SetInt(GameSettings.uploadedKey, 1);
+				}
+				else
+				{
+					print("Error uploading: " + www.error);
+					statusText.text = "Error uploading:\n"+www.error;
+				}
+
+				// And reset the input field
+				usernameInputField.text = "";
+				usernameInputField.placeholder.GetComponent<Text>().text = "Uploaded!";
+			}
+		}
+
+
+		/// <summary>
+		/// Updates the UI to show the downloaded scores.
+		/// </summary>
+		private IEnumerator DisplayHighScores()
+		{
+			yield return StartCoroutine(DownloadHighscores());
+
+			for (int i = 0; i < entries.Length; i++)
+			{
+				string username = highscoresList[i].username;
+				int score = highscoresList[i].score;
+
+				entries[i].SetRank(i + 1 + ".");
+
+				if (highscoresList.Length > i)
+				{
+					//highscoreEntries[i].text += username + " - " + score;
+					entries[i].SetName(username);
+					entries[i].SetScore(score);
+				}
+			}
+		}
+
+
+		/// <summary>
+		/// Coverts the raw data from the website to a Highscore list.
+		/// </summary>
+		private Highscore[] ToHighscoreList(string textStream)
+		{
+			string[] entries = textStream.Split(new char[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
+
+			highscoresList = new Highscore[entries.Length];
+
+			for (int i = 0; i < entries.Length; i++)
+			{
+				string[] entryInfo = entries[i].Split(new char[] { '|' });
+
+				string username = entryInfo[0].Replace('+', ' ');
+				username = username.Substring(14, (username.Length - 14)); // Dont want the date included in the username, so substring itself to show only the username
+
+				int score = int.Parse(entryInfo[1]);
+
+				highscoresList[i] = new Highscore(username, score);
+
+				//print(highscoresList[i].username + ": " + highscoresList[i].score + " Date: "+date);
+			}
+
+			return highscoresList;
+		}
+
+
+		/// <summary>
+		/// Populates the leaderboard with some placeholders.
+		/// </summary>
+		private void InitialiseLeaderboard()
+		{
+			for (int i = 0; i < entries.Length; i++)
+			{
+				entries[i].SetName("Fetching");
+				entries[i].SetScore(0);
+				entries[i].SetRank(i + 1 + ".");
+			}
+		}
+
+
+		/// <summary>
+		/// Sets everything in the leadboard to a nothing value.
+		/// </summary>
+		private void ClearLeaderboard()
+		{
+			for (int i = 0; i < entries.Length; i++)
+			{
+				entries[i].SetName("");
+				entries[i].SetScore(0);
+				entries[i].SetRank(i + 1 + ".");
+			}
+		}
+	}
+
+	/// <summary>
+	/// Data class for keeping track of downloaded highscores.
+	/// </summary>
+	public struct Highscore
+	{
+		public string username;
+		public int score;
+
+		public Highscore(string username, int score)
+		{
+			this.username = username;
+			this.score = score;
+		}
+	}	
 }

@@ -44,5 +44,15 @@ namespace Manager
         {
             AudioManager.instance.Pause(soundName);
         }
+
+		public void MakePortrait()
+		{
+			Screen.orientation = ScreenOrientation.Portrait;
+		}
+
+		public void MakeLandscape()
+		{
+			Screen.orientation = ScreenOrientation.LandscapeLeft;
+		}
     }
 }

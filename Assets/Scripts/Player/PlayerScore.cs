@@ -27,7 +27,10 @@ namespace Player
 
         public void DoublePoints()
         {
-            bonusScore *= 2;
+			if (bonusScore == 0)
+				bonusScore += 500;
+			else
+				bonusScore *= 2;
         }
 
         public int GetBonusScore()
