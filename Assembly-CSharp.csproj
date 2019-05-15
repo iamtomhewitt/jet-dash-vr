@@ -112,9 +112,13 @@
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_SceneMeshRender.cs" />
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Util.cs" />
     <Compile Include="Assets\ProCore\ProGrids\MonoBehaviour\pg_IgnoreSnap.cs" />
+    <Compile Include="Assets\Scripts\Highscore\HighscoreData.cs" />
+    <Compile Include="Assets\Scripts\Highscore\HighscoreEntry.cs" />
+    <Compile Include="Assets\Scripts\Highscore\HighscoreManager.cs" />
+    <Compile Include="Assets\Scripts\Highscore\JSONHelper.cs" />
+    <Compile Include="Assets\Scripts\Highscore\Leaderboard.cs" />
     <Compile Include="Assets\Scripts\Managers\AdvertManager.cs" />
     <Compile Include="Assets\Scripts\Managers\AudioManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\HighscoreManager.cs" />
     <Compile Include="Assets\Scripts\Managers\LevelManager.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerCollision.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerControl.cs" />
@@ -123,7 +127,6 @@
     <Compile Include="Assets\Scripts\Spawners\ObstacleSpawner.cs" />
     <Compile Include="Assets\Scripts\Spawners\Powerup.cs" />
     <Compile Include="Assets\Scripts\Spawners\PowerupSpawner.cs" />
-    <Compile Include="Assets\Scripts\UI\HighscoreEntry.cs" />
     <Compile Include="Assets\Scripts\UI\HUD.cs" />
     <Compile Include="Assets\Scripts\UI\MenuHelper.cs" />
     <Compile Include="Assets\Scripts\UI\Scoreboard.cs" />
