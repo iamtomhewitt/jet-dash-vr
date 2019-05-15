@@ -6,16 +6,21 @@ using UI;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using Utilities;
+using System.Linq;
 
 namespace Manager
 {
+	/// <summary>
+	/// Manages the highscores on the highscore scene. Responsible for uploading, downloading, and displaying scores.
+	/// </summary>
 	public class HighscoreManager : MonoBehaviour
 	{
-		public Highscore[] highscoresList;
-		public HighscoreEntry[] entries;
 		public Text localHighscoreText;
 		public Text statusText;
 		public InputField usernameInputField;
+
+		public HighscoreEntry[] UIEntries;
+		public Leaderboard leaderboard;
 
 		private void Start()
 		{
@@ -74,28 +79,20 @@ namespace Manager
 		/// <returns></returns>
 		private IEnumerator DownloadHighscores()
 		{
-			UnityWebRequest request = UnityWebRequest.Get(GameSettings.url + GameSettings.publicCode + "/pipe/0/10");
+			UnityWebRequest request = UnityWebRequest.Get(GameSettings.url + GameSettings.publicCode + "/json");
 			yield return request.SendWebRequest();
 
-			if (string.IsNullOrEmpty(request.error))
+			if (request.downloadHandler.text.StartsWith("ERROR"))
 			{
-				if (request.downloadHandler.text.StartsWith("ERROR"))
-				{
-					ClearLeaderboard();
-					statusText.text = "Could not get highscores:\n" + request.downloadHandler.text;
-				}
-
-				else
-				{
-					highscoresList = ToHighscoreList(request.downloadHandler.text);
-					statusText.text = "";
-				}
+				ClearLeaderboard();
+				statusText.text = "Could not get highscores:\n" + request.downloadHandler.text;
 			}
+
 			else
 			{
-				print("Error downloading: " + request.error);
-				ClearLeaderboard();
-				statusText.text = "Could not get highscores:\n" + request.error + "\n" + "Are you connected to the internet?";
+				string json = JSONHelper.RemoveNJsonFields(request.downloadHandler.text, 2);
+				leaderboard = JsonUtility.FromJson<Leaderboard>(json);
+				statusText.text = "";
 			}
 		}
 
@@ -130,7 +127,7 @@ namespace Manager
 			}
 
 			// If the score has already been uploaded
-			else if (PlayerPrefs.GetInt("hasUploadedHighscore") != 0)
+			else if (PlayerPrefs.GetInt(GameSettings.uploadedKey) != 0)
 			{
 				usernameInputField.text = "";
 				usernameInputField.placeholder.GetComponent<Text>().text = "Already uploaded!";
@@ -139,21 +136,20 @@ namespace Manager
 			// Otherwise, upload the score
 			else
 			{
-				string id = System.DateTime.Now.ToString("MMddyyyyhhmmss");
+				string url = GameSettings.url + GameSettings.privateCode + "/add/" + UnityWebRequest.EscapeURL(username) + "/" + localHighscore;
+				UnityWebRequest request = UnityWebRequest.Post(url, "");
+				yield return request.SendWebRequest();
 
-				WWW www = new WWW(GameSettings.url + GameSettings.privateCode + "/add/" + WWW.EscapeURL(id + username) + "/" + localHighscore);
-				yield return www;
-
-				if (string.IsNullOrEmpty(www.error))
+				if (request.downloadHandler.text.StartsWith("ERROR"))
+				{
+					ClearLeaderboard();
+					statusText.text = "Error uploading:\n" + request.downloadHandler.text;
+				}
+				else
 				{
 					print("Upload successful!");
 					statusText.text = "";
 					PlayerPrefs.SetInt(GameSettings.uploadedKey, 1);
-				}
-				else
-				{
-					print("Error uploading: " + www.error);
-					statusText.text = "Error uploading:\n"+www.error;
 				}
 
 				// And reset the input field
@@ -170,47 +166,18 @@ namespace Manager
 		{
 			yield return StartCoroutine(DownloadHighscores());
 
-			for (int i = 0; i < entries.Length; i++)
+			HighscoreData[] data = leaderboard.entry;
+
+			for (int i = 0; i < UIEntries.Length; i++)
 			{
-				string username = highscoresList[i].username;
-				int score = highscoresList[i].score;
+				string username = data[i].name;
+				int score = data[i].score;
+				string rank = i + 1 + ".";
 
-				entries[i].SetRank(i + 1 + ".");
-
-				if (highscoresList.Length > i)
-				{
-					//highscoreEntries[i].text += username + " - " + score;
-					entries[i].SetName(username);
-					entries[i].SetScore(score);
-				}
+				UIEntries[i].SetUsernameText(username);
+				UIEntries[i].SetRankText(rank);
+				UIEntries[i].SetScoreText(score);
 			}
-		}
-
-
-		/// <summary>
-		/// Coverts the raw data from the website to a Highscore list.
-		/// </summary>
-		private Highscore[] ToHighscoreList(string textStream)
-		{
-			string[] entries = textStream.Split(new char[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
-
-			highscoresList = new Highscore[entries.Length];
-
-			for (int i = 0; i < entries.Length; i++)
-			{
-				string[] entryInfo = entries[i].Split(new char[] { '|' });
-
-				string username = entryInfo[0].Replace('+', ' ');
-				username = username.Substring(14, (username.Length - 14)); // Dont want the date included in the username, so substring itself to show only the username
-
-				int score = int.Parse(entryInfo[1]);
-
-				highscoresList[i] = new Highscore(username, score);
-
-				//print(highscoresList[i].username + ": " + highscoresList[i].score + " Date: "+date);
-			}
-
-			return highscoresList;
 		}
 
 
@@ -219,11 +186,11 @@ namespace Manager
 		/// </summary>
 		private void InitialiseLeaderboard()
 		{
-			for (int i = 0; i < entries.Length; i++)
+			for (int i = 0; i < UIEntries.Length; i++)
 			{
-				entries[i].SetName("Fetching");
-				entries[i].SetScore(0);
-				entries[i].SetRank(i + 1 + ".");
+				UIEntries[i].SetUsernameText("Fetching");
+				UIEntries[i].SetScoreText(0);
+				UIEntries[i].SetRankText(i + 1 + ".");
 			}
 		}
 
@@ -233,27 +200,12 @@ namespace Manager
 		/// </summary>
 		private void ClearLeaderboard()
 		{
-			for (int i = 0; i < entries.Length; i++)
+			for (int i = 0; i < UIEntries.Length; i++)
 			{
-				entries[i].SetName("");
-				entries[i].SetScore(0);
-				entries[i].SetRank(i + 1 + ".");
+				UIEntries[i].SetUsernameText("");
+				UIEntries[i].SetScoreText(0);
+				UIEntries[i].SetRankText(i + 1 + ".");
 			}
 		}
 	}
-
-	/// <summary>
-	/// Data class for keeping track of downloaded highscores.
-	/// </summary>
-	public struct Highscore
-	{
-		public string username;
-		public int score;
-
-		public Highscore(string username, int score)
-		{
-			this.username = username;
-			this.score = score;
-		}
-	}	
 }
