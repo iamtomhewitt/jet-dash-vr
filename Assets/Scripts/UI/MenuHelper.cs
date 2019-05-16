@@ -15,7 +15,6 @@ namespace UI
         public Slider sensitivitySlider;
         public Text VRCountdownText;
         public GameObject mainMenu;
-		public GameObject shipModel;
 
         private string gameSceneName;
 
@@ -67,7 +66,6 @@ namespace UI
 			Screen.orientation = ScreenOrientation.LandscapeLeft;
 
             mainMenu.SetActive(false);
-			shipModel.SetActive(false);
 
             int countdown = 10;
 
