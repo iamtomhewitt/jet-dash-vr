@@ -21,20 +21,24 @@ namespace Player
         public 	GameObject VRCamera;
         private GameObject cameraUsed;
 
-        private HUD hud;
-
         private float sensitivity;
 
         public KeyCode left;
         public KeyCode right;
 
+		public static PlayerControl instance;
+
         [Space()]
         public ModelSettings modelSettings;
 
-        private void Start()
+		private void Awake()
+		{
+			instance = this;
+		}
+
+		private void Start()
         {
-            hud = GetComponent<HUD>();
-            hud.speedText.text = speed.ToString();
+            HUD.instance.speedText.text = speed.ToString();
 
             modelSettings.SelectRandomShip();
             modelSettings.originalRotation = modelSettings.model.rotation;
@@ -60,7 +64,7 @@ namespace Player
             modelSettings.RotateBasedOnMobileInput(modelSettings.model, modelRotationLimit);
             modelSettings.RotateBasedOnMobileInput(cameraUsed.transform, cameraRotationLimit);
 
-            hud.SetDistanceText(transform.position.z);
+            HUD.instance.SetDistanceText(transform.position.z);
 
             KeyboardControl();
         }
@@ -81,7 +85,7 @@ namespace Player
             if (speed < 200)
             {
                 speed += speedIncrease;
-                hud.speedText.text = speed.ToString();
+                HUD.instance.speedText.text = speed.ToString();
 
                 float p = (speed / 1000f) + 1f;
                 AudioManager.instance.GetSound("Ship Hum").pitch = p;                
@@ -93,7 +97,7 @@ namespace Player
 		{
 			if (speed % 50 == 0)
 			{
-				hud.ShowNotification(Color.white, speed + " Speed Streak!");
+				HUD.instance.ShowNotification(Color.white, speed + " Speed Streak!");
 				AudioManager.instance.Play("Speed Streak");
 			}
 		}
