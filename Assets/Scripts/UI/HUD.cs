@@ -17,10 +17,17 @@ namespace UI
 
         public Image invincibilityBar;
 
+		public static HUD instance;
+
+		private void Awake()
+		{
+			instance = this;
+		}
+
 		/// <summary>
 		/// Formats the distance text, F0 puts a 0 in front of single digits.
 		/// </summary>
-        public void SetDistanceText(float distance)
+		public void SetDistanceText(float distance)
         {
             distanceText.text = distance.ToString("F0");
         }

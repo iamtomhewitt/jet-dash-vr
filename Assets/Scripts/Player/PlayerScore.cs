@@ -2,15 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UI;
+using Utilities;
 
 namespace Player
 {
     public class PlayerScore : MonoBehaviour
     {
         private int bonusScore = 0;
+
+		public static PlayerScore instance;
         private HUD hud;
 
-        void Start()
+		private void Awake()
+		{
+			instance = this;	
+		}
+
+		void Start()
         {
             hud = GetComponent<HUD>();
         }
@@ -52,5 +60,23 @@ namespace Player
         {
             return GetBonusScore() + GetDistanceScore() + GetSpeed();
         }
-    }
+
+		/// <summary>
+		/// Saves the players score to the PlayerPrefs.
+		/// </summary>
+		public void SaveHighscore()
+		{
+			int currentHighscore = PlayerPrefs.GetInt(GameSettings.playerPrefsKey);
+			int score = PlayerScore.instance.GetFinalScore();
+
+			if (score > currentHighscore)
+			{
+				print("New highscore of " + score + "! Saving...");
+				PlayerPrefs.SetInt(GameSettings.playerPrefsKey, score);
+
+				// Player has got a new highscore, which obvs hasnt been uploaded yet
+				PlayerPrefs.SetInt(GameSettings.uploadedKey, 0);
+			}
+		}
+	}
 }
