@@ -21,9 +21,9 @@ namespace Player
 		void Start()
         {
             hud = GetComponent<HUD>();
-        }
+		}
 
-        void Update()
+		void Update()
         {
             hud.SetScoreText(bonusScore);
         }
@@ -66,16 +66,31 @@ namespace Player
 		/// </summary>
 		public void SaveHighscore()
 		{
-			int currentHighscore = PlayerPrefs.GetInt(GameSettings.playerPrefsKey);
+			int currentHighscore = PlayerPrefs.GetInt(GameSettings.highscoreKey);
 			int score = PlayerScore.instance.GetFinalScore();
 
 			if (score > currentHighscore)
 			{
-				print("New highscore of " + score + "! Saving...");
-				PlayerPrefs.SetInt(GameSettings.playerPrefsKey, score);
+				print("New highscore of " + score + "! Previous was " + currentHighscore + ".");
+				PlayerPrefs.SetInt(GameSettings.highscoreKey, score);
 
 				// Player has got a new highscore, which obvs hasnt been uploaded yet
 				PlayerPrefs.SetInt(GameSettings.uploadedKey, 0);
+			}
+		}
+
+		/// <summary>
+		/// Saves the players distance to the PlayerPrefs.
+		/// </summary>
+		public void SaveDistanceHighscore()
+		{
+			int currentDistance = PlayerPrefs.GetInt(GameSettings.distanceKey);
+			int distance = PlayerScore.instance.GetDistanceScore();
+
+			if (distance > currentDistance)
+			{
+				print("New distance of " + distance + "! Previous was " + currentDistance + ".");
+				PlayerPrefs.SetInt(GameSettings.distanceKey, distance);
 			}
 		}
 	}

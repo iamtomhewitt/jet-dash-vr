@@ -56,7 +56,7 @@ namespace Manager
 			if (score > currentHighscore)
 			{
 				print("New highscore of " + score + "! Saving...");
-				PlayerPrefs.SetInt(GameSettings.playerPrefsKey, score);
+				PlayerPrefs.SetInt(GameSettings.highscoreKey, score);
 
 				// Player has got a new highscore, which obvs hasnt been uploaded yet
 				PlayerPrefs.SetInt(GameSettings.uploadedKey, 0);
@@ -69,7 +69,7 @@ namespace Manager
 		/// </summary>
 		private int LoadLocalHighscore()
 		{
-			return PlayerPrefs.GetInt(GameSettings.playerPrefsKey);
+			return PlayerPrefs.GetInt(GameSettings.highscoreKey);
 		}
 
 
