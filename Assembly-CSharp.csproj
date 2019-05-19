@@ -69,6 +69,7 @@
     <Compile Include="Assets\ProCore\ProGrids\MonoBehaviour\pg_IgnoreSnap.cs" />
     <Compile Include="Assets\Scripts\Highscore\HighscoreEntry.cs" />
     <Compile Include="Assets\Scripts\Highscore\HighscoreManager.cs" />
+    <Compile Include="Assets\Scripts\Highscore\HighscoreMarker.cs" />
     <Compile Include="Assets\Scripts\Highscore\JSONHelper.cs" />
     <Compile Include="Assets\Scripts\Highscore\Leaderboard.cs" />
     <Compile Include="Assets\Scripts\Managers\AdvertManager.cs" />

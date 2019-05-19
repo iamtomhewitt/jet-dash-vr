@@ -35,6 +35,7 @@ namespace Player
 
 					// Have to do this manually as having an instance of HighscoreManager causes problems with the way scores are displayed on the highscore scene
 					PlayerScore.instance.SaveHighscore();
+					PlayerScore.instance.SaveDistanceHighscore();
 
 					PlayerControl.instance.StopMoving();
                     playerModel.SetActive(false);
