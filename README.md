@@ -83,8 +83,8 @@ Documentation above a method or a class:
 
 ```c#
 /// <summary>
-/// Randomly selects a GhostPath to use as the waypoint path from the paths in the scene.
-/// Selects a path that is currently not being used by another ghost.
+/// Activates the shield for a specific amount of time,
+/// then turns it off.
 /// </summary>
 ```
 
@@ -188,7 +188,7 @@ bool isLessThanTen = (number < 10) ? true : false;
 
 // Instead of
 
-int number = 10;
+int number = 5;
 bool isLessThanTen;
 if (number < 10)
 {
