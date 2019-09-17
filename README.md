@@ -141,12 +141,12 @@ private int SOME_VARIABLE = 5;
 Written in the ```lowerCamelCase``` form. Variables should be self describing. They should be prefixed with ```public``` or ```private```, and ordered in the following way in a class: ``` public <Type>, public <primative>, private <Type>, private <primative>```. For example:
 
 ```c#
-public GameObject readyText;
-public int numberOfFood;
-public bool canStartGame;
+public GameObject notificationText;
+public int distance;
+public bool dead;
 
-private Ghost[] ghosts;
-private bool spawnedCherry;
+private Obstacle[] obstacles;
+private bool collectedPowerup;
 ```
 
 Do not use public variables unless absolutely necessary. Variables should be private with a public ```Get()``` and ```Set()``` method.
