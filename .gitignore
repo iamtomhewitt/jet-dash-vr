@@ -1,4 +1,7 @@
 Google Play Store/
+Builds/
+Logs/
+*.sln
 
 # =============== #
 # Unity generated #
@@ -31,6 +34,6 @@ obj/
 .Trashes
 ehthumbs.db
 Thumbs.db
-/.vs/jet-dash-vr/v15/Server/
-/Library/
-/Builds/
+/.vs
+
+

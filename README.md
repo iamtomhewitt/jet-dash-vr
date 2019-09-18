@@ -17,18 +17,32 @@ This project is my Unity3D game on Google Play. It is an endless runner style ga
 
 Versioning works as follows - <b>MAJOR.MINOR.PATCH</b> <i>(e.g 2.1.4)</i>
 
-<b>MAJOR</b> is incremented when a new feature has been introduced - such as the highscore marker visible in game
+* <b>MAJOR</b> is incremented when a new feature has been introduced - such as the highscore marker visible in game
 
-<b>MINOR</b> is incremented when there is no no feature but there has a been a change that the player would see - such as different obstacle shapes and colours
+* <b>MINOR</b> is incremented when there is a visual change that the player would see - such as different obstacle shapes and colours
 
-<b>PATCH</b> is incremented when there has been only a code change - such as a bug fix
+* <b>PATCH</b> is incremented when there has been only a code change - such as a bug fix
 
 Depending on an increment it may rollover, for example:
-
-<i>2.1.4 -> 2.2.0</i> if there was a <b>MINOR</b> change, it would not go to <i>2.2.4</i>
-
-<i>2.1.4 -> 2.1.5 -> 3.0.0</i> if there was a <b>PATCH</b> then a <b>MAJOR</b> change, it would not be <i>3.1.5</i>
-
+```c#
+0.0.0 // New project
+0.1.0 // Visual change
+0.2.0 // Visual change
+0.2.1 // Fix bug
+0.3.0 // Visual change
+0.3.1 // Fix bug
+0.3.2 // Fix bug
+0.3.3 // Fix bug
+0.3.4 // Fix bug
+0.4.0 // Visual change
+0.4.1 // Fix bug
+0.4.2 // Fix bug
+1.0.0 // New feature
+1.1.0 // Visual change
+1.2.0 // Visual change
+1.2.1 // Fix bug
+2.0.0 // New feature
+```
 ## Fixing Problems
 
 Issues are currently tracked under the [Issues](https://github.com/iamtomhewitt/jet-dash-vr/issues) tab.  
