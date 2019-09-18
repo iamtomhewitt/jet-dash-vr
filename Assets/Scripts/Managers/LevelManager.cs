@@ -1,36 +1,30 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Manager
 {
+	/// <summary>
+	/// A class to help with scene management.
+	/// </summary>
     public class LevelManager : MonoBehaviour
     {
-        private AdvertManager advertManager;
-
-        void Start()
+        public void ReloadCurrentScene()
         {
-            advertManager = GameObject.FindObjectOfType<AdvertManager>();
+            StartCoroutine(ReloadCurrentSceneRoutine());
         }
 
-        public void ReloadScene()
-        {
-            StartCoroutine(Reload());
-        }
-
-        IEnumerator Reload()
+        private IEnumerator ReloadCurrentSceneRoutine()
         {
             yield return new WaitForSeconds(4f);
 
-            advertManager.advertCounter++;
+			AdvertManager.instance.IncreaseAdvertCounter();
 
-            if (advertManager.advertCounter >= 4)
+            if (AdvertManager.instance.CanShowAdvert())
             {
-                advertManager.ShowAdvert();
-                advertManager.advertCounter = 0;
+				AdvertManager.instance.ShowAdvert();
+				AdvertManager.instance.ResetAdvertCounter();
             }
-
 
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
@@ -39,20 +33,5 @@ namespace Manager
         {
             SceneManager.LoadScene(sceneName);
         }
-
-        public void StopSound(string soundName)
-        {
-            AudioManager.instance.Pause(soundName);
-        }
-
-		public void MakePortrait()
-		{
-			Screen.orientation = ScreenOrientation.Portrait;
-		}
-
-		public void MakeLandscape()
-		{
-			Screen.orientation = ScreenOrientation.LandscapeLeft;
-		}
     }
 }

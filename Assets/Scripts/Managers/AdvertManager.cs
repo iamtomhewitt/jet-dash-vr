@@ -1,15 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Advertisements;
+using System.Collections;
+using Utility;
 
 namespace Manager
 {
 	public class AdvertManager : MonoBehaviour
 	{
-		public int advertCounter = 0;
-		private string gameID = "1606552";
-		private static AdvertManager instance;
+		private int advertCounter = 0;
+
+		public static AdvertManager instance;
 
 		private void Awake()
 		{
@@ -24,23 +24,22 @@ namespace Manager
 			}
 		}
 
-
 		private void Start()
 		{
-			Advertisement.Initialize(gameID, true);
+			Advertisement.Initialize(Constants.GAME_ID, true);
 		}
-
 
 		public void ShowAdvert()
 		{
 			StartCoroutine(ShowAdvertWhenReady());
 		}
 
-
 		private IEnumerator ShowAdvertWhenReady()
 		{
 			while (!Advertisement.IsReady())
+			{
 				yield return null;
+			}
 
 			Advertisement.Show();
 
@@ -49,7 +48,6 @@ namespace Manager
 			#endif
 		}
 
-
 		private IEnumerator WaitForAd()
 		{
 			float currentTimeScale = Time.timeScale;
@@ -57,9 +55,31 @@ namespace Manager
 			yield return null;
 
 			while (Advertisement.isShowing)
+			{
 				yield return null;
+			}
 
 			Time.timeScale = currentTimeScale;
+		}
+
+		public void IncreaseAdvertCounter()
+		{
+			advertCounter++;
+		}
+
+		public void ResetAdvertCounter()
+		{
+			advertCounter = 0;
+		}
+
+		public int GetAdvertCounter()
+		{
+			return advertCounter;
+		}
+
+		public bool CanShowAdvert()
+		{
+			return advertCounter >= 4;
 		}
 	}
 }

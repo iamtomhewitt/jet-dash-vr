@@ -7,7 +7,7 @@ namespace Manager
 {
 	public class AudioManager : MonoBehaviour
 	{
-		public Sound[] sounds;
+		[SerializeField] private Sound[] sounds;
 
 		public static AudioManager instance;
 
@@ -45,14 +45,19 @@ namespace Manager
 			Sound s = GetSound(name);
 
 			if (s != null)
+			{
 				s.source.Play();
+			}
 		}
 
 		public void Pause(string name)
 		{
 			Sound s = GetSound(name);
 
-			if (s != null) s.source.Pause();
+			if (s != null)
+			{
+				s.source.Pause();
+			}
 		}
 		
 		/// <summary>

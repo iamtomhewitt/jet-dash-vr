@@ -1,12 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
-using UI;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using Utilities;
-using System.Linq;
+using Highscore;
 
 namespace Manager
 {
@@ -15,12 +12,27 @@ namespace Manager
 	/// </summary>
 	public class HighscoreManager : MonoBehaviour
 	{
-		public Text localHighscoreText;
-		public Text statusText;
-		public InputField usernameInputField;
+		[SerializeField] private Text localHighscoreText;
+		[SerializeField] private Text statusText;
+		[SerializeField] private InputField usernameInputField;
+		[SerializeField] private HighscoreEntry[] UIEntries;
 
-		public HighscoreEntry[] UIEntries;
-		public Leaderboard leaderboard;
+		private Leaderboard leaderboard;
+
+		public static HighscoreManager instance;
+
+		private void Awake()
+		{
+			if (instance)
+			{
+				DestroyImmediate(gameObject);
+			}
+			else
+			{
+				DontDestroyOnLoad(gameObject);
+				instance = this;
+			}
+		}
 
 		private void Start()
 		{
@@ -29,22 +41,20 @@ namespace Manager
 
 			InitialiseLeaderboard();
 
-			InvokeRepeating("Refresh", 0f, 15f);
+			InvokeRepeating("RefreshHighscores", 0f, 15f);
 
 			// Debug, resets score
 			//PlayerPrefs.SetInt(GameSettings.uploadedKey, 0);
 			//PlayerPrefs.SetInt(GameSettings.playerPrefsKey, 1);
 		}
 
-
 		/// <summary>
 		/// Convience method to periodically download and refresh the highscores.
 		/// </summary>
-		private void Refresh()
+		private void RefreshHighscores()
 		{
 			StartCoroutine(DisplayHighScores());
 		}
-
 
 		/// <summary>
 		/// Saves the current local highscore.
@@ -63,7 +73,6 @@ namespace Manager
 			}
 		}
 
-
 		/// <summary>
 		/// Loads the local highscore using PlayerPrefs.
 		/// </summary>
@@ -71,7 +80,6 @@ namespace Manager
 		{
 			return PlayerPrefs.GetInt(GameSettings.highscoreKey);
 		}
-
 
 		/// <summary>
 		/// Downloads the highscores from the website, and formats it.
@@ -96,7 +104,6 @@ namespace Manager
 			}
 		}
 
-
 		/// <summary>
 		/// Starts the UploadHighscore Coroutine. This method is used on a Unity Button.
 		/// </summary>
@@ -104,7 +111,6 @@ namespace Manager
 		{
 			StartCoroutine(UploadHighscore());
 		}
-
 
 		/// <summary>
 		/// Uploads a new score onto the website, based on the correct conditions.
@@ -158,7 +164,6 @@ namespace Manager
 			}
 		}
 
-
 		/// <summary>
 		/// Updates the UI to show the downloaded scores.
 		/// </summary>
@@ -180,7 +185,6 @@ namespace Manager
 			}
 		}
 
-
 		/// <summary>
 		/// Populates the leaderboard with some placeholders.
 		/// </summary>
@@ -193,7 +197,6 @@ namespace Manager
 				UIEntries[i].SetRankText(i + 1 + ".");
 			}
 		}
-
 
 		/// <summary>
 		/// Sets everything in the leadboard to a nothing value.

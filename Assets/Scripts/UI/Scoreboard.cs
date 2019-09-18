@@ -38,7 +38,7 @@ namespace UI
         }
 
 
-        IEnumerator Animate(int score, Text text, bool isFinalScore)
+        private IEnumerator Animate(int score, Text text, bool isFinalScore)
         {
             int displayScore = 0;
             int start = displayScore;
@@ -56,10 +56,12 @@ namespace UI
             text.text = displayScore.ToString();
             AudioManager.instance.Pause("Score");
 
-            // Final score will take the longest to animate, to only reload the scene when animating final score,
-            // that way nothing gets cut off
-            if (isFinalScore)
-                GameObject.FindObjectOfType<LevelManager>().ReloadScene();
+			// Final score will take the longest to animate, to only reload the scene when animating final score,
+			// that way nothing gets cut off
+			if (isFinalScore)
+			{
+				FindObjectOfType<LevelManager>().ReloadCurrentScene();
+			}
         }
 
 
