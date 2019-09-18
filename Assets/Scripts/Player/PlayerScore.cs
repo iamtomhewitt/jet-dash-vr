@@ -11,7 +11,7 @@ namespace Player
         private int bonusScore = 0;
 
 		public static PlayerScore instance;
-        private HUD hud;
+        private PlayerHud hud;
 
 		private void Awake()
 		{
@@ -20,7 +20,7 @@ namespace Player
 
 		void Start()
         {
-            hud = GetComponent<HUD>();
+            hud = GetComponent<PlayerHud>();
 		}
 
 		void Update()
@@ -51,14 +51,9 @@ namespace Player
             return (int)transform.position.z;
         }
 
-        public int GetSpeed()
-        {
-            return (int)GetComponent<PlayerControl>().speed;
-        }
-
         public int GetFinalScore()
         {
-            return GetBonusScore() + GetDistanceScore() + GetSpeed();
+            return GetBonusScore() + GetDistanceScore() + PlayerControl.instance.GetSpeed();
         }
 
 		/// <summary>

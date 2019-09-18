@@ -9,34 +9,37 @@ namespace UI
 {
     public class Scoreboard : MonoBehaviour
     {
-        public Text distanceScoreText;
-        public Text bonusScoreText;
-        public Text topSpeed;
-        public Text finalScore;
+        [SerializeField] private Text distanceScoreText;
+		[SerializeField] private Text bonusScoreText;
+		[SerializeField] private Text topSpeed;
+		[SerializeField] private Text finalScore;
 
-        public void AnimateBonusScore(int score)
+		public static Scoreboard instance;
+
+		private void Awake()
+		{
+			instance = this;
+		}
+
+		public void AnimateBonusScore(int score)
         {
             StartCoroutine(Animate(score, bonusScoreText, false));
         }
-
 
         public void AnimateDistanceScore(int score)
         {
             StartCoroutine(Animate(score, distanceScoreText, false));
         }
 
-
         public void AnimateTopSpeed(int score)
         {
             StartCoroutine(Animate(score, topSpeed, false));
         }
 
-
         public void AnimateFinalScore(int score)
         {
             StartCoroutine(Animate(score, finalScore, true));
         }
-
 
         private IEnumerator Animate(int score, Text text, bool isFinalScore)
         {
@@ -64,14 +67,12 @@ namespace UI
 			}
         }
 
-
         public void Show()
         {
-            StartCoroutine(Fade());
+            StartCoroutine(ShowAndFadeOut());
         }
 
-
-        IEnumerator Fade()
+        private IEnumerator ShowAndFadeOut()
         {
             CanvasGroup cg = GetComponent<CanvasGroup>();
             cg.alpha = 0f;

@@ -78,14 +78,13 @@
     <Compile Include="Assets\Scripts\Managers\ScreenManager.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerCollision.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerControl.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerPowerupManager.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerScore.cs" />
     <Compile Include="Assets\Scripts\Spawners\Obstacle.cs" />
     <Compile Include="Assets\Scripts\Spawners\ObstacleSpawner.cs" />
     <Compile Include="Assets\Scripts\Spawners\Powerup.cs" />
     <Compile Include="Assets\Scripts\Spawners\PowerupSpawner.cs" />
-    <Compile Include="Assets\Scripts\UI\HUD.cs" />
     <Compile Include="Assets\Scripts\UI\MenuHelper.cs" />
+    <Compile Include="Assets\Scripts\UI\PlayerHud.cs" />
     <Compile Include="Assets\Scripts\UI\Scoreboard.cs" />
     <Compile Include="Assets\Scripts\Utility\Constants.cs" />
     <Compile Include="Assets\Scripts\Utility\FadeHelper.cs" />

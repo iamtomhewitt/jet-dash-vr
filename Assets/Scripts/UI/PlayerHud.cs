@@ -8,7 +8,7 @@ namespace UI
 	/// <summary>
 	/// The HUD for the player.
 	/// </summary>
-    public class HUD : MonoBehaviour
+    public class PlayerHud : MonoBehaviour
     {
         public Text speedText;
         public Text distanceText;
@@ -17,7 +17,7 @@ namespace UI
 
         public Image invincibilityBar;
 
-		public static HUD instance;
+		public static PlayerHud instance;
 
 		private void Awake()
 		{

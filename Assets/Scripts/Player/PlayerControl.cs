@@ -1,30 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using UI;
 using Utilities;
 using Manager;
 
 namespace Player
 {
-    public class PlayerControl : MonoBehaviour
+	public class PlayerControl : MonoBehaviour
     {
-        public float speed;
-        public float speedIncrease;
-        public float speedIncreaseRepeatRate;
-        public float turningSpeed;
-        public float modelRotationLimit;
-        public float cameraRotationLimit;
+		[SerializeField] private GameObject normalCamera;
+		[SerializeField] private GameObject VRCamera;
 
-        public 	GameObject normalCamera;
-        public 	GameObject VRCamera;
-        private GameObject cameraUsed;
+		[SerializeField] private KeyCode left;
+		[SerializeField] private KeyCode right;
+
+		[SerializeField] private float speed;
+		[SerializeField] private float speedIncrease;
+		[SerializeField] private float speedIncreaseRepeatRate;
+		[SerializeField] private float turningSpeed;
+		[SerializeField] private float modelRotationLimit;
+		[SerializeField] private float cameraRotationLimit;
+		
+		private GameObject cameraToUse;
 
         private float sensitivity;
-
-        public KeyCode left;
-        public KeyCode right;
 
 		public static PlayerControl instance;
 
@@ -38,7 +36,7 @@ namespace Player
 
 		private void Start()
         {
-            HUD.instance.speedText.text = speed.ToString();
+            PlayerHud.instance.speedText.text = speed.ToString();
 
             modelSettings.SelectRandomShip();
             modelSettings.originalRotation = modelSettings.model.rotation;
@@ -48,11 +46,10 @@ namespace Player
 
 			DetermineGameSettings();
 
-            AudioManager.instance.Play("Ship Hum");
-            AudioManager.instance.Play("Starting Bass");
+            AudioManager.instance.Play(SoundNames.SHIP_ENGINE);
+            AudioManager.instance.Play(SoundNames.SHIP_STARTUP);
         }
-
-
+		
         private void Update()
         {
             // Move forward
@@ -62,46 +59,51 @@ namespace Player
             transform.position += transform.right * Time.deltaTime * turningSpeed * sensitivity * Input.acceleration.x;
 		
             modelSettings.RotateBasedOnMobileInput(modelSettings.model, modelRotationLimit);
-            modelSettings.RotateBasedOnMobileInput(cameraUsed.transform, cameraRotationLimit);
+            modelSettings.RotateBasedOnMobileInput(cameraToUse.transform, cameraRotationLimit);
 
-            HUD.instance.SetDistanceText(transform.position.z);
+            PlayerHud.instance.SetDistanceText(transform.position.z);
 
             KeyboardControl();
         }
 
-
         private void KeyboardControl()
         {
-            if (Input.GetKey(left))
-                transform.position += transform.right * Time.deltaTime * sensitivity * -turningSpeed;
+			if (Input.GetKey(left))
+			{
+				transform.position += transform.right * Time.deltaTime * sensitivity * -turningSpeed;
+			}
 
-            else if (Input.GetKey(right))
-                transform.position += transform.right * Time.deltaTime * sensitivity * turningSpeed;
+			else if (Input.GetKey(right))
+			{
+				transform.position += transform.right * Time.deltaTime * sensitivity * turningSpeed;
+			}
         }
 
+		public int GetSpeed()
+		{
+			return (int)speed;
+		}
 
         private void IncreaseSpeed()
         {
             if (speed < 200)
             {
                 speed += speedIncrease;
-                HUD.instance.speedText.text = speed.ToString();
+                PlayerHud.instance.speedText.text = speed.ToString();
 
                 float p = (speed / 1000f) + 1f;
-                AudioManager.instance.GetSound("Ship Hum").pitch = p;                
+                AudioManager.instance.GetSound(SoundNames.SHIP_ENGINE).pitch = p;                
             }
         }
-
 
 		private void CheckSpeedStreak()
 		{
 			if (speed % 50 == 0)
 			{
-				HUD.instance.ShowNotification(Color.white, speed + " Speed Streak!");
-				AudioManager.instance.Play("Speed Streak");
+				PlayerHud.instance.ShowNotification(Color.white, speed + " Speed Streak!");
+				AudioManager.instance.Play(SoundNames.SPEED_STREAK);
 			}
 		}
-
 
         public void StopMoving()
         {
@@ -110,14 +112,12 @@ namespace Player
             CancelInvoke("IncreaseSpeed");
         }
 
-
         public void StartMoving()
         {
             speed = 20f;
             turningSpeed = 20f;
             InvokeRepeating("IncreaseSpeed", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
         }
-
 
 		/// <summary>
 		/// Sets up the cameras and the sensitivity based upon what was selected in the main menu.
@@ -130,21 +130,21 @@ namespace Player
             {
                 normalCamera.SetActive(true);
                 VRCamera.SetActive(false);
-                cameraUsed = normalCamera;
+                cameraToUse = normalCamera;
                 sensitivity = 1f;
             }
             else if (gs.isVRMode)
             {
                 normalCamera.SetActive(false);
                 VRCamera.SetActive(true);
-                cameraUsed = VRCamera;
+                cameraToUse = VRCamera;
                 sensitivity = gs.sensitivity;
             }
             else
             {
                 normalCamera.SetActive(true);
                 VRCamera.SetActive(false);
-                cameraUsed = normalCamera;
+                cameraToUse = normalCamera;
                 sensitivity = gs.sensitivity;
             }
         }

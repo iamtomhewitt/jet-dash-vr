@@ -6,8 +6,9 @@ namespace Spawner
 {
     public class Powerup : MonoBehaviour
     {
-        public PowerupType powerupType;
-        public Color32 color;
+        [SerializeField] private PowerupType powerupType;
+		[SerializeField] private Color32 colour;
+
         private Transform player;
 
 		private void Start()
@@ -42,6 +43,16 @@ namespace Spawner
             float z = Random.Range(600f, 2000f);
             this.transform.position = new Vector3(player.transform.position.x + x, this.transform.position.y, player.transform.position.z + z);
         }
+
+		public PowerupType GetPowerupType()
+		{
+			return powerupType;
+		}
+
+		public Color32 GetColour()
+		{
+			return colour;
+		}
     }
 
     public enum PowerupType

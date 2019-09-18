@@ -111,4 +111,12 @@ namespace Manager
 			public AudioSource source;
 		}
 	}
+
+	public class SoundNames
+	{
+		public const string PLAYER_DEATH = "Player Death";
+		public const string SHIP_ENGINE = "Ship Hum";
+		public const string SHIP_STARTUP = "Starting Bass";
+		public const string SPEED_STREAK = "Speed Streak";
+	}
 }
