@@ -7,27 +7,12 @@ namespace Manager
 	/// </summary>
 	public class ScreenManager : MonoBehaviour
 	{
-		public static ScreenManager instance;
-
-		private void Awake()
-		{
-			if (instance)
-			{
-				DestroyImmediate(gameObject);
-			}
-			else
-			{
-				DontDestroyOnLoad(gameObject);
-				instance = this;
-			}
-		}
-
-		public void MakePortrait()
+		public static void MakePortrait()
 		{
 			Screen.orientation = ScreenOrientation.Portrait;
 		}
 
-		public void MakeLandscape()
+		public static void MakeLandscape()
 		{
 			Screen.orientation = ScreenOrientation.LandscapeLeft;
 		}

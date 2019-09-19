@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Spawner
 {
+	//TODO abstract out into Spawner Interface
     public class ObstacleSpawner : MonoBehaviour
     {
         public GameObject[] obstacles;

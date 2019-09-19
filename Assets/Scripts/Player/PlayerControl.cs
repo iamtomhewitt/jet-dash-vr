@@ -131,19 +131,19 @@ namespace Player
                 cameraToUse = normalCamera;
                 sensitivity = 1f;
             }
-            else if (gs.isVRMode)
+            else if (gs.vrMode())
             {
                 normalCamera.SetActive(false);
                 VRCamera.SetActive(true);
                 cameraToUse = VRCamera;
-                sensitivity = gs.sensitivity;
+                sensitivity = gs.GetSensitivity();
             }
             else
             {
                 normalCamera.SetActive(true);
                 VRCamera.SetActive(false);
                 cameraToUse = normalCamera;
-                sensitivity = gs.sensitivity;
+                sensitivity = gs.GetSensitivity();
             }
         }
     }

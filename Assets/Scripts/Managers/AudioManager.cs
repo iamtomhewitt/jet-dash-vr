@@ -118,5 +118,6 @@ namespace Manager
 		public const string SHIP_ENGINE = "Ship Hum";
 		public const string SHIP_STARTUP = "Starting Bass";
 		public const string SPEED_STREAK = "Speed Streak";
+		public const string BUTTON_SELECT = "UI Select";
 	}
 }

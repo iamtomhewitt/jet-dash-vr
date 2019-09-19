@@ -6,11 +6,12 @@ namespace Utilities
 {
     public class GameSettings : MonoBehaviour
     {
-        public bool isVRMode;
-        public float sensitivity;
+        private bool isVrMode;
+        private float sensitivity;
 
         public static GameSettings instance;
 
+		// TODO move to constants
 		public const string highscoreKey = "LocalHighscore";
 		public const string distanceKey = "DistanceHighscore";
 		public const string uploadedKey = "hasUploadedHighscore";
@@ -18,7 +19,7 @@ namespace Utilities
 		public const string publicCode = "5ac7c821d6024519e07786bd";
 		public const string url = "http://dreamlo.com/lb/";
 
-		void Awake()
+		private void Awake()
         {
             if (instance)
             {
@@ -31,9 +32,29 @@ namespace Utilities
             }
         }
 
-        void Start()
+        private void Start()
         {
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
         }
+
+		public bool vrMode()
+		{
+			return isVrMode;
+		}
+
+		public void SetVrMode(bool vrMode)
+		{
+			isVrMode = vrMode;
+		}
+
+		public float GetSensitivity()
+		{
+			return sensitivity;
+		}
+
+		public void SetSensitivity(float s)
+		{
+			sensitivity = s;
+		}
     }
 }

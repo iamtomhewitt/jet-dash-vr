@@ -63,7 +63,7 @@ namespace Player
 			// that way nothing gets cut off
 			if (isFinalScore)
 			{
-				FindObjectOfType<LevelManager>().ReloadCurrentScene();
+				FindObjectOfType<GameLevelManager>().RestartLevel();
 			}
         }
 
