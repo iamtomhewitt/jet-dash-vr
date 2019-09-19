@@ -1,25 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Utility;
 
 namespace Spawner
 {
-	//TODO abstract out into Spawner Interface
-    public class ObstacleSpawner : MonoBehaviour
+	/// <summary>
+	/// This GameObject has a large wall like collider attached to it. Think of it like a giant broomstick.
+	/// When an obstacle hits the collider, it is repositioned. This means we are not continuously Destroying and Instantiating objects,
+	/// we are reusing ones we have, saving on computing power on a mobile.
+	/// </summary>
+	public class ObstacleSpawner : MonoBehaviour
     {
-        public GameObject[] obstacles;
-        public int totalObstacles;
-        public ObstacleSize obstacleSize;
-		public Material[] colours;
+        [SerializeField] private GameObject[] obstacles;
+		[SerializeField] private ObstacleSize obstacleSize;
+		[SerializeField] private Material[] colours;
 
-        [Space()]
-        public Boundary boundary;
-        public Boundary initialBoundary;
+		[SerializeField] private int totalObstacles;
+
+		[Space()]
+		[SerializeField] private SpawnBoundary boundary;
+		[SerializeField] private SpawnBoundary initialBoundary;
+
+		private const string OBSTACLE_PARENT = "Obstacles";
+		private const float SPAWN_REDUCTION_TIME = 30f;
 
 		private void Start()
         {
             InitialiseObstacles();
-            InvokeRepeating("ReduceSpawnBoundary", 30f, 30f);
+            InvokeRepeating("ReduceSpawnBoundary", SPAWN_REDUCTION_TIME, SPAWN_REDUCTION_TIME);
         }
 
 		/// <summary>
@@ -34,26 +41,17 @@ namespace Spawner
                 float y = (scale / 2) + 0.5f;
 
                 GameObject o = Instantiate(obstacles[Random.Range(0, obstacles.Length)], GenerateObstaclePosition(initialBoundary, y), Quaternion.identity) as GameObject;
-                o.GetComponent<Obstacle>().Grow(1f, scale);
-                o.transform.localScale = new Vector3(scale, scale, scale);
-                o.transform.parent = GameObject.Find("Obstacles").transform;
+                o.GetComponent<Obstacle>().Grow(Constants.OBSTACLE_GROW_SPEED, scale);
 				o.GetComponent<Renderer>().material = colours[Random.Range(0, colours.Length)];
+                o.transform.localScale = new Vector3(scale, scale, scale);
+                o.transform.parent = GameObject.Find(OBSTACLE_PARENT).transform;
             }
         }
 
-
-		private void OnTriggerEnter(Collider other)
-        {
-			// An obstacle has moved past the player, respawn it in front.
-            if (other.tag == "Obstacle")
-            {
-                other.transform.position = GenerateObstaclePosition(boundary, other.transform.position.y);
-                other.GetComponent<Obstacle>().Grow(.5f, (int)other.transform.localScale.x);
-            }
-        }
-
-
-		private Vector3 GenerateObstaclePosition(Boundary b, float y)
+		/// <summary>
+		/// Generates a position for the obstacle. The y value is calculated beforehand to get the height right.
+		/// </summary>
+		private Vector3 GenerateObstaclePosition(SpawnBoundary b, float y)
         {
             float x = Random.Range(b.xMin, b.xMax);
             float z = Random.Range(b.zMin, b.zMax);
@@ -61,26 +59,36 @@ namespace Spawner
             return new Vector3(transform.position.x + x, y, transform.position.z + z);
         }
 
-
         /// <summary>
         /// Reduces the spawn boundary to make the cubes appear tighter, making the game harder.
         /// </summary>
         private void ReduceSpawnBoundary()
         {
-            if (boundary.zMin >= 150)
-                boundary.zMin -= 50;
+			if (boundary.CanShrinkZMin())
+			{
+				boundary.ReduceZMin();
+			}
 
-            if (boundary.zMax >= 400)
-                boundary.zMax -= 50;
-        }
-    }
+			if (boundary.CanShrinkZMax())
+			{
+				boundary.ReduceZMax();
+			}
+		}
 
-    [System.Serializable]
-    public class Boundary
-    {
-        public float xMin, xMax;
-        public float zMin, zMax;
-    }
+		private void OnTriggerEnter(Collider other)
+		{
+			switch (other.gameObject.tag)
+			{
+				case "Obstacle":
+					other.GetComponent<Obstacle>().Relocate();
+					break;
+
+				default:
+					// Nothing to do!
+					break;
+			}
+		}
+	}    
 
     [System.Serializable]
     public class ObstacleSize

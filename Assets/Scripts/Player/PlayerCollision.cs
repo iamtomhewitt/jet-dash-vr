@@ -88,7 +88,7 @@ namespace Player
 							break;
 					}
 
-					powerup.MovePosition();
+					powerup.Relocate();
                     break;
 
 				default:

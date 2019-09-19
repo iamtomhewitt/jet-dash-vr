@@ -1,13 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Player;
 using Manager;
 
 namespace Player
 {
-    public class Scoreboard : MonoBehaviour
+	public class Scoreboard : MonoBehaviour
     {
         [SerializeField] private Text distanceScoreText;
 		[SerializeField] private Text bonusScoreText;
