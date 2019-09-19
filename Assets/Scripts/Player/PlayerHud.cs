@@ -1,21 +1,20 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace Player
 {
 	/// <summary>
 	/// The HUD for the player.
 	/// </summary>
-    public class PlayerHud : MonoBehaviour
+	public class PlayerHud : MonoBehaviour
     {
-        public Text speedText;
-        public Text distanceText;
-        public Text scoreText;
-        public Text powerupNotificationText;
+        [SerializeField] private Text speedText;
+		[SerializeField] private Text distanceText;
+		[SerializeField] private Text scoreText;
+		[SerializeField] private Text powerupNotificationText;
 
-        public Image invincibilityBar;
+		[SerializeField] private Image invincibilityBar;
 
 		public static PlayerHud instance;
 
@@ -32,6 +31,10 @@ namespace UI
             distanceText.text = distance.ToString("F0");
         }
 
+		public void SetSpeedText(string message)
+		{
+			speedText.text = message;
+		}
 
         public void SetScoreText(int score)
         {

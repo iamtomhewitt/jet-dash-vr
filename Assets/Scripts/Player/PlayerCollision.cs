@@ -1,5 +1,5 @@
 using UnityEngine;
-using UI;
+using Player;
 using Spawner;
 using Manager;
 using System.Collections;

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Player;
 using Manager;
 
-namespace UI
+namespace Player
 {
     public class Scoreboard : MonoBehaviour
     {

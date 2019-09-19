@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UI;
 using Utilities;
 using Manager;
 
@@ -21,13 +20,11 @@ namespace Player
 		[SerializeField] private float cameraRotationLimit;
 		
 		private GameObject cameraToUse;
+		private PlayerModelSettings modelSettings;
 
-        private float sensitivity;
+		private float sensitivity;
 
 		public static PlayerControl instance;
-
-        [Space()]
-        public ModelSettings modelSettings;
 
 		private void Awake()
 		{
@@ -36,10 +33,11 @@ namespace Player
 
 		private void Start()
         {
-            PlayerHud.instance.speedText.text = speed.ToString();
+            PlayerHud.instance.SetSpeedText(speed.ToString());
 
+			modelSettings = GetComponent<PlayerModelSettings>();
             modelSettings.SelectRandomShip();
-            modelSettings.originalRotation = modelSettings.model.rotation;
+			modelSettings.SetOriginalRotation();
 
             InvokeRepeating("IncreaseSpeed", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
 			InvokeRepeating("CheckSpeedStreak", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
@@ -58,15 +56,15 @@ namespace Player
             // Move left and right based on accelerometer
             transform.position += transform.right * Time.deltaTime * turningSpeed * sensitivity * Input.acceleration.x;
 		
-            modelSettings.RotateBasedOnMobileInput(modelSettings.model, modelRotationLimit);
+            modelSettings.RotateBasedOnMobileInput(modelSettings.GetModel(), modelRotationLimit);
             modelSettings.RotateBasedOnMobileInput(cameraToUse.transform, cameraRotationLimit);
 
             PlayerHud.instance.SetDistanceText(transform.position.z);
 
-            KeyboardControl();
+            UseKeyboard();
         }
 
-        private void KeyboardControl()
+        private void UseKeyboard()
         {
 			if (Input.GetKey(left))
 			{
@@ -89,7 +87,7 @@ namespace Player
             if (speed < 200)
             {
                 speed += speedIncrease;
-                PlayerHud.instance.speedText.text = speed.ToString();
+                PlayerHud.instance.SetSpeedText(speed.ToString());
 
                 float p = (speed / 1000f) + 1f;
                 AudioManager.instance.GetSound(SoundNames.SHIP_ENGINE).pitch = p;                
@@ -146,49 +144,6 @@ namespace Player
                 VRCamera.SetActive(false);
                 cameraToUse = normalCamera;
                 sensitivity = gs.sensitivity;
-            }
-        }
-
-		/// <summary>
-		/// A data class that holds player model information. It is also responsible for rotating the model based on mobile accelerometer,
-		/// and for selecting a random ship at the start of the game.
-		/// </summary>
-        [System.Serializable]
-        public class ModelSettings
-        {
-            public GameObject[] models;
-            private float z = 0f;
-
-            [HideInInspector]
-            public Quaternion originalRotation;
-            [HideInInspector]
-            public Transform model;
-
-			/// <summary>
-			/// Rotates the ship based on the mobile accelerometer.
-			/// </summary>
-            public void RotateBasedOnMobileInput(Transform t, float limit)
-            {
-                z = Input.acceleration.x * 30f;
-                z = Mathf.Clamp(z, -limit, limit);
-
-                t.localEulerAngles = new Vector3(t.localEulerAngles.x, t.localEulerAngles.y, -z);
-            }
-
-			/// <summary>
-			/// Activates a random ship at the start of the game.
-			/// </summary>
-            public void SelectRandomShip()
-            {
-                for (int i = 0; i < models.Length; i++)
-                {
-                    models[i].SetActive(false);
-                }
-
-                int j = Random.Range(0, models.Length);
-                model = models[j].transform;
-
-                model.gameObject.SetActive(true);
             }
         }
     }

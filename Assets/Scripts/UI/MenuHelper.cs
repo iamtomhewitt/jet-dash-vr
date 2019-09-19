@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using Utilities;
 using Manager;
 
-namespace UI
+namespace Player
 {
     public class MenuHelper : MonoBehaviour
     {
