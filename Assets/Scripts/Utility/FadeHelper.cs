@@ -1,19 +1,19 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Utilities
+namespace Utility
 {
-    [RequireComponent(typeof(Canvas))]
+	[RequireComponent(typeof(Canvas))]
     [RequireComponent(typeof(CanvasGroup))]
     public class FadeHelper : MonoBehaviour
     {
-        public float fadeSpeed = 0.75f;
-        public CanvasGroup canvasGroup;
+        [SerializeField] private float fadeSpeed = 0.75f;
+		[SerializeField] private CanvasGroup canvasGroup;
+
         public static FadeHelper instance;
 
-        void Awake()
+        private void Awake()
         {
             if (instance) 
             {
@@ -26,33 +26,29 @@ namespace Utilities
             }
         }   
 
-
         /// <summary>
         /// When enabled, subscribe to delegate.
         /// </summary>
-        void OnEnable()
+        private void OnEnable()
         {
             SceneManager.sceneLoaded += OnNewLevelLoaded;
         }
 
-
         /// <summary>
         /// When disabled, unsubscribe to delegate.
         /// </summary>
-        void OnDisable()
+        private void OnDisable()
         {
             SceneManager.sceneLoaded -= OnNewLevelLoaded;
         }
 
-
         /// <summary>
         /// Whenever a new level/scene is loaded, it should be faded in.
         /// </summary>
-        void OnNewLevelLoaded(Scene scene, LoadSceneMode mode)
+        private void OnNewLevelLoaded(Scene scene, LoadSceneMode mode)
         {
             FadeIn();
         }
-
 
         /// <summary>
         /// Public method to call Fade Coroutine.
@@ -69,7 +65,6 @@ namespace Utilities
         {
             StartCoroutine(FadeOutToBlack());
         }
-
 
         /// <summary>
         /// Public method to call Fade Coroutine.
@@ -90,7 +85,7 @@ namespace Utilities
         /// <summary>
         /// Coroutines for fading listed here.
         /// </summary>
-        IEnumerator FadeInFromBlack()
+        private IEnumerator FadeInFromBlack()
         {
             canvasGroup.alpha = 1f;
 
@@ -105,7 +100,7 @@ namespace Utilities
         }
 
 
-        IEnumerator FadeOutToBlack()
+        private IEnumerator FadeOutToBlack()
         {
             canvasGroup.alpha = 0f;
 
@@ -120,7 +115,7 @@ namespace Utilities
         }
 
 
-        IEnumerator FadeOutToBlackAndLoadScene(string sceneName)
+        private IEnumerator FadeOutToBlackAndLoadScene(string sceneName)
         {
             canvasGroup.alpha = 0f;
 

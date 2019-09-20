@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using Utilities;
 using Highscore;
 using Utility;
 

@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Utilities
+namespace Utility
 {
 	public class Rotate : MonoBehaviour
 	{
 		public Vector3 speed;
 
-		void Update()
+		private void Update()
 		{
 			transform.Rotate(speed * Time.deltaTime);
 		}

@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using Utilities;
+using Utility;
 
 /// <summary>
 /// Handles everything on the Main Menu.

@@ -1,17 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Utilities
+namespace Utility
 {
-public class MatchTransformPosition : MonoBehaviour 
-{
-    public Transform target;
-    public Vector3 offset;
+	public class MatchTransformPosition : MonoBehaviour
+	{
+		public Transform target;
+		public Vector3 offset;
 
-    void Update()
-    {
-        transform.position = target.position + offset;
-    }
-}
+		private void Update()
+		{
+			transform.position = target.position + offset;
+		}
+	}
 }

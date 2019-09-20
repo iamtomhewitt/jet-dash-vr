@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 
-public class WebPageButton : MonoBehaviour
+namespace Utility
 {
-    public void OpenInBrowser(string url)
+	public class WebPageButton : MonoBehaviour
 	{
-		Application.OpenURL(url);
+		public void OpenInBrowser(string url)
+		{
+			Application.OpenURL(url);
+		}
 	}
 }

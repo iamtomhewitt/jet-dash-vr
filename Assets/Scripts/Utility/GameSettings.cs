@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Utilities
+namespace Utility
 {
-    public class GameSettings : MonoBehaviour
+	public class GameSettings : MonoBehaviour
     {
         private bool isVrMode;
         private float sensitivity;

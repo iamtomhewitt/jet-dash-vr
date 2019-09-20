@@ -16,12 +16,12 @@ namespace Player
 			instance = this;	
 		}
 
-		void Start()
+		private void Start()
         {
             hud = GetComponent<PlayerHud>();
 		}
 
-		void Update()
+		private void Update()
         {
             hud.SetScoreText(bonusScore);
         }
@@ -34,9 +34,13 @@ namespace Player
         public void DoublePoints()
         {
 			if (bonusScore == 0)
+			{
 				bonusScore += 500;
+			}
 			else
+			{
 				bonusScore *= 2;
+			}
         }
 
         public int GetBonusScore()
@@ -78,7 +82,7 @@ namespace Player
 		public void SaveDistanceHighscore()
 		{
 			int currentDistance = PlayerPrefs.GetInt(Constants.DISTANCE_KEY);
-			int distance = PlayerScore.instance.GetDistanceScore();
+			int distance = GetDistanceScore();
 
 			if (distance > currentDistance)
 			{

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Utilities;
+using Utility;
 using Manager;
 
 namespace Player
