@@ -1,17 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Player;
-using Utilities;
+﻿using UnityEngine;
+using Utility;
 
 namespace Player
 {
-    public class PlayerScore : MonoBehaviour
+	public class PlayerScore : MonoBehaviour
     {
-        private int bonusScore = 0;
+		private PlayerHud hud;
+
+		private int bonusScore = 0;
 
 		public static PlayerScore instance;
-        private PlayerHud hud;
 
 		private void Awake()
 		{
@@ -61,16 +59,16 @@ namespace Player
 		/// </summary>
 		public void SaveHighscore()
 		{
-			int currentHighscore = PlayerPrefs.GetInt(GameSettings.highscoreKey);
-			int score = PlayerScore.instance.GetFinalScore();
+			int currentHighscore = PlayerPrefs.GetInt(Constants.HIGHSCORE_KEY);
+			int score = GetFinalScore();
 
 			if (score > currentHighscore)
 			{
 				print("New highscore of " + score + "! Previous was " + currentHighscore + ".");
-				PlayerPrefs.SetInt(GameSettings.highscoreKey, score);
+				PlayerPrefs.SetInt(Constants.HIGHSCORE_KEY, score);
 
 				// Player has got a new highscore, which obvs hasnt been uploaded yet
-				PlayerPrefs.SetInt(GameSettings.uploadedKey, 0);
+				PlayerPrefs.SetInt(Constants.UPLOADED_KEY, Constants.NO);
 			}
 		}
 
@@ -79,13 +77,13 @@ namespace Player
 		/// </summary>
 		public void SaveDistanceHighscore()
 		{
-			int currentDistance = PlayerPrefs.GetInt(GameSettings.distanceKey);
+			int currentDistance = PlayerPrefs.GetInt(Constants.DISTANCE_KEY);
 			int distance = PlayerScore.instance.GetDistanceScore();
 
 			if (distance > currentDistance)
 			{
 				print("New distance of " + distance + "! Previous was " + currentDistance + ".");
-				PlayerPrefs.SetInt(GameSettings.distanceKey, distance);
+				PlayerPrefs.SetInt(Constants.DISTANCE_KEY, distance);
 			}
 		}
 	}

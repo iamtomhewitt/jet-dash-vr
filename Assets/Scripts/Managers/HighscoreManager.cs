@@ -4,6 +4,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using Utilities;
 using Highscore;
+using Utility;
 
 namespace Manager
 {
@@ -44,7 +45,7 @@ namespace Manager
 			InvokeRepeating("RefreshHighscores", 0f, 15f);
 
 			// Debug, resets score
-			//PlayerPrefs.SetInt(GameSettings.uploadedKey, 0);
+			//PlayerPrefs.SetInt(Constants.UPLOADED_KEY, 0);
 			//PlayerPrefs.SetInt(GameSettings.playerPrefsKey, 1);
 		}
 
@@ -66,10 +67,10 @@ namespace Manager
 			if (score > currentHighscore)
 			{
 				print("New highscore of " + score + "! Saving...");
-				PlayerPrefs.SetInt(GameSettings.highscoreKey, score);
+				PlayerPrefs.SetInt(Constants.HIGHSCORE_KEY, score);
 
 				// Player has got a new highscore, which obvs hasnt been uploaded yet
-				PlayerPrefs.SetInt(GameSettings.uploadedKey, 0);
+				PlayerPrefs.SetInt(Constants.UPLOADED_KEY, 0);
 			}
 		}
 
@@ -78,7 +79,7 @@ namespace Manager
 		/// </summary>
 		private int LoadLocalHighscore()
 		{
-			return PlayerPrefs.GetInt(GameSettings.highscoreKey);
+			return PlayerPrefs.GetInt(Constants.HIGHSCORE_KEY);
 		}
 
 		/// <summary>
@@ -87,7 +88,7 @@ namespace Manager
 		/// <returns></returns>
 		private IEnumerator DownloadHighscores()
 		{
-			UnityWebRequest request = UnityWebRequest.Get(GameSettings.url + GameSettings.publicCode + "/json");
+			UnityWebRequest request = UnityWebRequest.Get(Constants.DREAMLO_URL + Constants.DREAMLO_URL + "/json");
 			yield return request.SendWebRequest();
 
 			if (request.downloadHandler.text.StartsWith("ERROR"))
@@ -133,7 +134,7 @@ namespace Manager
 			}
 
 			// If the score has already been uploaded
-			else if (PlayerPrefs.GetInt(GameSettings.uploadedKey) != 0)
+			else if (PlayerPrefs.GetInt(Constants.UPLOADED_KEY) != Constants.NO)
 			{
 				usernameInputField.text = "";
 				usernameInputField.placeholder.GetComponent<Text>().text = "Already uploaded!";
@@ -142,7 +143,7 @@ namespace Manager
 			// Otherwise, upload the score
 			else
 			{
-				string url = GameSettings.url + GameSettings.privateCode + "/add/" + UnityWebRequest.EscapeURL(username) + "/" + localHighscore;
+				string url = Constants.DREAMLO_URL + Constants.DREAMLO_PRIVATE_CODE + "/add/" + UnityWebRequest.EscapeURL(username) + "/" + localHighscore;
 				UnityWebRequest request = UnityWebRequest.Post(url, "");
 				yield return request.SendWebRequest();
 
@@ -155,7 +156,7 @@ namespace Manager
 				{
 					print("Upload successful!");
 					statusText.text = "";
-					PlayerPrefs.SetInt(GameSettings.uploadedKey, 1);
+					PlayerPrefs.SetInt(Constants.UPLOADED_KEY, Constants.YES);
 				}
 
 				// And reset the input field
