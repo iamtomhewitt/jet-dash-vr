@@ -36,9 +36,7 @@ namespace Player
 					Scoreboard.instance.AnimateTopSpeed(PlayerControl.instance.GetSpeed());
 					Scoreboard.instance.AnimateFinalScore(PlayerScore.instance.GetFinalScore());
 
-					// Have to do this manually as having an instance of HighscoreManager causes problems with the way scores are displayed on the highscore scene
-					// TODO FIX THIS - THESE SHOULD BE PART OF THE HIGHSCORE MANAGER INSTANCE
-					PlayerScore.instance.SaveHighscore();
+					HighscoreManager.instance.SaveLocalHighscore(PlayerScore.instance.GetFinalScore());
 					PlayerScore.instance.SaveDistanceHighscore();
 
 					PlayerControl.instance.StopMoving();

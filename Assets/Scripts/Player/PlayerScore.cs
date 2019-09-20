@@ -59,24 +59,6 @@ namespace Player
         }
 
 		/// <summary>
-		/// Saves the players score to the PlayerPrefs.
-		/// </summary>
-		public void SaveHighscore()
-		{
-			int currentHighscore = PlayerPrefs.GetInt(Constants.HIGHSCORE_KEY);
-			int score = GetFinalScore();
-
-			if (score > currentHighscore)
-			{
-				print("New highscore of " + score + "! Previous was " + currentHighscore + ".");
-				PlayerPrefs.SetInt(Constants.HIGHSCORE_KEY, score);
-
-				// Player has got a new highscore, which obvs hasnt been uploaded yet
-				PlayerPrefs.SetInt(Constants.UPLOADED_KEY, Constants.NO);
-			}
-		}
-
-		/// <summary>
 		/// Saves the players distance to the PlayerPrefs.
 		/// </summary>
 		public void SaveDistanceHighscore()

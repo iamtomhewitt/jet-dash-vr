@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Manager;
+using LevelManager;
 
 namespace Player
 {

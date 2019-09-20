@@ -15,19 +15,11 @@ namespace Highscore
 		[SerializeField] private Text usernameText;
 		[SerializeField] private Text scoreText;
 
-		public void SetUsernameText(string n)
+		public void Populate(string rank, string username, string score)
 		{
-			usernameText.text = n;
-		}
-
-		public void SetScoreText(int s)
-		{
-			scoreText.text = s.ToString();
-		}
-
-		public void SetRankText(string r)
-		{
-			rankText.text = r;
+			rankText.text = rank;
+			usernameText.text = username;
+			scoreText.text = score;
 		}
 	}
 }

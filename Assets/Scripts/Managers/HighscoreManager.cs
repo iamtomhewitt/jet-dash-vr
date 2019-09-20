@@ -1,213 +1,114 @@
-﻿using System.Collections;
+﻿using Highscore;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
-using Highscore;
 using Utility;
 
 namespace Manager
 {
 	/// <summary>
-	/// Manages the highscores on the highscore scene. Responsible for uploading, downloading, and displaying scores.
+	/// Responsible for uploading, downloading, and saving in game scores.
 	/// </summary>
 	public class HighscoreManager : MonoBehaviour
 	{
-		[SerializeField] private Text localHighscoreText;
-		[SerializeField] private Text statusText;
-		[SerializeField] private InputField usernameInputField;
-		[SerializeField] private HighscoreEntry[] UIEntries;
-
-		private Leaderboard leaderboard;
-
 		public static HighscoreManager instance;
 
 		private void Awake()
 		{
-			if (instance)
+			if (instance == null)
 			{
-				DestroyImmediate(gameObject);
+				instance = this;
 			}
 			else
 			{
-				DontDestroyOnLoad(gameObject);
-				instance = this;
+				Destroy(this.gameObject);
+				return;
 			}
-		}
 
-		private void Start()
-		{
-			localHighscoreText.text = "Local Highscore: " + LoadLocalHighscore();
-			statusText.text = "";
-
-			InitialiseLeaderboard();
-
-			InvokeRepeating("RefreshHighscores", 0f, 15f);
-
-			// Debug, resets score
-			//PlayerPrefs.SetInt(Constants.UPLOADED_KEY, 0);
-			//PlayerPrefs.SetInt(GameSettings.playerPrefsKey, 1);
+			DontDestroyOnLoad(this.gameObject);
 		}
 
 		/// <summary>
-		/// Convience method to periodically download and refresh the highscores.
-		/// </summary>
-		private void RefreshHighscores()
-		{
-			StartCoroutine(DisplayHighScores());
-		}
-
-		/// <summary>
-		/// Saves the current local highscore.
+		/// Saves the highscore to PlayerPrefs.
 		/// </summary>
 		public void SaveLocalHighscore(int score)
 		{
-			int currentHighscore = LoadLocalHighscore();
+			int currentHighscore = GetLocalHighscore();
 
 			if (score > currentHighscore)
 			{
-				print("New highscore of " + score + "! Saving...");
+				Debug.Log("New highscore of " + score + "! Saving...");
 				PlayerPrefs.SetInt(Constants.HIGHSCORE_KEY, score);
 
-				// Player has got a new highscore, which obvs hasnt been uploaded yet
-				PlayerPrefs.SetInt(Constants.UPLOADED_KEY, 0);
+				// Player has got a new highscore, which hasn't been uploaded yet, so set it to false (0)
+				PlayerPrefs.SetInt(Constants.UPLOADED_KEY, Constants.NO);
 			}
 		}
 
-		/// <summary>
-		/// Loads the local highscore using PlayerPrefs.
-		/// </summary>
-		private int LoadLocalHighscore()
+		public int GetLocalHighscore()
 		{
 			return PlayerPrefs.GetInt(Constants.HIGHSCORE_KEY);
 		}
 
 		/// <summary>
-		/// Downloads the highscores from the website, and formats it.
+		/// Uploads a new highscore to Dreamlo.
 		/// </summary>
-		/// <returns></returns>
-		private IEnumerator DownloadHighscores()
+		public void UploadHighscoreToDreamlo(string username)
 		{
-			UnityWebRequest request = UnityWebRequest.Get(Constants.DREAMLO_URL + Constants.DREAMLO_URL + "/json");
+			StartCoroutine(UploadHighscoreRoutine(username));
+		}
+
+		/// <summary>
+		/// Routine for uploading a highscore to Dreamlo.
+		/// </summary>
+		private IEnumerator UploadHighscoreRoutine(string username)
+		{
+			UnityWebRequest request = UnityWebRequest.Post(Constants.DREAMLO_URL + Constants.DREAMLO_PRIVATE_CODE + "/add/" + username + "/" + GetLocalHighscore(), "");
 			yield return request.SendWebRequest();
 
-			if (request.downloadHandler.text.StartsWith("ERROR"))
+			if (!request.downloadHandler.text.StartsWith("ERROR"))
 			{
-				ClearLeaderboard();
-				statusText.text = "Could not get highscores:\n" + request.downloadHandler.text;
+				Debug.Log("Upload successful! " + request.responseCode);
+				PlayerPrefs.SetInt(Constants.UPLOADED_KEY, Constants.YES);
 			}
-
 			else
 			{
-				string json = JSONHelper.RemoveNJsonFields(request.downloadHandler.text, 2);
-				leaderboard = JsonUtility.FromJson<Leaderboard>(json);
-				statusText.text = "";
+				Debug.Log("Error uploading: " + request.downloadHandler.text);
+				HighscoreDisplayHelper display = FindObjectOfType<HighscoreDisplayHelper>();
+				display.ClearEntries();
+				display.DisplayError("Could not upload score. Please try again later.\n\n" + request.downloadHandler.text);
 			}
 		}
 
 		/// <summary>
-		/// Starts the UploadHighscore Coroutine. This method is used on a Unity Button.
+		/// Downloads the highscores from Dreamlo.
 		/// </summary>
-		public void Upload()
+		public void RequestDownloadOfHighscores()
 		{
-			StartCoroutine(UploadHighscore());
+			StartCoroutine(DownloadHighscores());
 		}
 
-		/// <summary>
-		/// Uploads a new score onto the website, based on the correct conditions.
-		/// </summary>
-		private IEnumerator UploadHighscore()
+		private IEnumerator DownloadHighscores()
 		{
-			int localHighscore = LoadLocalHighscore();
-			string username = usernameInputField.text;
-
-			// If an invalid score
-			if (localHighscore <= 0)
+			if (Application.internetReachability == NetworkReachability.NotReachable)
 			{
-				usernameInputField.placeholder.GetComponent<Text>().text = "Score cannot be 0!";
+				FindObjectOfType<HighscoreDisplayHelper>().DisplayError("No internet connection.");
+				yield break;
 			}
 
-			// If no nickname set
-			else if (string.IsNullOrEmpty(usernameInputField.text))
-			{
-				usernameInputField.placeholder.GetComponent<Text>().text = "Enter a nickname!";
-			}
+			UnityWebRequest request = UnityWebRequest.Get(Constants.DREAMLO_URL + Constants.DREAMLO_PUBLIC_CODE + "/json/0/10");
+			yield return request.SendWebRequest();
 
-			// If the score has already been uploaded
-			else if (PlayerPrefs.GetInt(Constants.UPLOADED_KEY) != Constants.NO)
+			if (!request.downloadHandler.text.StartsWith("ERROR"))
 			{
-				usernameInputField.text = "";
-				usernameInputField.placeholder.GetComponent<Text>().text = "Already uploaded!";
+				string json = JsonHelper.StripParentFromJson(request.downloadHandler.text, 2);
+				Leaderboard leaderboard = JsonUtility.FromJson<Leaderboard>(json);
+				FindObjectOfType<HighscoreDisplayHelper>().DisplayHighscores(leaderboard);
 			}
-
-			// Otherwise, upload the score
 			else
 			{
-				string url = Constants.DREAMLO_URL + Constants.DREAMLO_PRIVATE_CODE + "/add/" + UnityWebRequest.EscapeURL(username) + "/" + localHighscore;
-				UnityWebRequest request = UnityWebRequest.Post(url, "");
-				yield return request.SendWebRequest();
-
-				if (request.downloadHandler.text.StartsWith("ERROR"))
-				{
-					ClearLeaderboard();
-					statusText.text = "Error uploading:\n" + request.downloadHandler.text;
-				}
-				else
-				{
-					print("Upload successful!");
-					statusText.text = "";
-					PlayerPrefs.SetInt(Constants.UPLOADED_KEY, Constants.YES);
-				}
-
-				// And reset the input field
-				usernameInputField.text = "";
-				usernameInputField.placeholder.GetComponent<Text>().text = "Uploaded!";
-			}
-		}
-
-		/// <summary>
-		/// Updates the UI to show the downloaded scores.
-		/// </summary>
-		private IEnumerator DisplayHighScores()
-		{
-			yield return StartCoroutine(DownloadHighscores());
-
-			HighscoreData[] data = leaderboard.entry;
-
-			for (int i = 0; i < UIEntries.Length; i++)
-			{
-				string username = data[i].name;
-				int score = data[i].score;
-				string rank = i + 1 + ".";
-
-				UIEntries[i].SetUsernameText(username);
-				UIEntries[i].SetRankText(rank);
-				UIEntries[i].SetScoreText(score);
-			}
-		}
-
-		/// <summary>
-		/// Populates the leaderboard with some placeholders.
-		/// </summary>
-		private void InitialiseLeaderboard()
-		{
-			for (int i = 0; i < UIEntries.Length; i++)
-			{
-				UIEntries[i].SetUsernameText("Fetching");
-				UIEntries[i].SetScoreText(0);
-				UIEntries[i].SetRankText(i + 1 + ".");
-			}
-		}
-
-		/// <summary>
-		/// Sets everything in the leadboard to a nothing value.
-		/// </summary>
-		private void ClearLeaderboard()
-		{
-			for (int i = 0; i < UIEntries.Length; i++)
-			{
-				UIEntries[i].SetUsernameText("");
-				UIEntries[i].SetScoreText(0);
-				UIEntries[i].SetRankText(i + 1 + ".");
+				Debug.Log("Error downloading: " + request.downloadHandler.text);
+				FindObjectOfType<HighscoreDisplayHelper>().DisplayError("Could not download highscores. Please try again later.\n\n" + request.downloadHandler.text);
 			}
 		}
 	}

@@ -3,33 +3,36 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using Manager;
 
-/// <summary>
-/// Handles everything on the Game scene.
-/// </summary>
-public class GameLevelManager : LevelManager
+namespace LevelManager
 {
-	[SerializeField] private float levelRestartDelay = 4f;
-
 	/// <summary>
-	/// Restarts the level after the player has died and the scoreboard is shown.
+	/// Handles everything on the Game scene.
 	/// </summary>
-	public void RestartLevel()
+	public class GameLevelManager : LevelManager
 	{
-		StartCoroutine(RestartLevelRoutine());
-	}
+		[SerializeField] private float levelRestartDelay = 4f;
 
-	private IEnumerator RestartLevelRoutine()
-	{
-		yield return new WaitForSeconds(levelRestartDelay);
-
-		AdvertManager.instance.IncreaseAdvertCounter();
-
-		if (AdvertManager.instance.CanShowAdvert())
+		/// <summary>
+		/// Restarts the level after the player has died and the scoreboard is shown.
+		/// </summary>
+		public void RestartLevel()
 		{
-			AdvertManager.instance.ShowAdvert();
-			AdvertManager.instance.ResetAdvertCounter();
+			StartCoroutine(RestartLevelRoutine());
 		}
 
-		this.LoadLevel(SceneManager.GetActiveScene().name);
+		private IEnumerator RestartLevelRoutine()
+		{
+			yield return new WaitForSeconds(levelRestartDelay);
+
+			AdvertManager.instance.IncreaseAdvertCounter();
+
+			if (AdvertManager.instance.CanShowAdvert())
+			{
+				AdvertManager.instance.ShowAdvert();
+				AdvertManager.instance.ResetAdvertCounter();
+			}
+
+			this.LoadLevel(SceneManager.GetActiveScene().name);
+		}
 	}
 }
