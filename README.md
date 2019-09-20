@@ -11,6 +11,10 @@
 
 # Jet Dash VR
 
+<p align="center">
+  <img src="github.png">
+</p>
+
 This project is my Unity3D game on Google Play. It is an endless runner style game, with both virtual and non virtual reality versions. It is targeted for mobile devices using a Google Cardboard or similar.  
 
 ## Versioning
