@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Utility;
 
 namespace Spawner
 {
@@ -15,7 +16,7 @@ namespace Spawner
 
 		private void Start()
 		{
-			player = GameObject.FindGameObjectWithTag("Player").transform;
+			player = GameObject.FindGameObjectWithTag(Tags.PLAYER).transform;
 
 			InitialisePowerups();
 		}

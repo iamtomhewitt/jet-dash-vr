@@ -79,7 +79,7 @@ namespace Spawner
 		{
 			switch (other.gameObject.tag)
 			{
-				case "Obstacle":
+				case Tags.OBSTACLE:
 					other.GetComponent<Obstacle>().Relocate();
 					break;
 

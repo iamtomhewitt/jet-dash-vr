@@ -1,8 +1,8 @@
 using UnityEngine;
-using Player;
 using Spawner;
 using Manager;
 using System.Collections;
+using Utility;
 
 namespace Player
 {
@@ -21,7 +21,7 @@ namespace Player
         {
             switch (other.gameObject.tag)
             {
-                case "Obstacle":
+                case Tags.OBSTACLE:
 					if (godMode)
 					{
 						return;
@@ -57,27 +57,27 @@ namespace Player
         {
             switch (other.gameObject.tag)
             {
-                case "Powerup":
+                case Tags.POWERUP:
                     Powerup powerup = other.GetComponent<Powerup>();
 
 					switch (powerup.GetPowerupType())
 					{
 						case PowerupType.BonusPoints:
 							PlayerScore.instance.AddBonusPoints(500);
-							AudioManager.instance.Play("Powerup Bonus Points");
+							AudioManager.instance.Play(SoundNames.BONUS_POINTS);
 							PlayerHud.instance.ShowNotification(powerup.GetColour(), "+500!");
 							break;
 
 						case PowerupType.DoublePoints:
 							PlayerScore.instance.DoublePoints();
-							AudioManager.instance.Play("Powerup Double Points");
+							AudioManager.instance.Play(SoundNames.DOUBLE_POINTS);
 							PlayerHud.instance.ShowNotification(powerup.GetColour(), "x2!");
 							break;
 
 						case PowerupType.Invincibility:
 							StopCoroutine(godModRoutine);
 							godModRoutine = StartCoroutine(ActivateGodMode(5f));
-							AudioManager.instance.Play("Powerup Invincibility");
+							AudioManager.instance.Play(SoundNames.INVINCIBILITY_POINTS);
 							PlayerHud.instance.ShowNotification(powerup.GetColour(), "Invincible!");
 							break;
 

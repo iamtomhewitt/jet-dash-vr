@@ -44,7 +44,7 @@ namespace Player
         {
             int displayScore = 0;
             int start = displayScore;
-            AudioManager.instance.Play("Score");
+            AudioManager.instance.Play(SoundNames.SCORE);
 
             for (float timer = 0; timer < 3f; timer += Time.deltaTime)
             {
@@ -56,7 +56,7 @@ namespace Player
 
             displayScore = score;
             text.text = displayScore.ToString();
-            AudioManager.instance.Pause("Score");
+            AudioManager.instance.Pause(SoundNames.SCORE);
 
 			// Final score will take the longest to animate, to only reload the scene when animating final score,
 			// that way nothing gets cut off

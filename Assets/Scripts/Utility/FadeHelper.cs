@@ -99,7 +99,6 @@ namespace Utility
             yield return null;
         }
 
-
         private IEnumerator FadeOutToBlack()
         {
             canvasGroup.alpha = 0f;
@@ -113,7 +112,6 @@ namespace Utility
             canvasGroup.interactable = false;
             yield return null;
         }
-
 
         private IEnumerator FadeOutToBlackAndLoadScene(string sceneName)
         {

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 
 namespace Manager
@@ -37,7 +35,7 @@ namespace Manager
 
 		private void Start()
 		{
-			Play("Music");
+			Play(SoundNames.MUSIC);
 		}
 
 		public void Play(string name)
@@ -119,5 +117,10 @@ namespace Manager
 		public const string SHIP_STARTUP = "Starting Bass";
 		public const string SPEED_STREAK = "Speed Streak";
 		public const string BUTTON_SELECT = "UI Select";
+		public const string MUSIC = "Music";
+		public const string BONUS_POINTS = "Powerup Bonus Points";
+		public const string DOUBLE_POINTS = "Powerup Double Points";
+		public const string INVINCIBILITY_POINTS = "Powerup Invincibility";
+		public const string SCORE = "Score";
 	}
 }

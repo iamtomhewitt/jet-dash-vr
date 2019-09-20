@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Utility;
 
 namespace Spawner
 {
@@ -13,7 +14,7 @@ namespace Spawner
 
 		private void Start()
 		{
-			player = GameObject.FindGameObjectWithTag("Player").transform;
+			player = GameObject.FindGameObjectWithTag(Tags.PLAYER).transform;
 			InvokeRepeating("RelocateIfBehindPlayer", CHECK_TIME, CHECK_TIME);
 		}
 
@@ -21,7 +22,7 @@ namespace Spawner
 		{
 			switch (other.gameObject.tag)
 			{
-				case "Obstacle":
+				case Tags.OBSTACLE:
 					print("A powerup has spawned inside an obstacle, moving...");
 					transform.position -= Vector3.forward * 100f;
 					break;

@@ -23,6 +23,7 @@ namespace Player
 		private PlayerModelSettings modelSettings;
 
 		private float sensitivity;
+		private float maxSpeed = 200f;
 
 		public static PlayerControl instance;
 
@@ -84,7 +85,7 @@ namespace Player
 
         private void IncreaseSpeed()
         {
-            if (speed < 200)
+            if (speed < maxSpeed)
             {
                 speed += speedIncrease;
                 PlayerHud.instance.SetSpeedText(speed.ToString());

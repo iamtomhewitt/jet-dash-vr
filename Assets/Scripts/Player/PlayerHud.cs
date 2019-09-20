@@ -57,7 +57,7 @@ namespace Player
 		/// <summary>
 		/// Hides a notification after a set amount of time.
 		/// </summary>
-        IEnumerator TurnOffNotification()
+        private IEnumerator TurnOffNotification()
         {
             yield return new WaitForSeconds(1.5f);
             powerupNotificationText.GetComponent<Animator>().Play("Powerup Notification Hide");
