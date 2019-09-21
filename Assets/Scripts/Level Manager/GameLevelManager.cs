@@ -34,5 +34,11 @@ namespace LevelManager
 
 			this.LoadLevel(SceneManager.GetActiveScene().name);
 		}
+
+		public void ReturnToMenu(string sceneName)
+		{
+			ScreenManager.MakePortrait();
+			this.LoadLevel(sceneName);
+		}
 	}
 }

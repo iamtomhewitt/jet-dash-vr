@@ -56,6 +56,7 @@ namespace LevelManager
 			}
 			else
 			{
+				ScreenManager.MakeLandscape();
 				this.LoadLevel(gameSceneName);
 			}
 		}
