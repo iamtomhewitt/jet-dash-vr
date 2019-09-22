@@ -15,7 +15,7 @@ namespace Player
 
 		[SerializeField] private bool godMode;
 
-		private Coroutine godModRoutine;
+		private Coroutine godModeRoutine;
 
 		private void OnCollisionEnter(Collision other)
         {
@@ -75,8 +75,11 @@ namespace Player
 							break;
 
 						case PowerupType.Invincibility:
-							StopCoroutine(godModRoutine);
-							godModRoutine = StartCoroutine(ActivateGodMode(5f));
+							if (godModeRoutine != null)
+							{
+								StopCoroutine(godModeRoutine);
+							}
+							godModeRoutine = StartCoroutine(ActivateGodMode(5f));
 							AudioManager.instance.Play(SoundNames.INVINCIBILITY_POINTS);
 							PlayerHud.instance.ShowNotification(powerup.GetColour(), "Invincible!");
 							break;
