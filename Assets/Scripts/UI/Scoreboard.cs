@@ -1,48 +1,50 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Player;
 using Manager;
+using LevelManager;
 
-namespace UI
+namespace Player
 {
-    public class Scoreboard : MonoBehaviour
+	public class Scoreboard : MonoBehaviour
     {
-        public Text distanceScoreText;
-        public Text bonusScoreText;
-        public Text topSpeed;
-        public Text finalScore;
+        [SerializeField] private Text distanceScoreText;
+		[SerializeField] private Text bonusScoreText;
+		[SerializeField] private Text topSpeed;
+		[SerializeField] private Text finalScore;
 
-        public void AnimateBonusScore(int score)
+		public static Scoreboard instance;
+
+		private void Awake()
+		{
+			instance = this;
+		}
+
+		public void AnimateBonusScore(int score)
         {
             StartCoroutine(Animate(score, bonusScoreText, false));
         }
-
 
         public void AnimateDistanceScore(int score)
         {
             StartCoroutine(Animate(score, distanceScoreText, false));
         }
 
-
         public void AnimateTopSpeed(int score)
         {
             StartCoroutine(Animate(score, topSpeed, false));
         }
-
 
         public void AnimateFinalScore(int score)
         {
             StartCoroutine(Animate(score, finalScore, true));
         }
 
-
-        IEnumerator Animate(int score, Text text, bool isFinalScore)
+        private IEnumerator Animate(int score, Text text, bool isFinalScore)
         {
             int displayScore = 0;
             int start = displayScore;
-            AudioManager.instance.Play("Score");
+            AudioManager.instance.Play(SoundNames.SCORE);
 
             for (float timer = 0; timer < 3f; timer += Time.deltaTime)
             {
@@ -54,22 +56,22 @@ namespace UI
 
             displayScore = score;
             text.text = displayScore.ToString();
-            AudioManager.instance.Pause("Score");
+            AudioManager.instance.Pause(SoundNames.SCORE);
 
-            // Final score will take the longest to animate, to only reload the scene when animating final score,
-            // that way nothing gets cut off
-            if (isFinalScore)
-                GameObject.FindObjectOfType<LevelManager>().ReloadScene();
+			// Final score will take the longest to animate, to only reload the scene when animating final score,
+			// that way nothing gets cut off
+			if (isFinalScore)
+			{
+				FindObjectOfType<GameLevelManager>().RestartLevel();
+			}
         }
-
 
         public void Show()
         {
-            StartCoroutine(Fade());
+            StartCoroutine(ShowAndFadeOut());
         }
 
-
-        IEnumerator Fade()
+        private IEnumerator ShowAndFadeOut()
         {
             CanvasGroup cg = GetComponent<CanvasGroup>();
             cg.alpha = 0f;

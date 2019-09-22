@@ -1,43 +1,45 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Utility;
 
 namespace Spawner
 {
-    public class PowerupSpawner : MonoBehaviour
-    {
-        public GameObject[] powerups;
-        public float repeatRate;
-        public int maxPowerups;
-        public Boundary boundary;
+	public class PowerupSpawner : MonoBehaviour
+	{
+		[SerializeField] private GameObject[] powerups;
+		[SerializeField] private float repeatRate;
+		[SerializeField] private int maxPowerups;
+		[SerializeField] private SpawnBoundary boundary;
 
-        private Transform player;
+		private Transform player;
 
-        private void Start()
-        {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+		private const string POWERUP_PARENT = "Powerups";
 
-            for (int i = 0; i <= maxPowerups; i++)
-            {
-                SpawnPowerup();
-            }
-        }
+		private void Start()
+		{
+			player = GameObject.FindGameObjectWithTag(Tags.PLAYER).transform;
 
+			InitialisePowerups();
+		}
 
 		/// <summary>
 		/// Spawns a powerup at a random position on the map, in front of the player.
 		/// </summary>
-        private void SpawnPowerup()
-        {
-            int i = Random.Range(0, powerups.Length);
+		private void InitialisePowerups()
+		{
+			for (int i = 0; i <= maxPowerups; i++)
+			{
+				int index = Random.Range(0, powerups.Length);
 
-            GameObject powerup = powerups[i];
+				GameObject powerup = powerups[index];
 
-            float x = Random.Range(boundary.xMin, boundary.xMax);
-            float z = Random.Range(boundary.zMin, boundary.zMax);
-            Vector3 position = new Vector3(player.transform.position.x + x, 0f, player.transform.position.z + z);
+				float x = Random.Range(boundary.xMin, boundary.xMax);
+				float z = Random.Range(boundary.zMin, boundary.zMax);
 
-            Instantiate(powerup, position, Quaternion.identity);
-        }
-    }
+				Vector3 position = new Vector3(player.transform.position.x + x, 0f, player.transform.position.z + z);
+
+				GameObject p = Instantiate(powerup, position, Quaternion.identity) as GameObject;
+				p.transform.parent = GameObject.Find(POWERUP_PARENT).transform;
+			}
+		}
+	}
 }

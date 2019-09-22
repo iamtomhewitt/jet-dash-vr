@@ -1,57 +1,71 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Utility;
 
 namespace Spawner
 {
-    public class Obstacle : MonoBehaviour
-    {
-        private Transform player;
+	/// <summary>
+	/// An obstacle that the player has to dodge.
+	/// </summary>
+	public class Obstacle : MonoBehaviour
+	{
+		private Transform player;
 
-        void Start()
-        {
-            player = GameObject.FindGameObjectWithTag("Player").transform;	
+		private const float BEHIND_OFFSET = 30f;
+		private const float RELOCATE_CHECK_TIME = 5f;
 
-            InvokeRepeating("RelocateObstacle", 5f, 5f);
-        }
+		private void Start()
+		{
+			player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        void RelocateObstacle()
-        {
-            if (this.transform.position.z < player.transform.position.z - 30f)
-            {
-                float x = Random.Range(-300f, 300f);
-                float z = Random.Range(600f, 2000f);
+			InvokeRepeating("RelocateIfBehindPlayer", RELOCATE_CHECK_TIME, RELOCATE_CHECK_TIME);
+		}
 
-                this.transform.position = new Vector3(player.transform.position.x + x, this.transform.position.y, player.transform.position.z + z);
+		private void RelocateIfBehindPlayer()
+		{
+			if (transform.position.z < player.transform.position.z - BEHIND_OFFSET)
+			{
+				Relocate();
+			}
+		}
 
-                Grow(.5f, (int)transform.localScale.x);
-            }
-        }
+		/// <summary>
+		/// Repositions and reanimates the obstacle.
+		/// </summary>
+		public void Relocate()
+		{
+			float x = SpawnableObjectRelocationBoundary.GetRandomX();
+			float z = SpawnableObjectRelocationBoundary.GetRandomZ();
+
+			this.transform.position = new Vector3(player.transform.position.x + x, this.transform.position.y, player.transform.position.z + z);
+
+			Grow(Constants.OBSTACLE_GROW_SPEED, (int)transform.localScale.x);
+		}
 
 		/// <summary>
 		/// Makes the obstacle grow over a certain time from scale 0.
 		/// </summary>
-        public void Grow(float duration, int scale)
-        {
-            StartCoroutine(GrowIE(duration, scale));
-        }
+		public void Grow(float duration, int scale)
+		{
+			StartCoroutine(GrowRoutine(duration, scale));
+		}
 
-        IEnumerator GrowIE(float duration, int scale)
-        {
-            Vector3 originalScale = Vector3.zero;
-            Vector3 targetScale = new Vector3(scale, scale, scale);
+		private IEnumerator GrowRoutine(float duration, int scale)
+		{
+			Vector3 originalScale = Vector3.zero;
+			Vector3 targetScale = new Vector3(scale, scale, scale);
 
-            float timer = 0f;
+			float timer = 0f;
 
-            do
-            {
-                transform.localScale = Vector3.Lerp(originalScale, targetScale, timer / duration);
-                timer += Time.deltaTime;
-                yield return null;
-            }
-            while (timer <= duration);
+			do
+			{
+				transform.localScale = Vector3.Lerp(originalScale, targetScale, timer / duration);
+				timer += Time.deltaTime;
+				yield return null;
+			}
+			while (timer <= duration);
 
-            transform.localScale = targetScale;
-        }
-    }
+			transform.localScale = targetScale;
+		}		
+	}
 }
