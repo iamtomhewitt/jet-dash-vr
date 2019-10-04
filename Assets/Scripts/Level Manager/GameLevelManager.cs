@@ -38,6 +38,7 @@ namespace LevelManager
 		public void ReturnToMenu(string sceneName)
 		{
 			ScreenManager.MakePortrait();
+			AudioManager.instance.Pause(SoundNames.SCORE);
 			this.LoadLevel(sceneName);
 		}
 	}
