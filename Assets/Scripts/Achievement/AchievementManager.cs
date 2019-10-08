@@ -1,24 +1,63 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class AchievementManager : MonoBehaviour
 {
+	public Achievement[] achievements;
+
+	private string achievementFilePath;
+
 	private void Start()
 	{
-		Achievement[] a = new Achievement[1];
-		Achievement b = new Achievement();
-		b.id = 1;
-		a[0] = b;
+		achievementFilePath = Path.Combine(Application.persistentDataPath, "achievements.json");
+		achievements = LoadAchievementsFromFile();
+	}
 
-		string json = AchievementJsonHelper.ToJson(a);
-
-		print(json);
-
-		a = AchievementJsonHelper.FromJson(json);
-		foreach (Achievement ac in a)
+	public Achievement[] LoadAchievementsFromFile()
+	{
+		// Generate a new set of achievements if the file does not exist
+		if (!File.Exists(achievementFilePath))
 		{
-			print(ac.id);
+			achievements = GenerateSetOfAchievements();
+			SaveAchievementsToFile();
 		}
+
+		string fileContent = File.ReadAllText(achievementFilePath);
+
+		return AchievementJsonHelper.FromJson(fileContent);
+	}
+
+	public void SaveAchievementsToFile()
+	{
+		string json = AchievementJsonHelper.ToJson(achievements);
+
+		StreamWriter writer = new StreamWriter(achievementFilePath, false);
+		writer.WriteLine(json);
+		writer.Close();
+	}
+
+	/// <summary>
+	/// Used when the achivement file cannot be found / does not exist.
+	/// Generates an array of achievements
+	/// </summary>
+	private Achievement[] GenerateSetOfAchievements()
+	{
+		List<Achievement> listOfAchivements = new List<Achievement>();
+		listOfAchivements.Add(new Achievement(1, "Die", 5));
+		listOfAchivements.Add(new Achievement(2, "Get A New Highscore", 30));
+		listOfAchivements.Add(new Achievement(3, "Upload A Highscore", 15));
+		listOfAchivements.Add(new Achievement(4, "Play In VR Mode", 5));
+		listOfAchivements.Add(new Achievement(5, "Get A Distance Further Than 1000", 5));
+		listOfAchivements.Add(new Achievement(6, "Get A Distance Further Than 10000", 30));
+		listOfAchivements.Add(new Achievement(7, "Get A Distance Further Than 100000", 100));
+		listOfAchivements.Add(new Achievement(8, "Fly Through Bonus Points", 5));
+		listOfAchivements.Add(new Achievement(9, "Fly Through Double Points", 5));
+		listOfAchivements.Add(new Achievement(10, "Become Invincible", 5));
+		listOfAchivements.Add(new Achievement(11, "Fly Through An Obstacle Whilst Invincible", 15));
+		listOfAchivements.Add(new Achievement(12, "Achieve Max Speed", 25));
+		return listOfAchivements.ToArray();
 	}
 }

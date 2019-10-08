@@ -9,6 +9,13 @@ public class Achievement
 	public string achievementName;
 	public int awardValue;
 	public float progressPercentage;
+
+	public Achievement(int id, string name, int value)
+	{
+		this.id = id;
+		this.achievementName = name;
+		this.awardValue = value;
+	}
 }
 
 /// <summary>
