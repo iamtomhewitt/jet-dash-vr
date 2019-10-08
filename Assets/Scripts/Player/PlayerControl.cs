@@ -18,12 +18,13 @@ namespace Player
 		[SerializeField] private float turningSpeed;
 		[SerializeField] private float modelRotationLimit;
 		[SerializeField] private float cameraRotationLimit;
-		
+		[SerializeField] private float maxSpeed = 200f;
+
 		private GameObject cameraToUse;
 		private PlayerModelSettings modelSettings;
 
 		private float sensitivity;
-		private float maxSpeed = 200f;
+		private bool reachedMaxSpeed = false;
 
 		public static PlayerControl instance;
 
@@ -84,8 +85,13 @@ namespace Player
 		}
 
         private void IncreaseSpeed()
-        {
-            if (speed < maxSpeed)
+		{
+			if (speed == maxSpeed)
+			{
+				reachedMaxSpeed = true;
+			}
+
+			if (speed < maxSpeed)
             {
                 speed += speedIncrease;
                 PlayerHud.instance.SetSpeedText(speed.ToString());
@@ -97,7 +103,7 @@ namespace Player
 
 		private void CheckSpeedStreak()
 		{
-			if (speed % 50 == 0)
+			if (speed % 50 == 0 && !reachedMaxSpeed)
 			{
 				PlayerHud.instance.ShowNotification(Color.white, speed + " Speed Streak!");
 				AudioManager.instance.Play(SoundNames.SPEED_STREAK);
