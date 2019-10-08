@@ -27,7 +27,7 @@ namespace Manager
 
 			DontDestroyOnLoad(this.gameObject);
 
-			//PlayerPrefs.DeleteAll();
+			// PlayerPrefs.DeleteAll();
 		}
 
 		/// <summary>
@@ -41,6 +41,9 @@ namespace Manager
 			{
 				Debug.Log("New highscore of " + score + "! Saving...");
 				PlayerPrefs.SetInt(Constants.HIGHSCORE_KEY, score);
+
+				// Was the highscore achieved in VR mode?
+				PlayerPrefs.SetInt(Constants.WAS_VR_HIGHSCORE_KEY, GameSettings.instance.vrMode() ? Constants.YES : Constants.NO);
 
 				// Player has got a new highscore, which hasn't been uploaded yet, so set it to false (0)
 				PlayerPrefs.SetInt(Constants.UPLOADED_KEY, Constants.NO);
@@ -65,6 +68,9 @@ namespace Manager
 		/// </summary>
 		private IEnumerator UploadHighscoreRoutine(string username)
 		{
+			// Add '(VR)' to the end of the username if the score was achieved in VR mode
+			username = PlayerPrefs.GetInt(Constants.WAS_VR_HIGHSCORE_KEY) == Constants.YES ? username + " (VR)" : username;
+
 			UnityWebRequest request = UnityWebRequest.Post(Constants.DREAMLO_URL + Constants.DREAMLO_PRIVATE_CODE + "/add/" + username + "/" + GetLocalHighscore(), "");
 			yield return request.SendWebRequest();
 
