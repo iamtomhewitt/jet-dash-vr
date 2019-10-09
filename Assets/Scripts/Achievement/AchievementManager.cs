@@ -73,19 +73,20 @@ public class AchievementManager : MonoBehaviour
 	/// </summary>
 	private Achievement[] GenerateSetOfAchievements()
 	{
-		List<Achievement> list = new List<Achievement>();
-		list.Add(new Achievement(1, "Die", 5));
-		list.Add(new Achievement(2, "Get A New Highscore", 30));
-		list.Add(new Achievement(3, "Upload A Highscore", 15));
-		list.Add(new Achievement(4, "Play In VR Mode", 5));
-		list.Add(new Achievement(5, "Get A Distance Further Than 1000", 5));
-		list.Add(new Achievement(6, "Get A Distance Further Than 10000", 30));
-		list.Add(new Achievement(7, "Get A Distance Further Than 100000", 100));
-		list.Add(new Achievement(8, "Fly Through Bonus Points", 5));
-		list.Add(new Achievement(9, "Fly Through Double Points", 5));
-		list.Add(new Achievement(10, "Become Invincible", 5));
-		list.Add(new Achievement(11, "Fly Through An Obstacle Whilst Invincible", 15));
-		list.Add(new Achievement(12, "Achieve Max Speed", 25));
-		return list.ToArray();
+		return new List<Achievement>
+		{
+			new Achievement(AchievementIds.DIE, "Die", 5),
+			new Achievement(AchievementIds.NEW_HIGHSCORE, "Get A New Highscore", 30),
+			new Achievement(AchievementIds.UPLOAD_HIGHSCORE, "Upload A Highscore", 15),
+			new Achievement(AchievementIds.PLAY_IN_VR, "Play In VR Mode", 5),
+			new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_1000, "Get A Distance Further Than 1000", 5),
+			new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_10000, "Get A Distance Further Than 10000", 30),
+			new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_100000, "Get A Distance Further Than 100000", 100),
+			new Achievement(AchievementIds.FLY_THROUGH_BONUS_POINTS, "Fly Through Bonus Points", 5),
+			new Achievement(AchievementIds.FLY_THROUGH_DOUBLE_POINTS, "Fly Through Double Points", 5),
+			new Achievement(AchievementIds.BECOME_INVINCIBLE, "Become Invincible", 5),
+			new Achievement(AchievementIds.FLY_THROUGH_OBSTACLE_WHEN_INVINCIBLE, "Fly Through An Obstacle Whilst Invincible", 15),
+			new Achievement(AchievementIds.GET_MAX_SPEED, "Achieve Max Speed", 25)
+		}.ToArray();
 	}
 }
