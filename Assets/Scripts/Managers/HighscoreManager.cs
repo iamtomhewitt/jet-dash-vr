@@ -1,8 +1,9 @@
-﻿using Highscore;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
+using System.Collections;
 using Utility;
+using Highscore;
+using Achievement;
 
 namespace Manager
 {
@@ -47,6 +48,8 @@ namespace Manager
 
 				// Player has got a new highscore, which hasn't been uploaded yet, so set it to false (0)
 				PlayerPrefs.SetInt(Constants.UPLOADED_KEY, Constants.NO);
+
+				AchievementManager.instance.UnlockAchievement(AchievementIds.NEW_HIGHSCORE);
 			}
 		}
 
@@ -78,6 +81,7 @@ namespace Manager
 			{
 				Debug.Log("Upload successful! " + request.responseCode);
 				PlayerPrefs.SetInt(Constants.UPLOADED_KEY, Constants.YES);
+				AchievementManager.instance.UnlockAchievement(AchievementIds.UPLOAD_HIGHSCORE);
 			}
 			else
 			{

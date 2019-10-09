@@ -1,4 +1,5 @@
-﻿using Manager;
+﻿using Achievement;
+using Manager;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -53,6 +54,7 @@ namespace LevelManager
 			if (vrMode)
 			{
 				StartCoroutine(HeadsetCountdown());
+				AchievementManager.instance.UnlockAchievement(AchievementIds.PLAY_IN_VR);
 			}
 			else
 			{

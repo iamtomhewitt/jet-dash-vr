@@ -101,7 +101,7 @@ namespace Achievement
 				new Achievement(AchievementIds.PLAY_IN_VR, "Play In VR Mode", 5),
 				new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_1000, "Get A Distance Further Than 1000", 5),
 				new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_10000, "Get A Distance Further Than 10000", 30),
-				new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_100000, "Get A Distance Further Than 100000", 100),
+				new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_50000, "Get A Distance Further Than 50000", 100),
 				new Achievement(AchievementIds.FLY_THROUGH_BONUS_POINTS, "Fly Through Bonus Points", 5),
 				new Achievement(AchievementIds.FLY_THROUGH_DOUBLE_POINTS, "Fly Through Double Points", 5),
 				new Achievement(AchievementIds.BECOME_INVINCIBLE, "Become Invincible", 5),

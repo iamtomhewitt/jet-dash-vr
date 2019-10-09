@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Utility;
 using Manager;
+using Achievement;
 
 namespace Player
 {
@@ -89,6 +90,7 @@ namespace Player
 			if (speed == maxSpeed)
 			{
 				reachedMaxSpeed = true;
+				AchievementManager.instance.UnlockAchievement(AchievementIds.GET_MAX_SPEED);
 			}
 
 			if (speed < maxSpeed)
