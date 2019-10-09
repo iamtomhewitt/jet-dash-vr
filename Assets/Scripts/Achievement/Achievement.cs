@@ -1,60 +1,63 @@
 ﻿using UnityEngine;
 
-[System.Serializable]
-public class Achievement
+namespace Achievement
 {
-	public string achievementName;
-	public int id;
-	public int awardValue;
-	public float progressPercentage;
-	public bool unlocked;
-
-	public Achievement(int id, string name, int value)
+	[System.Serializable]
+	public class Achievement
 	{
-		this.id = id;
-		this.achievementName = name;
-		this.awardValue = value;
-		this.unlocked = false;
-	}
+		public string achievementName;
+		public int id;
+		public int awardValue;
+		public float progressPercentage;
+		public bool unlocked;
 
-	/// <summary>
-	/// Progresses the achievement to a certain percentage.
-	/// </summary>
-	public void Progress(float target, float actual)
-	{
-		if (this.unlocked)
+		public Achievement(int id, string name, int value)
 		{
-			Debug.Log("Achievement '" + this.achievementName + "' already unlocked!");
-			return;
+			this.id = id;
+			this.achievementName = name;
+			this.awardValue = value;
+			this.unlocked = false;
 		}
 
-		//Debug.Log("Achievement '" + this.achievementName + "' target: " + target + ", actual: " + actual);
-		float percentage = (actual / target) * 100;
-
-		// Don't want to set percentage lower than a previous value
-		if (this.progressPercentage < percentage)
+		/// <summary>
+		/// Progresses the achievement to a certain percentage.
+		/// </summary>
+		public void Progress(float target, float actual)
 		{
-			this.progressPercentage = percentage;
+			if (this.unlocked)
+			{
+				Debug.Log("Achievement '" + this.achievementName + "' already unlocked!");
+				return;
+			}
+
+			//Debug.Log("Achievement '" + this.achievementName + "' target: " + target + ", actual: " + actual);
+			float percentage = (actual / target) * 100;
+
+			// Don't want to set percentage lower than a previous value
+			if (this.progressPercentage < percentage)
+			{
+				this.progressPercentage = percentage;
+			}
+
+			if (this.progressPercentage >= 100f)
+			{
+				Debug.Log("'" + this.achievementName + "' unlocked!");
+				Unlock();
+			}
 		}
 
-		if (this.progressPercentage >= 100f)
+		/// <summary>
+		/// Instantly unlocks an achievement.
+		/// </summary>
+		public void Unlock()
 		{
-			Debug.Log("'" + this.achievementName + "' unlocked!");
-			Unlock();
+			this.unlocked = true;
+			this.progressPercentage = 100f;
 		}
-	}	
 
-	/// <summary>
-	/// Instantly unlocks an achievement.
-	/// </summary>
-	public void Unlock()
-	{
-		this.unlocked = true;
-		this.progressPercentage = 100f;
-	}
-
-	public int GetId()
-	{
-		return this.id;
+		public int GetId()
+		{
+			return this.id;
+		}
 	}
 }

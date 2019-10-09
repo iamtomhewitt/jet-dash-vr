@@ -3,108 +3,111 @@ using System.IO;
 using UnityEngine;
 using System.Linq;
 
-public class AchievementManager : MonoBehaviour
+namespace Achievement
 {
-	public Achievement[] achievements;
-
-	private string achievementFilePath;
-
-	public static AchievementManager instance;
-
-	private void Awake()
+	public class AchievementManager : MonoBehaviour
 	{
-		if (instance)
+		public Achievement[] achievements;
+
+		private string achievementFilePath;
+
+		public static AchievementManager instance;
+
+		private void Awake()
 		{
-			DestroyImmediate(gameObject);
+			if (instance)
+			{
+				DestroyImmediate(gameObject);
+			}
+			else
+			{
+				DontDestroyOnLoad(gameObject);
+				instance = this;
+			}
 		}
-		else
+
+		private void Start()
 		{
-			DontDestroyOnLoad(gameObject);
-			instance = this;
+			achievementFilePath = Path.Combine(Application.persistentDataPath, "achievements.json");
+			achievements = LoadAchievementsFromFile();
 		}
-	}
 
-	private void Start()
-	{
-		achievementFilePath = Path.Combine(Application.persistentDataPath, "achievements.json");
-		achievements = LoadAchievementsFromFile();
-	}
-
-	/// <summary>
-	/// Returns the achivements saved in a JSON file.
-	/// </summary>
-	public Achievement[] LoadAchievementsFromFile()
-	{
-		// Generate a new set of achievements if the file does not exist
-		if (!File.Exists(achievementFilePath))
+		/// <summary>
+		/// Returns the achivements saved in a JSON file.
+		/// </summary>
+		public Achievement[] LoadAchievementsFromFile()
 		{
-			achievements = GenerateSetOfAchievements();
+			// Generate a new set of achievements if the file does not exist
+			if (!File.Exists(achievementFilePath))
+			{
+				achievements = GenerateSetOfAchievements();
+				SaveAchievementsToFile();
+			}
+
+			string fileContent = File.ReadAllText(achievementFilePath);
+
+			return AchievementJsonHelper.FromJson(fileContent);
+		}
+
+		/// <summary>
+		/// Saves the achivements as JSON to file.
+		/// </summary>
+		public void SaveAchievementsToFile()
+		{
+			string json = AchievementJsonHelper.ToJson(achievements);
+
+			StreamWriter writer = new StreamWriter(achievementFilePath, false);
+			writer.WriteLine(json);
+			writer.Close();
+		}
+
+		/// <summary>
+		/// Instantly unlocks an achievement.
+		/// </summary>
+		public void UnlockAchievement(int id)
+		{
+			GetAchievement(id).Unlock();
 			SaveAchievementsToFile();
 		}
 
-		string fileContent = File.ReadAllText(achievementFilePath);
-
-		return AchievementJsonHelper.FromJson(fileContent);
-	}
-
-	/// <summary>
-	/// Saves the achivements as JSON to file.
-	/// </summary>
-	public void SaveAchievementsToFile()
-	{
-		string json = AchievementJsonHelper.ToJson(achievements);
-
-		StreamWriter writer = new StreamWriter(achievementFilePath, false);
-		writer.WriteLine(json);
-		writer.Close();
-	}
-
-	/// <summary>
-	/// Instantly unlocks an achievement.
-	/// </summary>
-	public void UnlockAchievement(int id)
-	{
-		GetAchievement(id).Unlock();
-		SaveAchievementsToFile();
-	}
-
-	/// <summary>
-	/// Progresses an achievement.
-	/// The target value is what the 100% marker is, the actual value is what the actual value was achieved.<para/>
-	/// For example, say the achievement is to gain 1000 points (target), and the player achieved 750 points (actual).<para/>
-	/// Then the achievement would be 75% (750/1000) complete.
-	/// </summary>
-	public void ProgressAchievement(int id, float target, float actual)
-	{
-		GetAchievement(id).Progress(target, actual);
-		SaveAchievementsToFile();
-	}
-
-	public Achievement GetAchievement(int id)
-	{
-		return achievements.Where(x => Equals(x.GetId(), id)).ElementAt(0);
-	}
-
-	/// <summary>
-	/// Used when the achivement file cannot be found / does not exist.
-	/// Generates an array of achievements.
-	/// </summary>
-	private Achievement[] GenerateSetOfAchievements()
-	{
-		return new List<Achievement>
+		/// <summary>
+		/// Progresses an achievement.
+		/// The target value is what the 100% marker is, the actual value is what the actual value was achieved.<para/>
+		/// For example, say the achievement is to gain 1000 points (target), and the player achieved 750 points (actual).<para/>
+		/// Then the achievement would be 75% (750/1000) complete.
+		/// </summary>
+		public void ProgressAchievement(int id, float target, float actual)
 		{
-			new Achievement(AchievementIds.DIE, "Die", 5),
-			new Achievement(AchievementIds.NEW_HIGHSCORE, "Get A New Highscore", 30),
-			new Achievement(AchievementIds.UPLOAD_HIGHSCORE, "Upload A Highscore", 15),
-			new Achievement(AchievementIds.PLAY_IN_VR, "Play In VR Mode", 5),
-			new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_1000, "Get A Distance Further Than 1000", 5),
-			new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_10000, "Get A Distance Further Than 10000", 30),
-			new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_100000, "Get A Distance Further Than 100000", 100),
-			new Achievement(AchievementIds.FLY_THROUGH_BONUS_POINTS, "Fly Through Bonus Points", 5),
-			new Achievement(AchievementIds.FLY_THROUGH_DOUBLE_POINTS, "Fly Through Double Points", 5),
-			new Achievement(AchievementIds.BECOME_INVINCIBLE, "Become Invincible", 5),
-			new Achievement(AchievementIds.FLY_THROUGH_OBSTACLE_WHEN_INVINCIBLE, "Fly Through An Obstacle Whilst Invincible", 15),
-			new Achievement(AchievementIds.GET_MAX_SPEED, "Achieve Max Speed", 25)
-		}.ToArray();
+			GetAchievement(id).Progress(target, actual);
+			SaveAchievementsToFile();
+		}
+
+		public Achievement GetAchievement(int id)
+		{
+			return achievements.Where(x => Equals(x.GetId(), id)).ElementAt(0);
+		}
+
+		/// <summary>
+		/// Used when the achivement file cannot be found / does not exist.
+		/// Generates an array of achievements.
+		/// </summary>
+		private Achievement[] GenerateSetOfAchievements()
+		{
+			return new List<Achievement>
+			{
+				new Achievement(AchievementIds.DIE, "Die", 5),
+				new Achievement(AchievementIds.NEW_HIGHSCORE, "Get A New Highscore", 30),
+				new Achievement(AchievementIds.UPLOAD_HIGHSCORE, "Upload A Highscore", 15),
+				new Achievement(AchievementIds.PLAY_IN_VR, "Play In VR Mode", 5),
+				new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_1000, "Get A Distance Further Than 1000", 5),
+				new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_10000, "Get A Distance Further Than 10000", 30),
+				new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_100000, "Get A Distance Further Than 100000", 100),
+				new Achievement(AchievementIds.FLY_THROUGH_BONUS_POINTS, "Fly Through Bonus Points", 5),
+				new Achievement(AchievementIds.FLY_THROUGH_DOUBLE_POINTS, "Fly Through Double Points", 5),
+				new Achievement(AchievementIds.BECOME_INVINCIBLE, "Become Invincible", 5),
+				new Achievement(AchievementIds.FLY_THROUGH_OBSTACLE_WHEN_INVINCIBLE, "Fly Through An Obstacle Whilst Invincible", 15),
+				new Achievement(AchievementIds.GET_MAX_SPEED, "Achieve Max Speed", 25)
+			}.ToArray();
+		}
 	}
 }

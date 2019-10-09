@@ -1,23 +1,26 @@
 ﻿using UnityEngine;
 
-public class AchievementJsonHelper : MonoBehaviour
+namespace Achievement
 {
-	public static string ToJson(Achievement[] ach)
+	public class AchievementJsonHelper : MonoBehaviour
 	{
-		Wrapper<Achievement> wrapper = new Wrapper<Achievement>();
-		wrapper.achievements = ach;
-		return JsonUtility.ToJson(wrapper);
-	}
+		public static string ToJson(Achievement[] ach)
+		{
+			Wrapper<Achievement> wrapper = new Wrapper<Achievement>();
+			wrapper.achievements = ach;
+			return JsonUtility.ToJson(wrapper);
+		}
 
-	public static Achievement[] FromJson(string json)
-	{
-		Wrapper<Achievement> wrapper = JsonUtility.FromJson<Wrapper<Achievement>>(json);
-		return wrapper.achievements;
-	}
+		public static Achievement[] FromJson(string json)
+		{
+			Wrapper<Achievement> wrapper = JsonUtility.FromJson<Wrapper<Achievement>>(json);
+			return wrapper.achievements;
+		}
 
-	[System.Serializable]
-	private class Wrapper<T>
-	{
-		public T[] achievements;
+		[System.Serializable]
+		private class Wrapper<T>
+		{
+			public T[] achievements;
+		}
 	}
 }
