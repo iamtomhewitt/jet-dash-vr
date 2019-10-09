@@ -9,6 +9,21 @@ public class AchievementManager : MonoBehaviour
 
 	private string achievementFilePath;
 
+	public static AchievementManager instance;
+
+	private void Awake()
+	{
+		if (instance)
+		{
+			DestroyImmediate(gameObject);
+		}
+		else
+		{
+			DontDestroyOnLoad(gameObject);
+			instance = this;
+		}
+	}
+
 	private void Start()
 	{
 		achievementFilePath = Path.Combine(Application.persistentDataPath, "achievements.json");
@@ -55,10 +70,13 @@ public class AchievementManager : MonoBehaviour
 
 	/// <summary>
 	/// Progresses an achievement.
+	/// The target value is what the 100% marker is, the actual value is what the actual value was achieved.<para/>
+	/// For example, say the achievement is to gain 1000 points (target), and the player achieved 750 points (actual).<para/>
+	/// Then the achievement would be 75% (750/1000) complete.
 	/// </summary>
-	public void ProgressAchievement(int id, float percentage)
+	public void ProgressAchievement(int id, float target, float actual)
 	{
-		GetAchievement(id).Progress(percentage);
+		GetAchievement(id).Progress(target, actual);
 		SaveAchievementsToFile();
 	}
 

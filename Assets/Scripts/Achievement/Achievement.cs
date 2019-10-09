@@ -20,28 +20,37 @@ public class Achievement
 	/// <summary>
 	/// Progresses the achievement to a certain percentage.
 	/// </summary>
-	public void Progress(float percentage)
+	public void Progress(float target, float actual)
 	{
 		if (this.unlocked)
 		{
+			Debug.Log("Achievement '" + this.achievementName + "' already unlocked!");
 			return;
 		}
 
-		this.progressPercentage = percentage;
+		//Debug.Log("Achievement '" + this.achievementName + "' target: " + target + ", actual: " + actual);
+		float percentage = (actual / target) * 100;
+
+		// Don't want to set percentage lower than a previous value
+		if (this.progressPercentage < percentage)
+		{
+			this.progressPercentage = percentage;
+		}
 
 		if (this.progressPercentage >= 100f)
 		{
 			Debug.Log("'" + this.achievementName + "' unlocked!");
-			this.unlocked = true;
+			Unlock();
 		}
-	}
+	}	
 
 	/// <summary>
 	/// Instantly unlocks an achievement.
 	/// </summary>
 	public void Unlock()
 	{
-		Progress(100f);
+		this.unlocked = true;
+		this.progressPercentage = 100f;
 	}
 
 	public int GetId()
