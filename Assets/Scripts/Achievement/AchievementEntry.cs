@@ -15,9 +15,9 @@ public class AchievementEntry : MonoBehaviour
 	{
 		nameText.text = name;
 		descriptionText.text = description;
-		percentageText.text = progress.ToString() + "%";
+		percentageText.text = progress.ToString("F1") + "%";
 		progressSlider.value = progress;
-		awardValueText.text = awardValue.ToString();
+		awardValueText.text = awardValue.ToString() + "P";
 
 		bool show = (progress <= 0f) ? false : true;
 		progressSlider.fillRect.gameObject.SetActive(show);

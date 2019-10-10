@@ -16,5 +16,6 @@
 		public const int GET_MAX_SPEED = 12;
 		public const int POINTS_OVER_HALF_MILLION = 13;
 		public const int POINTS_OVER_MILLION = 14;
+		public const int POINTS_OVER_FIVE_MILLION = 14;
 	}
 }

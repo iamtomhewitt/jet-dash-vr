@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Achievement
 {
@@ -7,10 +8,12 @@ namespace Achievement
 	{
 		public AchievementEntry entryPrefab;
 		public Transform entryParent;
+		public Text totalPointsText;
 
 		private void Start()
 		{
 			StartCoroutine(DisplayAchievements(AchievementManager.instance.GetAchievements()));
+			CalculateTotalAchievementPoints();
 		}
 
 		public IEnumerator DisplayAchievements(Achievement[] achievements)
@@ -23,6 +26,25 @@ namespace Achievement
 				AchievementEntry entry = Instantiate(entryPrefab, entryParent).GetComponent<AchievementEntry>();
 				entry.Populate(a.achievementName, a.description, a.progressPercentage, a.awardValue);
 			}
+		}
+
+		public void CalculateTotalAchievementPoints()
+		{
+			Achievement[] achievements = AchievementManager.instance.GetAchievements();
+			int total = 0;
+			int achieved = 0;
+
+			foreach (Achievement a in achievements)
+			{
+				if (a.unlocked)
+				{
+					achieved += a.awardValue;
+				}
+
+				total += a.awardValue;
+			}
+
+			totalPointsText.text = achieved.ToString() + "P / " + total.ToString() + "P";
 		}
 	}
 }
