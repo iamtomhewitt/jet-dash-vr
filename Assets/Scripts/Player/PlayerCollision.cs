@@ -53,6 +53,8 @@ namespace Player
 					AchievementManager.instance.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_1000, 1000, PlayerScore.instance.GetDistanceScore());
 					AchievementManager.instance.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_10000, 10000, PlayerScore.instance.GetDistanceScore());
 					AchievementManager.instance.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_50000, 50000, PlayerScore.instance.GetDistanceScore());
+					AchievementManager.instance.ProgressAchievement(AchievementIds.POINTS_OVER_HALF_MILLION, 500000, PlayerScore.instance.GetFinalScore());
+					AchievementManager.instance.ProgressAchievement(AchievementIds.POINTS_OVER_MILLION, 1000000, PlayerScore.instance.GetFinalScore());
 					break;
 
 				default:

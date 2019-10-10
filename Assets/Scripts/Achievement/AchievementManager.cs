@@ -7,7 +7,7 @@ namespace Achievement
 {
 	public class AchievementManager : MonoBehaviour
 	{
-		public Achievement[] achievements;
+		[SerializeField] private Achievement[] achievements;
 
 		private string achievementFilePath;
 
@@ -87,6 +87,11 @@ namespace Achievement
 			return achievements.Where(x => Equals(x.GetId(), id)).ElementAt(0);
 		}
 
+		public Achievement[] GetAchievements()
+		{
+			return achievements;
+		}
+
 		/// <summary>
 		/// Used when the achivement file cannot be found / does not exist.
 		/// Generates an array of achievements.
@@ -95,18 +100,20 @@ namespace Achievement
 		{
 			return new List<Achievement>
 			{
-				new Achievement(AchievementIds.DIE, "Die", 5),
-				new Achievement(AchievementIds.NEW_HIGHSCORE, "Get A New Highscore", 30),
-				new Achievement(AchievementIds.UPLOAD_HIGHSCORE, "Upload A Highscore", 15),
-				new Achievement(AchievementIds.PLAY_IN_VR, "Play In VR Mode", 5),
-				new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_1000, "Get A Distance Further Than 1000", 5),
-				new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_10000, "Get A Distance Further Than 10000", 30),
-				new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_50000, "Get A Distance Further Than 50000", 100),
-				new Achievement(AchievementIds.FLY_THROUGH_BONUS_POINTS, "Fly Through Bonus Points", 5),
-				new Achievement(AchievementIds.FLY_THROUGH_DOUBLE_POINTS, "Fly Through Double Points", 5),
-				new Achievement(AchievementIds.BECOME_INVINCIBLE, "Become Invincible", 5),
-				new Achievement(AchievementIds.FLY_THROUGH_OBSTACLE_WHEN_INVINCIBLE, "Fly Through An Obstacle Whilst Invincible", 15),
-				new Achievement(AchievementIds.GET_MAX_SPEED, "Achieve Max Speed", 25)
+				new Achievement(AchievementIds.DIE, "Die", "Crash into an obstacle.", 5),
+				new Achievement(AchievementIds.NEW_HIGHSCORE, "Newbie", "Get A New Highscore", 30),
+				new Achievement(AchievementIds.UPLOAD_HIGHSCORE, "Welcome To The Club", "Upload A Highscore", 15),
+				new Achievement(AchievementIds.PLAY_IN_VR, "Seeing Double", "Play In VR Mode", 5),
+				new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_1000, "Going Places", "Get a distance further than 1000.", 5),
+				new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_10000, "To The Moon!", "Get a distance further than 10,000.", 30),
+				new Achievement(AchievementIds.DISTANCE_FURTHER_THAN_50000, "Sky Is The Limit", "Get a distance further than 50,000.", 200),
+				new Achievement(AchievementIds.FLY_THROUGH_BONUS_POINTS, "BONUS", "Fly Through Bonus Points", 5),
+				new Achievement(AchievementIds.FLY_THROUGH_DOUBLE_POINTS, "That's A Double", "Fly Through Double Points", 5),
+				new Achievement(AchievementIds.BECOME_INVINCIBLE, "The Power!", "Become Invincible", 5),
+				new Achievement(AchievementIds.FLY_THROUGH_OBSTACLE_WHEN_INVINCIBLE, "Indestructable", "Fly Through An Obstacle Whilst Invincible", 15),
+				new Achievement(AchievementIds.GET_MAX_SPEED, "Turbo", "Achieve Max Speed", 25),
+				new Achievement(AchievementIds.POINTS_OVER_HALF_MILLION, "What?", "Earn 500,000 points", 100),
+				new Achievement(AchievementIds.POINTS_OVER_MILLION, "IMPOSSIBLE!", "Earn 1,000,000 points", 500)
 			}.ToArray();
 		}
 	}

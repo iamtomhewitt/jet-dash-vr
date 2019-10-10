@@ -6,15 +6,17 @@ namespace Achievement
 	public class Achievement
 	{
 		public string achievementName;
+		public string description;
 		public int id;
 		public int awardValue;
 		public float progressPercentage;
 		public bool unlocked;
 
-		public Achievement(int id, string name, int value)
+		public Achievement(int id, string name, string description, int value)
 		{
 			this.id = id;
 			this.achievementName = name;
+			this.description = description;
 			this.awardValue = value;
 			this.unlocked = false;
 		}

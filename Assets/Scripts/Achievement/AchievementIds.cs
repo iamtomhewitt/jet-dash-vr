@@ -14,5 +14,7 @@
 		public const int BECOME_INVINCIBLE = 10;
 		public const int FLY_THROUGH_OBSTACLE_WHEN_INVINCIBLE = 11;
 		public const int GET_MAX_SPEED = 12;
+		public const int POINTS_OVER_HALF_MILLION = 13;
+		public const int POINTS_OVER_MILLION = 14;
 	}
 }
