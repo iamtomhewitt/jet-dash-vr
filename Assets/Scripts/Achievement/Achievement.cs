@@ -19,6 +19,17 @@ namespace Achievement
 			this.description = description;
 			this.awardValue = value;
 			this.unlocked = false;
+			this.progressPercentage = 0f;
+		}
+
+		public override string ToString()
+		{
+			return "Achievement: " + this.id + ", " +
+					this.achievementName + ", " +
+					this.description + ", " +
+					this.awardValue + ", " +
+					this.progressPercentage + ", " +
+					this.unlocked;
 		}
 
 		/// <summary>
