@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Linq;
 
 namespace Achievement
 {
+	/// <summary>
+	/// Manages achievements in game, such as progressing and unlocking.
+	/// </summary>
 	public class AchievementManager : MonoBehaviour
 	{
 		[SerializeField] private Achievement[] achievements;

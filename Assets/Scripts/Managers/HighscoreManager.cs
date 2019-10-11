@@ -113,7 +113,7 @@ namespace Manager
 
 			if (!request.downloadHandler.text.StartsWith("ERROR"))
 			{
-				string json = JsonHelper.StripParentFromJson(request.downloadHandler.text, 2);
+				string json = HighscoreJsonHelper.StripParentFromJson(request.downloadHandler.text, 2);
 				Leaderboard leaderboard = JsonUtility.FromJson<Leaderboard>(json);
 				FindObjectOfType<HighscoreDisplayHelper>().DisplayHighscores(leaderboard);
 			}
