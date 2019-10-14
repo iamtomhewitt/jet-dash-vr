@@ -64,7 +64,7 @@ namespace Manager
 			}
 
 			animator.Play(ACHIEVEMENT_SHOW);
-
+			AudioManager.instance.Play(SoundNames.ACHIEVEMENT_UNLOCKED);
 			showingAchievement = true;
 
 			// Get the next achievement in the queue
