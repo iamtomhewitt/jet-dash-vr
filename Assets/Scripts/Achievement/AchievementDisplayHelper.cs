@@ -1,9 +1,13 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using Manager;
 
-namespace Achievement
+namespace Achievements
 {
+	/// <summary>
+	/// Used to show the achievements on the achivements scene.
+	/// </summary>
 	public class AchievementDisplayHelper : MonoBehaviour
 	{
 		public AchievementEntry entryPrefab;
@@ -12,14 +16,12 @@ namespace Achievement
 
 		private void Start()
 		{
-			StartCoroutine(DisplayAchievements(AchievementManager.instance.GetAchievements()));
+			DisplayAchievements(AchievementManager.instance.GetAchievements());
 			CalculateTotalAchievementPoints();
 		}
 
-		public IEnumerator DisplayAchievements(Achievement[] achievements)
+		private void DisplayAchievements(Achievement[] achievements)
 		{
-			yield return new WaitForSeconds(0.5f);
-
 			for (int i = 0; i < achievements.Length; i++)
 			{
 				Achievement a = achievements[i];
@@ -28,7 +30,7 @@ namespace Achievement
 			}
 		}
 
-		public void CalculateTotalAchievementPoints()
+		private void CalculateTotalAchievementPoints()
 		{
 			Achievement[] achievements = AchievementManager.instance.GetAchievements();
 			int total = 0;

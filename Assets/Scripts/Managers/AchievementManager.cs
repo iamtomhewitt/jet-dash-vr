@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Linq;
+using Achievements;
 
-namespace Achievement
+namespace Manager
 {
 	/// <summary>
 	/// Manages achievements in game, such as progressing and unlocking.
@@ -35,7 +36,9 @@ namespace Achievement
 		/// </summary>
 		public void UnlockAchievement(int id)
 		{
-			GetAchievement(id).Unlock();
+			Achievement achievement = GetAchievement(id);
+			achievement.Unlock();
+			NotifyIfUnlocked(achievement);
 			AchievementDatabase.SaveAchievementsToFile(achievements);
 		}
 
@@ -47,8 +50,22 @@ namespace Achievement
 		/// </summary>
 		public void ProgressAchievement(int id, float target, float actual)
 		{
-			GetAchievement(id).Progress(target, actual);
+			Achievement achievement = GetAchievement(id);
+			achievement.Progress(target, actual);
+
+			NotifyIfUnlocked(achievement);
+
 			AchievementDatabase.SaveAchievementsToFile(achievements);
+		}
+
+		private void NotifyIfUnlocked(Achievement achievement)
+		{
+			if (!achievement.userShown && achievement.unlocked)
+			{
+				AchievementNotificationManager.instance.AddToNotificationQueue(achievement);
+				AchievementNotificationManager.instance.ShowNotification();
+				achievement.userShown = true;
+			}
 		}
 
 		public Achievement GetAchievement(int id)

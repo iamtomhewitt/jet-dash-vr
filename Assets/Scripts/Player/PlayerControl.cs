@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Utility;
 using Manager;
-using Achievement;
+using Achievements;
 
 namespace Player
 {

@@ -1,4 +1,4 @@
-﻿namespace Achievement
+﻿namespace Achievements
 {
 	public class AchievementIds
 	{

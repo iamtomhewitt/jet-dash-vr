@@ -3,7 +3,7 @@ using UnityEngine.Networking;
 using System.Collections;
 using Utility;
 using Highscore;
-using Achievement;
+using Achievements;
 
 namespace Manager
 {

@@ -1,8 +1,8 @@
-﻿using Achievement;
-using Manager;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using Achievements;
+using Manager;
 using Utility;
 
 namespace LevelManager

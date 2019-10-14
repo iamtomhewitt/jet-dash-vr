@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Achievement
+namespace Achievements
 {
 	[System.Serializable]
 	public class Achievement
@@ -11,6 +11,7 @@ namespace Achievement
 		public int awardValue;
 		public float progressPercentage;
 		public bool unlocked;
+		public bool userShown;
 
 		public Achievement(int id, string name, string description, int value)
 		{

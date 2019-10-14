@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Achievement
+namespace Achievements
 {
 	/// <summary>
 	/// An achievement in UI form.

@@ -3,7 +3,7 @@ using System.Collections;
 using Spawner;
 using Manager;
 using Utility;
-using Achievement;
+using Achievements;
 
 namespace Player
 {

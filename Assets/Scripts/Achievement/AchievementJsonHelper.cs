@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Achievement
+namespace Achievements
 {
 	public class AchievementJsonHelper : MonoBehaviour
 	{
