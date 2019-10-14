@@ -66,6 +66,7 @@ namespace Achievements
 				new Achievement(AchievementIds.POINTS_OVER_HALF_MILLION, "What?", "Earn 500,000 points", 100),
 				new Achievement(AchievementIds.POINTS_OVER_MILLION, "IMPOSSIBLE!", "Earn 1,000,000 points", 500),
 				new Achievement(AchievementIds.POINTS_OVER_FIVE_MILLION, "UNFRIGGENBELIEVEABLE", "Earn 5,000,000 points", 1000),
+				new Achievement(AchievementIds.WATCH_ADS, "SQUARE EYES", "Watch three adverts", 300)
 			}.ToArray();
 		}
 	}

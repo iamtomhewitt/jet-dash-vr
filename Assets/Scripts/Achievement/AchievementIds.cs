@@ -17,5 +17,6 @@
 		public const int POINTS_OVER_HALF_MILLION = 13;
 		public const int POINTS_OVER_MILLION = 14;
 		public const int POINTS_OVER_FIVE_MILLION = 15;
+		public const int WATCH_ADS = 16;
 	}
 }
