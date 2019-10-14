@@ -2,7 +2,7 @@
 
 namespace Highscore
 {
-	public class JsonHelper
+	public class HighscoreJsonHelper
 	{
 		/// <summary>
 		/// Formats the JSON downloaded from Dreamlo so it starts with the 'entry' tag instead of the 'dreamlo' tag.
