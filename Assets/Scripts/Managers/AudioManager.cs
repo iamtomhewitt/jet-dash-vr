@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 
 namespace Manager
 {
 	public class AudioManager : MonoBehaviour
 	{
-		public Sound[] sounds;
+		[SerializeField] private Sound[] sounds;
 
 		public static AudioManager instance;
 
@@ -37,7 +35,7 @@ namespace Manager
 
 		private void Start()
 		{
-			Play("Music");
+			Play(SoundNames.MUSIC);
 		}
 
 		public void Play(string name)
@@ -45,14 +43,19 @@ namespace Manager
 			Sound s = GetSound(name);
 
 			if (s != null)
+			{
 				s.source.Play();
+			}
 		}
 
 		public void Pause(string name)
 		{
 			Sound s = GetSound(name);
 
-			if (s != null) s.source.Pause();
+			if (s != null)
+			{
+				s.source.Pause();
+			}
 		}
 		
 		/// <summary>
@@ -105,5 +108,19 @@ namespace Manager
 			[HideInInspector]
 			public AudioSource source;
 		}
+	}
+
+	public class SoundNames
+	{
+		public const string PLAYER_DEATH = "Player Death";
+		public const string SHIP_ENGINE = "Ship Hum";
+		public const string SHIP_STARTUP = "Starting Bass";
+		public const string SPEED_STREAK = "Speed Streak";
+		public const string BUTTON_SELECT = "UI Select";
+		public const string MUSIC = "Music";
+		public const string BONUS_POINTS = "Powerup Bonus Points";
+		public const string DOUBLE_POINTS = "Powerup Double Points";
+		public const string INVINCIBILITY_POINTS = "Powerup Invincibility";
+		public const string SCORE = "Score";
 	}
 }
