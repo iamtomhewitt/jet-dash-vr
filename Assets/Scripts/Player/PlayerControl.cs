@@ -6,7 +6,7 @@ using Achievements;
 namespace Player
 {
 	public class PlayerControl : MonoBehaviour
-    {
+	{
 		[SerializeField] private GameObject normalCamera;
 		[SerializeField] private GameObject VRCamera;
 
@@ -35,57 +35,59 @@ namespace Player
 		}
 
 		private void Start()
-        {
-            PlayerHud.instance.SetSpeedText(speed.ToString());
+		{
+			PlayerHud.instance.SetSpeedText(speed.ToString());
 
 			modelSettings = GetComponent<PlayerModelSettings>();
-            modelSettings.SelectRandomShip();
+			modelSettings.SelectRandomShip();
 			modelSettings.SetOriginalRotation();
 
-            InvokeRepeating("IncreaseSpeed", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
+			InvokeRepeating("IncreaseSpeed", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
 			InvokeRepeating("CheckSpeedStreak", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
 
 			DetermineGameSettings();
 
-            AudioManager.instance.Play(SoundNames.SHIP_ENGINE);
-            AudioManager.instance.Play(SoundNames.SHIP_STARTUP);
-        }
-		
-        private void Update()
-        {
-            // Move forward
-            transform.position += transform.forward * Time.deltaTime * speed;
+			AudioManager.instance.Play(SoundNames.SHIP_ENGINE);
+			AudioManager.instance.Play(SoundNames.SHIP_STARTUP);
+		}
 
-            // Move left and right based on accelerometer
-            transform.position += transform.right * Time.deltaTime * turningSpeed * sensitivity * Input.acceleration.x;
-		
-            modelSettings.RotateBasedOnMobileInput(modelSettings.GetModel(), modelRotationLimit);
-            modelSettings.RotateBasedOnMobileInput(cameraToUse.transform, cameraRotationLimit);
+		private void Update()
+		{
+			// Move forward
+			transform.position += transform.forward * Time.deltaTime * speed;
 
-            PlayerHud.instance.SetDistanceText(transform.position.z);
+			// Move left and right based on accelerometer
+			transform.position += transform.right * Time.deltaTime * turningSpeed * sensitivity * Input.acceleration.x;
 
-            UseKeyboard();
-        }
+			modelSettings.RotateBasedOnMobileInput(modelSettings.GetModel(), modelRotationLimit);
+			modelSettings.RotateBasedOnMobileInput(cameraToUse.transform, cameraRotationLimit);
 
-        private void UseKeyboard()
-        {
+			PlayerHud.instance.SetDistanceText(transform.position.z);
+
+			UseKeyboard();
+		}
+
+		private void UseKeyboard()
+		{
 			if (Input.GetKey(left))
 			{
-				transform.position += transform.right * Time.deltaTime * sensitivity * -turningSpeed;
+				transform.position += transform.right * Time.deltaTime * 1f * -turningSpeed;
 			}
 
 			else if (Input.GetKey(right))
 			{
-				transform.position += transform.right * Time.deltaTime * sensitivity * turningSpeed;
+				transform.position += transform.right * Time.deltaTime * 1f * turningSpeed;
 			}
-        }
+			modelSettings.RotateBaseOnKeyboardInput(modelSettings.GetModel(), modelRotationLimit);
+			modelSettings.RotateBaseOnKeyboardInput(cameraToUse.transform, cameraRotationLimit);
+		}
 
 		public int GetSpeed()
 		{
 			return (int)speed;
 		}
 
-        private void IncreaseSpeed()
+		private void IncreaseSpeed()
 		{
 			if (speed == maxSpeed)
 			{
@@ -94,14 +96,14 @@ namespace Player
 			}
 
 			if (speed < maxSpeed)
-            {
-                speed += speedIncrease;
-                PlayerHud.instance.SetSpeedText(speed.ToString());
+			{
+				speed += speedIncrease;
+				PlayerHud.instance.SetSpeedText(speed.ToString());
 
-                float p = (speed / 1000f) + 1f;
-                AudioManager.instance.GetSound(SoundNames.SHIP_ENGINE).pitch = p;                
-            }
-        }
+				float p = (speed / 1000f) + 1f;
+				AudioManager.instance.GetSound(SoundNames.SHIP_ENGINE).pitch = p;
+			}
+		}
 
 		private void CheckSpeedStreak()
 		{
@@ -112,50 +114,50 @@ namespace Player
 			}
 		}
 
-        public void StopMoving()
-        {
-            speed = 0f;    
-            turningSpeed = 0f;
-            CancelInvoke("IncreaseSpeed");
-        }
+		public void StopMoving()
+		{
+			speed = 0f;
+			turningSpeed = 0f;
+			CancelInvoke("IncreaseSpeed");
+		}
 
-        public void StartMoving()
-        {
-            speed = 20f;
-            turningSpeed = 20f;
-            InvokeRepeating("IncreaseSpeed", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
-        }
+		public void StartMoving()
+		{
+			speed = 20f;
+			turningSpeed = 20f;
+			InvokeRepeating("IncreaseSpeed", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
+		}
 
 		/// <summary>
 		/// Sets up the cameras and the sensitivity based upon what was selected in the main menu.
 		/// </summary>
-        private void DetermineGameSettings()
-        {
-            GameSettings gs = GameSettings.instance;
+		private void DetermineGameSettings()
+		{
+			GameSettings gs = GameSettings.instance;
 
-            if (gs == null)
-            {
-                normalCamera.SetActive(true);
-                VRCamera.SetActive(false);
-                cameraToUse = normalCamera;
-                sensitivity = 1f;
-            }
-            else if (gs.vrMode())
-            {
-                normalCamera.SetActive(false);
-                VRCamera.SetActive(true);
-                cameraToUse = VRCamera;
-                sensitivity = gs.GetSensitivity();
-            }
-            else
-            {
-                normalCamera.SetActive(true);
-                VRCamera.SetActive(false);
-                cameraToUse = normalCamera;
-                sensitivity = gs.GetSensitivity();
-            }
-        }
-    }
+			if (gs == null)
+			{
+				normalCamera.SetActive(true);
+				VRCamera.SetActive(false);
+				cameraToUse = normalCamera;
+				sensitivity = 1f;
+			}
+			else if (gs.vrMode())
+			{
+				normalCamera.SetActive(false);
+				VRCamera.SetActive(true);
+				cameraToUse = VRCamera;
+				sensitivity = gs.GetSensitivity();
+			}
+			else
+			{
+				normalCamera.SetActive(true);
+				VRCamera.SetActive(false);
+				cameraToUse = normalCamera;
+				sensitivity = gs.GetSensitivity();
+			}
+		}
+	}
 }
 
 

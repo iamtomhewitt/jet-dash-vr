@@ -22,6 +22,13 @@ namespace Player
 			t.localEulerAngles = new Vector3(t.localEulerAngles.x, t.localEulerAngles.y, -z);
 		}
 
+		public void RotateBaseOnKeyboardInput(Transform t, float limit)
+		{
+			z = Input.GetAxis("Horizontal") * 30f;
+			z = Mathf.Clamp(z, -limit, limit);
+			t.localEulerAngles = new Vector3(t.localEulerAngles.x, t.localEulerAngles.y, -z);
+		}
+
 		/// <summary>
 		/// Activates a random ship at the start of the game.
 		/// </summary>
