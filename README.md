@@ -9,6 +9,8 @@
 [![Issues](https://img.shields.io/github/issues-raw/iamtomhewitt/jet-dash-vr?color=blue&style=flat-square)](https://github.com/iamtomhewitt/jet-dash-vr/issues )
 ![Issues](https://img.shields.io/github/issues-closed-raw/iamtomhewitt/jet-dash-vr?color=blue&style=flat-square)
 
+Become a Beta Testser [here](https://play.google.com/apps/testing/com.BlueRobotGames.JetDashVR)!
+
 # Jet Dash VR
 
 <p align="center">
