@@ -2,12 +2,14 @@
 using UnityEngine.Advertisements;
 using System.Collections;
 using Utility;
+using Achievements;
 
 namespace Manager
 {
 	public class AdvertManager : MonoBehaviour
 	{
 		private int advertCounter = 0;
+		private int advertsWatched = 0;
 
 		public static AdvertManager instance;
 
@@ -46,6 +48,10 @@ namespace Manager
 			#if UNITY_EDITOR
 			yield return StartCoroutine(WaitForAd());
 			#endif
+
+			advertsWatched++;
+
+			AchievementManager.instance.ProgressAchievement(AchievementIds.WATCH_ADS, 3, advertsWatched);
 		}
 
 		private IEnumerator WaitForAd()

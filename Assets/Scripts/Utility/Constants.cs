@@ -6,6 +6,7 @@ namespace Utility
 	{
 		public const string GAME_ID					= "1606552";
 		public const string HIGHSCORE_KEY			= "LocalHighscore";
+		public const string WAS_VR_HIGHSCORE_KEY	= "wasVrHighscore";
 		public const string DISTANCE_KEY			= "DistanceHighscore";
 		public const string UPLOADED_KEY			= "hasUploadedHighscore";
 		public const string DREAMLO_PRIVATE_CODE	= "VqnbsBo9LEe_iN-ksRCzyQ84P3n4pBLE6rPNBPAsjIpg";
