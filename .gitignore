@@ -1,3 +1,4 @@
+Google Play Store/
 Builds/
 Logs/
 *.sln
@@ -36,11 +37,3 @@ Thumbs.db
 /.vs
 
 
-/Google Play Store/Video/Footage.mp4.sfk
-/Google Play Store/Video/Video Render.wmv
-/Google Play Store/Video/Footage VR Mode.mp4.sfk
-*.sfk
-*.sfk.meta
-*.mp4
-*.sfk
-*.bak

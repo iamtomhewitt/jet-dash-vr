@@ -1,9 +1,8 @@
-﻿using UnityEngine;
-using UnityEngine.Networking;
+﻿using Highscore;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.Networking;
 using Utility;
-using Highscore;
-using Achievements;
 
 namespace Manager
 {
@@ -28,7 +27,7 @@ namespace Manager
 
 			DontDestroyOnLoad(this.gameObject);
 
-			// PlayerPrefs.DeleteAll();
+			//PlayerPrefs.DeleteAll();
 		}
 
 		/// <summary>
@@ -43,13 +42,8 @@ namespace Manager
 				Debug.Log("New highscore of " + score + "! Saving...");
 				PlayerPrefs.SetInt(Constants.HIGHSCORE_KEY, score);
 
-				// Was the highscore achieved in VR mode?
-				PlayerPrefs.SetInt(Constants.WAS_VR_HIGHSCORE_KEY, GameSettings.instance.vrMode() ? Constants.YES : Constants.NO);
-
 				// Player has got a new highscore, which hasn't been uploaded yet, so set it to false (0)
 				PlayerPrefs.SetInt(Constants.UPLOADED_KEY, Constants.NO);
-
-				AchievementManager.instance.UnlockAchievement(AchievementIds.NEW_HIGHSCORE);
 			}
 		}
 
@@ -71,9 +65,6 @@ namespace Manager
 		/// </summary>
 		private IEnumerator UploadHighscoreRoutine(string username)
 		{
-			// Add '(VR)' to the end of the username if the score was achieved in VR mode
-			username = PlayerPrefs.GetInt(Constants.WAS_VR_HIGHSCORE_KEY) == Constants.YES ? username + " (VR)" : username;
-
 			UnityWebRequest request = UnityWebRequest.Post(Constants.DREAMLO_URL + Constants.DREAMLO_PRIVATE_CODE + "/add/" + username + "/" + GetLocalHighscore(), "");
 			yield return request.SendWebRequest();
 
@@ -81,7 +72,6 @@ namespace Manager
 			{
 				Debug.Log("Upload successful! " + request.responseCode);
 				PlayerPrefs.SetInt(Constants.UPLOADED_KEY, Constants.YES);
-				AchievementManager.instance.UnlockAchievement(AchievementIds.UPLOAD_HIGHSCORE);
 			}
 			else
 			{
@@ -113,7 +103,7 @@ namespace Manager
 
 			if (!request.downloadHandler.text.StartsWith("ERROR"))
 			{
-				string json = HighscoreJsonHelper.StripParentFromJson(request.downloadHandler.text, 2);
+				string json = JsonHelper.StripParentFromJson(request.downloadHandler.text, 2);
 				Leaderboard leaderboard = JsonUtility.FromJson<Leaderboard>(json);
 				FindObjectOfType<HighscoreDisplayHelper>().DisplayHighscores(leaderboard);
 			}
