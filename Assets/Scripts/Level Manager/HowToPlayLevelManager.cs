@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LevelManager
+namespace LevelManagers
 {
 	public class HowToPlayLevelManager : LevelManager
 	{

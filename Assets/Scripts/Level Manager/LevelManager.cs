@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 using Manager;
 
-namespace LevelManager
+namespace LevelManagers
 {
 	/// <summary>
 	/// A base class for all Level Managers.
