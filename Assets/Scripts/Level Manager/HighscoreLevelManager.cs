@@ -1,4 +1,4 @@
-﻿namespace LevelManager
+﻿namespace LevelManagers
 {
 	public class HighscoreLevelManager : LevelManager
 	{

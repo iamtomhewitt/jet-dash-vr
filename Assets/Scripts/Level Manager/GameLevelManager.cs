@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using Manager;
 
-namespace LevelManager
+namespace LevelManagers
 {
 	/// <summary>
 	/// Handles everything on the Game scene.

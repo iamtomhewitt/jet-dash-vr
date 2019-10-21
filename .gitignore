@@ -44,3 +44,5 @@ Thumbs.db
 *.mp4
 *.sfk
 *.bak
+/Assets/TextMesh Pro
+/Assets/TextMesh Pro.meta

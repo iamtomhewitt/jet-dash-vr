@@ -25,6 +25,7 @@ namespace Utility
         private void Start()
         {
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
+			SetSensitivity(1f);
         }
 
 		public bool vrMode()
