@@ -6,11 +6,13 @@ namespace LevelManagers
 {
 	public class SettingsLevelManager : LevelManager
 	{
-		public Text toggleVrText;
+		[SerializeField] private Text toggleVrText;
+		[SerializeField] private Slider sensitivitySlider;
 
 		private void Start()
 		{
 			toggleVrText.text = "VR Mode: " + (GameSettings.instance.vrMode() ? "ON" : "OFF");
+			sensitivitySlider.value = GameSettings.instance.GetSensitivity();
 		}
 
 		/// <summary>
@@ -27,10 +29,9 @@ namespace LevelManagers
 		/// <summary>
 		/// Called from the slider when the value is changed.
 		/// </summary>
-		public void UpdateSensitivity(Slider slider)
+		public void UpdateSensitivity()
 		{
-			GameSettings.instance.SetSensitivity(slider.value);
-			GameSettings.instance.SetVrMode(false);
+			GameSettings.instance.SetSensitivity(sensitivitySlider.value);
 		}
 	}
 }
