@@ -1,6 +1,9 @@
 Builds/
 Logs/
 *.sln
+*.userprefs
+/Packages
+/ProjectSettings
 
 # =============== #
 # Unity generated #
