@@ -44,3 +44,4 @@ See [Code Style](Code-Style.md) for how to style your scripts.
 ## Acknowledgements 🙌
 
 - Carmine T. Guida for [Dreamlo](http://dreamlo.com/). It's a very easy to use online leaderboard and I've used it in many of my projects.
+- Liz Reddington for the spaceship models. Check here out [here](https://www.artstation.com/lizred)!
