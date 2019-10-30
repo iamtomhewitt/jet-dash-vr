@@ -24,10 +24,8 @@ This project is my Unity3D game on Google Play. It is an endless runner style ga
 - If you want to test on an Android device you will need to install the Android module.
 
 ## Contributing 🎉
-Issues are currently tracked under the [Issues](https://github.com/iamtomhewitt/jet-dash-vr/issues) tab. Choose an issue, branch off of the `develop` branch and code it! When you are done create a merge request to merge your changes back into `develop`. Once we are ready, the `develop` branch will be merged into the `beta` branch, where a beta build will be created from it and uploaded to Google Play.
-After the beta has ended, or another one comes along, then the `beta` branch will be merged into `master`. The beta in Google Play will then be promoted to production.
 
-Make sure to update the [Issue Management Project](https://github.com/iamtomhewitt/jet-dash-vr/projects/1) so the issues can be tracked effectively. 
+See [Contributing](CONTRIBUTING.md) for how to style your scripts.
 
 ## Versioning 🗂
 
@@ -39,7 +37,7 @@ Versioning is similar to Semantic versioning - <b>MAJOR.MINOR.PATCH</b> <i>(e.g 
 
 ## Code Style 💎
 
-See [Code Style](Code-Style.md) for how to style your scripts.
+See [Code Style](CODESTYLE.md) for how to style your scripts.
 
 ## Acknowledgements 🙌
 
