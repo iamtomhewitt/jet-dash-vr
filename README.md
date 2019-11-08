@@ -25,7 +25,7 @@ This project is my Unity3D game on Google Play. It is an endless runner style ga
 
 ## Contributing 🎉
 
-See [Contributing](CONTRIBUTING.md) for how to style your scripts.
+See [Contributing](CONTRIBUTING.md) on how to contribute.
 
 ## Versioning 🗂
 
