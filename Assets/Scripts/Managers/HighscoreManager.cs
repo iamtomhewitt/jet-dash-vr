@@ -75,7 +75,9 @@ namespace Manager
 			// Add '(VR)' to the end of the username if the score was achieved in VR mode
 			username = PlayerPrefs.GetInt(Constants.WAS_VR_HIGHSCORE_KEY) == Constants.YES ? username + " (VR)" : username;
 
-			UnityWebRequest request = UnityWebRequest.Post(Constants.DREAMLO_URL + Constants.DREAMLO_PRIVATE_CODE + "/add/" + username + "/" + GetLocalHighscore(), "");
+			string privateCode = Config.instance.GetConfig()["dreamlo"]["privateKey"];
+			
+			UnityWebRequest request = UnityWebRequest.Post(Constants.DREAMLO_URL + privateCode + "/add/" + username + "/" + GetLocalHighscore(), "");
 			yield return request.SendWebRequest();
 
 			if (!request.downloadHandler.text.StartsWith("ERROR"))
@@ -111,7 +113,8 @@ namespace Manager
 				yield break;
 			}
 
-			UnityWebRequest request = UnityWebRequest.Get(Constants.DREAMLO_URL + Constants.DREAMLO_PUBLIC_CODE + "/json/0/10");
+			string publicCode = Config.instance.GetConfig()["dreamlo"]["publicKey"];
+			UnityWebRequest request = UnityWebRequest.Get(Constants.DREAMLO_URL + publicCode + "/json/0/10");
 			yield return request.SendWebRequest();
 
 			if (!request.downloadHandler.text.StartsWith("ERROR"))
