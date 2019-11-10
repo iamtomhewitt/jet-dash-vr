@@ -1,6 +1,6 @@
 ﻿namespace LevelManagers
 {
-	public class HelpLevelManager : LevelManager
+	public class AchievementsLevelManager : LevelManager
 	{
 		// Nothing to do!
 	}
