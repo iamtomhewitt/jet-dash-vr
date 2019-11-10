@@ -4,6 +4,7 @@ using System.Collections;
 using Utility;
 using Highscore;
 using Achievements;
+using SimpleJSON;
 
 namespace Manager
 {
@@ -102,9 +103,11 @@ namespace Manager
 
 		private IEnumerator DownloadHighscores()
 		{
+			HighscoreDisplayHelper displayHelper = FindObjectOfType<HighscoreDisplayHelper>();
+
 			if (Application.internetReachability == NetworkReachability.NotReachable)
 			{
-				FindObjectOfType<HighscoreDisplayHelper>().DisplayError("No internet connection.");
+				displayHelper.DisplayError("No internet connection.");
 				yield break;
 			}
 
@@ -113,14 +116,14 @@ namespace Manager
 
 			if (!request.downloadHandler.text.StartsWith("ERROR"))
 			{
-				string json = HighscoreJsonHelper.StripParentFromJson(request.downloadHandler.text, 2);
-				Leaderboard leaderboard = JsonUtility.FromJson<Leaderboard>(json);
-				FindObjectOfType<HighscoreDisplayHelper>().DisplayHighscores(leaderboard);
+				JSONNode json = JSON.Parse(request.downloadHandler.text);
+				JSONArray entries = json["dreamlo"]["leaderboard"]["entry"].AsArray;
+				displayHelper.DisplayHighscores(entries);
 			}
 			else
 			{
 				Debug.Log("Error downloading: " + request.downloadHandler.text);
-				FindObjectOfType<HighscoreDisplayHelper>().DisplayError("Could not download highscores. Please try again later.\n\n" + request.downloadHandler.text);
+				displayHelper.DisplayError("Could not download highscores. Please try again later.\n\n" + request.downloadHandler.text);
 			}
 		}
 	}
