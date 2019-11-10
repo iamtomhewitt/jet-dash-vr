@@ -4,6 +4,7 @@ using System.Collections;
 using Utility;
 using Highscore;
 using Achievements;
+using SimpleJSON;
 
 namespace Manager
 {
@@ -113,9 +114,9 @@ namespace Manager
 
 			if (!request.downloadHandler.text.StartsWith("ERROR"))
 			{
-				string json = HighscoreJsonHelper.StripParentFromJson(request.downloadHandler.text, 2);
-				Leaderboard leaderboard = JsonUtility.FromJson<Leaderboard>(json);
-				FindObjectOfType<HighscoreDisplayHelper>().DisplayHighscores(leaderboard);
+				JSONNode json = JSON.Parse(request.downloadHandler.text);
+				JSONArray entries = json["dreamlo"]["leaderboard"]["entry"].AsArray;
+				FindObjectOfType<HighscoreDisplayHelper>().DisplayHighscores(entries);
 			}
 			else
 			{
