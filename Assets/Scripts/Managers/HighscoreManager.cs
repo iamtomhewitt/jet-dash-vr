@@ -103,9 +103,11 @@ namespace Manager
 
 		private IEnumerator DownloadHighscores()
 		{
+			HighscoreDisplayHelper displayHelper = FindObjectOfType<HighscoreDisplayHelper>();
+
 			if (Application.internetReachability == NetworkReachability.NotReachable)
 			{
-				FindObjectOfType<HighscoreDisplayHelper>().DisplayError("No internet connection.");
+				displayHelper.DisplayError("No internet connection.");
 				yield break;
 			}
 
@@ -116,12 +118,12 @@ namespace Manager
 			{
 				JSONNode json = JSON.Parse(request.downloadHandler.text);
 				JSONArray entries = json["dreamlo"]["leaderboard"]["entry"].AsArray;
-				FindObjectOfType<HighscoreDisplayHelper>().DisplayHighscores(entries);
+				displayHelper.DisplayHighscores(entries);
 			}
 			else
 			{
 				Debug.Log("Error downloading: " + request.downloadHandler.text);
-				FindObjectOfType<HighscoreDisplayHelper>().DisplayError("Could not download highscores. Please try again later.\n\n" + request.downloadHandler.text);
+				displayHelper.DisplayError("Could not download highscores. Please try again later.\n\n" + request.downloadHandler.text);
 			}
 		}
 	}
