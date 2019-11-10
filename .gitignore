@@ -48,3 +48,5 @@ ehthumbs.db
 Thumbs.db
 /.vs
 
+/Assets/config.json
+/Assets/config.json.meta
