@@ -4,6 +4,7 @@ using System.Collections;
 using Utility;
 using Highscore;
 using Achievements;
+using SimpleJSON;
 
 namespace Manager
 {
@@ -74,7 +75,9 @@ namespace Manager
 			// Add '(VR)' to the end of the username if the score was achieved in VR mode
 			username = PlayerPrefs.GetInt(Constants.WAS_VR_HIGHSCORE_KEY) == Constants.YES ? username + " (VR)" : username;
 
-			UnityWebRequest request = UnityWebRequest.Post(Constants.DREAMLO_URL + Constants.DREAMLO_PRIVATE_CODE + "/add/" + username + "/" + GetLocalHighscore(), "");
+			string privateCode = Config.instance.GetConfig()["dreamlo"]["privateKey"];
+			
+			UnityWebRequest request = UnityWebRequest.Post(Constants.DREAMLO_URL + privateCode + "/add/" + username + "/" + GetLocalHighscore(), "");
 			yield return request.SendWebRequest();
 
 			if (!request.downloadHandler.text.StartsWith("ERROR"))
@@ -102,25 +105,28 @@ namespace Manager
 
 		private IEnumerator DownloadHighscores()
 		{
+			HighscoreDisplayHelper displayHelper = FindObjectOfType<HighscoreDisplayHelper>();
+
 			if (Application.internetReachability == NetworkReachability.NotReachable)
 			{
-				FindObjectOfType<HighscoreDisplayHelper>().DisplayError("No internet connection.");
+				displayHelper.DisplayError("No internet connection.");
 				yield break;
 			}
 
-			UnityWebRequest request = UnityWebRequest.Get(Constants.DREAMLO_URL + Constants.DREAMLO_PUBLIC_CODE + "/json/0/10");
+			string publicCode = Config.instance.GetConfig()["dreamlo"]["publicKey"];
+			UnityWebRequest request = UnityWebRequest.Get(Constants.DREAMLO_URL + publicCode + "/json/0/10");
 			yield return request.SendWebRequest();
 
 			if (!request.downloadHandler.text.StartsWith("ERROR"))
 			{
-				string json = HighscoreJsonHelper.StripParentFromJson(request.downloadHandler.text, 2);
-				Leaderboard leaderboard = JsonUtility.FromJson<Leaderboard>(json);
-				FindObjectOfType<HighscoreDisplayHelper>().DisplayHighscores(leaderboard);
+				JSONNode json = JSON.Parse(request.downloadHandler.text);
+				JSONArray entries = json["dreamlo"]["leaderboard"]["entry"].AsArray;
+				displayHelper.DisplayHighscores(entries);
 			}
 			else
 			{
 				Debug.Log("Error downloading: " + request.downloadHandler.text);
-				FindObjectOfType<HighscoreDisplayHelper>().DisplayError("Could not download highscores. Please try again later.\n\n" + request.downloadHandler.text);
+				displayHelper.DisplayError("Could not download highscores. Please try again later.\n\n" + request.downloadHandler.text);
 			}
 		}
 	}

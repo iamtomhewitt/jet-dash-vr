@@ -1,6 +1,18 @@
 Builds/
 Logs/
-*.sln
+/Assets/config.json
+/Assets/config.json.meta
+/Packages
+/Google Play Store/Video/Footage.mp4.sfk
+/Google Play Store/Video/Video Render.wmv
+/Google Play Store/Video/Footage VR Mode.mp4.sfk
+*.sfk
+*.sfk.meta
+*.mp4
+*.sfk
+*.bak
+/Assets/TextMesh Pro
+/Assets/TextMesh Pro.meta
 
 # =============== #
 # Unity generated #
@@ -22,6 +34,7 @@ obj/
 *.user
 *.unityproj
 *.booproj
+*.sln
 
 # ============ #
 # OS generated #
@@ -35,12 +48,3 @@ ehthumbs.db
 Thumbs.db
 /.vs
 
-
-/Google Play Store/Video/Footage.mp4.sfk
-/Google Play Store/Video/Video Render.wmv
-/Google Play Store/Video/Footage VR Mode.mp4.sfk
-*.sfk
-*.sfk.meta
-*.mp4
-*.sfk
-*.bak

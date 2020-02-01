@@ -1,9 +1,7 @@
-﻿using UnityEngine;
-
-namespace LevelManager
+﻿namespace LevelManagers
 {
 	public class AchievementsLevelManager : LevelManager
 	{
-
+		// Nothing to do!
 	}
 }
