@@ -63,28 +63,11 @@ namespace Player
 			modelSettings.RotateBasedOnMobileInput(cameraToUse.transform, cameraRotationLimit);
 
 			PlayerHud.instance.SetDistanceText(transform.position.z);
-
-			UseKeyboard();
-		}
-
-		private void UseKeyboard()
-		{
-			if (Input.GetKey(left))
-			{
-				transform.position += transform.right * Time.deltaTime * 1f * -turningSpeed;
-			}
-
-			else if (Input.GetKey(right))
-			{
-				transform.position += transform.right * Time.deltaTime * 1f * turningSpeed;
-			}
-			modelSettings.RotateBaseOnKeyboardInput(modelSettings.GetModel(), modelRotationLimit);
-			modelSettings.RotateBaseOnKeyboardInput(cameraToUse.transform, cameraRotationLimit);
 		}
 
 		public int GetSpeed()
 		{
-			return (int)speed;
+			return (int) speed;
 		}
 
 		private void IncreaseSpeed()

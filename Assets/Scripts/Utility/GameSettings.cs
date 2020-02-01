@@ -5,7 +5,7 @@ namespace Utility
 	public class GameSettings : MonoBehaviour
     {
         private bool isVrMode;
-        private float sensitivity;
+        private float sensitivity = 4f;
 
         public static GameSettings instance;		
 
