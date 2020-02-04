@@ -10240,7 +10240,6 @@ GameObject:
   - component: {fileID: 727388016605435903}
   - component: {fileID: 727388016605435899}
   - component: {fileID: 727388016605435898}
-  - component: {fileID: 4934423376680228510}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -10327,8 +10326,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalCamera: {fileID: 727388017366986379}
   VRCamera: {fileID: 727388017418395184}
-  left: 276
-  right: 275
+  shipModels:
+  - {fileID: 727388017320596860}
+  - {fileID: 727388018284592041}
+  - {fileID: 727388017782526572}
+  - {fileID: 727388017380887667}
+  - {fileID: 727388017442430375}
+  ship: {fileID: 0}
   speed: 20
   speedIncrease: 2
   speedIncreaseRepeatRate: 1
@@ -10365,24 +10369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d4eca85a8242dc45b021e408fec0e30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4934423376680228510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 727388016605435901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b54f19832c1a10409f03879479fb335, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  models:
-  - {fileID: 727388017320596861}
-  - {fileID: 727388018284592046}
-  - {fileID: 727388017782526573}
-  - {fileID: 727388017380887664}
-  - {fileID: 727388017442430372}
 --- !u!1 &727388016612763626
 GameObject:
   m_ObjectHideFlags: 0
@@ -35759,7 +35745,7 @@ GameObject:
   - component: {fileID: 727388017320596860}
   m_Layer: 0
   m_Name: Cellex
-  m_TagString: Untagged
+  m_TagString: Cellex
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40852,7 +40838,7 @@ GameObject:
   - component: {fileID: 727388017380887667}
   m_Layer: 0
   m_Name: Rescate
-  m_TagString: Untagged
+  m_TagString: Rescate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45727,7 +45713,7 @@ GameObject:
   - component: {fileID: 727388017442430375}
   m_Layer: 0
   m_Name: Solstice
-  m_TagString: Untagged
+  m_TagString: Solstice
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60477,7 +60463,7 @@ GameObject:
   - component: {fileID: 727388017782526572}
   m_Layer: 0
   m_Name: Equinox
-  m_TagString: Untagged
+  m_TagString: Equinox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70655,7 +70641,7 @@ GameObject:
   - component: {fileID: 727388018284592041}
   m_Layer: 0
   m_Name: Devildog
-  m_TagString: Untagged
+  m_TagString: Devildog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

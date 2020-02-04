@@ -13,6 +13,11 @@ namespace Player
 		[SerializeField] private float speed;
 		[SerializeField] private float turnSpeed;
 		[SerializeField] private float cost;
+
+		public string GetShipName()
+		{
+			return shipName;
+		}
 	}
 
 	/// <summary>

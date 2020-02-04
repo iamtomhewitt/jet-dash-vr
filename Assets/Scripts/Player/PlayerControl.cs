@@ -8,9 +8,8 @@ namespace Player
 	{
 		[SerializeField] private GameObject normalCamera;
 		[SerializeField] private GameObject VRCamera;
-
-		[SerializeField] private KeyCode left;
-		[SerializeField] private KeyCode right;
+		[SerializeField] private Transform[] shipModels;
+		[SerializeField] private PlayerShip ship;
 
 		[SerializeField] private float speed;
 		[SerializeField] private float speedIncrease;
@@ -21,9 +20,11 @@ namespace Player
 		[SerializeField] private float maxSpeed = 200f;
 
 		private GameObject cameraToUse;
-		private PlayerModelSettings modelSettings;
+		private Transform shipModel;
+		private Quaternion originalRotation;
 
 		private float sensitivity;
+		private float z = 0f;
 		private bool reachedMaxSpeed = false;
 
 		public static PlayerControl instance;
@@ -37,9 +38,8 @@ namespace Player
 		{
 			PlayerHud.instance.SetSpeedText(speed.ToString());
 
-			modelSettings = GetComponent<PlayerModelSettings>();
-			modelSettings.SelectRandomShip();
-			modelSettings.SetOriginalRotation();
+			ShowShipModel();
+			originalRotation = shipModel.rotation;
 
 			InvokeRepeating("IncreaseSpeed", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
 			InvokeRepeating("CheckSpeedStreak", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
@@ -58,15 +58,21 @@ namespace Player
 			// Move left and right based on accelerometer
 			transform.position += transform.right * Time.deltaTime * turningSpeed * sensitivity * Input.acceleration.x;
 
-			modelSettings.RotateBasedOnMobileInput(modelSettings.GetModel(), modelRotationLimit);
-			modelSettings.RotateBasedOnMobileInput(cameraToUse.transform, cameraRotationLimit);
+			RotateBasedOnMobileInput(shipModel, modelRotationLimit);
+			RotateBasedOnMobileInput(cameraToUse.transform, cameraRotationLimit);
 
 			PlayerHud.instance.SetDistanceText(transform.position.z);
 		}
 
-		public int GetSpeed()
+		/// <summary>
+		/// Rotates the ship based on the mobile accelerometer.
+		/// </summary>
+		private void RotateBasedOnMobileInput(Transform t, float limit)
 		{
-			return (int) speed;
+			z = Input.acceleration.x * 30f;
+			z = Mathf.Clamp(z, -limit, limit);
+
+			t.localEulerAngles = new Vector3(t.localEulerAngles.x, t.localEulerAngles.y, -z);
 		}
 
 		private void IncreaseSpeed()
@@ -115,6 +121,7 @@ namespace Player
 		/// </summary>
 		private void DetermineGameSettings()
 		{
+			// TODO: sensitivity may need removing as these will be based on ship (either that, or combine them together)
 			GameSettingsManager gs = GameSettingsManager.instance;
 
 			if (gs == null)
@@ -139,7 +146,27 @@ namespace Player
 				sensitivity = gs.GetSensitivity();
 			}
 		}
+
+		private void ShowShipModel()
+		{
+			shipModel = GameObject.FindGameObjectWithTag(ship.GetShipName()).transform;
+
+			foreach (Transform model in shipModels)
+			{
+				if (model.tag.Equals(ship.GetShipName()))
+				{
+					model.gameObject.SetActive(true);
+				}
+				else
+				{
+					model.gameObject.SetActive(false);
+				}
+			}
+		}
+
+		public int GetSpeed()
+		{
+			return (int)speed;
+		}
 	}
 }
-
-
