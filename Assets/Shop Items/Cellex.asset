@@ -15,5 +15,6 @@ MonoBehaviour:
   shipName: Cellex
   specialAbility: 4
   speed: 20
+  speedIncreaseRate: 2
   turnSpeed: 20
   cost: 100000000

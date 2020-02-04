@@ -15,5 +15,6 @@ MonoBehaviour:
   shipName: Solstice
   specialAbility: 1
   speed: 30
+  speedIncreaseRate: 0.5
   turnSpeed: 3
   cost: 500000

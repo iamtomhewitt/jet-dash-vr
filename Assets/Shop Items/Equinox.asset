@@ -15,5 +15,6 @@ MonoBehaviour:
   shipName: Equinox
   specialAbility: 3
   speed: 20
+  speedIncreaseRate: 2
   turnSpeed: 20
   cost: 5000000

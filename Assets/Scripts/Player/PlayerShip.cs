@@ -11,12 +11,31 @@ namespace Player
 		[SerializeField] private string shipName;
 		[SerializeField] private SpecialAbility specialAbility;
 		[SerializeField] private float speed;
+		[SerializeField] private float speedIncreaseRate;
 		[SerializeField] private float turnSpeed;
 		[SerializeField] private float cost;
 
 		public string GetShipName()
 		{
 			return shipName;
+		}
+
+		public float GetSpeed()
+		{
+			return speed;
+		}
+
+		/// <summary>
+		/// The rate at which the speed is increased in seconds.
+		/// </summary>
+		public float GetSpeedIncreaseRate()
+		{
+			return speedIncreaseRate;
+		}
+
+		public float GetTurningSpeed()
+		{
+			return turnSpeed;
 		}
 	}
 

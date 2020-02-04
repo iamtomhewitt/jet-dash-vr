@@ -11,10 +11,7 @@ namespace Player
 		[SerializeField] private Transform[] shipModels;
 		[SerializeField] private PlayerShip ship;
 
-		[SerializeField] private float speed;
 		[SerializeField] private float speedIncrease;
-		[SerializeField] private float speedIncreaseRepeatRate;
-		[SerializeField] private float turningSpeed;
 		[SerializeField] private float modelRotationLimit;
 		[SerializeField] private float cameraRotationLimit;
 		[SerializeField] private float maxSpeed = 200f;
@@ -23,6 +20,9 @@ namespace Player
 		private Transform shipModel;
 		private Quaternion originalRotation;
 
+		private float speed;
+		private float speedIncreaseRate;
+		private float turningSpeed;
 		private float sensitivity;
 		private float z = 0f;
 		private bool reachedMaxSpeed = false;
@@ -38,14 +38,12 @@ namespace Player
 		{
 			PlayerHud.instance.SetSpeedText(speed.ToString());
 
-			ShowShipModel();
-			originalRotation = shipModel.rotation;
+			ApplyShipSettings();
+			ApplyCameraSettings();
 
-			InvokeRepeating("IncreaseSpeed", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
-			InvokeRepeating("CheckSpeedStreak", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
-
-			DetermineGameSettings();
-
+			InvokeRepeating("IncreaseSpeed", speedIncreaseRate, speedIncreaseRate);
+			InvokeRepeating("CheckSpeedStreak", speedIncreaseRate, speedIncreaseRate);
+			
 			AudioManager.instance.Play(SoundNames.SHIP_ENGINE);
 			AudioManager.instance.Play(SoundNames.SHIP_STARTUP);
 		}
@@ -113,13 +111,13 @@ namespace Player
 		{
 			speed = 20f;
 			turningSpeed = 20f;
-			InvokeRepeating("IncreaseSpeed", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
+			InvokeRepeating("IncreaseSpeed", speedIncreaseRate, speedIncreaseRate);
 		}
 
 		/// <summary>
-		/// Sets up the cameras and the sensitivity based upon what was selected in the main menu.
+		/// Sets up the cameras based upon what was selected in the main menu.
 		/// </summary>
-		private void DetermineGameSettings()
+		private void ApplyCameraSettings()
 		{
 			// TODO: sensitivity may need removing as these will be based on ship (either that, or combine them together)
 			GameSettingsManager gs = GameSettingsManager.instance;
@@ -147,9 +145,13 @@ namespace Player
 			}
 		}
 
-		private void ShowShipModel()
+		private void ApplyShipSettings()
 		{
-			shipModel = GameObject.FindGameObjectWithTag(ship.GetShipName()).transform;
+			shipModel			= GameObject.FindGameObjectWithTag(ship.GetShipName()).transform;
+			originalRotation	= shipModel.rotation;
+			speed				= ship.GetSpeed();
+			speedIncreaseRate	= ship.GetSpeedIncreaseRate();
+			turningSpeed		= ship.GetTurningSpeed();
 
 			foreach (Transform model in shipModels)
 			{

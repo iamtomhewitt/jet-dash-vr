@@ -15,5 +15,6 @@ MonoBehaviour:
   shipName: Rescate
   specialAbility: 0
   speed: 2
+  speedIncreaseRate: 3.25
   turnSpeed: 10
   cost: 100000

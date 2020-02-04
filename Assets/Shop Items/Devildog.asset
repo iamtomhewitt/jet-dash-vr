@@ -15,5 +15,6 @@ MonoBehaviour:
   shipName: Devildog
   specialAbility: 2
   speed: 20
+  speedIncreaseRate: 2
   turnSpeed: 20
   cost: 1500000
