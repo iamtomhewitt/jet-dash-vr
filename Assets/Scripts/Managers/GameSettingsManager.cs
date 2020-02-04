@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
-namespace Utility
+namespace Manager
 {
-	public class GameSettings : MonoBehaviour
+	public class GameSettingsManager : MonoBehaviour
     {
         private bool isVrMode;
         private float sensitivity = 4f;
 
-        public static GameSettings instance;		
+        public static GameSettingsManager instance;		
 
 		private void Awake()
         {

@@ -116,7 +116,7 @@ namespace Player
 		/// </summary>
 		private void DetermineGameSettings()
 		{
-			GameSettings gs = GameSettings.instance;
+			GameSettingsManager gs = GameSettingsManager.instance;
 
 			if (gs == null)
 			{
