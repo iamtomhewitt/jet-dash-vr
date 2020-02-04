@@ -52,7 +52,7 @@ namespace Spawner
 
 		private IEnumerator GrowRoutine(float duration, int scale)
 		{
-			Vector3 originalScale = Vector3.zero;
+			Vector3 originalScale = new Vector3(0.1f, 0.1f, 0.1f);
 			Vector3 targetScale = new Vector3(scale, scale, scale);
 
 			float timer = 0f;
