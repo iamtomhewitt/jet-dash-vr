@@ -1,62 +1,44 @@
-﻿using UnityEngine;
+﻿using Manager;
+using UnityEngine;
 using Utility;
 
 namespace Player
 {
 	public class PlayerScore : MonoBehaviour
-    {
-		private PlayerHud hud;
-
+	{
 		private int bonusScore = 0;
 
 		public static PlayerScore instance;
 
 		private void Awake()
 		{
-			instance = this;	
+			instance = this;
 		}
 
 		private void Start()
-        {
-            hud = GetComponent<PlayerHud>();
+		{
+			float speedIncreaseRate = PlayerControl.instance.GetSpeedIncreaseRate();
+			InvokeRepeating("ShowNotificationIfOnSpeedStreak", speedIncreaseRate, speedIncreaseRate);
 		}
 
 		private void Update()
-        {
-            hud.SetScoreText(bonusScore);
-        }
+		{
+			PlayerHud.instance.SetScoreText(bonusScore);
+		}
 
-        public void AddBonusPoints(int points)
-        {
-            bonusScore += points;
-        }
+		/// <summary>
+		/// Shows a notification if we are on a speed streak (every 50).
+		/// </summary>
+		private void ShowNotificationIfOnSpeedStreak()
+		{
+			float speed = PlayerControl.instance.GetSpeed();
 
-        public void DoublePoints()
-        {
-			if (bonusScore == 0)
+			if (speed % 50 == 0 && !PlayerControl.instance.HasReachedMaxSpeed())
 			{
-				bonusScore += 500;
+				PlayerHud.instance.ShowNotification(Color.white, speed + " Speed Streak!");
+				AudioManager.instance.Play(SoundNames.SPEED_STREAK);
 			}
-			else
-			{
-				bonusScore *= 2;
-			}
-        }
-
-        public int GetBonusScore()
-        {
-            return bonusScore;
-        }
-
-        public int GetDistanceScore()
-        {
-            return (int)transform.position.z;
-        }
-
-        public int GetFinalScore()
-        {
-            return GetBonusScore() + GetDistanceScore() + PlayerControl.instance.GetSpeed();
-        }
+		}
 
 		/// <summary>
 		/// Saves the players distance to the PlayerPrefs.
@@ -71,6 +53,38 @@ namespace Player
 				print("New distance of " + distance + "! Previous was " + currentDistance + ".");
 				PlayerPrefs.SetInt(Constants.DISTANCE_KEY, distance);
 			}
+		}
+
+		public void AddBonusPoints(int points)
+		{
+			bonusScore += points;
+		}
+
+		public void DoublePoints()
+		{
+			if (bonusScore == 0)
+			{
+				bonusScore += 500;
+			}
+			else
+			{
+				bonusScore *= 2;
+			}
+		}
+
+		public int GetBonusScore()
+		{
+			return bonusScore;
+		}
+
+		public int GetDistanceScore()
+		{
+			return (int)transform.position.z;
+		}
+
+		public int GetFinalScore()
+		{
+			return GetBonusScore() + GetDistanceScore() + PlayerControl.instance.GetSpeed();
 		}
 	}
 }

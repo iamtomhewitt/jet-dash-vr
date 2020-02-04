@@ -42,7 +42,6 @@ namespace Player
 			ApplyCameraSettings();
 
 			InvokeRepeating("IncreaseSpeed", speedIncreaseRate, speedIncreaseRate);
-			InvokeRepeating("CheckSpeedStreak", speedIncreaseRate, speedIncreaseRate);
 			
 			AudioManager.instance.Play(SoundNames.SHIP_ENGINE);
 			AudioManager.instance.Play(SoundNames.SHIP_STARTUP);
@@ -88,15 +87,6 @@ namespace Player
 
 				float p = (speed / 1000f) + 1f;
 				AudioManager.instance.GetSound(SoundNames.SHIP_ENGINE).pitch = p;
-			}
-		}
-
-		private void CheckSpeedStreak()
-		{
-			if (speed % 50 == 0 && !reachedMaxSpeed)
-			{
-				PlayerHud.instance.ShowNotification(Color.white, speed + " Speed Streak!");
-				AudioManager.instance.Play(SoundNames.SPEED_STREAK);
 			}
 		}
 
@@ -169,6 +159,16 @@ namespace Player
 		public int GetSpeed()
 		{
 			return (int)speed;
+		}
+
+		public float GetSpeedIncreaseRate()
+		{
+			return speedIncreaseRate;
+		}
+
+		public bool HasReachedMaxSpeed()
+		{
+			return reachedMaxSpeed;
 		}
 	}
 }
