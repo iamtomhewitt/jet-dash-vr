@@ -14,6 +14,7 @@ namespace Player
 		[SerializeField] private float speedIncreaseRate;
 		[SerializeField] private float turnSpeed;
 		[SerializeField] private float cost;
+		[SerializeField] private bool unlocked;
 
 		public string GetShipName()
 		{
@@ -36,6 +37,21 @@ namespace Player
 		public float GetTurningSpeed()
 		{
 			return turnSpeed;
+		}
+
+		public float GetCost()
+		{
+			return cost;
+		}
+
+		public bool IsUnlocked()
+		{
+			return unlocked;
+		}
+
+		public void SetUnlocked(bool unlocked)
+		{
+			this.unlocked = unlocked;
 		}
 	}
 
