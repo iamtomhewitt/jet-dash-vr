@@ -42,7 +42,7 @@ namespace Spawner
                 float y = (scale / 2) + 0.5f;
 
                 GameObject o = Instantiate(obstacles[Random.Range(0, obstacles.Length)], GenerateObstaclePosition(initialBoundary, y), Quaternion.identity) as GameObject;
-                o.GetComponent<Obstacle>().Grow(Constants.OBSTACLE_GROW_SPEED, scale);
+                o.GetComponent<Obstacle>().Grow(scale);
 				o.GetComponent<Renderer>().material = colours[Random.Range(0, colours.Length)];
                 o.transform.localScale = new Vector3(scale, scale, scale);
                 o.transform.parent = GameObject.Find(OBSTACLE_PARENT).transform;

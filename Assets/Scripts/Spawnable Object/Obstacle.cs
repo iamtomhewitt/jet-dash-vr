@@ -9,12 +9,14 @@ namespace SpawnableObject
 	/// </summary>
 	public class Obstacle : SpawnableObject
 	{
+		private const float GROW_SPEED = 0.75f;
+
 		/// <summary>
 		/// Makes the obstacle grow over a certain time from scale 0.
 		/// </summary>
-		public void Grow(float duration, int scale)
+		public void Grow(int scale)
 		{
-			StartCoroutine(GrowRoutine(duration, scale));
+			StartCoroutine(GrowRoutine(GROW_SPEED, scale));
 		}
 
 		private IEnumerator GrowRoutine(float duration, int scale)
@@ -37,7 +39,7 @@ namespace SpawnableObject
 
 		public override void PostRelocationMethod()
 		{
-			Grow(Constants.OBSTACLE_GROW_SPEED, (int)transform.localScale.x);
+			Grow((int)transform.localScale.x);
 		}
 	}
 }
