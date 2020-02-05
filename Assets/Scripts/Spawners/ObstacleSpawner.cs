@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Utility;
+using SpawnableObject;
 
 namespace Spawner
 {

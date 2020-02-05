@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using Spawner;
+using SpawnableObject;
 using Manager;
 using Utility;
 using Achievements;

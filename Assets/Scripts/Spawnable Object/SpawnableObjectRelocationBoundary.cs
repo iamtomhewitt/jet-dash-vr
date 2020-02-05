@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Spawner
+namespace SpawnableObject
 {
 	/// <summary>
 	/// A boundary for which spawnable objects use to relocate themselves.
