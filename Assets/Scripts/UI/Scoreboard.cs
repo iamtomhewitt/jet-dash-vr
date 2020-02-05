@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using Manager;
 using LevelManagers;
 
@@ -58,7 +58,7 @@ namespace Player
             text.text = displayScore.ToString();
             AudioManager.instance.Pause(SoundNames.SCORE);
 
-			// Final score will take the longest to animate, to only reload the scene when animating final score,
+			// Final score will take the longest to animate, so only reload the scene when animating final score,
 			// that way nothing gets cut off
 			if (isFinalScore)
 			{
