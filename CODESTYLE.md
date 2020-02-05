@@ -37,7 +37,7 @@ Single line or multiline comment:
 Where applicable, use a Ternary operator for simple statements:
 
 ```c#
-int number = 5
+int number = 5;
 bool isLessThanTen = (number < 10) ? true : false; 
 
 // Instead of
@@ -156,27 +156,27 @@ Don't use ```com.fpsgame.hud.healthbar```, instead use ```FpsGame.Hud.Healthbar`
 
 ## Variables
 
-Written in the ```lowerCamelCase``` form. Variables should be self describing. They should be prefixed with ```public``` or ```private```, and ordered in the following way in a class: ``` public <Type>, public <primative>, private <Type>, private <primative>```. For example:
+Written in the ```lowerCamelCase``` form. Variables should be self describing. They should be prefixed with ```[SerializeField] private``` (if needed to be exposed in the inspector) or ```private```, and ordered in the following way in a class: `[SerializeField] private <Type>, public <primative>, private <Type>, private <primative>`. For example:
 
 ```c#
-public GameObject notificationText;
-public int distance;
-public bool dead;
+[SerializeField] private GameObject notificationText;
+[SerializeField] private int distance;
+[SerializeField] private bool dead;
 
 private Obstacle[] obstacles;
 private bool collectedPowerup;
 ```
 
-Do not use public variables unless absolutely necessary. Variables should be private with a public ```Get()``` and ```Set()``` method.
+Do not use public variables unless absolutely necessary. Variables should be private with a public `Get()` and `Set()` method.
 
-If a GameObject is only present once in a scene, then the following instance method should be used
+If a GameObject is only present once in a scene, then the following instance pattern should be used
 
 ```c#
 // GameManager.cs
 
 public static GameManager instance;
 
-void Awake()
+private void Awake()
 {
     if (instance == null)
     {
@@ -194,7 +194,7 @@ It would be then used in another script:
 GameManager.instance.DoSomething();
 ```
 
-Variables that need to be private but need to be shown in Inspector should use the ```[SerializeField]``` before a variable. For the other way around, use ```[HideInInspector]```
+Variables that need to be private but need to be shown in Inspector should use the `[SerializeField]` before a variable. For the other way around, use `[HideInInspector]`
 
 
 ## Camel Case Defined
