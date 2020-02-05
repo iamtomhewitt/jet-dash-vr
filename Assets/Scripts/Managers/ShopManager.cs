@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Linq;
-using Player;
 using Utility;
+using Data;
 
 namespace Manager
 {
@@ -10,8 +10,8 @@ namespace Manager
 	/// </summary>
 	public class ShopManager : MonoBehaviour
 	{
-		[SerializeField] private PlayerShip[] ships;
-		[SerializeField] private PlayerShip selectedShip;
+		[SerializeField] private ShipData[] shipData;
+		[SerializeField] private ShipData selectedShipData;
 
 		public static ShopManager instance;
 
@@ -30,30 +30,29 @@ namespace Manager
 	
 		public void PurchaseShip(string name)
 		{
-			PlayerShip ship = GetShip(name);
+			ShipData shipData = GetShip(name);
 			float cash = GetCash();
-			float cost = ship.GetCost();
+			float cost = shipData.GetCost();
 
-			if (cash >= cost && ship.IsUnlocked())
+			if (cash >= cost)
 			{
 				SetCash(cash - cost);
-				selectedShip = ship;
-				ship.SetUnlocked(true);
+				selectedShipData = shipData;
 			}
 			else
 			{
-				print ("Not enough wonga! You have: " + GetCash() + " and you need " + ship.GetCost());
+				print ("Not enough wonga! You have: " + GetCash() + " and you need " + shipData.GetCost());
 			}
 		}
 
-		public PlayerShip GetShip(string name)
+		public ShipData GetShip(string name)
 		{
-			return ships.Where(ship => ship.GetShipName().Equals(name)).First();
+			return shipData.Where(ship => ship.GetShipName().Equals(name)).First();
 		}
 
-		public PlayerShip GetSelectedShip()
+		public ShipData GetSelectedShipData()
 		{
-			return selectedShip;
+			return selectedShipData;
 		}
 
 		public float GetCash()

@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-namespace Player
+namespace Data
 {
 	/// <summary>
-	/// Details about the players ship, which are also displayed in the shop.
+	/// Data class to hold information about different kinds of ships. This is a template data class and values should not be modified.
 	/// </summary>
 	[CreateAssetMenu()]
-	public class PlayerShip : ScriptableObject
+	public class ShipData : ScriptableObject
 	{
 		[SerializeField] private string shipName;
 		[SerializeField] private SpecialAbility specialAbility;
@@ -47,11 +47,6 @@ namespace Player
 		public bool IsUnlocked()
 		{
 			return unlocked;
-		}
-
-		public void SetUnlocked(bool unlocked)
-		{
-			this.unlocked = unlocked;
 		}
 	}
 

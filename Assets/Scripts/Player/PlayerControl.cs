@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Manager;
 using Achievements;
+using Data;
 
 namespace Player
 {
@@ -136,16 +137,16 @@ namespace Player
 
 		private void ApplyShipSettings()
 		{
-			PlayerShip ship = ShopManager.instance.GetSelectedShip();
-			shipModel			= GameObject.FindGameObjectWithTag(ship.GetShipName()).transform;
-			speed				= ship.GetSpeed();
-			speedIncreaseRate	= ship.GetSpeedIncreaseRate();
-			turningSpeed		= ship.GetTurningSpeed();
+			ShipData shipData	= ShopManager.instance.GetSelectedShipData();
+			shipModel			= GameObject.FindGameObjectWithTag(shipData.GetShipName()).transform;
 			originalRotation	= shipModel.rotation;
+			speed				= shipData.GetSpeed();
+			speedIncreaseRate	= shipData.GetSpeedIncreaseRate();
+			turningSpeed		= shipData.GetTurningSpeed();
 
 			foreach (Transform model in shipModels)
 			{
-				if (model.tag.Equals(ship.GetShipName()))
+				if (model.tag.Equals(shipData.GetShipName()))
 				{
 					model.gameObject.SetActive(true);
 				}
