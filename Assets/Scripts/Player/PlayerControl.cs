@@ -9,7 +9,6 @@ namespace Player
 		[SerializeField] private GameObject normalCamera;
 		[SerializeField] private GameObject VRCamera;
 		[SerializeField] private Transform[] shipModels;
-		[SerializeField] private PlayerShip ship;
 
 		[SerializeField] private float speedIncrease;
 		[SerializeField] private float modelRotationLimit;
@@ -137,11 +136,12 @@ namespace Player
 
 		private void ApplyShipSettings()
 		{
+			PlayerShip ship = ShopManager.instance.GetSelectedShip();
 			shipModel			= GameObject.FindGameObjectWithTag(ship.GetShipName()).transform;
-			originalRotation	= shipModel.rotation;
 			speed				= ship.GetSpeed();
 			speedIncreaseRate	= ship.GetSpeedIncreaseRate();
 			turningSpeed		= ship.GetTurningSpeed();
+			originalRotation	= shipModel.rotation;
 
 			foreach (Transform model in shipModels)
 			{

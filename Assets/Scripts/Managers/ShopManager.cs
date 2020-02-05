@@ -51,6 +51,11 @@ namespace Manager
 			return ships.Where(ship => ship.GetShipName().Equals(name)).First();
 		}
 
+		public PlayerShip GetSelectedShip()
+		{
+			return selectedShip;
+		}
+
 		public float GetCash()
 		{
 			return PlayerPrefs.GetFloat(Constants.CASH_KEY);
