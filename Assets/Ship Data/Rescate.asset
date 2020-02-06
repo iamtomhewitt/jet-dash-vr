@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47600adfcb4abe94eae24a5696f7a575, type: 3}
+  m_Script: {fileID: 11500000, guid: ff47199e146874ea1a0cce9676265458, type: 3}
   m_Name: Rescate
   m_EditorClassIdentifier: 
   shipName: Rescate
-  specialAbility: 0
   speed: 2
   speedIncreaseRate: 3.25
   turnSpeed: 10
   cost: 100000
+  ability: 0

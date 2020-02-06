@@ -9,12 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47600adfcb4abe94eae24a5696f7a575, type: 3}
+  m_Script: {fileID: 11500000, guid: ae394f9f7d9bd4e55a15b8e66fef97c1, type: 3}
   m_Name: Devildog
   m_EditorClassIdentifier: 
   shipName: Devildog
-  specialAbility: 2
   speed: 20
   speedIncreaseRate: 2
   turnSpeed: 20
   cost: 1500000
+  powerup:
+    ability: 0
+    powerup: {fileID: 8977179043665752550, guid: 671a4a27f61ee4b85a9ae75ab8d34c33,
+      type: 3}
