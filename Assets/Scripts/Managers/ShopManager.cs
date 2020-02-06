@@ -31,8 +31,8 @@ namespace Manager
 		public void PurchaseShip(string name)
 		{
 			ShipData shipData = GetShip(name);
-			float cash = GetCash();
-			float cost = shipData.GetCost();
+			long cash = GetCash();
+			long cost = shipData.GetCost();
 
 			if (cash >= cost)
 			{
@@ -55,14 +55,14 @@ namespace Manager
 			return selectedShipData;
 		}
 
-		public float GetCash()
+		public long GetCash()
 		{
-			return PlayerPrefs.GetFloat(Constants.CASH_KEY);
+			return System.Convert.ToInt64(PlayerPrefs.GetString(Constants.CASH_KEY)); 
 		}
 
-		public void SetCash(float cash)
+		public void SetCash(long cash)
 		{
-			PlayerPrefs.SetFloat(Constants.CASH_KEY, cash);
+			PlayerPrefs.SetString(Constants.CASH_KEY, "" + cash);
 		}
 	}
 }

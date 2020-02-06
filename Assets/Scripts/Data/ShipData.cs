@@ -13,8 +13,7 @@ namespace Data
 		[SerializeField] private float speed;
 		[SerializeField] private float speedIncreaseRate;
 		[SerializeField] private float turnSpeed;
-		[SerializeField] private float cost;
-		[SerializeField] private bool unlocked;
+		[SerializeField] private long cost;
 
 		public string GetShipName()
 		{
@@ -39,14 +38,9 @@ namespace Data
 			return turnSpeed;
 		}
 
-		public float GetCost()
+		public long GetCost()
 		{
 			return cost;
-		}
-
-		public bool IsUnlocked()
-		{
-			return unlocked;
 		}
 	}
 
