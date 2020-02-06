@@ -60,7 +60,14 @@ namespace Manager
 			return System.Convert.ToInt64(PlayerPrefs.GetString(Constants.CASH_KEY)); 
 		}
 
-		public void SetCash(long cash)
+		public void AddCash(long amount)
+		{
+			long currentCash = GetCash();
+			long newTotal = currentCash + amount;
+			SetCash(newTotal);
+		}
+
+		private void SetCash(long cash)
 		{
 			PlayerPrefs.SetString(Constants.CASH_KEY, "" + cash);
 		}

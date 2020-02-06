@@ -48,6 +48,8 @@ namespace Player
 					AudioManager.instance.Play(SoundNames.PLAYER_DEATH);
 					AudioManager.instance.Pause(SoundNames.SHIP_ENGINE);
 
+					ShopManager.instance.AddCash(PlayerScore.instance.GetFinalScore());
+
 					// Now update achievements
 					AchievementManager.instance.UnlockAchievement(AchievementIds.DIE);
 					AchievementManager.instance.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_1000, 1000, PlayerScore.instance.GetDistanceScore());
