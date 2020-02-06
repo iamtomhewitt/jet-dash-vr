@@ -16,7 +16,12 @@ namespace Player
 
 		[SerializeField] private bool godMode;
 
-		private Coroutine godModeRoutine;
+		public static PlayerCollision instance;
+
+		private void Awake()
+		{
+			instance = this;
+		}
 
 		private void OnCollisionEnter(Collision other)
 		{
@@ -72,39 +77,7 @@ namespace Player
 			{
 				case Tags.POWERUP:
 					Powerup powerup = other.GetComponent<Powerup>();
-
-					switch (powerup.GetPowerupType())
-					{
-						case PowerupType.BonusPoints:
-							PlayerScore.instance.AddBonusPoints(500);
-							AudioManager.instance.Play(SoundNames.BONUS_POINTS);
-							PlayerHud.instance.ShowNotification(powerup.GetColour(), "+500!");
-							AchievementManager.instance.UnlockAchievement(AchievementIds.FLY_THROUGH_BONUS_POINTS);
-							break;
-
-						case PowerupType.DoublePoints:
-							PlayerScore.instance.DoublePoints();
-							AudioManager.instance.Play(SoundNames.DOUBLE_POINTS);
-							PlayerHud.instance.ShowNotification(powerup.GetColour(), "x2!");
-							AchievementManager.instance.UnlockAchievement(AchievementIds.FLY_THROUGH_DOUBLE_POINTS);
-							break;
-
-						case PowerupType.Invincibility:
-							if (godModeRoutine != null)
-							{
-								StopCoroutine(godModeRoutine);
-							}
-							godModeRoutine = StartCoroutine(ActivateGodMode(5f));
-							AudioManager.instance.Play(SoundNames.INVINCIBILITY_POINTS);
-							PlayerHud.instance.ShowNotification(powerup.GetColour(), "Invincible!");
-							AchievementManager.instance.UnlockAchievement(AchievementIds.BECOME_INVINCIBLE);
-							break;
-
-						default:
-							Debug.Log("Warning! Unrecognised Powerup type: " + powerup.GetPowerupType());
-							break;
-					}
-
+					powerup.ApplyPowerupEffect();
 					powerup.Relocate();
 					break;
 
@@ -114,30 +87,14 @@ namespace Player
 			}
 		}
 
-		/// <summary>
-		/// Makes the player invincible for a set amount of time, and shows the shield.
-		/// </summary>
-		private IEnumerator ActivateGodMode(float duration)
+		public void SetGodMode(bool godMode)
 		{
-			godMode = true;
+			this.godMode = godMode;
+		}
 
-			shield.SetActive(true);
-			shield.GetComponent<Animator>().Play("On");
-
-			yield return new WaitForSeconds(duration);
-
-			// Now flicker
-			for (int i = 0; i < 3; i++)
-			{
-				shield.SetActive(false);
-				yield return new WaitForSeconds(.3f);
-				shield.SetActive(true);
-				yield return new WaitForSeconds(.3f);
-			}
-
-			shield.SetActive(false);
-
-			godMode = false;
+		public GameObject GetShield()
+		{
+			return shield;
 		}
 	}
 }
