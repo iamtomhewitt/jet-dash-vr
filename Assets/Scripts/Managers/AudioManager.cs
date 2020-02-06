@@ -121,6 +121,7 @@ namespace Manager
 		public const string BONUS_POINTS = "Powerup Bonus Points";
 		public const string DOUBLE_POINTS = "Powerup Double Points";
 		public const string INVINCIBILITY_POINTS = "Powerup Invincibility";
+		public const string JUMP = "Powerup Jump";
 		public const string SCORE = "Score";
 		public const string ACHIEVEMENT_UNLOCKED = "Achievement Unlocked";
 	}

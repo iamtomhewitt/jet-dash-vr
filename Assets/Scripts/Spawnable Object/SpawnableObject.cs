@@ -4,7 +4,7 @@ using Utility;
 namespace SpawnableObject
 {
 	/// <summary>
-	/// An objects that can be spawned in front of the player, such as powerups and obstacles
+	/// An object that can be spawned in front of the player, such as powerups and obstacles
 	/// </summary>
 	public abstract class SpawnableObject : MonoBehaviour
 	{
