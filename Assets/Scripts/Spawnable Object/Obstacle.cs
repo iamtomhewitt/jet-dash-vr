@@ -37,7 +37,7 @@ namespace SpawnableObject
 			transform.localScale = targetScale;
 		}
 
-		public override void PostRelocationMethod()
+		public override void AfterRelocation()
 		{
 			Grow((int)transform.localScale.x);
 		}

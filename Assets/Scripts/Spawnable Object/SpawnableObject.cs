@@ -16,7 +16,7 @@ namespace SpawnableObject
 		/// <summary>
 		/// A method to be called once the object has been relocated (for example, Obstacles.Grow())
 		/// </summary>
-		public abstract void PostRelocationMethod();
+		public abstract void AfterRelocation();
 
 		private void Start()
 		{
@@ -32,7 +32,7 @@ namespace SpawnableObject
 			if (transform.position.z < player.transform.position.z - spawnOffset)
 			{
 				Relocate();
-				PostRelocationMethod();
+				AfterRelocation();
 			}
 		}
 

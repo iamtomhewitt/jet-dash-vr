@@ -36,7 +36,7 @@ namespace SpawnableObject
 			return colour;
 		}
 
-		public override void PostRelocationMethod()
+		public override void AfterRelocation()
 		{
 			// Nothing to do!
 		}
