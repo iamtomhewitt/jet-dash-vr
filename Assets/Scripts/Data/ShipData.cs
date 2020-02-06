@@ -47,9 +47,14 @@ namespace Data
 			return cost;
 		}
 
+		public bool HasPowerup()
+		{
+			return hasPowerup;
+		}
+
 		public GameObject GetPowerup()
 		{
-			return hasPowerup ? powerup : null;
+			return powerup;
 		}
 	}
 

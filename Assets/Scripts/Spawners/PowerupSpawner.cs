@@ -1,23 +1,26 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 using Utility;
+using Manager;
 
 namespace Spawner
 {
 	public class PowerupSpawner : MonoBehaviour
 	{
-		[SerializeField] private GameObject[] powerups;
+		[SerializeField] private List<GameObject> powerups;
 		[SerializeField] private float repeatRate;
 		[SerializeField] private int maxPowerups;
 		[SerializeField] private SpawnBoundary boundary;
 
 		private Transform player;
+		private Transform parent;
 
 		private const string POWERUP_PARENT = "Powerups";
 
 		private void Start()
 		{
 			player = GameObject.FindGameObjectWithTag(Tags.PLAYER).transform;
-
+			parent = GameObject.Find(POWERUP_PARENT).transform;
 			InitialisePowerups();
 		}
 
@@ -26,9 +29,17 @@ namespace Spawner
 		/// </summary>
 		private void InitialisePowerups()
 		{
+			bool playerShipHasPowerup = ShopManager.instance.GetSelectedShipData().HasPowerup();
+
+			if (playerShipHasPowerup)
+			{
+				GameObject additionalPowerup = ShopManager.instance.GetSelectedShipData().GetPowerup();
+				powerups.Add(additionalPowerup);
+			}
+
 			for (int i = 0; i <= maxPowerups; i++)
 			{
-				int index = Random.Range(0, powerups.Length);
+				int index = Random.Range(0, powerups.Count);
 
 				GameObject powerup = powerups[index];
 
@@ -37,8 +48,7 @@ namespace Spawner
 
 				Vector3 position = new Vector3(player.transform.position.x + x, 0f, player.transform.position.z + z);
 
-				GameObject p = Instantiate(powerup, position, Quaternion.identity) as GameObject;
-				p.transform.parent = GameObject.Find(POWERUP_PARENT).transform;
+				Instantiate(powerup, position, Quaternion.identity, parent);
 			}
 		}
 	}
