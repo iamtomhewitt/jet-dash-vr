@@ -8,12 +8,12 @@ namespace Data
 	[CreateAssetMenu()]
 	public class ShipData : ScriptableObject
 	{
-		[SerializeField] private string shipName;
-		[SerializeField] private SpecialAbility specialAbility;
-		[SerializeField] private float speed;
-		[SerializeField] private float speedIncreaseRate;
-		[SerializeField] private float turnSpeed;
-		[SerializeField] private long cost;
+		[SerializeField] private readonly string shipName;
+		[SerializeField] private readonly SpecialAbility specialAbility;
+		[SerializeField] private readonly float speed;
+		[SerializeField] private readonly float speedIncreaseRate;
+		[SerializeField] private readonly float turnSpeed;
+		[SerializeField] private readonly long cost;
 
 		public string GetShipName()
 		{
