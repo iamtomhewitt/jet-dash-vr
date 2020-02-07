@@ -17,12 +17,13 @@ namespace LevelManagers
 		[SerializeField] private Text cost;
 		[SerializeField] private Text specialAbility;
 
+		private List<ShipData> ships;
 		private int currentShipIndex = 0;
 
 		private void Start()
 		{
-			ShipData ship = ShopManager.instance.GetShips()[currentShipIndex];
-			SetShipDetails(ship);
+			ships = ShopManager.instance.GetShips();
+			SetShipDetails();
 		}
 
 		/// <summary>
@@ -38,10 +39,8 @@ namespace LevelManagers
 		/// </summary>
 		public void ShowNextShip()
 		{
-			List<ShipData> ships = ShopManager.instance.GetShips();
-			currentShipIndex = currentShipIndex > ships.Count ? 0 : currentShipIndex + 1;
-			ShipData ship = ships[currentShipIndex];
-			SetShipDetails(ship);
+			currentShipIndex = ++currentShipIndex > ships.Count - 1 ? 0 : currentShipIndex;
+			SetShipDetails();
 		}
 
 		/// <summary>
@@ -49,14 +48,13 @@ namespace LevelManagers
 		/// </summary>
 		public void ShowPreviousShip()
 		{
-			List<ShipData> ships = ShopManager.instance.GetShips();
-			currentShipIndex = currentShipIndex < 0 ? ships.Count : currentShipIndex - 1;
-			ShipData ship = ships[currentShipIndex];
-			SetShipDetails(ship);
+			currentShipIndex = --currentShipIndex < 0 ? ships.Count - 1 : currentShipIndex;
+			SetShipDetails();
 		}
 
-		private void SetShipDetails(ShipData shipData)
+		private void SetShipDetails()
 		{
+			ShipData shipData 	= ships[currentShipIndex];
 			shipName.text 		= shipData.GetShipName();
 			speed.text			= shipData.GetSpeed().ToString();
 			turnSpeed.text		= shipData.GetTurningSpeed().ToString();
