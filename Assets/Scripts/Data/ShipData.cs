@@ -56,6 +56,21 @@ namespace Data
 		{
 			return powerup;
 		}
+
+		public SpecialAbility GetSpecialAbility()
+		{
+			return ability;
+		}
+
+		public override string ToString()
+		{
+			return "Name: " + shipName +
+					"\nSpeed: " + speed +
+					"\nSpeed Increase Rate: " + speedIncreaseRate +
+					"\nTurn Speed: " + turnSpeed +
+					"\nCost: " + cost +
+					"\nSpecial Ability: " + ability.ToString();
+		}
 	}
 
 	/// <summary>

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using System.Linq;
 using Utility;
 using Data;
@@ -10,7 +11,7 @@ namespace Manager
 	/// </summary>
 	public class ShopManager : MonoBehaviour
 	{
-		[SerializeField] private ShipData[] shipData;
+		[SerializeField] private List<ShipData> shipData;
 		[SerializeField] private ShipData selectedShipData;
 
 		public static ShopManager instance;
@@ -53,6 +54,11 @@ namespace Manager
 		public ShipData GetSelectedShipData()
 		{
 			return selectedShipData;
+		}
+
+		public List<ShipData> GetShips()
+		{
+			return shipData;
 		}
 
 		public long GetCash()
