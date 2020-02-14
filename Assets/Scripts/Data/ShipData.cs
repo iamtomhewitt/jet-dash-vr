@@ -63,6 +63,11 @@ namespace Data
 			return ability;
 		}
 
+		public Sprite GetSprite()
+		{
+			return sprite;
+		}
+
 		public override string ToString()
 		{
 			return "Name: " + shipName +
