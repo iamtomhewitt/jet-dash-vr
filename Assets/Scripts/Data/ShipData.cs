@@ -14,6 +14,7 @@ namespace Data
 		[SerializeField] private float turnSpeed;
 		[SerializeField] private long cost;
 		[SerializeField] private SpecialAbility ability;
+		[SerializeField] private Sprite sprite;
 		[SerializeField] private bool hasPowerup;
 		
 		[ConditionalField("hasPowerup")]
