@@ -16,6 +16,7 @@ namespace LevelManagers
 		[SerializeField] private Text turnSpeed;
 		[SerializeField] private Text cost;
 		[SerializeField] private Text specialAbility;
+		[SerializeField] private Image shipIcon;
 
 		private List<ShipData> ships;
 		private int currentShipIndex = 0;
@@ -60,6 +61,7 @@ namespace LevelManagers
 			turnSpeed.text		= shipData.GetTurningSpeed().ToString();
 			cost.text			= shipData.GetCost().ToString();
 			specialAbility.text = shipData.GetSpecialAbility().ToString();
+			shipIcon.sprite		= shipData.GetSprite();
 		}
 	}
 }
