@@ -77,5 +77,19 @@ namespace Manager
 		{
 			PlayerPrefs.SetString(Constants.CASH_KEY, "" + cash);
 		}
+
+		public void SetShipUnlocked(ShipData ship, bool unlocked)
+		{
+			string shipName = ship.GetShipName();
+			int unlockedAsInt = unlocked ? Constants.YES : Constants.NO;
+			PlayerPrefs.SetInt(shipName, unlockedAsInt);
+		}
+
+		public bool IsShipUnlocked(ShipData ship)
+		{
+			int unlocked = PlayerPrefs.GetInt(ship.GetShipName());
+			bool asBool = unlocked.Equals(Constants.YES);
+			return asBool;
+		}
 	}
 }
