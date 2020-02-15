@@ -32,6 +32,13 @@ namespace Manager
 		public void PurchaseShip(string name)
 		{
 			ShipData shipData = GetShip(name);
+
+			if (IsShipUnlocked(shipData))
+			{
+				print("Cannot buy " + name + " because it is already unlocked");
+				return;
+			}
+			
 			long cash = GetCash();
 			long cost = shipData.GetCost();
 
@@ -39,6 +46,7 @@ namespace Manager
 			{
 				SetCash(cash - cost);
 				selectedShipData = shipData;
+				SetShipUnlocked(shipData, true);
 			}
 			else
 			{
