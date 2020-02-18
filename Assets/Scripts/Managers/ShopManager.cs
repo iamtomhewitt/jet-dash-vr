@@ -28,7 +28,7 @@ namespace Manager
 				instance = this;
 			}
 		}
-	
+
 		public void PurchaseShip(string name)
 		{
 			ShipData shipData = GetShip(name);
@@ -38,7 +38,7 @@ namespace Manager
 				print("Cannot buy " + name + " because it is already unlocked");
 				return;
 			}
-			
+
 			long cash = GetCash();
 			long cost = shipData.GetCost();
 
@@ -50,7 +50,7 @@ namespace Manager
 			}
 			else
 			{
-				print ("Not enough wonga! You have: " + GetCash() + " and you need " + shipData.GetCost());
+				print("Not enough wonga! You have: " + GetCash() + " and you need " + shipData.GetCost());
 			}
 		}
 
@@ -71,7 +71,7 @@ namespace Manager
 
 		public long GetCash()
 		{
-			return System.Convert.ToInt64(PlayerPrefs.GetString(Constants.CASH_KEY)); 
+			return System.Convert.ToInt64(PlayerPrefs.GetString(Constants.CASH_KEY));
 		}
 
 		public void AddCash(long amount)
@@ -90,12 +90,12 @@ namespace Manager
 		{
 			string shipName = ship.GetShipName();
 			int unlockedAsInt = unlocked ? Constants.YES : Constants.NO;
-			PlayerPrefs.SetInt(shipName, unlockedAsInt);
+			PlayerPrefs.SetInt(shipName + "Unlocked", unlockedAsInt);
 		}
 
 		public bool IsShipUnlocked(ShipData ship)
 		{
-			int unlocked = PlayerPrefs.GetInt(ship.GetShipName());
+			int unlocked = PlayerPrefs.GetInt(ship.GetShipName() + "Unlocked");
 			bool asBool = unlocked.Equals(Constants.YES);
 			return asBool;
 		}
