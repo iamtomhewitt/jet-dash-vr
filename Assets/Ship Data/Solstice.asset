@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Solstice
   m_EditorClassIdentifier: 
   shipName: Solstice
+  description: This speedster ship has a quicker speed, but is harder to turn.
   speed: 30
   speedIncreaseRate: 0.5
   turnSpeed: 3

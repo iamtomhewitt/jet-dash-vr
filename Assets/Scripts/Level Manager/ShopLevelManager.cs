@@ -12,6 +12,7 @@ namespace LevelManagers
 	public class ShopLevelManager : LevelManager
 	{
 		[SerializeField] private Text shipName;
+		[SerializeField] private Text description;
 		[SerializeField] private Text speed;
 		[SerializeField] private Text turnSpeed;
 		[SerializeField] private Text cost;
@@ -57,6 +58,7 @@ namespace LevelManagers
 		{
 			ShipData shipData 	= ships[currentShipIndex];
 			shipName.text 		= shipData.GetShipName();
+			description.text	= shipData.GetDescription();
 			speed.text			= shipData.GetSpeed().ToString();
 			turnSpeed.text		= shipData.GetTurningSpeed().ToString();
 			cost.text			= shipData.GetCost().ToString();

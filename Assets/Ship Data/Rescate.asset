@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Rescate
   m_EditorClassIdentifier: 
   shipName: Rescate
+  description: This ship has a slower speed, making it easier to turn.
   speed: 2
   speedIncreaseRate: 3.25
   turnSpeed: 10

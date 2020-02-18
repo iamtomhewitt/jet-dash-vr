@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Cellex
   m_EditorClassIdentifier: 
   shipName: Cellex
+  description: The diamond class ship. Using this ship will double your final score
+    when you crash!
   speed: 20
   speedIncreaseRate: 2
   turnSpeed: 20

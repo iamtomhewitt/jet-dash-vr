@@ -9,6 +9,7 @@ namespace Data
 	public class ShipData : ScriptableObject
 	{
 		[SerializeField] private string shipName;
+		[SerializeField] private string description;
 		[SerializeField] private float speed;
 		[SerializeField] private float speedIncreaseRate;
 		[SerializeField] private float turnSpeed;
@@ -23,6 +24,11 @@ namespace Data
 		public string GetShipName()
 		{
 			return shipName;
+		}
+
+		public string GetDescription()
+		{
+			return description;
 		}
 
 		public float GetSpeed()
