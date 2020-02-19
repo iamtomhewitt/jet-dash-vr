@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using Manager;
 using Utility;
+using SimpleJSON;
 
 namespace Highscore
 {
@@ -23,15 +24,15 @@ namespace Highscore
 			HighscoreManager.instance.RequestDownloadOfHighscores();
 		}
 
-		public void DisplayHighscores(Leaderboard retrievedJson)
+		public void DisplayHighscores(JSONArray entries)
 		{
-			for (int i = 0; i < retrievedJson.entry.Length; i++)
+			for (int i = 0; i < entries.Count; i++)
 			{
 				highscoreEntries[i].Populate(i + 1 + ".", "", "");
 
-				if (retrievedJson.entry.Length > i)
+				if (entries.Count > i)
 				{
-					highscoreEntries[i].Populate(i + 1 + ".", retrievedJson.entry[i].name, retrievedJson.entry[i].score.ToString());
+					highscoreEntries[i].Populate(i + 1 + ".", entries[i]["name"], entries[i]["score"]);
 				}
 			}
 		}
