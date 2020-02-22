@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: Rescate
   m_EditorClassIdentifier: 
   shipName: Rescate
-  description: This ship has a slower speed, making it easier to turn.
+  description: The most common ship in the galaxy, was originally designed to be
+    a civilian transporation ship.
   speed: 2
   speedIncreaseRate: 3.25
   turnSpeed: 10
   cost: 100000
   ability: 0
+  abilityDescription: This ship is slow moving, making it easier to dodge obstacles.
   sprite: {fileID: 21300000, guid: 6b960b22deb9708449a96fa43c6f6da1, type: 3}
   hasPowerup: 0
   powerup: {fileID: 0}

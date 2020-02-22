@@ -15,6 +15,7 @@ namespace Data
 		[SerializeField] private float turnSpeed;
 		[SerializeField] private long cost;
 		[SerializeField] private SpecialAbility ability;
+		[SerializeField] private string abilityDescription;
 		[SerializeField] private Sprite sprite;
 		[SerializeField] private bool hasPowerup;
 		
@@ -67,6 +68,11 @@ namespace Data
 		public SpecialAbility GetSpecialAbility()
 		{
 			return ability;
+		}
+
+		public string GetSpecialAbilityDescription()
+		{
+			return abilityDescription;
 		}
 
 		public Sprite GetSprite()
