@@ -19,6 +19,7 @@ namespace LevelManagers
 		[SerializeField] private Text specialAbility;
 		[SerializeField] private Text specialAbilityDescription;
 		[SerializeField] private Image shipIcon;
+		[SerializeField] private Text cash;
 
 		private List<ShipData> ships;
 		private int currentShipIndex = 0;
@@ -26,6 +27,7 @@ namespace LevelManagers
 		private void Start()
 		{
 			ships = ShopManager.instance.GetShips();
+			cash.text = "CASH: " + ShopManager.instance.GetCash() + "P";
 			SetShipDetails();
 		}
 

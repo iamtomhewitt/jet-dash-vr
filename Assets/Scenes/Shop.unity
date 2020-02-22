@@ -151,12 +151,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 184029099}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -68.9}
-  m_SizeDelta: {x: 687.3, y: 253.7}
+  m_AnchoredPosition: {x: 0, y: 56.4}
+  m_SizeDelta: {x: 687.3, y: 159.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &43439716
 MonoBehaviour:
@@ -189,7 +189,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Some long description of the ship
+  m_Text: This ship was designed for the desert plains, to travel far distances in
+    short amounts of time without needing to make many turns.
 --- !u!222 &43439717
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -197,6 +198,83 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 43439714}
+  m_CullTransparentMesh: 0
+--- !u!1 &140441174
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 140441175}
+  - component: {fileID: 140441177}
+  - component: {fileID: 140441176}
+  m_Layer: 5
+  m_Name: Cash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &140441175
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140441174}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 184029099}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -398}
+  m_SizeDelta: {x: 687.3, y: 78.1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &140441176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140441174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 3b5db0d9ef2fb3b4197952172f3183db, type: 2}
+  m_Color: {r: 0.8998557, g: 1, b: 0.3537736, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
+    m_FontSize: 80
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 300
+    m_Alignment: 3
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'CASH: 12000P'
+--- !u!222 &140441177
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140441174}
   m_CullTransparentMesh: 0
 --- !u!1 &141061867
 GameObject:
@@ -228,7 +306,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 184029099}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -304,11 +382,12 @@ RectTransform:
   m_Children:
   - {fileID: 251142021}
   - {fileID: 1402575457}
-  - {fileID: 918843489}
   - {fileID: 43439715}
   - {fileID: 569483119}
   - {fileID: 1489071373}
   - {fileID: 141061868}
+  - {fileID: 918843489}
+  - {fileID: 140441175}
   m_Father: {fileID: 1023831744}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -589,11 +668,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 184029099}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -215.58}
+  m_AnchoredPosition: {x: 0, y: -65}
   m_SizeDelta: {x: 687.3, y: 57.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &569483120
@@ -672,11 +751,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 184029099}
-  m_RootOrder: 2
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 97}
+  m_AnchoredPosition: {x: 0, y: -319.90002}
   m_SizeDelta: {x: 687.3, y: 78.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &918843490
@@ -1133,12 +1212,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 184029099}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -346.9}
-  m_SizeDelta: {x: 687.3, y: 204.9}
+  m_AnchoredPosition: {x: 0, y: -174.17499}
+  m_SizeDelta: {x: 687.3, y: 160.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1489071374
 MonoBehaviour:
@@ -1160,7 +1239,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1171,7 +1250,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Description
+  m_Text: This ship comes with an additional powerup, that when flown through, sends
+    your ship into hyperdrive and send you far forward.
 --- !u!222 &1489071375
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1217,6 +1297,7 @@ MonoBehaviour:
   specialAbility: {fileID: 569483120}
   specialAbilityDescription: {fileID: 1489071374}
   shipIcon: {fileID: 251142022}
+  cash: {fileID: 140441176}
 --- !u!4 &1659133747
 Transform:
   m_ObjectHideFlags: 0
