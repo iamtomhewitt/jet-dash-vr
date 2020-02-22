@@ -31,9 +31,10 @@ namespace LevelManagers
 		/// <summary>
 		/// Called from a Unity button.
 		/// </summary>
-		public void BuyShip(string name)
+		public void BuyShip()
 		{
-			ShopManager.instance.PurchaseShip(name);
+			ShipData ship = ships[currentShipIndex];
+			ShopManager.instance.PurchaseShip(ship.GetShipName());
 		}
 
 		/// <summary>
