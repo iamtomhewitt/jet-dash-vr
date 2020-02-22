@@ -71,7 +71,14 @@ namespace Manager
 
 		public long GetCash()
 		{
-			return System.Convert.ToInt64(PlayerPrefs.GetString(Constants.CASH_KEY));
+			string s = PlayerPrefs.GetString(Constants.CASH_KEY);
+
+			if (string.IsNullOrEmpty(s))
+			{
+				s = "0";
+			}
+
+			return System.Convert.ToInt64(s);
 		}
 
 		public void AddCash(long amount)
