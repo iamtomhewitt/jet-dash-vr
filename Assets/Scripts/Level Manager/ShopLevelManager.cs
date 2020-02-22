@@ -17,6 +17,7 @@ namespace LevelManagers
 		[SerializeField] private Text turnSpeed;
 		[SerializeField] private Text cost;
 		[SerializeField] private Text specialAbility;
+		[SerializeField] private Text specialAbilityDescription;
 		[SerializeField] private Image shipIcon;
 
 		private List<ShipData> ships;
@@ -57,14 +58,15 @@ namespace LevelManagers
 
 		private void SetShipDetails()
 		{
-			ShipData shipData 	= ships[currentShipIndex];
-			shipName.text 		= shipData.GetShipName();
-			description.text	= shipData.GetDescription();
-			speed.text			= shipData.GetSpeed().ToString();
-			turnSpeed.text		= shipData.GetTurningSpeed().ToString();
-			cost.text			= shipData.GetCost().ToString();
-			specialAbility.text = shipData.GetSpecialAbility().ToString();
-			shipIcon.sprite		= shipData.GetSprite();
+			ShipData shipData 				= ships[currentShipIndex];
+			shipName.text 					= shipData.GetShipName();
+			description.text				= shipData.GetDescription();
+			speed.text						= shipData.GetSpeed().ToString();
+			turnSpeed.text					= shipData.GetTurningSpeed().ToString();
+			cost.text						= "COST: " + shipData.GetCost().ToString() + "P";
+			specialAbility.text 			= shipData.GetSpecialAbility().ToString();
+			specialAbilityDescription.text 	= shipData.GetSpecialAbilityDescription();
+			shipIcon.sprite					= shipData.GetSprite();
 		}
 	}
 }
