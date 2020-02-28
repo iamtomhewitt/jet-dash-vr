@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipData:
-  - {fileID: 11400000, guid: ef5c345d4eb6174408bc3bccbe03128f, type: 2}
-  - {fileID: 11400000, guid: f4dea41d9b98a4fdd89f4d1402e1df2c, type: 2}
-  - {fileID: 11400000, guid: 16c04473f9d5046149ffeded5b08ca18, type: 2}
   - {fileID: 11400000, guid: 673fe53304ef9a040ba10cfc46479420, type: 2}
   - {fileID: 11400000, guid: 8780b31c0e91dd343990fbcecea63356, type: 2}
-  selectedShipData: {fileID: 0}
+  - {fileID: 11400000, guid: f4dea41d9b98a4fdd89f4d1402e1df2c, type: 2}
+  - {fileID: 11400000, guid: 16c04473f9d5046149ffeded5b08ca18, type: 2}
+  - {fileID: 11400000, guid: ef5c345d4eb6174408bc3bccbe03128f, type: 2}
+  selectedShipData: {fileID: 11400000, guid: 673fe53304ef9a040ba10cfc46479420, type: 2}
