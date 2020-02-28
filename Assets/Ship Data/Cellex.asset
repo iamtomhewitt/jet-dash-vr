@@ -15,7 +15,7 @@ MonoBehaviour:
   shipName: Cellex
   description: The greatest starship in the galaxy. Very few own this ship.
   speed: 20
-  speedIncreaseRate: 2
+  acceleration: 2
   turnSpeed: 20
   cost: 100000000
   ability: 2

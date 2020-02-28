@@ -16,7 +16,7 @@ MonoBehaviour:
   description: The most common ship in the galaxy, was originally designed to be
     a civilian transporation ship.
   speed: 2
-  speedIncreaseRate: 3.25
+  acceleration: 3.25
   turnSpeed: 10
   cost: 100000
   ability: 0

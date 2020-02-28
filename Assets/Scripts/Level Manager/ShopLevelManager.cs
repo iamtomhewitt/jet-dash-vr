@@ -78,7 +78,7 @@ namespace LevelManagers
             shipName.text = shipData.GetShipName();
             description.text = shipData.GetDescription();
             speed.text = "Speed: " + shipData.GetSpeed().ToString();
-            acceleration.text = "Acceleration: " + shipData.GetSpeedIncreaseRate().ToString();
+            acceleration.text = "Acceleration: " + shipData.GetAcceleration().ToString();
             turnSpeed.text = "Turn Speed: " + shipData.GetTurningSpeed().ToString();
             cost.text = "COST: " + shipData.GetCost().ToString() + "P";
             specialAbility.text = shipData.GetSpecialAbility().ToString();

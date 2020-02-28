@@ -141,7 +141,7 @@ namespace Player
 			shipModel			= GameObject.FindGameObjectWithTag(shipData.GetShipName()).transform;
 			originalRotation	= shipModel.rotation;
 			speed				= shipData.GetSpeed();
-			speedIncreaseRate	= shipData.GetSpeedIncreaseRate();
+			speedIncreaseRate	= shipData.GetAcceleration();
 			turningSpeed		= shipData.GetTurningSpeed();
 
 			foreach (Transform model in shipModels)

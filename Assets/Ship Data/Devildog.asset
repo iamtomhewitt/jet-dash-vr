@@ -15,7 +15,7 @@ MonoBehaviour:
   shipName: Devildog
   description: It may be a small ship, but it sure packs a punch.
   speed: 20
-  speedIncreaseRate: 2
+  acceleration: 2
   turnSpeed: 20
   cost: 1500000
   ability: 3

@@ -16,7 +16,7 @@ MonoBehaviour:
   description: This ship was designed for the desert plains, to travel far distances
     in short amounts of time without needing to make many turns.
   speed: 30
-  speedIncreaseRate: 0.5
+  acceleration: 0.5
   turnSpeed: 3
   cost: 500000
   ability: 1

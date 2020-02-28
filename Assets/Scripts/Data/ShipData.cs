@@ -11,7 +11,7 @@ namespace Data
 		[SerializeField] private string shipName;
 		[SerializeField] private string description;
 		[SerializeField] private float speed;
-		[SerializeField] private float speedIncreaseRate;
+		[SerializeField] private float acceleration;
 		[SerializeField] private float turnSpeed;
 		[SerializeField] private long cost;
 		[SerializeField] private SpecialAbility ability;
@@ -36,13 +36,10 @@ namespace Data
 		{
 			return speed;
 		}
-
-		/// <summary>
-		/// The rate at which the speed is increased in seconds.
-		/// </summary>
-		public float GetSpeedIncreaseRate()
+		
+		public float GetAcceleration()
 		{
-			return speedIncreaseRate;
+			return acceleration;
 		}
 
 		public float GetTurningSpeed()
@@ -84,7 +81,7 @@ namespace Data
 		{
 			return "Name: " + shipName +
 					"\nSpeed: " + speed +
-					"\nSpeed Increase Rate: " + speedIncreaseRate +
+					"\nAcceleration: " + acceleration +
 					"\nTurn Speed: " + turnSpeed +
 					"\nCost: " + cost +
 					"\nSpecial Ability: " + ability.ToString();

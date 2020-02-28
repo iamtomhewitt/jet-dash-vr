@@ -16,7 +16,7 @@ MonoBehaviour:
   description: The only ship in the galaxy that has the most advanced fusion engine
     tech.
   speed: 20
-  speedIncreaseRate: 2
+  acceleration: 2
   turnSpeed: 20
   cost: 5000000
   ability: 4
