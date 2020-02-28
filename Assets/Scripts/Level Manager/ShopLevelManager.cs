@@ -90,6 +90,10 @@ namespace LevelManagers
             {
                 shipIcon.color = Color.black;
             }
+			else
+			{
+				shipIcon.color = Color.white;
+			}
         }
     }
 }
