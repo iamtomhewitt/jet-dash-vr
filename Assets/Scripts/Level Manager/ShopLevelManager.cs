@@ -14,6 +14,7 @@ namespace LevelManagers
 		[SerializeField] private Text shipName;
 		[SerializeField] private Text description;
 		[SerializeField] private Text speed;
+		[SerializeField] private Text acceleration;
 		[SerializeField] private Text turnSpeed;
 		[SerializeField] private Text cost;
 		[SerializeField] private Text specialAbility;
@@ -61,14 +62,22 @@ namespace LevelManagers
 		private void SetShipDetails()
 		{
 			ShipData shipData 				= ships[currentShipIndex];
+			bool isUnlocked					= ShopManager.instance.IsShipUnlocked(shipData);
+
 			shipName.text 					= shipData.GetShipName();
 			description.text				= shipData.GetDescription();
-			speed.text						= shipData.GetSpeed().ToString();
-			turnSpeed.text					= shipData.GetTurningSpeed().ToString();
+			speed.text						= "Speed: " + shipData.GetSpeed().ToString();
+			acceleration.text				= "Acceleration: " + shipData.GetSpeedIncreaseRate().ToString();
+			turnSpeed.text					= "Turn Speed: " + shipData.GetTurningSpeed().ToString();
 			cost.text						= "COST: " + shipData.GetCost().ToString() + "P";
 			specialAbility.text 			= shipData.GetSpecialAbility().ToString();
 			specialAbilityDescription.text 	= shipData.GetSpecialAbilityDescription();
 			shipIcon.sprite					= shipData.GetSprite();
+
+			if (!isUnlocked)
+			{
+				shipIcon.color = Color.black;
+			}
 		}
 	}
 }
