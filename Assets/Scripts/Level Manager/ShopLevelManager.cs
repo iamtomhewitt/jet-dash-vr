@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using Manager;
 using Data;
+using Utility;
 
 namespace LevelManagers
 {
@@ -33,7 +34,7 @@ namespace LevelManagers
 			// Set the first ship to be shown the basic ship.
             for (int i = 0; i < ships.Count; i++)
             {
-                if (ships[i].GetShipName().Equals("Rescate"))
+                if (ships[i].GetShipName().Equals(Constants.STARTING_SHIP))
                 {
                     currentShipIndex = i;
                     break;

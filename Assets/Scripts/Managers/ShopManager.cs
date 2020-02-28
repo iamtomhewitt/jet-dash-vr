@@ -26,6 +26,8 @@ namespace Manager
 			{
 				DontDestroyOnLoad(gameObject);
 				instance = this;
+				instance.SetCash(0);
+				instance.PurchaseShip(Constants.STARTING_SHIP);
 			}
 		}
 
