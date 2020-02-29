@@ -673,7 +673,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1937493177}
-  offset: {x: 0, y: 1.5, z: -15}
+  trackX: 0
+  trackY: 0
+  trackZ: 0
+  xOffset: 0
+  yOffset: 0
+  zOffset: 0
 --- !u!54 &702261347
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1110,7 +1115,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1937493177}
-  offset: {x: 0, y: -1.5, z: 240}
+  trackX: 0
+  trackY: 0
+  trackZ: 0
+  xOffset: 0
+  yOffset: 0
+  zOffset: 0
 --- !u!33 &1436934055
 MeshFilter:
   m_ObjectHideFlags: 0
