@@ -12,14 +12,7 @@ namespace UI
 
 		private void Start()
 		{
-			if (SceneManager.GetActiveScene().name.Equals(sceneName))
-			{
-				activeSprite.enabled = true;
-			}
-			else
-			{
-				activeSprite.enabled = false;
-			}
+			activeSprite.enabled = SceneManager.GetActiveScene().name.Equals(sceneName);
 		}
 
 		/// <summary>
