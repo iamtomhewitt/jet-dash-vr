@@ -25,6 +25,8 @@ namespace Player
 		private float turningSpeed;
 		private float sensitivity;
 		private float z = 0f;
+		private float yPositionCheckRate = 3f;
+		private float startingYPosition;
 		private bool reachedMaxSpeed = false;
 
 		public static PlayerControl instance;
@@ -37,11 +39,13 @@ namespace Player
 		private void Start()
 		{
 			PlayerHud.instance.SetSpeedText(speed.ToString());
+			startingYPosition = transform.position.y;
 
 			ApplyShipSettings();
 			ApplyCameraSettings();
 
 			InvokeRepeating("IncreaseSpeed", speedIncreaseRate, speedIncreaseRate);
+			InvokeRepeating("CheckYPosition", yPositionCheckRate, yPositionCheckRate);
 			
 			AudioManager.instance.Play(SoundNames.SHIP_ENGINE);
 			AudioManager.instance.Play(SoundNames.SHIP_STARTUP);
@@ -87,6 +91,15 @@ namespace Player
 
 				float p = (speed / 1000f) + 1f;
 				AudioManager.instance.GetSound(SoundNames.SHIP_ENGINE).pitch = p;
+			}
+		}
+
+		private void CheckYPosition()
+		{
+			if (transform.position.y < (startingYPosition - 0.1f))
+			{
+				Debug.Log(string.Format("WARNING: Player Y position ({0}) has gone lower than expected ({1}), resetting.", transform.position.y, startingYPosition));
+				transform.position = new Vector3(transform.position.x, startingYPosition, transform.position.z);
 			}
 		}
 
