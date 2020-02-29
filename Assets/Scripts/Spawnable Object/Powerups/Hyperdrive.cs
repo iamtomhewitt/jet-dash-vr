@@ -11,7 +11,8 @@ namespace SpawnableObject.Powerups
 
 		public override void ApplyPowerupEffect()
 		{
-		
+			// TODO - alter the field of view of the camera to make it look like the hyperdrive is distorting
+			// Do it with animation or with coding?
 		}
 	}
 }
