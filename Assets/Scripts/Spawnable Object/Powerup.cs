@@ -51,6 +51,8 @@ namespace SpawnableObject
 	{
 		BonusPoints,
 		DoublePoints,
-		Invincibility
+		Invincibility,
+		Jump,
+		Hyperdrive
 	};
 }
