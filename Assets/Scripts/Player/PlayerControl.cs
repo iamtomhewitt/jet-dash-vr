@@ -122,7 +122,6 @@ namespace Player
 		/// </summary>
 		private void ApplyCameraSettings()
 		{
-			// TODO: sensitivity may need removing as these will be based on ship (either that, or combine them together)
 			GameSettingsManager gs = GameSettingsManager.instance;
 
 			if (gs == null)
@@ -159,14 +158,7 @@ namespace Player
 
 			foreach (Transform model in shipModels)
 			{
-				if (model.tag.Equals(shipData.GetShipName()))
-				{
-					model.gameObject.SetActive(true);
-				}
-				else
-				{
-					model.gameObject.SetActive(false);
-				}
+				model.gameObject.SetActive((model.tag.Equals(shipData.GetShipName())));
 			}
 		}
 
