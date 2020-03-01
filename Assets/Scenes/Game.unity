@@ -1109,18 +1109,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1436934052}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3750eb356801164f999178a71defc6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1937493177}
-  trackX: 0
+  trackX: 1
   trackY: 0
-  trackZ: 0
+  trackZ: 1
   xOffset: 0
   yOffset: 0
-  zOffset: 0
+  zOffset: 1000
 --- !u!33 &1436934055
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1137,8 +1137,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1436934052}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 240}
-  m_LocalScale: {x: 750, y: 1, z: 750}
+  m_LocalPosition: {x: 0, y: -0, z: 1000}
+  m_LocalScale: {x: 750, y: 1, z: 2025}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
