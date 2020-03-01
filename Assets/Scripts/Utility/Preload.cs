@@ -9,7 +9,6 @@ namespace Utility
 	public class Preload : MonoBehaviour
 	{
 		[SerializeField] private GameObject[] requiredComponents;
-		[SerializeField] private string mainMenu = "Main Menu";
 
 		private void Start()
 		{
@@ -18,7 +17,7 @@ namespace Utility
 				Instantiate(g).transform.name += "_PRELOAD";
 			}
 
-			SceneManager.LoadScene(mainMenu);
+			SceneManager.LoadScene(Menus.MAIN_MENU);
 		}
 	}
 }

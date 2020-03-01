@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-
-namespace Utility
+﻿namespace Utility
 {
-	public class Constants : MonoBehaviour
+	public class Constants
 	{
 		public const string HIGHSCORE_KEY			= "LocalHighscore";
 		public const string WAS_VR_HIGHSCORE_KEY	= "wasVrHighscore";
