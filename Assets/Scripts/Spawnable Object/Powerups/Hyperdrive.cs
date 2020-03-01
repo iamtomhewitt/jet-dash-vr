@@ -5,7 +5,7 @@ using Player;
 namespace SpawnableObject.Powerups
 {
     /// <summary>
-    /// Makes the player jump really high to avoid obstacles.
+    /// Makes the player have a burst of speed for a small amount of time.
     /// <summary>
     public class Hyperdrive : Powerup
     {
@@ -16,34 +16,34 @@ namespace SpawnableObject.Powerups
         public override void ApplyPowerupEffect()
         {
             PlayerHud.instance.ShowNotification(GetColour(), "Hyperdrive!");
-            Routine();
+            ZoomCameras();
         }
 
-        private void Routine()
+        private void ZoomCameras()
         {
             Camera[] cameras = FindObjectsOfType<Camera>();
-            float originalFov = 60f;
 
             foreach (Camera camera in cameras)
             {
-                StartCoroutine(Foo(camera, originalFov));
+                StartCoroutine(ZoomCamera(camera));
             }
         }
 
-        private IEnumerator Foo(Camera camera, float originalFov)
+        private IEnumerator ZoomCamera(Camera camera)
         {
-            yield return StartCoroutine(IncreaseFov(camera, speedFieldOfView, zoomSpeed));
+			float originalFov = 60f;
+            yield return StartCoroutine(IncreaseFov(camera, speedFieldOfView));
             yield return new WaitForSeconds(1f);
-            yield return StartCoroutine(DecreaseFov(camera, brakeFieldOfView, zoomSpeed));
-            yield return StartCoroutine(IncreaseFov(camera, originalFov, zoomSpeed));
+            yield return StartCoroutine(DecreaseFov(camera, brakeFieldOfView));
+            yield return StartCoroutine(IncreaseFov(camera, originalFov));
             camera.fieldOfView = originalFov;
         }
 
-        private IEnumerator IncreaseFov(Camera camera, float target, float speed)
+        private IEnumerator IncreaseFov(Camera camera, float target)
         {
             do
             {
-                camera.fieldOfView += Time.deltaTime * speed;
+                camera.fieldOfView += Time.deltaTime * zoomSpeed;
                 yield return null;
             }
             while (camera.fieldOfView < target);
@@ -51,11 +51,11 @@ namespace SpawnableObject.Powerups
             camera.fieldOfView = target;
         }
 
-        private IEnumerator DecreaseFov(Camera camera, float target, float speed)
+        private IEnumerator DecreaseFov(Camera camera, float target)
         {
             do
             {
-                camera.fieldOfView -= Time.deltaTime * speed;
+                camera.fieldOfView -= Time.deltaTime * zoomSpeed;
                 yield return null;
             }
             while (camera.fieldOfView > target);
