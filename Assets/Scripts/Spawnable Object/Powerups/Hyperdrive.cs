@@ -12,21 +12,24 @@ namespace SpawnableObject.Powerups
         [SerializeField] private float speedFieldOfView = 110f;
         [SerializeField] private float brakeFieldOfView = 45f;
         [SerializeField] private float zoomSpeed = 100f;
+        [SerializeField] private float boostDuration = 2f;
 
-		public bool camerasFinishedZooming = true;
+		private bool camerasFinishedZooming = true;
 
         public override void ApplyPowerupEffect()
         {
             PlayerHud.instance.ShowNotification(GetColour(), "Hyperdrive!");
-            StartCoroutine(ZoomCameras());
+            StartCoroutine(ApplyPowerupEffectRoutine());
         }
 
-        private IEnumerator ZoomCameras()
+        private IEnumerator ApplyPowerupEffectRoutine()
         {
             Camera[] cameras = FindObjectsOfType<Camera>();
+			PlayerControl playerControl = PlayerControl.instance;
+			float originalSpeed = playerControl.GetSpeed();
+
 			camerasFinishedZooming = false;
-			float originalSpeed = PlayerControl.instance.GetSpeed();
-			PlayerControl.instance.MaxSpeed();
+			playerControl.MaxSpeed();
 
             foreach (Camera camera in cameras)
             {
@@ -38,15 +41,14 @@ namespace SpawnableObject.Powerups
 				yield return null;
 			}
 
-			print("Finished");
-			PlayerControl.instance.SetSpeed(originalSpeed);			
+			playerControl.SetSpeed(originalSpeed);			
         }
 
         private IEnumerator ZoomCamera(Camera camera)
         {
 			float originalFov = 60f;
             yield return StartCoroutine(IncreaseFov(camera, speedFieldOfView));
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(boostDuration);
             yield return StartCoroutine(DecreaseFov(camera, brakeFieldOfView));
             yield return StartCoroutine(IncreaseFov(camera, originalFov));
             camera.fieldOfView = originalFov;
@@ -67,9 +69,10 @@ namespace SpawnableObject.Powerups
 
         private IEnumerator DecreaseFov(Camera camera, float target)
         {
+			float damp = 1.5f;
             do
             {
-                camera.fieldOfView -= Time.deltaTime * zoomSpeed;
+                camera.fieldOfView -= Time.deltaTime * zoomSpeed * damp;
                 yield return null;
             }
             while (camera.fieldOfView > target);
