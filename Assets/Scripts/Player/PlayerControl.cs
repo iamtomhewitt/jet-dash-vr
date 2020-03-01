@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using Manager;
 using Achievements;
 using Data;
+using Manager;
 
 namespace Player
 {
@@ -117,9 +117,6 @@ namespace Player
 			InvokeRepeating("IncreaseSpeed", speedIncreaseRate, speedIncreaseRate);
 		}
 
-		/// <summary>
-		/// Sets up the cameras based upon what was selected in the main menu.
-		/// </summary>
 		private void ApplyCameraSettings()
 		{
 			GameSettingsManager gs = GameSettingsManager.instance;
@@ -165,6 +162,16 @@ namespace Player
 		public int GetSpeed()
 		{
 			return (int)speed;
+		}
+
+		public void SetSpeed(float speed)
+		{
+			this.speed = speed;
+		}
+
+		public void MaxSpeed()
+		{
+			speed = maxSpeed;
 		}
 
 		public float GetSpeedIncreaseRate()

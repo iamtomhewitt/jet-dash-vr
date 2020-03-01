@@ -13,20 +13,33 @@ namespace SpawnableObject.Powerups
         [SerializeField] private float brakeFieldOfView = 45f;
         [SerializeField] private float zoomSpeed = 100f;
 
+		public bool camerasFinishedZooming = true;
+
         public override void ApplyPowerupEffect()
         {
             PlayerHud.instance.ShowNotification(GetColour(), "Hyperdrive!");
-            ZoomCameras();
+            StartCoroutine(ZoomCameras());
         }
 
-        private void ZoomCameras()
+        private IEnumerator ZoomCameras()
         {
             Camera[] cameras = FindObjectsOfType<Camera>();
+			camerasFinishedZooming = false;
+			float originalSpeed = PlayerControl.instance.GetSpeed();
+			PlayerControl.instance.MaxSpeed();
 
             foreach (Camera camera in cameras)
             {
                 StartCoroutine(ZoomCamera(camera));
             }
+
+			while (!camerasFinishedZooming)
+			{
+				yield return null;
+			}
+
+			print("Finished");
+			PlayerControl.instance.SetSpeed(originalSpeed);			
         }
 
         private IEnumerator ZoomCamera(Camera camera)
@@ -37,6 +50,7 @@ namespace SpawnableObject.Powerups
             yield return StartCoroutine(DecreaseFov(camera, brakeFieldOfView));
             yield return StartCoroutine(IncreaseFov(camera, originalFov));
             camera.fieldOfView = originalFov;
+			camerasFinishedZooming = true;
         }
 
         private IEnumerator IncreaseFov(Camera camera, float target)
