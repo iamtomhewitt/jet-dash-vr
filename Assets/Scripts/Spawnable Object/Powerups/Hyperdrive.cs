@@ -26,10 +26,12 @@ namespace SpawnableObject.Powerups
         {
             Camera[] cameras = FindObjectsOfType<Camera>();
             PlayerControl playerControl = PlayerControl.instance;
+            PlayerCollision playerCollision = PlayerCollision.instance;
             float originalSpeed = playerControl.GetSpeed();
 
             camerasFinishedZooming = false;
             playerControl.MaxSpeed();
+            playerCollision.SetGodMode(true);
 
             foreach (Camera camera in cameras)
             {
@@ -42,6 +44,7 @@ namespace SpawnableObject.Powerups
             }
 
             playerControl.SetSpeed(originalSpeed);
+            playerCollision.SetGodMode(false);
         }
 
         private IEnumerator ZoomCamera(Camera camera)
