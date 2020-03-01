@@ -19,6 +19,12 @@ namespace SpawnableObject.Powerups
         public override void ApplyPowerupEffect()
         {
             PlayerHud.instance.ShowNotification(GetColour(), "Hyperdrive!");
+
+            foreach (Hyperdrive h in FindObjectsOfType<Hyperdrive>())
+			{
+				h.StopAllCoroutines();
+			}
+
             StartCoroutine(ApplyPowerupEffectRoutine());
         }
 
