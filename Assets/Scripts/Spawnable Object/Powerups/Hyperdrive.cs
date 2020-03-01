@@ -14,7 +14,7 @@ namespace SpawnableObject.Powerups
         [SerializeField] private float zoomSpeed = 100f;
         [SerializeField] private float boostDuration = 2f;
 
-		private bool camerasFinishedZooming = true;
+        private bool camerasFinishedZooming = true;
 
         public override void ApplyPowerupEffect()
         {
@@ -25,34 +25,34 @@ namespace SpawnableObject.Powerups
         private IEnumerator ApplyPowerupEffectRoutine()
         {
             Camera[] cameras = FindObjectsOfType<Camera>();
-			PlayerControl playerControl = PlayerControl.instance;
-			float originalSpeed = playerControl.GetSpeed();
+            PlayerControl playerControl = PlayerControl.instance;
+            float originalSpeed = playerControl.GetSpeed();
 
-			camerasFinishedZooming = false;
-			playerControl.MaxSpeed();
+            camerasFinishedZooming = false;
+            playerControl.MaxSpeed();
 
             foreach (Camera camera in cameras)
             {
                 StartCoroutine(ZoomCamera(camera));
             }
 
-			while (!camerasFinishedZooming)
-			{
-				yield return null;
-			}
+            while (!camerasFinishedZooming)
+            {
+                yield return null;
+            }
 
-			playerControl.SetSpeed(originalSpeed);			
+            playerControl.SetSpeed(originalSpeed);
         }
 
         private IEnumerator ZoomCamera(Camera camera)
         {
-			float originalFov = 60f;
+            float originalFov = 60f;
             yield return StartCoroutine(IncreaseFov(camera, speedFieldOfView));
             yield return new WaitForSeconds(boostDuration);
             yield return StartCoroutine(DecreaseFov(camera, brakeFieldOfView));
             yield return StartCoroutine(IncreaseFov(camera, originalFov));
             camera.fieldOfView = originalFov;
-			camerasFinishedZooming = true;
+            camerasFinishedZooming = true;
         }
 
         private IEnumerator IncreaseFov(Camera camera, float target)
@@ -69,7 +69,7 @@ namespace SpawnableObject.Powerups
 
         private IEnumerator DecreaseFov(Camera camera, float target)
         {
-			float damp = 1.5f;
+            float damp = 1.5f;
             do
             {
                 camera.fieldOfView -= Time.deltaTime * zoomSpeed * damp;
