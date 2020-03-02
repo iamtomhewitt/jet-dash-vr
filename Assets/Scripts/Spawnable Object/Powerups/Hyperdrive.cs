@@ -36,7 +36,7 @@ namespace SpawnableObject.Powerups
 			}
 
 			playerControl.SetSpeed(originalSpeed);
-			playerCollision.SetGodMode(true); // TODO - as above
+			playerCollision.SetGodMode(false); // TODO - as above
 		}
 	}
 }
