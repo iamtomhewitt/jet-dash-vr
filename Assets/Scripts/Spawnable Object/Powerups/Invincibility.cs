@@ -33,7 +33,7 @@ namespace SpawnableObject.Powerups
 		private IEnumerator ActivateGodMode()
 		{
 			GameObject shield = PlayerCollision.instance.GetShield();
-			PlayerCollision.instance.SetGodMode(true);
+			PlayerCollision.instance.SetInvincible(true);
 
 			shield.SetActive(true);
 			shield.GetComponent<Animator>().Play("On");
@@ -51,7 +51,7 @@ namespace SpawnableObject.Powerups
 
 			shield.SetActive(false);
 
-			PlayerCollision.instance.SetGodMode(false);
+			PlayerCollision.instance.SetInvincible(false);
 		}
 	}
 }

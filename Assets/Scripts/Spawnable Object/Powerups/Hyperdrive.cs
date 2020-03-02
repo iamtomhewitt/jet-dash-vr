@@ -9,7 +9,7 @@ namespace SpawnableObject.Powerups
 	/// <summary>
 	public class Hyperdrive : Powerup
 	{
-		[SerializeField] private float zoomSpeed = 100f;
+		[SerializeField] private float cameraZoomSpeed = 100f;
 		[SerializeField] private float boostDuration = 2f;
 
 		public override void ApplyPowerupEffect()
@@ -27,8 +27,8 @@ namespace SpawnableObject.Powerups
 			PlayerHud.instance.ShowNotification(GetColour(), "Hyperdrive!");
 
 			playerControl.MaxSpeed();
-			playerCollision.SetGodMode(true); // TODO - use a separate bool for hyperdrive control
-			playerCamera.ZoomCameras(zoomSpeed, boostDuration);
+			playerCollision.SetHyperdriveEnabled(true);
+			playerCamera.ZoomCameras(cameraZoomSpeed, boostDuration);
 
 			while (!playerCamera.HasCamerasFinishedZooming())
 			{
@@ -36,7 +36,7 @@ namespace SpawnableObject.Powerups
 			}
 
 			playerControl.SetSpeed(originalSpeed);
-			playerCollision.SetGodMode(false); // TODO - as above
+			playerCollision.SetHyperdriveEnabled(false);
 		}
 	}
 }

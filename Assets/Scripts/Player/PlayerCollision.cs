@@ -13,7 +13,8 @@ namespace Player
 		[SerializeField] private GameObject playerModel;
 		[SerializeField] private GameObject shield;
 
-		[SerializeField] private bool godMode;
+		[SerializeField] private bool invincible;
+		[SerializeField] private bool hyperdriveEnabled;
 
 		public static PlayerCollision instance;
 
@@ -22,12 +23,19 @@ namespace Player
 			instance = this;
 		}
 
+		public void OnGUI()
+		{
+			GUI.Label(new Rect(10,10,200, 100), "God Mode: " + IsGodMode());
+			GUI.Label(new Rect(10,30,200, 100), "Invincible: " + invincible);
+			GUI.Label(new Rect(10,50,200, 100), "Hyper Mode: " + hyperdriveEnabled);
+		}
+
 		private void OnCollisionEnter(Collision other)
 		{
 			switch (other.gameObject.tag)
 			{
 				case Tags.OBSTACLE:
-					if (godMode)
+					if (IsGodMode())
 					{
 						AchievementManager.instance.UnlockAchievement(AchievementIds.FLY_THROUGH_OBSTACLE_WHEN_INVINCIBLE);
 						return;
@@ -86,9 +94,19 @@ namespace Player
 			}
 		}
 
-		public void SetGodMode(bool godMode)
+		public void SetInvincible(bool invincible)
 		{
-			this.godMode = godMode;
+			this.invincible = invincible;
+		}
+
+		public void SetHyperdriveEnabled(bool enabled)
+		{
+			this.hyperdriveEnabled = enabled;
+		}
+
+		public bool IsGodMode()
+		{
+			return invincible || hyperdriveEnabled;
 		}
 
 		public GameObject GetShield()
