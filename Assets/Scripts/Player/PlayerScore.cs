@@ -6,7 +6,11 @@ namespace Player
 {
 	public class PlayerScore : MonoBehaviour
 	{
+		private PlayerControl playerControl;
+		private PlayerHud hud;
+
 		private int bonusScore = 0;
+		private int speedStreak = 50;
 
 		public static PlayerScore instance;
 
@@ -17,13 +21,16 @@ namespace Player
 
 		private void Start()
 		{
-			float acceleration = PlayerControl.instance.GetAcceleration();
+			playerControl = PlayerControl.instance;
+			hud = PlayerHud.instance;
+
+			float acceleration = playerControl.GetAcceleration();
 			InvokeRepeating("ShowNotificationIfOnSpeedStreak", acceleration, acceleration);
 		}
 
 		private void Update()
 		{
-			PlayerHud.instance.SetScoreText(bonusScore);
+			hud.SetScoreText(bonusScore);
 		}
 
 		/// <summary>
@@ -31,11 +38,11 @@ namespace Player
 		/// </summary>
 		private void ShowNotificationIfOnSpeedStreak()
 		{
-			float speed = PlayerControl.instance.GetSpeed();
+			float speed = playerControl.GetSpeed();
 
-			if (speed % 50 == 0 && !PlayerControl.instance.HasReachedMaxSpeed())
+			if (speed % speedStreak == 0 && !playerControl.HasReachedMaxSpeed())
 			{
-				PlayerHud.instance.ShowNotification(Color.white, speed + " Speed Streak!");
+				hud.ShowNotification(Color.white, speed + " Speed Streak!");
 				AudioManager.instance.Play(SoundNames.SPEED_STREAK);
 			}
 		}
@@ -50,7 +57,7 @@ namespace Player
 
 			if (distance > currentDistance)
 			{
-				print("New distance of " + distance + "! Previous was " + currentDistance + ".");
+				Debug.Log("New distance of " + distance + "! Previous was " + currentDistance + ".");
 				PlayerPrefs.SetInt(Constants.DISTANCE_KEY, distance);
 			}
 		}
@@ -84,7 +91,7 @@ namespace Player
 
 		public int GetFinalScore()
 		{
-			return GetBonusScore() + GetDistanceScore() + PlayerControl.instance.GetSpeed();
+			return GetBonusScore() + GetDistanceScore() + playerControl.GetSpeed();
 		}
 	}
 }
