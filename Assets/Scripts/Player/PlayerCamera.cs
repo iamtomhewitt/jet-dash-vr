@@ -12,6 +12,7 @@ namespace Player
 		[SerializeField] private float brakeFieldOfView = 45f;
 
 		private float zoomSpeed;
+		private float duration;
 		private float originalFov = 60f;
 		private bool camerasFinishedZooming = true;
 
@@ -27,15 +28,16 @@ namespace Player
 			StopAllCoroutines();
 			
 			this.zoomSpeed = zoomSpeed;
+			this.duration = duration;
 
 			Camera[] cameras = FindObjectsOfType<Camera>();
 			foreach (Camera camera in cameras)
 			{
-				StartCoroutine(ZoomCamera(camera, duration));
+				StartCoroutine(ZoomCamera(camera));
 			}
 		}
 
-		private IEnumerator ZoomCamera(Camera camera, float duration)
+		private IEnumerator ZoomCamera(Camera camera)
 		{
 			camerasFinishedZooming = false;
 			yield return StartCoroutine(IncreaseFov(camera, speedFieldOfView));

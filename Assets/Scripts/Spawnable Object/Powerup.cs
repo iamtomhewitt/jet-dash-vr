@@ -21,7 +21,7 @@ namespace SpawnableObject
 			switch (other.gameObject.tag)
 			{
 				case Tags.OBSTACLE:
-					Debug.Log("A powerup has spawned inside an obstacle, moving...");
+					Debug.Log(string.Format("A powerup has spawned inside an obstacle, moving from {0} to {1}", transform.position, (transform.position -= Vector3.forward * 100f)));
 					transform.position -= Vector3.forward * 100f;
 					break;
 
