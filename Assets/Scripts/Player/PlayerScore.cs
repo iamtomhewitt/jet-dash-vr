@@ -17,8 +17,8 @@ namespace Player
 
 		private void Start()
 		{
-			float speedIncreaseRate = PlayerControl.instance.GetSpeedIncreaseRate();
-			InvokeRepeating("ShowNotificationIfOnSpeedStreak", speedIncreaseRate, speedIncreaseRate);
+			float acceleration = PlayerControl.instance.GetAcceleration();
+			InvokeRepeating("ShowNotificationIfOnSpeedStreak", acceleration, acceleration);
 		}
 
 		private void Update()
