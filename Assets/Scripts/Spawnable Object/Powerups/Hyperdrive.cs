@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Player;
+using Manager;
 
 namespace SpawnableObject.Powerups
 {
@@ -25,6 +26,7 @@ namespace SpawnableObject.Powerups
 			float originalSpeed = playerControl.GetSpeed();
 
 			PlayerHud.instance.ShowNotification(GetColour(), "Hyperdrive!");
+			AudioManager.instance.Play(SoundNames.HYPERDRIVE);
 
 			playerControl.MaxSpeed();
 			playerCollision.SetHyperdriveEnabled(true);

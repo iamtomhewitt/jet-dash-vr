@@ -124,5 +124,6 @@ namespace Manager
 		public const string JUMP = "Powerup Jump";
 		public const string SCORE = "Score";
 		public const string ACHIEVEMENT_UNLOCKED = "Achievement Unlocked";
+		public const string HYPERDRIVE = "Hyperdrive";
 	}
 }
