@@ -52,9 +52,7 @@ namespace Manager
 		{
 			Achievement achievement = GetAchievement(id);
 			achievement.Progress(target, actual);
-
 			NotifyIfUnlocked(achievement);
-
 			AchievementDatabase.SaveAchievementsToFile(achievements);
 		}
 
@@ -62,8 +60,9 @@ namespace Manager
 		{
 			if (!achievement.userShown && achievement.unlocked)
 			{
-				AchievementNotificationManager.instance.AddToNotificationQueue(achievement);
-				AchievementNotificationManager.instance.ShowNotification();
+				AchievementNotificationManager notificationManager = AchievementNotificationManager.instance;
+				notificationManager.AddToNotificationQueue(achievement);
+				notificationManager.ShowNotification();
 				achievement.userShown = true;
 			}
 		}

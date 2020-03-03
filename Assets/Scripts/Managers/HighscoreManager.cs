@@ -28,8 +28,6 @@ namespace Manager
 			}
 
 			DontDestroyOnLoad(this.gameObject);
-
-			// PlayerPrefs.DeleteAll();
 		}
 
 		/// <summary>
