@@ -16,6 +16,14 @@ namespace Player
 		[SerializeField] private bool invincible;
 		[SerializeField] private bool hyperdriveEnabled;
 
+		private AchievementManager achievementManager;
+		private AudioManager audioManager;
+		private HighscoreManager highscoreManager;
+		private PlayerControl playerControl;
+		private PlayerScore playerScore;
+		private Scoreboard scoreboard;
+		private ShopManager shopManager;
+
 		public static PlayerCollision instance;
 
 		private void Awake()
@@ -23,11 +31,22 @@ namespace Player
 			instance = this;
 		}
 
+		private void Start()
+		{
+			achievementManager = AchievementManager.instance;
+			audioManager = AudioManager.instance;
+			highscoreManager = HighscoreManager.instance;
+			playerControl = PlayerControl.instance;
+			playerScore = PlayerScore.instance;
+			scoreboard = Scoreboard.instance;
+			shopManager = ShopManager.instance;
+		}
+
 		public void OnGUI()
 		{
-			GUI.Label(new Rect(10,10,200, 100), "God Mode: " + IsGodMode());
-			GUI.Label(new Rect(10,30,200, 100), "Invincible: " + invincible);
-			GUI.Label(new Rect(10,50,200, 100), "Hyper Mode: " + hyperdriveEnabled);
+			GUI.Label(new Rect(10, 10, 200, 100), "God Mode: " + IsGodMode());
+			GUI.Label(new Rect(10, 30, 200, 100), "Invincible: " + invincible);
+			GUI.Label(new Rect(10, 50, 200, 100), "Hyper Mode: " + hyperdriveEnabled);
 		}
 
 		private void OnCollisionEnter(Collision other)
@@ -37,39 +56,39 @@ namespace Player
 				case Tags.OBSTACLE:
 					if (IsGodMode())
 					{
-						AchievementManager.instance.UnlockAchievement(AchievementIds.FLY_THROUGH_OBSTACLE_WHEN_INVINCIBLE);
+						achievementManager.UnlockAchievement(AchievementIds.FLY_THROUGH_OBSTACLE_WHEN_INVINCIBLE);
 						return;
 					}
 
 					GameObject e = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
 					Destroy(e, 3f);
 
-					Scoreboard.instance.Show();
-					Scoreboard.instance.AnimateDistanceScore(PlayerScore.instance.GetDistanceScore());
-					Scoreboard.instance.AnimateBonusScore(PlayerScore.instance.GetBonusScore());
-					Scoreboard.instance.AnimateTopSpeed(PlayerControl.instance.GetSpeed());
-					Scoreboard.instance.AnimateFinalScore(PlayerScore.instance.GetFinalScore());
+					scoreboard.Show();
+					scoreboard.AnimateDistanceScore(playerScore.GetDistanceScore());
+					scoreboard.AnimateBonusScore(playerScore.GetBonusScore());
+					scoreboard.AnimateTopSpeed(playerControl.GetSpeed());
+					scoreboard.AnimateFinalScore(playerScore.GetFinalScore());
 
-					HighscoreManager.instance.SaveLocalHighscore(PlayerScore.instance.GetFinalScore());
-					PlayerScore.instance.SaveDistanceHighscore();
+					highscoreManager.SaveLocalHighscore(playerScore.GetFinalScore());
+					playerScore.SaveDistanceHighscore();
 
-					PlayerControl.instance.StopMoving();
+					playerControl.StopMoving();
 					playerModel.SetActive(false);
 					gameHUD.SetActive(false);
 
-					AudioManager.instance.Play(SoundNames.PLAYER_DEATH);
-					AudioManager.instance.Pause(SoundNames.SHIP_ENGINE);
+					audioManager.Play(SoundNames.PLAYER_DEATH);
+					audioManager.Pause(SoundNames.SHIP_ENGINE);
 
-					ShopManager.instance.AddCash(PlayerScore.instance.GetFinalScore());
+					shopManager.AddCash(playerScore.GetFinalScore());
 
 					// Now update achievements
-					AchievementManager.instance.UnlockAchievement(AchievementIds.DIE);
-					AchievementManager.instance.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_1000, 1000, PlayerScore.instance.GetDistanceScore());
-					AchievementManager.instance.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_10000, 10000, PlayerScore.instance.GetDistanceScore());
-					AchievementManager.instance.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_50000, 50000, PlayerScore.instance.GetDistanceScore());
-					AchievementManager.instance.ProgressAchievement(AchievementIds.POINTS_OVER_HALF_MILLION, 500000, PlayerScore.instance.GetFinalScore());
-					AchievementManager.instance.ProgressAchievement(AchievementIds.POINTS_OVER_MILLION, 1000000, PlayerScore.instance.GetFinalScore());
-					AchievementManager.instance.ProgressAchievement(AchievementIds.POINTS_OVER_FIVE_MILLION, 5000000, PlayerScore.instance.GetFinalScore());
+					achievementManager.UnlockAchievement(AchievementIds.DIE);
+					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_1000, 1000, playerScore.GetDistanceScore());
+					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_10000, 10000, playerScore.GetDistanceScore());
+					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_50000, 50000, playerScore.GetDistanceScore());
+					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_HALF_MILLION, 500000, playerScore.GetFinalScore());
+					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_MILLION, 1000000, playerScore.GetFinalScore());
+					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_FIVE_MILLION, 5000000, playerScore.GetFinalScore());
 					break;
 
 				default:
