@@ -6,107 +6,113 @@ using Utility;
 
 namespace Manager
 {
-	/// <summary>
-	/// Manages shop purchases and the ship details.
-	/// </summary>
-	public class ShopManager : MonoBehaviour
-	{
-		[SerializeField] private List<ShipData> shipData;
-		[SerializeField] private ShipData selectedShipData;
+    /// <summary>
+    /// Manages shop purchases and the ship details.
+    /// </summary>
+    public class ShopManager : MonoBehaviour
+    {
+        [SerializeField] private List<ShipData> shipData;
+        [SerializeField] private ShipData selectedShipData;
 
-		public static ShopManager instance;
+        public static ShopManager instance;
 
-		private void Awake()
-		{
-			if (instance)
-			{
-				DestroyImmediate(gameObject);
-			}
-			else
-			{
-				DontDestroyOnLoad(gameObject);
-				instance = this;
-				instance.SetCash(0);
-				instance.PurchaseShip(Constants.STARTING_SHIP);
-			}
-		}
+        private void Awake()
+        {
+            if (instance)
+            {
+                DestroyImmediate(gameObject);
+            }
+            else
+            {
+                DontDestroyOnLoad(gameObject);
+                instance = this;
+                // TODO remove this otherwise cash will restart every time game is loaded
+                instance.SetCash(10000000000);
+                instance.PurchaseShip(Constants.STARTING_SHIP);
+            }
+        }
 
-		public void PurchaseShip(string name)
-		{
-			ShipData shipData = GetShip(name);
+        public void PurchaseShip(string name)
+        {
+            ShipData shipData = GetShip(name);
 
-			if (IsShipUnlocked(shipData))
-			{
-				print("Cannot buy " + name + " because it is already unlocked");
-				return;
-			}
+            if (IsShipUnlocked(shipData))
+            {
+                print("Cannot buy " + name + " because it is already unlocked");
+                return;
+            }
 
-			long cash = GetCash();
-			long cost = shipData.GetCost();
+            long cash = GetCash();
+            long cost = shipData.GetCost();
 
-			if (cash >= cost)
-			{
-				SetCash(cash - cost);
-				selectedShipData = shipData;
-				SetShipUnlocked(shipData, true);
-			}
-			else
-			{
-				print("Not enough wonga! You have: " + GetCash() + " and you need " + shipData.GetCost());
-			}
-		}
+            if (cash >= cost)
+            {
+                SetCash(cash - cost);
+                selectedShipData = shipData;
+                SetShipUnlocked(shipData, true);
+            }
+            else
+            {
+                print("Not enough wonga! You have: " + GetCash() + " and you need " + shipData.GetCost());
+            }
+        }
 
-		public ShipData GetShip(string name)
-		{
-			return shipData.Where(ship => ship.GetShipName().Equals(name)).First();
-		}
+        public ShipData GetShip(string name)
+        {
+            return shipData.Where(ship => ship.GetShipName().Equals(name)).First();
+        }
 
-		public ShipData GetSelectedShipData()
-		{
-			return selectedShipData;
-		}
+        public ShipData GetSelectedShipData()
+        {
+            return selectedShipData;
+        }
 
-		public List<ShipData> GetShips()
-		{
-			return shipData;
-		}
+        public void SetSelectedShipData(ShipData selectedShipData)
+        {
+            this.selectedShipData = selectedShipData;
+        }
 
-		public long GetCash()
-		{
-			string s = PlayerPrefs.GetString(Constants.CASH_KEY);
+        public List<ShipData> GetShips()
+        {
+            return shipData;
+        }
 
-			if (string.IsNullOrEmpty(s))
-			{
-				s = "0";
-			}
+        public long GetCash()
+        {
+            string s = PlayerPrefs.GetString(Constants.CASH_KEY);
 
-			return System.Convert.ToInt64(s);
-		}
+            if (string.IsNullOrEmpty(s))
+            {
+                s = "0";
+            }
 
-		public void AddCash(long amount)
-		{
-			long currentCash = GetCash();
-			long newTotal = currentCash + amount;
-			SetCash(newTotal);
-		}
+            return System.Convert.ToInt64(s);
+        }
 
-		private void SetCash(long cash)
-		{
-			PlayerPrefs.SetString(Constants.CASH_KEY, "" + cash);
-		}
+        public void AddCash(long amount)
+        {
+            long currentCash = GetCash();
+            long newTotal = currentCash + amount;
+            SetCash(newTotal);
+        }
 
-		public void SetShipUnlocked(ShipData ship, bool unlocked)
-		{
-			string shipName = ship.GetShipName();
-			int unlockedAsInt = unlocked ? Constants.YES : Constants.NO;
-			PlayerPrefs.SetInt(shipName + "Unlocked", unlockedAsInt);
-		}
+        private void SetCash(long cash)
+        {
+            PlayerPrefs.SetString(Constants.CASH_KEY, "" + cash);
+        }
 
-		public bool IsShipUnlocked(ShipData ship)
-		{
-			int unlocked = PlayerPrefs.GetInt(ship.GetShipName() + "Unlocked");
-			bool asBool = unlocked.Equals(Constants.YES);
-			return asBool;
-		}
-	}
+        public void SetShipUnlocked(ShipData ship, bool unlocked)
+        {
+            string shipName = ship.GetShipName();
+            int unlockedAsInt = unlocked ? Constants.YES : Constants.NO;
+            PlayerPrefs.SetInt(shipName + "Unlocked", unlockedAsInt);
+        }
+
+        public bool IsShipUnlocked(ShipData ship)
+        {
+            int unlocked = PlayerPrefs.GetInt(ship.GetShipName() + "Unlocked");
+            bool asBool = unlocked.Equals(Constants.YES);
+            return asBool;
+        }
+    }
 }

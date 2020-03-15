@@ -83,24 +83,32 @@ namespace LevelManagers
             ShipData shipData 				= ships[currentShipIndex];
             bool isUnlocked 				= ShopManager.instance.IsShipUnlocked(shipData);
 
-            shipName.text 					= shipData.GetShipName();
-            description.text 				= shipData.GetDescription();
-            speed.text 						= "Speed: " + shipData.GetSpeed().ToString();
-            acceleration.text 				= "Accelerates: Every " + shipData.GetAcceleration().ToString() + " seconds";
-            turnSpeed.text 					= "Turn Speed: " + shipData.GetTurningSpeed().ToString();
-            cost.text 						= "COST: " + shipData.GetCost().ToString() + "P";
-            specialAbility.text 			= shipData.GetSpecialAbility().ToString();
-            specialAbilityDescription.text 	= shipData.GetSpecialAbilityDescription();
-            shipIcon.sprite 				= shipData.GetSprite();
+			shipName.text					= shipData.GetShipName();
+			shipName.color					= shipData.GetShipName().Equals(ShopManager.instance.GetSelectedShipData().GetShipName()) ? Color.green : Color.white;
+			description.text				= shipData.GetDescription();
+			speed.text						= "Speed: " + shipData.GetSpeed().ToString();
+			acceleration.text				= "Accelerates: Every " + shipData.GetAcceleration().ToString() + " seconds";
+			turnSpeed.text					= "Turn Speed: " + shipData.GetTurningSpeed().ToString();
+			cost.text						= "COST: " + shipData.GetCost().ToString() + "P";
+			specialAbility.text				= shipData.GetSpecialAbility().ToString();
+			specialAbilityDescription.text	= shipData.GetSpecialAbilityDescription();
+			shipIcon.sprite					= shipData.GetSprite();
+			shipIcon.color					= !isUnlocked ? Color.black : Color.white;
+		}
 
-            if (!isUnlocked)
-            {
-                shipIcon.color = Color.black;
-            }
-            else
-            {
-                shipIcon.color = Color.white;
-            }
+		/// <summary>
+		/// Called from a Unity button.
+		/// </summary>
+        public void SelectShip()
+        {
+			ShipData shipData = ships[currentShipIndex];
+			bool isUnlocked = ShopManager.instance.IsShipUnlocked(shipData);
+
+			if (isUnlocked)
+			{
+				ShopManager.instance.SetSelectedShipData(shipData);
+				shipName.color = Color.green;
+			}
         }
     }
 }
