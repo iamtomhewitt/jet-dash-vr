@@ -29,9 +29,9 @@ namespace LevelManagers
         private void Start()
         {
             ships = ShopManager.instance.GetShips();
-            cash.text = "CASH: " + ShopManager.instance.GetCash() + "P";
+            SetCashText();
 
-			// Set the first ship to be shown the basic ship.
+            // Set the first ship to be shown the basic ship.
             for (int i = 0; i < ships.Count; i++)
             {
                 if (ships[i].GetShipName().Equals(Constants.STARTING_SHIP))
@@ -44,6 +44,11 @@ namespace LevelManagers
             SetShipDetails();
         }
 
+        private void SetCashText()
+        {
+            cash.text = "CASH: " + ShopManager.instance.GetCash() + "P";
+        }
+
         /// <summary>
         /// Called from a Unity button.
         /// </summary>
@@ -51,6 +56,8 @@ namespace LevelManagers
         {
             ShipData ship = ships[currentShipIndex];
             ShopManager.instance.PurchaseShip(ship.GetShipName());
+            SetShipDetails();
+            SetCashText();
         }
 
         /// <summary>
@@ -90,10 +97,10 @@ namespace LevelManagers
             {
                 shipIcon.color = Color.black;
             }
-			else
-			{
-				shipIcon.color = Color.white;
-			}
+            else
+            {
+                shipIcon.color = Color.white;
+            }
         }
     }
 }
