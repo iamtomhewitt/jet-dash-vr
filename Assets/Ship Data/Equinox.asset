@@ -24,4 +24,4 @@ MonoBehaviour:
     through, sends your ship into hyperdrive and send you far forward.
   sprite: {fileID: 21300000, guid: 1b6e8bdde0965844d85773eaf424943f, type: 3}
   hasPowerup: 1
-  powerup: {fileID: 0}
+  powerup: {fileID: 6525006481243418330, guid: 4a62fd422ec9544679b841fc99343b9b, type: 3}
