@@ -23,17 +23,17 @@ namespace Player
 
 		public void AnimateBonusScore(int score)
         {
-            StartCoroutine(Animate(score, bonusScoreText, false));
+            StartCoroutine(Animate(score, bonusScoreText));
         }
 
         public void AnimateDistanceScore(int score)
         {
-            StartCoroutine(Animate(score, distanceScoreText, false));
+            StartCoroutine(Animate(score, distanceScoreText));
         }
 
         public void AnimateTopSpeed(int score)
         {
-            StartCoroutine(Animate(score, topSpeed, false));
+            StartCoroutine(Animate(score, topSpeed));
         }
 
         public void AnimateFinalScore(int score)
@@ -43,10 +43,10 @@ namespace Player
                 finalScore.color = Color.yellow;
             }
 
-            StartCoroutine(Animate(score, finalScore, true));
+            StartCoroutine(Animate(score, finalScore));
         }
 
-        private IEnumerator Animate(int score, Text text, bool isFinalScore)
+        private IEnumerator Animate(int score, Text text)
         {
             int displayScore = 0;
             int start = displayScore;
@@ -66,8 +66,7 @@ namespace Player
 
 			// Final score will take the longest to animate, so only reload the scene when animating final score,
 			// that way nothing gets cut off
-            // TODO We probably dont need to pass a bool here, we could just do if (text == finalScore) to check if the two text objects are the same
-			if (isFinalScore)
+			if (text.Equals(finalScore))
 			{
 				FindObjectOfType<GameLevelManager>().RestartLevel();
 			}
