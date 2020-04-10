@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using Manager;
 using LevelManagers;
+using Utility;
 
 namespace Player
 {
@@ -37,6 +38,11 @@ namespace Player
 
         public void AnimateFinalScore(int score)
         {
+            if (ShopManager.instance.GetSelectedShipData().GetShipName().Equals(Tags.CELLEX))
+            {
+                finalScore.color = Color.yellow;
+            }
+
             StartCoroutine(Animate(score, finalScore, true));
         }
 

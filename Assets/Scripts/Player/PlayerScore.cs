@@ -91,7 +91,9 @@ namespace Player
 
 		public int GetFinalScore()
 		{
-			return GetBonusScore() + GetDistanceScore() + playerControl.GetSpeed();
+			bool doubleScore = ShopManager.instance.GetSelectedShipData().GetShipName().Equals(Tags.CELLEX);
+			int finalScore = GetBonusScore() + GetDistanceScore() + playerControl.GetSpeed();
+			return doubleScore ? finalScore * 2 : finalScore;
 		}
 	}
 }
