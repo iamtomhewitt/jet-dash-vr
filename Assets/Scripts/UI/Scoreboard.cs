@@ -60,6 +60,7 @@ namespace Player
 
 			// Final score will take the longest to animate, so only reload the scene when animating final score,
 			// that way nothing gets cut off
+            // TODO We probably dont need to pass a bool here, we could just do if (text == finalScore) to check if the two text objects are the same
 			if (isFinalScore)
 			{
 				FindObjectOfType<GameLevelManager>().RestartLevel();
