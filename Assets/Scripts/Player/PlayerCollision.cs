@@ -42,13 +42,6 @@ namespace Player
 			shopManager = ShopManager.instance;
 		}
 
-		public void OnGUI()
-		{
-			GUI.Label(new Rect(10, 10, 200, 100), "God Mode: " + IsGodMode());
-			GUI.Label(new Rect(10, 30, 200, 100), "Invincible: " + invincible);
-			GUI.Label(new Rect(10, 50, 200, 100), "Hyper Mode: " + hyperdriveEnabled);
-		}
-
 		private void OnCollisionEnter(Collision other)
 		{
 			switch (other.gameObject.tag)
