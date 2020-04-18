@@ -26,8 +26,6 @@ namespace Manager
             {
                 DontDestroyOnLoad(gameObject);
                 instance = this;
-                // TODO remove this otherwise cash will restart every time game is loaded
-                instance.SetCash(99999000);
                 instance.PurchaseShip(Constants.STARTING_SHIP);
             }
         }
