@@ -12,9 +12,9 @@ namespace Spawner
         [SerializeField] private List<Powerup> powerups;
         [SerializeField] private float repeatRate;
         [SerializeField] private int maxPowerups;
-        [SerializeField] private int maxDoublePoints = 2;
-        [SerializeField] private int maxInvincibility = 4;
-        [SerializeField] private int maxBonusPoints = 4;
+        [SerializeField] private int maxDoublePointsPowerups = 2;
+        [SerializeField] private int maxInvincibilityPowerups = 4;
+        [SerializeField] private int maxBonusPointsPowerups = 4;
         [SerializeField] private int maxShipPowerups = 3;
         [SerializeField] private SpawnBoundary boundary;
 
@@ -51,23 +51,21 @@ namespace Spawner
 
                 Powerup powerup = powerups[index];
 
-                int totalBonusPointPowerups = powerupsInPlay.Where(p => p.GetPowerupType() == PowerupType.BonusPoints).Count();
-                int totalDoublePointPowerups = powerupsInPlay.Where(p => p.GetPowerupType() == PowerupType.DoublePoints).Count();
-                int totalInvincibilityPowerups = powerupsInPlay.Where(p => p.GetPowerupType() == PowerupType.Invincibility).Count();
-                int totalShipPowerups = powerupsInPlay.Where(p => p.GetPowerupType() == PowerupType.Hyperdrive || p.GetPowerupType() == PowerupType.Jump).Count();
-
-				print(string.Format("Bonus: {0}, Double: {1}, Invin: {2}, Ship: {3}", totalBonusPointPowerups, totalDoublePointPowerups, totalInvincibilityPowerups, totalShipPowerups));
+                int totalBonusPointPowerups = GetTotalPowerupsByType(PowerupType.BonusPoints);
+                int totalDoublePointPowerups = GetTotalPowerupsByType(PowerupType.DoublePoints);
+                int totalInvincibilityPowerups = GetTotalPowerupsByType(PowerupType.Invincibility);
+                int totalShipPowerups = GetTotalPowerupsByType(PowerupType.Hyperdrive) + GetTotalPowerupsByType(PowerupType.Jump);
 
                 switch (powerup.GetPowerupType())
                 {
                     case PowerupType.BonusPoints:
-                        canSpawnPowerup = totalBonusPointPowerups < maxBonusPoints;
+                        canSpawnPowerup = totalBonusPointPowerups < maxBonusPointsPowerups;
                         break;
                     case PowerupType.DoublePoints:
-                        canSpawnPowerup = totalDoublePointPowerups < maxDoublePoints;
+                        canSpawnPowerup = totalDoublePointPowerups < maxDoublePointsPowerups;
                         break;
                     case PowerupType.Invincibility:
-                        canSpawnPowerup = totalInvincibilityPowerups < maxInvincibility;
+                        canSpawnPowerup = totalInvincibilityPowerups < maxInvincibilityPowerups;
                         break;
                     case PowerupType.Hyperdrive:
                         canSpawnPowerup = totalShipPowerups < maxShipPowerups;
@@ -79,24 +77,26 @@ namespace Spawner
 
                 if (canSpawnPowerup)
                 {
-                    print("Spawning a " + powerup.GetPowerupType());
                     SpawnPowerup(powerup);
-                }
-                else
-                {
-                    print("Too many " + powerup.GetPowerupType());
                 }
             }
 
-			// There should be at least be two ship powerups, check if there is
-			int shipPowerups = powerupsInPlay.Where(p => p.GetPowerupType().Equals(PowerupType.Hyperdrive) || p.GetPowerupType().Equals(PowerupType.Jump)).Count();
-			while (shipPowerups < 2)
-			{
-				print("There are " + shipPowerups + " ship powerups");
-				Powerup additionalPowerup = ShopManager.instance.GetSelectedShipData().GetPowerup().GetComponent<Powerup>();
-				SpawnPowerup(additionalPowerup);
-				shipPowerups++;
-			}
+            // There should be at least be two ship powerups, check if there is
+            if (playerShipHasPowerup)
+            {
+                int shipPowerups = GetTotalPowerupsByType(PowerupType.Hyperdrive) + GetTotalPowerupsByType(PowerupType.Jump);
+                while (shipPowerups < 2)
+                {
+                    Powerup additionalPowerup = ShopManager.instance.GetSelectedShipData().GetPowerup().GetComponent<Powerup>();
+                    SpawnPowerup(additionalPowerup);
+                    shipPowerups++;
+                }
+            }
+        }
+
+        private int GetTotalPowerupsByType(PowerupType type)
+        {
+            return powerupsInPlay.Where(p => p.GetPowerupType().Equals(type)).Count();
         }
 
         private void SpawnPowerup(Powerup powerup)
