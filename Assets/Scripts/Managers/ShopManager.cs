@@ -37,6 +37,7 @@ namespace Manager
             if (IsShipUnlocked(shipData))
             {
                 print("Cannot buy " + name + " because it is already unlocked");
+                AudioManager.instance.Play(SoundNames.SHOP_REJECT_PURCHASE);
                 return;
             }
 
@@ -48,10 +49,12 @@ namespace Manager
                 SetCash(cash - cost);
                 selectedShipData = shipData;
                 SetShipUnlocked(shipData, true);
+                AudioManager.instance.Play(SoundNames.SHOP_SPEND_CASH);
             }
             else
             {
                 print("Not enough wonga! You have: " + GetCash() + " and you need " + shipData.GetCost());
+                AudioManager.instance.Play(SoundNames.SHOP_REJECT_PURCHASE);
             }
         }
 

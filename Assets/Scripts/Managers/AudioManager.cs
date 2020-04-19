@@ -122,8 +122,11 @@ namespace Manager
 		public const string DOUBLE_POINTS = "Powerup Double Points";
 		public const string INVINCIBILITY_POINTS = "Powerup Invincibility";
 		public const string JUMP = "Powerup Jump";
+		public const string HYPERDRIVE = "Powerup Hyperdrive";
 		public const string SCORE = "Score";
 		public const string ACHIEVEMENT_UNLOCKED = "Achievement Unlocked";
-		public const string HYPERDRIVE = "Hyperdrive";
+		public const string SHOP_REJECT_PURCHASE = "Shop Reject Purchase";
+		public const string SHOP_SPEND_CASH = "Shop Spend Cash";
+		public const string SHOP_SELECT_SHIP = "Shop Select Ship";
 	}
 }

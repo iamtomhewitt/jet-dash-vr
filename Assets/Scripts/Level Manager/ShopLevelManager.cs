@@ -108,7 +108,12 @@ namespace LevelManagers
 			{
 				ShopManager.instance.SetSelectedShipData(shipData);
 				shipName.color = Color.green;
+                AudioManager.instance.Play(SoundNames.SHOP_SELECT_SHIP);
 			}
+            else
+            {
+                AudioManager.instance.Play(SoundNames.SHOP_REJECT_PURCHASE);
+            }
         }
     }
 }
