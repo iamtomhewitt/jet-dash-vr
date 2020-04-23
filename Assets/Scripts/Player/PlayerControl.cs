@@ -25,6 +25,7 @@ namespace Player
 		private float acceleration;
 		private float turningSpeed;
 		private float sensitivity;
+		private float deadzone = 0.05f;
 		private float z = 0f;
 		private float yPositionCheckRate = 3f;
 		private float startingYPosition;
@@ -109,22 +110,20 @@ namespace Player
 			GUI.Label(new Rect(10, 10, 200, 100), "Deadzone: " + deadzone);
 		}
 
-		private bool deadzone;
 		private void RotateUsingAccelerometer(Transform t, float limit)
 		{
-			if (Input.acceleration.x > -0.05f && Input.acceleration.x < 0.05f)
+			if (!InputInDeadzone())
 			{
-				deadzone = true;
-			}
-			else
-			{
-				deadzone = false;
-			}
+				z = Input.acceleration.x * 30f;
+				z = Mathf.Clamp(z, -limit, limit);
 
-			z = Input.acceleration.x * 30f;
-			z = Mathf.Clamp(z, -limit, limit);
+				t.localEulerAngles = new Vector3(t.localEulerAngles.x, t.localEulerAngles.y, -z);
+			}
+		}
 
-			t.localEulerAngles = new Vector3(t.localEulerAngles.x, t.localEulerAngles.y, -z);
+		private bool InputInDeadzone()
+		{
+			return Input.acceleration.x > -deadzone && Input.acceleration.x < deadzone;
 		}
 
 		private void IncreaseSpeed()
