@@ -10,7 +10,7 @@ namespace LevelManagers
 	/// </summary>
 	public class GameLevelManager : LevelManager
 	{
-		[SerializeField] private float levelRestartDelay = 4f;
+		[SerializeField] private float levelRestartDelay = 1.5f;
 
 		/// <summary>
 		/// Restarts the level after the player has died and the scoreboard is shown.
