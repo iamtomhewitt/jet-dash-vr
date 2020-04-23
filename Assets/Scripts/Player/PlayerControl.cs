@@ -104,8 +104,23 @@ namespace Player
 			startingYPosition = transform.position.y;
 		}
 
+		public void OnGUI()
+		{
+			GUI.Label(new Rect(10, 10, 200, 100), "Deadzone: " + deadzone);
+		}
+
+		private bool deadzone;
 		private void RotateUsingAccelerometer(Transform t, float limit)
 		{
+			if (Input.acceleration.x > -0.05f && Input.acceleration.x < 0.05f)
+			{
+				deadzone = true;
+			}
+			else
+			{
+				deadzone = false;
+			}
+
 			z = Input.acceleration.x * 30f;
 			z = Mathf.Clamp(z, -limit, limit);
 
