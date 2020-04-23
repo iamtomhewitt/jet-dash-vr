@@ -10,6 +10,7 @@ namespace LevelManagers
 	/// </summary>
 	public class GameLevelManager : LevelManager
 	{
+		[SerializeField] private GameObject pauseMenu;
 		[SerializeField] private float levelRestartDelay = 1.5f;
 
 		/// <summary>
@@ -18,6 +19,16 @@ namespace LevelManagers
 		public void RestartLevel()
 		{
 			StartCoroutine(RestartLevelRoutine());
+		}
+
+		public void ShowPauseMenu()
+		{
+			pauseMenu.SetActive(true);
+		}
+
+		public void HidePauseMenu()
+		{
+			pauseMenu.SetActive(false);
 		}
 
 		private IEnumerator RestartLevelRoutine()
