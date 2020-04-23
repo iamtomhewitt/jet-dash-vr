@@ -1279,7 +1279,7 @@ PrefabInstance:
     - target: {fileID: 953174810816876183, guid: 82b580b3c10eeca48b9926a1c4fd908d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 953174810816876183, guid: 82b580b3c10eeca48b9926a1c4fd908d,
         type: 3}
@@ -3653,6 +3653,7 @@ MonoBehaviour:
   - {fileID: 479806464}
   - {fileID: 61270644}
   localHighscoreText: {fileID: 1264956615}
+  bestDistanceText: {fileID: 1017688544}
   statusText: {fileID: 227573361}
 --- !u!4 &1107188418
 Transform:
