@@ -29,7 +29,7 @@ namespace Manager
 		private void Start()
 		{
 			string id = Config.instance.GetConfig()["gameId"];
-			Advertisement.Initialize(id, true);
+			Advertisement.Initialize(id, false);
 		}
 
 		public void ShowAdvert()

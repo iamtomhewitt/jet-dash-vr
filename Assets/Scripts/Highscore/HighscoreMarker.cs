@@ -15,7 +15,7 @@ namespace Highscore
 
 		private void Start()
 		{
-			player = GameObject.FindGameObjectWithTag("Player").transform;
+			player = GameObject.FindGameObjectWithTag(Tags.PLAYER).transform;
 			currentDistanceHighscore = PlayerPrefs.GetInt(Constants.DISTANCE_KEY);
 
 			if (currentDistanceHighscore <= 500)

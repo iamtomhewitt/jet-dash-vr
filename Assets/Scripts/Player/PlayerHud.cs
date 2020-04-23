@@ -1,6 +1,7 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using Utility;
 
 namespace Player
 {
@@ -13,14 +14,21 @@ namespace Player
 		[SerializeField] private Text distanceText;
 		[SerializeField] private Text scoreText;
 		[SerializeField] private Text powerupNotificationText;
-
 		[SerializeField] private Image invincibilityBar;
+		[SerializeField] private float notificationShowTime = 1.5f;
+
+		private Animator notificationAnimator;
 
 		public static PlayerHud instance;
 
 		private void Awake()
 		{
 			instance = this;
+		}
+
+		private void Start()
+		{
+			notificationAnimator = powerupNotificationText.GetComponent<Animator>();
 		}
 
 		/// <summary>
@@ -49,7 +57,7 @@ namespace Player
             StopAllCoroutines();
             powerupNotificationText.color = color;
             powerupNotificationText.text = message;
-            powerupNotificationText.GetComponent<Animator>().Play("Powerup Notification Show");
+            notificationAnimator.Play(Constants.POWERUP_NOTIFY_SHOW);
             StartCoroutine(TurnOffNotification());
         }
 
@@ -59,8 +67,8 @@ namespace Player
 		/// </summary>
         private IEnumerator TurnOffNotification()
         {
-            yield return new WaitForSeconds(1.5f);
-            powerupNotificationText.GetComponent<Animator>().Play("Powerup Notification Hide");
+            yield return new WaitForSeconds(notificationShowTime);
+            notificationAnimator.Play(Constants.POWERUP_NOTIFY_HIDE);
         }
     }
 }

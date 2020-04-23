@@ -1,9 +1,8 @@
 using UnityEngine;
-using System.Collections;
-using Spawner;
-using Manager;
-using Utility;
 using Achievements;
+using Manager;
+using SpawnableObject;
+using Utility;
 
 namespace Player
 {
@@ -14,48 +13,75 @@ namespace Player
 		[SerializeField] private GameObject playerModel;
 		[SerializeField] private GameObject shield;
 
-		[SerializeField] private bool godMode;
+		[SerializeField] private bool invincible;
+		[SerializeField] private bool hyperdriveEnabled;
 
-		private Coroutine godModeRoutine;
+		private AchievementManager achievementManager;
+		private AudioManager audioManager;
+		private HighscoreManager highscoreManager;
+		private PlayerControl playerControl;
+		private PlayerScore playerScore;
+		private Scoreboard scoreboard;
+		private ShopManager shopManager;
+
+		public static PlayerCollision instance;
+
+		private void Awake()
+		{
+			instance = this;
+		}
+
+		private void Start()
+		{
+			achievementManager = AchievementManager.instance;
+			audioManager = AudioManager.instance;
+			highscoreManager = HighscoreManager.instance;
+			playerControl = PlayerControl.instance;
+			playerScore = PlayerScore.instance;
+			scoreboard = Scoreboard.instance;
+			shopManager = ShopManager.instance;
+		}
 
 		private void OnCollisionEnter(Collision other)
 		{
 			switch (other.gameObject.tag)
 			{
 				case Tags.OBSTACLE:
-					if (godMode)
+					if (IsGodMode())
 					{
-						AchievementManager.instance.UnlockAchievement(AchievementIds.FLY_THROUGH_OBSTACLE_WHEN_INVINCIBLE);
+						achievementManager.UnlockAchievement(AchievementIds.FLY_THROUGH_OBSTACLE_WHEN_INVINCIBLE);
 						return;
 					}
 
 					GameObject e = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
 					Destroy(e, 3f);
 
-					Scoreboard.instance.Show();
-					Scoreboard.instance.AnimateDistanceScore(PlayerScore.instance.GetDistanceScore());
-					Scoreboard.instance.AnimateBonusScore(PlayerScore.instance.GetBonusScore());
-					Scoreboard.instance.AnimateTopSpeed(PlayerControl.instance.GetSpeed());
-					Scoreboard.instance.AnimateFinalScore(PlayerScore.instance.GetFinalScore());
+					scoreboard.Show();
+					scoreboard.AnimateDistanceScore(playerScore.GetDistanceScore());
+					scoreboard.AnimateBonusScore(playerScore.GetBonusScore());
+					scoreboard.AnimateTopSpeed(playerControl.GetSpeed());
+					scoreboard.AnimateFinalScore(playerScore.GetFinalScore());
 
-					HighscoreManager.instance.SaveLocalHighscore(PlayerScore.instance.GetFinalScore());
-					PlayerScore.instance.SaveDistanceHighscore();
+					highscoreManager.SaveLocalHighscore(playerScore.GetFinalScore());
+					playerScore.SaveDistanceHighscore();
 
-					PlayerControl.instance.StopMoving();
+					playerControl.StopMoving();
 					playerModel.SetActive(false);
 					gameHUD.SetActive(false);
 
-					AudioManager.instance.Play(SoundNames.PLAYER_DEATH);
-					AudioManager.instance.Pause(SoundNames.SHIP_ENGINE);
+					audioManager.Play(SoundNames.PLAYER_DEATH);
+					audioManager.Pause(SoundNames.SHIP_ENGINE);
+
+					shopManager.AddCash(playerScore.GetFinalScore());
 
 					// Now update achievements
-					AchievementManager.instance.UnlockAchievement(AchievementIds.DIE);
-					AchievementManager.instance.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_1000, 1000, PlayerScore.instance.GetDistanceScore());
-					AchievementManager.instance.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_10000, 10000, PlayerScore.instance.GetDistanceScore());
-					AchievementManager.instance.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_50000, 50000, PlayerScore.instance.GetDistanceScore());
-					AchievementManager.instance.ProgressAchievement(AchievementIds.POINTS_OVER_HALF_MILLION, 500000, PlayerScore.instance.GetFinalScore());
-					AchievementManager.instance.ProgressAchievement(AchievementIds.POINTS_OVER_MILLION, 1000000, PlayerScore.instance.GetFinalScore());
-					AchievementManager.instance.ProgressAchievement(AchievementIds.POINTS_OVER_FIVE_MILLION, 5000000, PlayerScore.instance.GetFinalScore());
+					achievementManager.UnlockAchievement(AchievementIds.DIE);
+					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_1000, 1000, playerScore.GetDistanceScore());
+					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_10000, 10000, playerScore.GetDistanceScore());
+					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_50000, 50000, playerScore.GetDistanceScore());
+					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_HALF_MILLION, 500000, playerScore.GetFinalScore());
+					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_MILLION, 1000000, playerScore.GetFinalScore());
+					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_FIVE_MILLION, 5000000, playerScore.GetFinalScore());
 					break;
 
 				default:
@@ -70,39 +96,7 @@ namespace Player
 			{
 				case Tags.POWERUP:
 					Powerup powerup = other.GetComponent<Powerup>();
-
-					switch (powerup.GetPowerupType())
-					{
-						case PowerupType.BonusPoints:
-							PlayerScore.instance.AddBonusPoints(500);
-							AudioManager.instance.Play(SoundNames.BONUS_POINTS);
-							PlayerHud.instance.ShowNotification(powerup.GetColour(), "+500!");
-							AchievementManager.instance.UnlockAchievement(AchievementIds.FLY_THROUGH_BONUS_POINTS);
-							break;
-
-						case PowerupType.DoublePoints:
-							PlayerScore.instance.DoublePoints();
-							AudioManager.instance.Play(SoundNames.DOUBLE_POINTS);
-							PlayerHud.instance.ShowNotification(powerup.GetColour(), "x2!");
-							AchievementManager.instance.UnlockAchievement(AchievementIds.FLY_THROUGH_DOUBLE_POINTS);
-							break;
-
-						case PowerupType.Invincibility:
-							if (godModeRoutine != null)
-							{
-								StopCoroutine(godModeRoutine);
-							}
-							godModeRoutine = StartCoroutine(ActivateGodMode(5f));
-							AudioManager.instance.Play(SoundNames.INVINCIBILITY_POINTS);
-							PlayerHud.instance.ShowNotification(powerup.GetColour(), "Invincible!");
-							AchievementManager.instance.UnlockAchievement(AchievementIds.BECOME_INVINCIBLE);
-							break;
-
-						default:
-							Debug.Log("Warning! Unrecognised Powerup type: " + powerup.GetPowerupType());
-							break;
-					}
-
+					powerup.ApplyPowerupEffect();
 					powerup.Relocate();
 					break;
 
@@ -112,30 +106,24 @@ namespace Player
 			}
 		}
 
-		/// <summary>
-		/// Makes the player invincible for a set amount of time, and shows the shield.
-		/// </summary>
-		private IEnumerator ActivateGodMode(float duration)
+		public void SetInvincible(bool invincible)
 		{
-			godMode = true;
+			this.invincible = invincible;
+		}
 
-			shield.SetActive(true);
-			shield.GetComponent<Animator>().Play("On");
+		public void SetHyperdriveEnabled(bool enabled)
+		{
+			this.hyperdriveEnabled = enabled;
+		}
 
-			yield return new WaitForSeconds(duration);
+		public bool IsGodMode()
+		{
+			return invincible || hyperdriveEnabled;
+		}
 
-			// Now flicker
-			for (int i = 0; i < 3; i++)
-			{
-				shield.SetActive(false);
-				yield return new WaitForSeconds(.3f);
-				shield.SetActive(true);
-				yield return new WaitForSeconds(.3f);
-			}
-
-			shield.SetActive(false);
-
-			godMode = false;
+		public GameObject GetShield()
+		{
+			return shield;
 		}
 	}
 }

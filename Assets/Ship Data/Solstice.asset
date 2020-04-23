@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47600adfcb4abe94eae24a5696f7a575, type: 3}
+  m_Name: Solstice
+  m_EditorClassIdentifier: 
+  shipName: Solstice
+  description: This ship was designed for the desert plains, to travel far distances
+    in short amounts of time without needing to make many turns.
+  speed: 30
+  acceleration: 0.5
+  turnSpeed: 3
+  cost: 500000
+  ability: 1
+  abilityDescription: Although extremely fast, this ship is harder to turn.
+  sprite: {fileID: 21300000, guid: b925e0167aa50704ea54efe2fd75a79a, type: 3}
+  hasPowerup: 0
+  powerup: {fileID: 0}

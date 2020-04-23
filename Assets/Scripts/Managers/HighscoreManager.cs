@@ -28,8 +28,6 @@ namespace Manager
 			}
 
 			DontDestroyOnLoad(this.gameObject);
-
-			// PlayerPrefs.DeleteAll();
 		}
 
 		/// <summary>
@@ -45,7 +43,7 @@ namespace Manager
 				PlayerPrefs.SetInt(Constants.HIGHSCORE_KEY, score);
 
 				// Was the highscore achieved in VR mode?
-				PlayerPrefs.SetInt(Constants.WAS_VR_HIGHSCORE_KEY, GameSettings.instance.vrMode() ? Constants.YES : Constants.NO);
+				PlayerPrefs.SetInt(Constants.WAS_VR_HIGHSCORE_KEY, GameSettingsManager.instance.vrMode() ? Constants.YES : Constants.NO);
 
 				// Player has got a new highscore, which hasn't been uploaded yet, so set it to false (0)
 				PlayerPrefs.SetInt(Constants.UPLOADED_KEY, Constants.NO);
