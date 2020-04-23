@@ -57,6 +57,11 @@ namespace Manager
 			return PlayerPrefs.GetInt(Constants.HIGHSCORE_KEY);
 		}
 
+		public int GetBestDistance()
+		{
+			return PlayerPrefs.GetInt(Constants.DISTANCE_KEY);
+		}
+
 		/// <summary>
 		/// Uploads a new highscore to Dreamlo.
 		/// </summary>
