@@ -24,11 +24,13 @@ namespace LevelManagers
 		public void ShowPauseMenu()
 		{
 			pauseMenu.SetActive(true);
+			Time.timeScale = 0f;
 		}
 
 		public void HidePauseMenu()
 		{
 			pauseMenu.SetActive(false);
+			Time.timeScale = 1f;
 		}
 
 		private IEnumerator RestartLevelRoutine()
