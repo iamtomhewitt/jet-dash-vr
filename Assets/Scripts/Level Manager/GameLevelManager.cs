@@ -13,6 +13,11 @@ namespace LevelManagers
 		[SerializeField] private GameObject pauseMenu;
 		[SerializeField] private float levelRestartDelay = 1.5f;
 
+		private void Start()
+		{
+			Time.timeScale = 1f;
+		}
+
 		/// <summary>
 		/// Restarts the level after the player has died and the scoreboard is shown.
 		/// </summary>
