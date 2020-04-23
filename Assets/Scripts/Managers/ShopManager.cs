@@ -26,7 +26,8 @@ namespace Manager
             {
                 DontDestroyOnLoad(gameObject);
                 instance = this;
-                instance.PurchaseShip(Constants.STARTING_SHIP);
+                selectedShipData = GetShip(Constants.STARTING_SHIP);
+                SetShipUnlocked(selectedShipData, true);
             }
         }
 
