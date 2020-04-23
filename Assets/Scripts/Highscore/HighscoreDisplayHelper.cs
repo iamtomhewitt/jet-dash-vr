@@ -10,11 +10,13 @@ namespace Highscore
 	{
 		[SerializeField] private HighscoreEntry[] highscoreEntries;
 		[SerializeField] private Text localHighscoreText;
+		[SerializeField] private Text bestDistanceText;
 		[SerializeField] private Text statusText;
 
 		private void Start()
 		{
 			localHighscoreText.text = "Local Highscore: " + HighscoreManager.instance.GetLocalHighscore();
+			bestDistanceText.text = "Best Distance: " + HighscoreManager.instance.GetBestDistance();
 
 			for (int i = 0; i < highscoreEntries.Length; i++)
 			{
