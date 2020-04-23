@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using Utility;
-using Manager;
 using Achievements;
+using Data;
+using Manager;
 
 namespace Player
 {
@@ -9,22 +9,25 @@ namespace Player
 	{
 		[SerializeField] private GameObject normalCamera;
 		[SerializeField] private GameObject VRCamera;
+		[SerializeField] private Transform[] shipModels;
 
-		[SerializeField] private KeyCode left;
-		[SerializeField] private KeyCode right;
-
-		[SerializeField] private float speed;
 		[SerializeField] private float speedIncrease;
-		[SerializeField] private float speedIncreaseRepeatRate;
-		[SerializeField] private float turningSpeed;
 		[SerializeField] private float modelRotationLimit;
 		[SerializeField] private float cameraRotationLimit;
 		[SerializeField] private float maxSpeed = 200f;
 
 		private GameObject cameraToUse;
-		private PlayerModelSettings modelSettings;
+		private Transform shipModel;
+		private Quaternion originalRotation;
+		private PlayerHud hud;
 
+		private float speed;
+		private float acceleration;
+		private float turningSpeed;
 		private float sensitivity;
+		private float z = 0f;
+		private float yPositionCheckRate = 3f;
+		private float startingYPosition;
 		private bool reachedMaxSpeed = false;
 
 		public static PlayerControl instance;
@@ -36,17 +39,11 @@ namespace Player
 
 		private void Start()
 		{
-			PlayerHud.instance.SetSpeedText(speed.ToString());
+			Initialise();
 
-			modelSettings = GetComponent<PlayerModelSettings>();
-			modelSettings.SelectRandomShip();
-			modelSettings.SetOriginalRotation();
-
-			InvokeRepeating("IncreaseSpeed", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
-			InvokeRepeating("CheckSpeedStreak", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
-
-			DetermineGameSettings();
-
+			InvokeRepeating("IncreaseSpeed", acceleration, acceleration);
+			InvokeRepeating("CheckYPosition", yPositionCheckRate, yPositionCheckRate);
+			
 			AudioManager.instance.Play(SoundNames.SHIP_ENGINE);
 			AudioManager.instance.Play(SoundNames.SHIP_STARTUP);
 		}
@@ -59,65 +56,15 @@ namespace Player
 			// Move left and right based on accelerometer
 			transform.position += transform.right * Time.deltaTime * turningSpeed * sensitivity * Input.acceleration.x;
 
-			modelSettings.RotateBasedOnMobileInput(modelSettings.GetModel(), modelRotationLimit);
-			modelSettings.RotateBasedOnMobileInput(cameraToUse.transform, cameraRotationLimit);
+			RotateUsingAccelerometer(shipModel, modelRotationLimit);
+			RotateUsingAccelerometer(cameraToUse.transform, cameraRotationLimit);
 
-			PlayerHud.instance.SetDistanceText(transform.position.z);
+			hud.SetDistanceText(transform.position.z);
 		}
 
-		public int GetSpeed()
+		private void Initialise()
 		{
-			return (int) speed;
-		}
-
-		private void IncreaseSpeed()
-		{
-			if (speed == maxSpeed)
-			{
-				reachedMaxSpeed = true;
-				AchievementManager.instance.UnlockAchievement(AchievementIds.GET_MAX_SPEED);
-			}
-
-			if (speed < maxSpeed)
-			{
-				speed += speedIncrease;
-				PlayerHud.instance.SetSpeedText(speed.ToString());
-
-				float p = (speed / 1000f) + 1f;
-				AudioManager.instance.GetSound(SoundNames.SHIP_ENGINE).pitch = p;
-			}
-		}
-
-		private void CheckSpeedStreak()
-		{
-			if (speed % 50 == 0 && !reachedMaxSpeed)
-			{
-				PlayerHud.instance.ShowNotification(Color.white, speed + " Speed Streak!");
-				AudioManager.instance.Play(SoundNames.SPEED_STREAK);
-			}
-		}
-
-		public void StopMoving()
-		{
-			speed = 0f;
-			turningSpeed = 0f;
-			CancelInvoke("IncreaseSpeed");
-		}
-
-		public void StartMoving()
-		{
-			speed = 20f;
-			turningSpeed = 20f;
-			InvokeRepeating("IncreaseSpeed", speedIncreaseRepeatRate, speedIncreaseRepeatRate);
-		}
-
-		/// <summary>
-		/// Sets up the cameras and the sensitivity based upon what was selected in the main menu.
-		/// </summary>
-		private void DetermineGameSettings()
-		{
-			GameSettings gs = GameSettings.instance;
-
+			GameSettingsManager gs = GameSettingsManager.instance;
 			if (gs == null)
 			{
 				normalCamera.SetActive(true);
@@ -139,8 +86,96 @@ namespace Player
 				cameraToUse = normalCamera;
 				sensitivity = gs.GetSensitivity();
 			}
+
+			ShipData shipData	= ShopManager.instance.GetSelectedShipData();
+			shipModel			= GameObject.FindGameObjectWithTag(shipData.GetShipName()).transform;
+			originalRotation	= shipModel.rotation;
+			speed				= shipData.GetSpeed();
+			acceleration		= shipData.GetAcceleration();
+			turningSpeed		= shipData.GetTurningSpeed();
+
+			foreach (Transform model in shipModels)
+			{
+				model.gameObject.SetActive((model.tag.Equals(shipData.GetShipName())));
+			}
+
+			hud = PlayerHud.instance;
+			hud.SetSpeedText(speed.ToString());
+			startingYPosition = transform.position.y;
+		}
+
+		private void RotateUsingAccelerometer(Transform t, float limit)
+		{
+			z = Input.acceleration.x * 30f;
+			z = Mathf.Clamp(z, -limit, limit);
+
+			t.localEulerAngles = new Vector3(t.localEulerAngles.x, t.localEulerAngles.y, -z);
+		}
+
+		private void IncreaseSpeed()
+		{
+			if (speed == maxSpeed)
+			{
+				reachedMaxSpeed = true;
+				AchievementManager.instance.UnlockAchievement(AchievementIds.GET_MAX_SPEED);
+			}
+
+			if (speed < maxSpeed)
+			{
+				speed += speedIncrease;
+				PlayerHud.instance.SetSpeedText(speed.ToString());
+
+				float p = (speed / 1000f) + 1f;
+				AudioManager.instance.GetSound(SoundNames.SHIP_ENGINE).pitch = p;
+			}
+		}
+
+		private void CheckYPosition()
+		{
+			if (transform.position.y < (startingYPosition - 0.1f))
+			{
+				Debug.Log(string.Format("WARNING: Player Y position ({0}) has gone lower than expected ({1}), resetting", transform.position.y, startingYPosition));
+				transform.position = new Vector3(transform.position.x, startingYPosition, transform.position.z);
+			}
+		}
+
+		public void StopMoving()
+		{
+			speed = 0f;
+			turningSpeed = 0f;
+			CancelInvoke("IncreaseSpeed");
+		}
+
+		public void StartMoving()
+		{
+			speed = 20f;
+			turningSpeed = 20f;
+			InvokeRepeating("IncreaseSpeed", acceleration, acceleration);
+		}
+
+		public int GetSpeed()
+		{
+			return (int)speed;
+		}
+
+		public void SetSpeed(float speed)
+		{
+			this.speed = speed;
+		}
+
+		public void MaxSpeed()
+		{
+			speed = maxSpeed;
+		}
+
+		public float GetAcceleration()
+		{
+			return acceleration;
+		}
+
+		public bool HasReachedMaxSpeed()
+		{
+			return reachedMaxSpeed;
 		}
 	}
 }
-
-

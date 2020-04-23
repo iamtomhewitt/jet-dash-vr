@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Utility;
+using Manager;
 
 namespace LevelManagers
 {
@@ -11,8 +11,8 @@ namespace LevelManagers
 
 		private void Start()
 		{
-			toggleVrText.text = "VR Mode: " + (GameSettings.instance.vrMode() ? "ON" : "OFF");
-			sensitivitySlider.value = GameSettings.instance.GetSensitivity();
+			toggleVrText.text = "VR Mode: " + (GameSettingsManager.instance.vrMode() ? "ON" : "OFF");
+			sensitivitySlider.value = GameSettingsManager.instance.GetSensitivity();
 		}
 
 		/// <summary>
@@ -20,10 +20,10 @@ namespace LevelManagers
 		/// </summary>
 		public void ToggleVR()
 		{
-			bool isVrMode = GameSettings.instance.vrMode();
-			GameSettings.instance.SetVrMode(!isVrMode);
+			bool isVrMode = GameSettingsManager.instance.vrMode();
+			GameSettingsManager.instance.SetVrMode(!isVrMode);
 
-			toggleVrText.text = "VR Mode: " + (GameSettings.instance.vrMode() ? "ON" : "OFF");
+			toggleVrText.text = "VR Mode: " + (GameSettingsManager.instance.vrMode() ? "ON" : "OFF");
 		}
 
 		/// <summary>
@@ -31,7 +31,7 @@ namespace LevelManagers
 		/// </summary>
 		public void UpdateSensitivity()
 		{
-			GameSettings.instance.SetSensitivity(sensitivitySlider.value);
+			GameSettingsManager.instance.SetSensitivity(sensitivitySlider.value);
 		}
 	}
 }

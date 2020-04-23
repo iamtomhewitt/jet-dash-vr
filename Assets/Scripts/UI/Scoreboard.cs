@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using Manager;
 using LevelManagers;
+using Utility;
 
 namespace Player
 {
@@ -22,25 +23,30 @@ namespace Player
 
 		public void AnimateBonusScore(int score)
         {
-            StartCoroutine(Animate(score, bonusScoreText, false));
+            StartCoroutine(Animate(score, bonusScoreText));
         }
 
         public void AnimateDistanceScore(int score)
         {
-            StartCoroutine(Animate(score, distanceScoreText, false));
+            StartCoroutine(Animate(score, distanceScoreText));
         }
 
         public void AnimateTopSpeed(int score)
         {
-            StartCoroutine(Animate(score, topSpeed, false));
+            StartCoroutine(Animate(score, topSpeed));
         }
 
         public void AnimateFinalScore(int score)
         {
-            StartCoroutine(Animate(score, finalScore, true));
+            if (ShopManager.instance.GetSelectedShipData().GetShipName().Equals(Tags.CELLEX))
+            {
+                finalScore.color = Color.yellow;
+            }
+
+            StartCoroutine(Animate(score, finalScore));
         }
 
-        private IEnumerator Animate(int score, Text text, bool isFinalScore)
+        private IEnumerator Animate(int score, Text text)
         {
             int displayScore = 0;
             int start = displayScore;
@@ -58,9 +64,9 @@ namespace Player
             text.text = displayScore.ToString();
             AudioManager.instance.Pause(SoundNames.SCORE);
 
-			// Final score will take the longest to animate, to only reload the scene when animating final score,
+			// Final score will take the longest to animate, so only reload the scene when animating final score,
 			// that way nothing gets cut off
-			if (isFinalScore)
+			if (text.Equals(finalScore))
 			{
 				FindObjectOfType<GameLevelManager>().RestartLevel();
 			}

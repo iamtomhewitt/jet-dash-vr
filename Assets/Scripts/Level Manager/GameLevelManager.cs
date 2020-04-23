@@ -39,6 +39,7 @@ namespace LevelManagers
 		{
 			ScreenManager.MakePortrait();
 			AudioManager.instance.Pause(SoundNames.SCORE);
+			AudioManager.instance.Pause(SoundNames.SHIP_ENGINE);
 			this.LoadLevel(sceneName);
 		}
 	}

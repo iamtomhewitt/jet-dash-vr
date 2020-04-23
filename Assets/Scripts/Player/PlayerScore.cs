@@ -1,62 +1,51 @@
-﻿using UnityEngine;
+﻿using Manager;
+using UnityEngine;
 using Utility;
 
 namespace Player
 {
 	public class PlayerScore : MonoBehaviour
-    {
+	{
+		private PlayerControl playerControl;
 		private PlayerHud hud;
 
 		private int bonusScore = 0;
+		private int speedStreak = 50;
 
 		public static PlayerScore instance;
 
 		private void Awake()
 		{
-			instance = this;	
+			instance = this;
 		}
 
 		private void Start()
-        {
-            hud = GetComponent<PlayerHud>();
+		{
+			playerControl = PlayerControl.instance;
+			hud = PlayerHud.instance;
+
+			float acceleration = playerControl.GetAcceleration();
+			InvokeRepeating("ShowNotificationIfOnSpeedStreak", acceleration, acceleration);
 		}
 
 		private void Update()
-        {
-            hud.SetScoreText(bonusScore);
-        }
+		{
+			hud.SetScoreText(bonusScore);
+		}
 
-        public void AddBonusPoints(int points)
-        {
-            bonusScore += points;
-        }
+		/// <summary>
+		/// Shows a notification if we are on a speed streak (every 50).
+		/// </summary>
+		private void ShowNotificationIfOnSpeedStreak()
+		{
+			float speed = playerControl.GetSpeed();
 
-        public void DoublePoints()
-        {
-			if (bonusScore == 0)
+			if (speed % speedStreak == 0 && !playerControl.HasReachedMaxSpeed())
 			{
-				bonusScore += 500;
+				hud.ShowNotification(Color.white, speed + " Speed Streak!");
+				AudioManager.instance.Play(SoundNames.SPEED_STREAK);
 			}
-			else
-			{
-				bonusScore *= 2;
-			}
-        }
-
-        public int GetBonusScore()
-        {
-            return bonusScore;
-        }
-
-        public int GetDistanceScore()
-        {
-            return (int)transform.position.z;
-        }
-
-        public int GetFinalScore()
-        {
-            return GetBonusScore() + GetDistanceScore() + PlayerControl.instance.GetSpeed();
-        }
+		}
 
 		/// <summary>
 		/// Saves the players distance to the PlayerPrefs.
@@ -68,9 +57,43 @@ namespace Player
 
 			if (distance > currentDistance)
 			{
-				print("New distance of " + distance + "! Previous was " + currentDistance + ".");
+				Debug.Log("New distance of " + distance + "! Previous was " + currentDistance + ".");
 				PlayerPrefs.SetInt(Constants.DISTANCE_KEY, distance);
 			}
+		}
+
+		public void AddBonusPoints(int points)
+		{
+			bonusScore += points;
+		}
+
+		public void DoublePoints()
+		{
+			if (bonusScore == 0)
+			{
+				bonusScore += 500;
+			}
+			else
+			{
+				bonusScore *= 2;
+			}
+		}
+
+		public int GetBonusScore()
+		{
+			return bonusScore;
+		}
+
+		public int GetDistanceScore()
+		{
+			return (int)transform.position.z;
+		}
+
+		public int GetFinalScore()
+		{
+			bool doubleScore = ShopManager.instance.GetSelectedShipData().GetShipName().Equals(Tags.CELLEX);
+			int finalScore = GetBonusScore() + GetDistanceScore() + playerControl.GetSpeed();
+			return doubleScore ? finalScore * 2 : finalScore;
 		}
 	}
 }
