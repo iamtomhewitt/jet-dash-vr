@@ -25,7 +25,7 @@ namespace Player
 		private float acceleration;
 		private float turningSpeed;
 		private float sensitivity;
-		private float deadzone = 0.05f;
+		private float deadzone = 0.035f;
 		private float z = 0f;
 		private float yPositionCheckRate = 3f;
 		private float startingYPosition;
@@ -116,9 +116,12 @@ namespace Player
 			{
 				z = Input.acceleration.x * 30f;
 				z = Mathf.Clamp(z, -limit, limit);
-
-				t.localEulerAngles = new Vector3(t.localEulerAngles.x, t.localEulerAngles.y, -z);
 			}
+			else
+			{
+				z = 0f;
+			}
+			t.localEulerAngles = new Vector3(t.localEulerAngles.x, t.localEulerAngles.y, -z);
 		}
 
 		private bool InputInDeadzone()
