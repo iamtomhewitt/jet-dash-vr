@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Manager;
+using UnityEngine;
 using Utility;
 
 namespace Highscore
@@ -16,7 +17,7 @@ namespace Highscore
 		private void Start()
 		{
 			player = GameObject.FindGameObjectWithTag(Tags.PLAYER).transform;
-			currentDistanceHighscore = PlayerPrefs.GetInt(Constants.DISTANCE_KEY);
+			currentDistanceHighscore = HighscoreManager.instance.GetBestDistance();
 
 			if (currentDistanceHighscore <= 500)
 			{
