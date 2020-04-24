@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 namespace Highscore
 {
@@ -18,14 +19,25 @@ namespace Highscore
 		[SerializeField] private Color first;
 		[SerializeField] private Color secondAndThird;
 
-		[SerializeField] private GameObject shipSprite;
+		[SerializeField] private Image shipSprite;
 		[SerializeField] private GameObject vrIcon;
+		[SerializeField] private Sprite[] shipSprites;
 
-		public void Populate(string rank, string username, string score, string additonalInfo)
+		public void Populate(string rank, string username, string score)
 		{
 			rankText.text = rank;
 			usernameText.text = username;
 			scoreText.text = score;
+		}
+
+		public void SetIcons(string additonalInfo)
+		{
+			string[] parts = additonalInfo.Split('|');
+			string shipName = parts[0];
+			bool vrMode = bool.Parse(parts[1]);
+
+			shipSprite.sprite = shipSprites.Where(s => s.name.Equals(shipName)).First();
+			vrIcon.SetActive(vrMode);
 		}
 
 		public void SetTextColourBasedOnRank(int rank)

@@ -39,11 +39,12 @@ namespace Highscore
 			{
 				int rank = i + 1;
 				HighscoreEntry entry = Instantiate(entryPrefab, parent).GetComponent<HighscoreEntry>();
-				entry.Populate(rank + ".", "", "", "");
+				entry.Populate(rank + ".", "", "");
 
 				if (entries.Count > i)
 				{
-					entry.Populate(rank + ".", entries[i]["name"], entries[i]["score"], entries[i]["text"]);
+					entry.Populate(rank + ".", entries[i]["name"], entries[i]["score"]);
+					entry.SetIcons(entries[i]["text"]);
 					entry.SetTextColourBasedOnRank(rank);
 				}
 			}

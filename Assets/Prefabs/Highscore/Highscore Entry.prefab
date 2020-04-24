@@ -281,8 +281,14 @@ MonoBehaviour:
   scoreText: {fileID: 5440533418397458228}
   first: {r: 0.99607843, g: 0.7294118, b: 0.003921569, a: 1}
   secondAndThird: {r: 0.25490198, g: 0.99607843, b: 0.99607843, a: 1}
-  shipSprite: {fileID: 3487057323794928141}
+  shipSprite: {fileID: 3028287034654294707}
   vrIcon: {fileID: 3159087892114994766}
+  shipSprites:
+  - {fileID: 21300000, guid: aedaabbe2f815a5469c53a03d02ded79, type: 3}
+  - {fileID: 21300000, guid: 626ec0b714f7635448ff025f12c6aa24, type: 3}
+  - {fileID: 21300000, guid: 1b6e8bdde0965844d85773eaf424943f, type: 3}
+  - {fileID: 21300000, guid: 6b960b22deb9708449a96fa43c6f6da1, type: 3}
+  - {fileID: 21300000, guid: b925e0167aa50704ea54efe2fd75a79a, type: 3}
 --- !u!1 &5440533418397458230
 GameObject:
   m_ObjectHideFlags: 0
