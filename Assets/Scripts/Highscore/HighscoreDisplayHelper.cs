@@ -10,6 +10,7 @@ namespace Highscore
 	{
 		[SerializeField] private HighscoreEntry entryPrefab;
 		[SerializeField] private Transform entriesParent;
+		[SerializeField] private GameObject uploadModal;
 		[SerializeField] private Text localHighscoreText;
 		[SerializeField] private Text bestDistanceText;
 		[SerializeField] private Text statusText;
@@ -23,6 +24,8 @@ namespace Highscore
 			statusText.color = Color.green;
 
 			HighscoreManager.instance.RequestDownloadOfHighscores();
+
+			HideUploadModal();
 		}
 
 		public void DisplayHighscores(JSONArray entries)
@@ -84,6 +87,16 @@ namespace Highscore
 			{
 				Destroy(child);
 			}
+		}
+
+		public void ShowUploadModal()
+		{
+			uploadModal.SetActive(true);
+		}
+
+		public void HideUploadModal()
+		{
+			uploadModal.SetActive(false);
 		}
 	}
 }
