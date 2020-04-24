@@ -117,7 +117,7 @@ namespace Manager
 			}
 
 			string publicCode = Config.instance.GetConfig()["dreamlo"]["publicKey"];
-			UnityWebRequest request = UnityWebRequest.Get(Constants.DREAMLO_URL + publicCode + "/json/0/10");
+			UnityWebRequest request = UnityWebRequest.Get(Constants.DREAMLO_URL + publicCode + "/json");
 			yield return request.SendWebRequest();
 
 			if (!request.downloadHandler.text.StartsWith("ERROR"))
