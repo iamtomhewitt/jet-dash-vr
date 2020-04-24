@@ -19,6 +19,7 @@ namespace Highscore
 		[SerializeField] private Color secondAndThird;
 
 		public void Populate(string rank, string username, string score)
+		public void Populate(string rank, string username, string score, string additonalInfo)
 		{
 			rankText.text = rank;
 			usernameText.text = username;

@@ -9,7 +9,8 @@ namespace Highscore
 	public class HighscoreDisplayHelper : MonoBehaviour
 	{
 		[SerializeField] private HighscoreEntry entryPrefab;
-		[SerializeField] private Transform entriesParent;
+		[SerializeField] private Transform scoreLeaderboardContent;
+		[SerializeField] private Transform distanceLeaderboardContent;
 		[SerializeField] private GameObject uploadModal;
 		[SerializeField] private Text bestScoreText;
 		[SerializeField] private Text bestDistanceText;
@@ -28,19 +29,21 @@ namespace Highscore
 			HideUploadModal();
 		}
 
-		public void DisplayHighscores(JSONArray entries)
+		public void DisplayHighscores(JSONArray entries, string leaderboard)
 		{
+			Transform parent = leaderboard.Equals("score") ? scoreLeaderboardContent : distanceLeaderboardContent;
+
 			statusText.text = "";
 
 			for (int i = 0; i < entries.Count; i++)
 			{
 				int rank = i + 1;
-				HighscoreEntry entry = Instantiate(entryPrefab, entriesParent).GetComponent<HighscoreEntry>();
-				entry.Populate(rank + ".", "", "");
+				HighscoreEntry entry = Instantiate(entryPrefab, parent).GetComponent<HighscoreEntry>();
+				entry.Populate(rank + ".", "", "", "");
 
 				if (entries.Count > i)
 				{
-					entry.Populate(rank + ".", entries[i]["name"], entries[i]["score"]);
+					entry.Populate(rank + ".", entries[i]["name"], entries[i]["score"], entries[i]["text"]);
 					entry.SetTextColourBasedOnRank(rank);
 				}
 			}
@@ -83,7 +86,7 @@ namespace Highscore
 
 		public void ClearEntries()
 		{
-			foreach (Transform child in entriesParent)
+			foreach (Transform child in scoreLeaderboardContent)
 			{
 				Destroy(child);
 			}

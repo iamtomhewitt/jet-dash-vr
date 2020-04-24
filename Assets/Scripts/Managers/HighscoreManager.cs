@@ -103,10 +103,11 @@ namespace Manager
 		/// </summary>
 		public void RequestDownloadOfHighscores()
 		{
-			StartCoroutine(DownloadHighscores());
+			StartCoroutine(DownloadScoreHighscores("score"));
+			StartCoroutine(DownloadScoreHighscores("distance"));
 		}
 
-		private IEnumerator DownloadHighscores()
+		private IEnumerator DownloadScoreHighscores(string leaderboard)
 		{
 			HighscoreDisplayHelper displayHelper = FindObjectOfType<HighscoreDisplayHelper>();
 
@@ -116,7 +117,7 @@ namespace Manager
 				yield break;
 			}
 
-			string publicCode = Config.instance.GetConfig()["dreamlo"]["publicKey"];
+			string publicCode = Config.instance.GetConfig()["dreamlo"][leaderboard]["publicKey"];
 			UnityWebRequest request = UnityWebRequest.Get(Constants.DREAMLO_URL + publicCode + "/json");
 			yield return request.SendWebRequest();
 
@@ -124,7 +125,7 @@ namespace Manager
 			{
 				JSONNode json = JSON.Parse(request.downloadHandler.text);
 				JSONArray entries = json["dreamlo"]["leaderboard"]["entry"].AsArray;
-				displayHelper.DisplayHighscores(entries);
+				displayHelper.DisplayHighscores(entries, leaderboard);
 			}
 			else
 			{
