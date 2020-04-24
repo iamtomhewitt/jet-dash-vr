@@ -13,6 +13,7 @@ namespace Highscore
 
 		private int currentDistanceHighscore;
 		private int zPosition = -100;
+		private float slerpSpeed = 1.75f;
 
 		private void Start()
 		{
@@ -25,7 +26,7 @@ namespace Highscore
 
 		private void Update()
 		{
-			transform.position = new Vector3(player.position.x, transform.position.y, zPosition);
+			transform.position = Vector3.Slerp(transform.position, new Vector3(player.position.x, transform.position.y, zPosition), slerpSpeed * Time.deltaTime);
 		}
 	}
 }
