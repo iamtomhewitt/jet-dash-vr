@@ -18,7 +18,9 @@ namespace Highscore
 		[SerializeField] private Color first;
 		[SerializeField] private Color secondAndThird;
 
-		public void Populate(string rank, string username, string score)
+		[SerializeField] private GameObject shipSprite;
+		[SerializeField] private GameObject vrIcon;
+
 		public void Populate(string rank, string username, string score, string additonalInfo)
 		{
 			rankText.text = rank;
