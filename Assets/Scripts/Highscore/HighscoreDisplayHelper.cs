@@ -11,14 +11,14 @@ namespace Highscore
 		[SerializeField] private HighscoreEntry entryPrefab;
 		[SerializeField] private Transform entriesParent;
 		[SerializeField] private GameObject uploadModal;
-		[SerializeField] private Text localHighscoreText;
+		[SerializeField] private Text bestScoreText;
 		[SerializeField] private Text bestDistanceText;
 		[SerializeField] private Text statusText;
 
 		private void Start()
 		{
-			localHighscoreText.text = "Local Highscore: " + HighscoreManager.instance.GetLocalHighscore();
-			bestDistanceText.text = "Best Distance: " + HighscoreManager.instance.GetBestDistance();
+			bestScoreText.text = HighscoreManager.instance.GetLocalHighscore().ToString();
+			bestDistanceText.text = HighscoreManager.instance.GetBestDistance().ToString();
 
 			statusText.text = "Downloading Highscores...";
 			statusText.color = Color.green;
