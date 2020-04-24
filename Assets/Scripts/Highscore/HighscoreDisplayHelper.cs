@@ -8,7 +8,8 @@ namespace Highscore
 {
 	public class HighscoreDisplayHelper : MonoBehaviour
 	{
-		[SerializeField] private HighscoreEntry[] highscoreEntries;
+		[SerializeField] private HighscoreEntry entryPrefab;
+		[SerializeField] private Transform entriesParent;
 		[SerializeField] private Text localHighscoreText;
 		[SerializeField] private Text bestDistanceText;
 		[SerializeField] private Text statusText;
@@ -18,23 +19,24 @@ namespace Highscore
 			localHighscoreText.text = "Local Highscore: " + HighscoreManager.instance.GetLocalHighscore();
 			bestDistanceText.text = "Best Distance: " + HighscoreManager.instance.GetBestDistance();
 
-			for (int i = 0; i < highscoreEntries.Length; i++)
-			{
-				highscoreEntries[i].Populate(i + 1 + ".", "Fetching...", "");
-			}
+			statusText.text = "Downloading Highscores...";
+			statusText.color = Color.green;
 
 			HighscoreManager.instance.RequestDownloadOfHighscores();
 		}
 
 		public void DisplayHighscores(JSONArray entries)
 		{
+			statusText.text = "";
+			
 			for (int i = 0; i < entries.Count; i++)
 			{
-				highscoreEntries[i].Populate(i + 1 + ".", "", "");
-
+				HighscoreEntry entry = Instantiate(entryPrefab, entriesParent).GetComponent<HighscoreEntry>();
+				entry.Populate(i + 1 + ".", "", "");
+				
 				if (entries.Count > i)
 				{
-					highscoreEntries[i].Populate(i + 1 + ".", entries[i]["name"], entries[i]["score"]);
+					entry.Populate(i + 1 + ".", entries[i]["name"], entries[i]["score"]);
 				}
 			}
 		}
@@ -43,6 +45,7 @@ namespace Highscore
 		{
 			ClearEntries();
 			statusText.text = message;
+			statusText.color = Color.red;
 		}
 
 		/// <summary>
@@ -75,9 +78,9 @@ namespace Highscore
 
 		public void ClearEntries()
 		{
-			for (int i = 0; i < highscoreEntries.Length; i++)
+			foreach(Transform child in entriesParent)
 			{
-				highscoreEntries[i].Populate("", "", "");
+				Destroy(child);
 			}
 		}
 	}
