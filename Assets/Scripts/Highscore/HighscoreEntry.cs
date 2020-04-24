@@ -15,11 +15,37 @@ namespace Highscore
 		[SerializeField] private Text usernameText;
 		[SerializeField] private Text scoreText;
 
+		[SerializeField] private Color first;
+		[SerializeField] private Color secondAndThird;
+
 		public void Populate(string rank, string username, string score)
 		{
 			rankText.text = rank;
 			usernameText.text = username;
 			scoreText.text = score;
+		}
+
+		public void SetTextColourBasedOnRank(int rank)
+		{
+			if (rank <= 1)
+			{
+				SetColours(first);
+			}
+			else if (rank >= 4)
+			{
+				SetColours(Color.white);
+			}
+			else
+			{
+				SetColours(secondAndThird);
+			}
+		}
+
+		private void SetColours(Color colour)
+		{
+			rankText.color = colour;
+			usernameText.color = colour;
+			scoreText.color = colour;
 		}
 	}
 }

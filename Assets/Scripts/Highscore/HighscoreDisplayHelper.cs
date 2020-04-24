@@ -28,15 +28,17 @@ namespace Highscore
 		public void DisplayHighscores(JSONArray entries)
 		{
 			statusText.text = "";
-			
+
 			for (int i = 0; i < entries.Count; i++)
 			{
+				int rank = i + 1;
 				HighscoreEntry entry = Instantiate(entryPrefab, entriesParent).GetComponent<HighscoreEntry>();
-				entry.Populate(i + 1 + ".", "", "");
-				
+				entry.Populate(rank + ".", "", "");
+
 				if (entries.Count > i)
 				{
-					entry.Populate(i + 1 + ".", entries[i]["name"], entries[i]["score"]);
+					entry.Populate(rank + ".", entries[i]["name"], entries[i]["score"]);
+					entry.SetTextColourBasedOnRank(rank);
 				}
 			}
 		}
@@ -78,7 +80,7 @@ namespace Highscore
 
 		public void ClearEntries()
 		{
-			foreach(Transform child in entriesParent)
+			foreach (Transform child in entriesParent)
 			{
 				Destroy(child);
 			}

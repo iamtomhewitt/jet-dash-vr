@@ -131,6 +131,8 @@ MonoBehaviour:
   rankText: {fileID: 5440533418752618620}
   usernameText: {fileID: 5440533418032370215}
   scoreText: {fileID: 5440533418397458228}
+  first: {r: 0.99607843, g: 0.7294118, b: 0.003921569, a: 1}
+  secondAndThird: {r: 0.25490198, g: 0.99607843, b: 0.99607843, a: 1}
 --- !u!1 &5440533418397458230
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +245,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 47.8, y: 75.3}
+  m_SizeDelta: {x: 77.50017, y: 75.3}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &5440533418752618619
 CanvasRenderer:
@@ -284,4 +286,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1.
+  m_Text: 100.
