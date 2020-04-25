@@ -6,16 +6,16 @@ namespace UI
 {
     public class LeaderboardTab : MonoBehaviour
     {
+        [SerializeField] private GameObject[] leaderboards;
         [SerializeField] private Color activeButtonColour;
         [SerializeField] private Color activeTextColour;
 
-        private GameObject[] leaderboards;
         private GameObject[] tabButtons;
 
         private void Start()
         {
-            leaderboards = GameObject.FindGameObjectsWithTag(Tags.LEADERBOARD);
             tabButtons = GameObject.FindGameObjectsWithTag(Tags.LEADERBOARD_TAB);
+            ShowLeaderboard(leaderboards[0]);
         }
 
         public void ShowLeaderboard(GameObject leaderboard)
