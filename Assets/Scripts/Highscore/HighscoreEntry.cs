@@ -23,11 +23,35 @@ namespace Highscore
 		[SerializeField] private GameObject vrIcon;
 		[SerializeField] private Sprite[] shipSprites;
 
+		private string[] devColours = new string[] { "red", "orange", "yellow", "lime", "blue", "magenta" };
+
 		public void Populate(string rank, string username, string score)
 		{
 			rankText.text = rank;
 			usernameText.text = username;
 			scoreText.text = score;
+
+			if (username.Equals("Tom (The Developer)"))
+			{
+				usernameText.text = ApplyDevColours(username);
+			}
+		}
+
+		private string ApplyDevColours(string username)
+		{
+			string newUsername = "";
+			int index = 0;
+			foreach (char c in username)
+			{
+				newUsername += ColourCharacter(c, devColours[index]);
+				if (c != ' ') index = ++index > devColours.Length - 1 ? 0 : index;
+			}
+			return newUsername;
+		}
+
+		private string ColourCharacter(char s, string colour)
+		{
+			return "<color=" + colour + ">" + s + "</color>";
 		}
 
 		public void SetIcons(string additonalInfo)
