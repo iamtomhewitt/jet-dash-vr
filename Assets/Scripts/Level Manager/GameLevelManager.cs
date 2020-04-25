@@ -55,6 +55,7 @@ namespace LevelManagers
 
 		public void ReturnToMenu(string sceneName)
 		{
+			Time.timeScale = 1f;
 			ScreenManager.MakePortrait();
 			AudioManager.instance.Pause(SoundNames.SCORE);
 			AudioManager.instance.Pause(SoundNames.SHIP_ENGINE);
