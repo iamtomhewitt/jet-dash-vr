@@ -1552,6 +1552,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d552fd0ae5b555d43a3e25658b6c298a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leaderboards:
+  - {fileID: 265923844}
+  - {fileID: 685934613}
   activeButtonColour: {r: 1, g: 1, b: 1, a: 1}
   activeTextColour: {r: 0.011764707, g: 0.5529412, b: 0.8313726, a: 1}
 --- !u!1 &567784910
@@ -2296,6 +2299,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d552fd0ae5b555d43a3e25658b6c298a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leaderboards:
+  - {fileID: 265923844}
+  - {fileID: 685934613}
   activeButtonColour: {r: 1, g: 1, b: 1, a: 1}
   activeTextColour: {r: 0.011764707, g: 0.5529412, b: 0.8313726, a: 1}
 --- !u!1 &913889601
