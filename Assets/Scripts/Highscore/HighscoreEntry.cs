@@ -23,7 +23,7 @@ namespace Highscore
 		[SerializeField] private GameObject vrIcon;
 		[SerializeField] private Sprite[] shipSprites;
 
-		private string[] devColours = new string[] { "red", "orange", "yellow", "lime", "blue", "magenta" };
+		private string[] devColours = new string[] { "#00A1F1", "#F35514" };
 
 		public void Populate(string rank, string username, string score)
 		{
