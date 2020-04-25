@@ -4,55 +4,58 @@ using Utility;
 
 namespace UI
 {
-    public class LeaderboardTab : MonoBehaviour
-    {
-        [SerializeField] private GameObject[] leaderboards;
-        [SerializeField] private Color activeButtonColour;
-        [SerializeField] private Color activeTextColour;
+	public class LeaderboardTab : MonoBehaviour
+	{
+		[SerializeField] private GameObject[] leaderboards;
+		[SerializeField] private Color activeButtonColour;
+		[SerializeField] private Color activeTextColour;
+		[SerializeField] private Text scoreTitle;
 
-        private GameObject[] tabButtons;
+		private GameObject[] tabButtons;
 
-        private void Start()
-        {
-            tabButtons = GameObject.FindGameObjectsWithTag(Tags.LEADERBOARD_TAB);
-            ShowLeaderboard(leaderboards[0]);
-        }
+		private void Start()
+		{
+			tabButtons = GameObject.FindGameObjectsWithTag(Tags.LEADERBOARD_TAB);
+			ShowLeaderboard(leaderboards[0]);
+		}
 
-        public void ShowLeaderboard(GameObject leaderboard)
-        {
-            HideAllLeaderboards();
-            DeactivateAllButtons();
-            ActivateButton(this.GetComponent<Button>());
-            leaderboard.SetActive(true);
-        }
+		public void ShowLeaderboard(GameObject leaderboard)
+		{
+			HideAllLeaderboards();
+			DeactivateAllButtons();
+			ActivateButton(this.GetComponent<Button>());
 
-        private void HideAllLeaderboards()
-        {
-            foreach (GameObject leaderboard in leaderboards)
-            {
-                leaderboard.SetActive(false);
-            }
-        }    
+			scoreTitle.text = this.GetComponentInChildren<Text>().text;
+			leaderboard.SetActive(true);
+		}
 
-        private void ActivateButton(Button button)
-        {
-            button.GetComponent<Image>().color = activeButtonColour;
-            button.GetComponentInChildren<Text>().color = activeTextColour;
-        }
+		private void HideAllLeaderboards()
+		{
+			foreach (GameObject leaderboard in leaderboards)
+			{
+				leaderboard.SetActive(false);
+			}
+		}
 
-        private void DeactivateAllButtons()
-        {
-            foreach (GameObject button in tabButtons)
-            {
-                DeactivateButton(button.GetComponent<Button>());
-            }
-        }
+		private void ActivateButton(Button button)
+		{
+			button.GetComponent<Image>().color = activeButtonColour;
+			button.GetComponentInChildren<Text>().color = activeTextColour;
+		}
 
-        private void DeactivateButton(Button button)
-        {
-            // All we do is invert the colours
-            button.GetComponent<Image>().color = activeTextColour;
-            button.GetComponentInChildren<Text>().color = activeButtonColour;
-        }
-    }
+		private void DeactivateAllButtons()
+		{
+			foreach (GameObject button in tabButtons)
+			{
+				DeactivateButton(button.GetComponent<Button>());
+			}
+		}
+
+		private void DeactivateButton(Button button)
+		{
+			// All we do is invert the colours
+			button.GetComponent<Image>().color = activeTextColour;
+			button.GetComponentInChildren<Text>().color = activeButtonColour;
+		}
+	}
 }

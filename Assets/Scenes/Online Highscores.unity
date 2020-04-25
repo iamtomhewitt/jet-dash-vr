@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1867310552}
-  m_IndirectSpecularColor: {r: 0.44949442, g: 0.49649101, b: 0.55914664, a: 1}
+  m_IndirectSpecularColor: {r: 0.44949448, g: 0.49649084, b: 0.55914605, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2482,7 +2482,7 @@ GameObject:
   - component: {fileID: 1023831746}
   - component: {fileID: 1023831745}
   m_Layer: 5
-  m_Name: Menu UI
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2684,6 +2684,7 @@ MonoBehaviour:
   scoreLeaderboardContent: {fileID: 1048854878}
   distanceLeaderboardContent: {fileID: 139436435}
   uploadModal: {fileID: 284956242}
+  scoreTitle: {fileID: 0}
   bestScoreText: {fileID: 1270459936}
   bestDistanceText: {fileID: 1966239710}
   statusText: {fileID: 227573361}
@@ -3741,7 +3742,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 164.3, y: 0.000076294}
+  m_SizeDelta: {x: 193.59053, y: 0.000076293945}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1722622757
 MonoBehaviour:
