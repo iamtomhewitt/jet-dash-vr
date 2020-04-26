@@ -1,7 +1,13 @@
 {
-    "dreamlo": {
-        "publicKey": "",
-        "privateKey": ""
-    },
-    "gameId": ""
+	"dreamlo": {
+		"score": {
+			"publicKey": "",
+			"privateKey": ""
+		},
+		"distance": {
+			"publicKey": "",
+			"privateKey": ""
+		}
+	},
+	"gameId": ""
 }

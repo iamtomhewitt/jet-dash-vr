@@ -12,6 +12,8 @@ TagManager:
   - Equinox
   - Rescate
   - Solstice
+  - Leaderboard Tab
+  - Leaderboard
   layers:
   - Default
   - TransparentFX
