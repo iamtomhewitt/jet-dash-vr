@@ -67,10 +67,12 @@ namespace Highscore
 
 			if (HighscoreManager.instance.GetLocalHighscore() <= 0)
 			{
+				usernameInput.text = "";
 				placeholderText.text = "Score cannot be 0!";
 			}
 			else if (string.IsNullOrEmpty(usernameInput.text))
 			{
+				usernameInput.text = "";
 				placeholderText.text = "Enter a nickname!";
 			}
 			else if (PlayerPrefs.GetInt(Constants.UPLOADED_KEY) != Constants.NO)
