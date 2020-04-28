@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using Utility;
 
 namespace Highscore
 {
@@ -27,8 +28,10 @@ namespace Highscore
 
 		public void Populate(string rank, string username, string score)
 		{
+			string formatted = Utilities.StripNonLatinLetters(username);
+
 			rankText.text = rank;
-			usernameText.text = username;
+			usernameText.text = string.IsNullOrEmpty(formatted) ? "<invalid name>" : formatted;
 			scoreText.text = score;
 
 			if (username.Equals("Tom (The Developer)"))
