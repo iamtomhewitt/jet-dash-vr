@@ -63,13 +63,16 @@ namespace Highscore
 		public void UploadHighscore(InputField usernameInput)
 		{
 			Text placeholderText = usernameInput.placeholder.GetComponent<Text>();
+			string formatted = Utilities.StripNonLatinLetters(usernameInput.text);
 
 			if (HighscoreManager.instance.GetLocalHighscore() <= 0)
 			{
+				usernameInput.text = "";
 				placeholderText.text = "Score cannot be 0!";
 			}
 			else if (string.IsNullOrEmpty(usernameInput.text))
 			{
+				usernameInput.text = "";
 				placeholderText.text = "Enter a nickname!";
 			}
 			else if (PlayerPrefs.GetInt(Constants.UPLOADED_KEY) != Constants.NO)
@@ -77,9 +80,14 @@ namespace Highscore
 				usernameInput.text = "";
 				placeholderText.text = "Already uploaded!";
 			}
+			else if (string.IsNullOrEmpty(formatted))
+			{
+				usernameInput.text = "";
+				placeholderText.text = "Invalid name!";
+			}
 			else
 			{
-				HighscoreManager.instance.UploadHighscoreToDreamlo(usernameInput.text);
+				HighscoreManager.instance.UploadHighscoreToDreamlo(formatted);
 				usernameInput.text = "";
 				placeholderText.text = "Uploaded!";
 			}
