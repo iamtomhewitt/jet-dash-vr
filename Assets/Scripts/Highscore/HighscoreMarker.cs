@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Manager;
+using UnityEngine;
 using Utility;
 
 namespace Highscore
@@ -12,26 +13,20 @@ namespace Highscore
 
 		private int currentDistanceHighscore;
 		private int zPosition = -100;
+		private float slerpSpeed = 1.75f;
 
 		private void Start()
 		{
 			player = GameObject.FindGameObjectWithTag(Tags.PLAYER).transform;
-			currentDistanceHighscore = PlayerPrefs.GetInt(Constants.DISTANCE_KEY);
+			currentDistanceHighscore = HighscoreManager.instance.GetBestDistance();
 
-			if (currentDistanceHighscore <= 500)
-			{
-				transform.position = new Vector3(transform.position.x, transform.position.y, zPosition);
-			}
-			else
-			{
-				zPosition = currentDistanceHighscore;
-				transform.position = new Vector3(transform.position.x, transform.position.y, zPosition);
-			}
+			zPosition = currentDistanceHighscore <= 500 ? zPosition : currentDistanceHighscore;
+			transform.position = new Vector3(transform.position.x, transform.position.y, zPosition);
 		}
 
 		private void Update()
 		{
-			transform.position = new Vector3(player.position.x, transform.position.y, zPosition);
+			transform.position = Vector3.Slerp(transform.position, new Vector3(player.position.x, transform.position.y, zPosition), slerpSpeed * Time.deltaTime);
 		}
 	}
 }
