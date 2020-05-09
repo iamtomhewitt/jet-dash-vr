@@ -16,12 +16,10 @@ If you are fixing an issue, branch off of the `develop` branch to fix it. Name t
 
 Although not enforced, consider starting the commit message with an applicable emoji:
 - 🎨 `:art:` when making a visual change that the player would see
-- 💡 `:light bulb:` when adding a new feature
+- 💻 `:laptop computer:` when coding
 - 🐛 `:bug:` when fixing a bug in the code 
-- ⚙️ `:gear:` when doing something with a build
-- 🔧 `:wrench:` when fixing something to do with git
+- 🔧 `:wrench:` when doing something related to builds or config
 - 💎 `:gem stone:` when refactoring code 
-- 🏷 `:label tag:` when tagging in the `beta` or `master` branch (pull requests)
 
 ## Pull Request Process
 

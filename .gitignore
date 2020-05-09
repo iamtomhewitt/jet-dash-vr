@@ -1,8 +1,7 @@
 Builds/
 Logs/
-/Assets/config.json
-/Assets/config.json.meta
-/Packages
+/Assets/Resources/config.json
+/Assets/Resources/config.json.meta
 /Google Play Store/Video/Footage.mp4.sfk
 /Google Play Store/Video/Video Render.wmv
 /Google Play Store/Video/Footage VR Mode.mp4.sfk
@@ -48,3 +47,4 @@ ehthumbs.db
 Thumbs.db
 /.vs
 
+settings.json

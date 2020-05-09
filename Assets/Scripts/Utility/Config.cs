@@ -10,16 +10,12 @@ namespace Utility
 	/// </summary>
 	public class Config : MonoBehaviour
 	{
-		[SerializeField] private TextAsset configFile;
-
 		private JSONNode root;
 
 		public static Config instance;
 
 		private void Awake()
 		{
-			root = JSON.Parse(configFile.text);
-
 			if (instance)
 			{
 				DestroyImmediate(gameObject);
@@ -29,6 +25,15 @@ namespace Utility
 				DontDestroyOnLoad(gameObject);
 				instance = this;
 			}
+			
+			TextAsset configFile = Resources.Load<TextAsset>("config");
+
+			if (configFile == null)
+			{
+				Debug.Log("ERROR: Could not load config from Resources/config.json");
+			}
+			
+			root = JSON.Parse(configFile.text);
 		}
 
 		public JSONNode GetConfig()

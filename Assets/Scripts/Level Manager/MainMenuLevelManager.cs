@@ -22,7 +22,7 @@ namespace LevelManagers
 		/// </summary>
 		public void LoadGame()
 		{
-			if (GameSettings.instance.vrMode())
+			if (GameSettingsManager.instance.vrMode())
 			{
 				StartCoroutine(HeadsetCountdown());
 				AchievementManager.instance.UnlockAchievement(AchievementIds.PLAY_IN_VR);

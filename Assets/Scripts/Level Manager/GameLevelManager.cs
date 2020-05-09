@@ -10,7 +10,13 @@ namespace LevelManagers
 	/// </summary>
 	public class GameLevelManager : LevelManager
 	{
-		[SerializeField] private float levelRestartDelay = 4f;
+		[SerializeField] private GameObject pauseMenu;
+		[SerializeField] private float levelRestartDelay = 1.5f;
+
+		private void Start()
+		{
+			Time.timeScale = 1f;
+		}
 
 		/// <summary>
 		/// Restarts the level after the player has died and the scoreboard is shown.
@@ -18,6 +24,18 @@ namespace LevelManagers
 		public void RestartLevel()
 		{
 			StartCoroutine(RestartLevelRoutine());
+		}
+
+		public void ShowPauseMenu()
+		{
+			pauseMenu.SetActive(true);
+			Time.timeScale = 0f;
+		}
+
+		public void HidePauseMenu()
+		{
+			pauseMenu.SetActive(false);
+			Time.timeScale = 1f;
 		}
 
 		private IEnumerator RestartLevelRoutine()
@@ -37,8 +55,10 @@ namespace LevelManagers
 
 		public void ReturnToMenu(string sceneName)
 		{
+			Time.timeScale = 1f;
 			ScreenManager.MakePortrait();
 			AudioManager.instance.Pause(SoundNames.SCORE);
+			AudioManager.instance.Pause(SoundNames.SHIP_ENGINE);
 			this.LoadLevel(sceneName);
 		}
 	}

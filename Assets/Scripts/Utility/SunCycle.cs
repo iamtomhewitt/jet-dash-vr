@@ -3,7 +3,7 @@
 namespace Utility
 {
 	/// <summary>
-	/// Rotates to give a sun moving across the hoirzon, which speeds up at night for a shorter time span.
+	/// Rotates to give a sun moving across the horizon, which speeds up at night for a shorter time span.
 	/// </summary>
 	public class SunCycle : MonoBehaviour
 	{

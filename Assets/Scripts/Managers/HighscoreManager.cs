@@ -28,8 +28,6 @@ namespace Manager
 			}
 
 			DontDestroyOnLoad(this.gameObject);
-
-			// PlayerPrefs.DeleteAll();
 		}
 
 		/// <summary>
@@ -45,7 +43,7 @@ namespace Manager
 				PlayerPrefs.SetInt(Constants.HIGHSCORE_KEY, score);
 
 				// Was the highscore achieved in VR mode?
-				PlayerPrefs.SetInt(Constants.WAS_VR_HIGHSCORE_KEY, GameSettings.instance.vrMode() ? Constants.YES : Constants.NO);
+				PlayerPrefs.SetInt(Constants.WAS_VR_HIGHSCORE_KEY, GameSettingsManager.instance.vrMode() ? Constants.YES : Constants.NO);
 
 				// Player has got a new highscore, which hasn't been uploaded yet, so set it to false (0)
 				PlayerPrefs.SetInt(Constants.UPLOADED_KEY, Constants.NO);
@@ -59,25 +57,42 @@ namespace Manager
 			return PlayerPrefs.GetInt(Constants.HIGHSCORE_KEY);
 		}
 
+		public int GetBestDistance()
+		{
+			return PlayerPrefs.GetInt(Constants.DISTANCE_KEY);
+		}
+
 		/// <summary>
 		/// Uploads a new highscore to Dreamlo.
 		/// </summary>
 		public void UploadHighscoreToDreamlo(string username)
 		{
-			StartCoroutine(UploadHighscoreRoutine(username));
+			StartCoroutine(UploadHighscoreRoutine(username, Constants.LEADERBOARD_SCORE_KEY));
+			StartCoroutine(UploadHighscoreRoutine(username, Constants.LEADERBOARD_DISTANCE_KEY));
 		}
 
 		/// <summary>
 		/// Routine for uploading a highscore to Dreamlo.
 		/// </summary>
-		private IEnumerator UploadHighscoreRoutine(string username)
+		private IEnumerator UploadHighscoreRoutine(string username, string leaderboard)
 		{
-			// Add '(VR)' to the end of the username if the score was achieved in VR mode
-			username = PlayerPrefs.GetInt(Constants.WAS_VR_HIGHSCORE_KEY) == Constants.YES ? username + " (VR)" : username;
+			bool usedVR = PlayerPrefs.GetInt(Constants.WAS_VR_HIGHSCORE_KEY).Equals(Constants.YES) ? true : false;
+			int score = leaderboard.Equals(Constants.LEADERBOARD_SCORE_KEY) ? GetLocalHighscore() : GetBestDistance();
+			string shipName = ShopManager.instance.GetSelectedShipData().GetShipName();
+			string privateCode = Config.instance.GetConfig()["dreamlo"][leaderboard]["privateKey"];
 
-			string privateCode = Config.instance.GetConfig()["dreamlo"]["privateKey"];
-			
-			UnityWebRequest request = UnityWebRequest.Post(Constants.DREAMLO_URL + privateCode + "/add/" + username + "/" + GetLocalHighscore(), "");
+			string url = Constants.DREAMLO_URL +
+						privateCode +
+						"/add/" +
+						username +
+						"/" +
+						score +
+						"/0/" +
+						shipName +
+						"|" +
+						usedVR;
+
+			UnityWebRequest request = UnityWebRequest.Get(url);
 			yield return request.SendWebRequest();
 
 			if (!request.downloadHandler.text.StartsWith("ERROR"))
@@ -100,10 +115,11 @@ namespace Manager
 		/// </summary>
 		public void RequestDownloadOfHighscores()
 		{
-			StartCoroutine(DownloadHighscores());
+			StartCoroutine(DownloadScoreHighscores(Constants.LEADERBOARD_SCORE_KEY));
+			StartCoroutine(DownloadScoreHighscores(Constants.LEADERBOARD_DISTANCE_KEY));
 		}
 
-		private IEnumerator DownloadHighscores()
+		private IEnumerator DownloadScoreHighscores(string leaderboard)
 		{
 			HighscoreDisplayHelper displayHelper = FindObjectOfType<HighscoreDisplayHelper>();
 
@@ -113,15 +129,15 @@ namespace Manager
 				yield break;
 			}
 
-			string publicCode = Config.instance.GetConfig()["dreamlo"]["publicKey"];
-			UnityWebRequest request = UnityWebRequest.Get(Constants.DREAMLO_URL + publicCode + "/json/0/10");
+			string publicCode = Config.instance.GetConfig()["dreamlo"][leaderboard]["publicKey"];
+			UnityWebRequest request = UnityWebRequest.Get(Constants.DREAMLO_URL + publicCode + "/json");
 			yield return request.SendWebRequest();
 
 			if (!request.downloadHandler.text.StartsWith("ERROR"))
 			{
 				JSONNode json = JSON.Parse(request.downloadHandler.text);
 				JSONArray entries = json["dreamlo"]["leaderboard"]["entry"].AsArray;
-				displayHelper.DisplayHighscores(entries);
+				displayHelper.DisplayHighscores(entries, leaderboard);
 			}
 			else
 			{

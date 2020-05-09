@@ -110,8 +110,38 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Powerup Hyperdrive
+    clip: {fileID: 8300000, guid: 7203b7be3efe39943b8c78886eb8a6ef, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Powerup Jump
+    clip: {fileID: 8300000, guid: 538a7b65a77bda942bdc4972e6352e3b, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   - name: Achievement Unlocked
     clip: {fileID: 8300000, guid: 3aa3ab3c3d5f24f4da6be38fa605a5e2, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Shop Reject Purchase
+    clip: {fileID: 8300000, guid: ce1e32de2251af04dbc13c9fa89bbb95, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Shop Select Ship
+    clip: {fileID: 8300000, guid: 72d8022c3531be04bb44ad466668c966, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Shop Spend Cash
+    clip: {fileID: 8300000, guid: dec537fe0203ca44d9c8c51daa440d50, type: 3}
     volume: 1
     pitch: 1
     loop: 0
