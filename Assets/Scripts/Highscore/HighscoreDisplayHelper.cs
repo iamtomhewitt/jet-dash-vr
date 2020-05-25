@@ -1,20 +1,20 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using Manager;
-using Utility;
+﻿using Manager;
 using SimpleJSON;
+using UnityEngine.UI;
+using UnityEngine;
+using Utility;
 
 namespace Highscore
 {
 	public class HighscoreDisplayHelper : MonoBehaviour
 	{
-		[SerializeField] private HighscoreEntry entryPrefab;
-		[SerializeField] private Transform scoreLeaderboardContent;
-		[SerializeField] private Transform distanceLeaderboardContent;
 		[SerializeField] private GameObject uploadModal;
-		[SerializeField] private Text bestScoreText;
+		[SerializeField] private HighscoreEntry entryPrefab;
 		[SerializeField] private Text bestDistanceText;
+		[SerializeField] private Text bestScoreText;
 		[SerializeField] private Text statusText;
+		[SerializeField] private Transform distanceLeaderboardContent;
+		[SerializeField] private Transform scoreLeaderboardContent;
 
 		private void Start()
 		{
@@ -39,11 +39,11 @@ namespace Highscore
 			{
 				int rank = i + 1;
 				HighscoreEntry entry = Instantiate(entryPrefab, parent).GetComponent<HighscoreEntry>();
-				entry.Populate(rank + ".", "", "");
+				entry.Populate(rank, "", "");
 
 				if (entries.Count > i)
 				{
-					entry.Populate(rank + ".", entries[i]["name"], entries[i]["score"]);
+					entry.Populate(rank, entries[i]["name"], entries[i]["score"]);
 					entry.SetIcons(entries[i]["text"]);
 					entry.SetTextColourBasedOnRank(rank);
 				}
