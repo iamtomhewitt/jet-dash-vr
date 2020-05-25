@@ -8,17 +8,14 @@ namespace Achievements
 	/// </summary>
 	public class AchievementEntry : MonoBehaviour
 	{
-		[SerializeField] private Text nameText;
-		[SerializeField] private Text descriptionText;
-		[SerializeField] private Text percentageText;
-		[SerializeField] private Text awardValueText;
-
-		[SerializeField] private Slider progressSlider;
-
 		[SerializeField] private Image icon;
-
-		[SerializeField] private Sprite unlocked;
+		[SerializeField] private Slider progressSlider;
 		[SerializeField] private Sprite locked;
+		[SerializeField] private Sprite unlocked;
+		[SerializeField] private Text awardValueText;
+		[SerializeField] private Text descriptionText;
+		[SerializeField] private Text nameText;
+		[SerializeField] private Text percentageText;
 
 		public void Populate(string name, string description, float progress, int awardValue)
 		{
