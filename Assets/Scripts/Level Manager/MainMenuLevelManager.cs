@@ -1,9 +1,8 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
-using Achievements;
+﻿using Achievements;
 using Manager;
-using Utility;
+using System.Collections;
+using UnityEngine.UI;
+using UnityEngine;
 
 namespace LevelManagers
 {
@@ -46,6 +45,7 @@ namespace LevelManagers
 			int timeRemaining = 10;
 			while (timeRemaining > 0)
 			{
+				// TODO UiConstants
 				vrCountdownText.text = "PUT ON YOUR VR HEADSET \n" + timeRemaining;
 				timeRemaining--;
 				yield return new WaitForSeconds(1f);
