@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using UnityEngine;
 
 namespace Manager
 {
@@ -57,20 +57,6 @@ namespace Manager
 				s.source.Pause();
 			}
 		}
-		
-		/// <summary>
-		/// Adds an AudioSource component to a specific Gameobject.
-		/// </summary>
-		public void AttachSoundTo(string soundName, GameObject g)
-		{
-			Sound s = GetSound(soundName);
-
-			s.source = g.AddComponent<AudioSource>();
-			s.source.clip = s.clip;
-			s.source.volume = s.volume;
-			s.source.pitch = s.pitch;
-			s.source.loop = s.loop;
-		}
 
 		/// <summary>
 		/// Retrieve a sound by name on the AudioManager object.
@@ -81,7 +67,7 @@ namespace Manager
 
 			if (s == null)
 			{
-				print("WARNING! Sound: '" + name + "' was not found.");
+				Debug.Log("WARNING! Sound: '" + name + "' was not found.");
 				return null;
 			}
 			return s;
@@ -112,21 +98,21 @@ namespace Manager
 
 	public class SoundNames
 	{
-		public const string PLAYER_DEATH = "Player Death";
-		public const string SHIP_ENGINE = "Ship Hum";
-		public const string SHIP_STARTUP = "Starting Bass";
-		public const string SPEED_STREAK = "Speed Streak";
-		public const string BUTTON_SELECT = "UI Select";
-		public const string MUSIC = "Music";
+		public const string ACHIEVEMENT_UNLOCKED = "Achievement Unlocked";
 		public const string BONUS_POINTS = "Powerup Bonus Points";
+		public const string BUTTON_SELECT = "UI Select";
 		public const string DOUBLE_POINTS = "Powerup Double Points";
+		public const string HYPERDRIVE = "Powerup Hyperdrive";
 		public const string INVINCIBILITY_POINTS = "Powerup Invincibility";
 		public const string JUMP = "Powerup Jump";
-		public const string HYPERDRIVE = "Powerup Hyperdrive";
+		public const string MUSIC = "Music";
+		public const string PLAYER_DEATH = "Player Death";
 		public const string SCORE = "Score";
-		public const string ACHIEVEMENT_UNLOCKED = "Achievement Unlocked";
+		public const string SHIP_ENGINE = "Ship Hum";
+		public const string SHIP_STARTUP = "Starting Bass";
 		public const string SHOP_REJECT_PURCHASE = "Shop Reject Purchase";
-		public const string SHOP_SPEND_CASH = "Shop Spend Cash";
 		public const string SHOP_SELECT_SHIP = "Shop Select Ship";
+		public const string SHOP_SPEND_CASH = "Shop Spend Cash";
+		public const string SPEED_STREAK = "Speed Streak";
 	}
 }

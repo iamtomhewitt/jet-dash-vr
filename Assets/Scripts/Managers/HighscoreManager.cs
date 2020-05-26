@@ -1,10 +1,10 @@
-﻿using UnityEngine;
-using UnityEngine.Networking;
-using System.Collections;
-using Utility;
+﻿using Achievements;
 using Highscore;
-using Achievements;
 using SimpleJSON;
+using System.Collections;
+using UnityEngine.Networking;
+using UnityEngine;
+using Utility;
 
 namespace Manager
 {
@@ -50,16 +50,6 @@ namespace Manager
 
 				AchievementManager.instance.UnlockAchievement(AchievementIds.NEW_HIGHSCORE);
 			}
-		}
-
-		public int GetLocalHighscore()
-		{
-			return PlayerPrefs.GetInt(Constants.HIGHSCORE_KEY);
-		}
-
-		public int GetBestDistance()
-		{
-			return PlayerPrefs.GetInt(Constants.DISTANCE_KEY);
 		}
 
 		/// <summary>
@@ -144,6 +134,16 @@ namespace Manager
 				Debug.Log("Error downloading: " + request.downloadHandler.text);
 				displayHelper.DisplayError("Could not download highscores. Please try again later.\n\n" + request.downloadHandler.text);
 			}
+		}
+
+		public int GetLocalHighscore()
+		{
+			return PlayerPrefs.GetInt(Constants.HIGHSCORE_KEY);
+		}
+
+		public int GetBestDistance()
+		{
+			return PlayerPrefs.GetInt(Constants.DISTANCE_KEY);
 		}
 	}
 }

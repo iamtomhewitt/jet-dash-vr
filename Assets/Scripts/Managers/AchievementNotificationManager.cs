@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using Achievements;
 using System.Collections;
-using Achievements;
+using UnityEngine.UI;
+using UnityEngine;
 
 namespace Manager
 {
@@ -10,14 +10,13 @@ namespace Manager
 	/// </summary>
 	public class AchievementNotificationManager : MonoBehaviour
 	{
-		[SerializeField] private GameObject notification;
-		[SerializeField] private Text achievementName;
-		[SerializeField] private Text achievementDescription;
-		[SerializeField] private Text achievementValue;
 		[SerializeField] private Animator animator;
+		[SerializeField] private GameObject notification;
+		[SerializeField] private Text achievementDescription;
+		[SerializeField] private Text achievementName;
+		[SerializeField] private Text achievementValue;
 
 		private Queue notificationQueue = new Queue();
-
 		private bool showingAchievement = false;
 
 		private const string ACHIEVEMENT_HIDE = "Achievement Hide";
