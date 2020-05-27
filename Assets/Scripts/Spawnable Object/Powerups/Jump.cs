@@ -1,6 +1,5 @@
-using UnityEngine;
-using Player;
 using Manager;
+using UnityEngine;
 using Utility;
 
 namespace SpawnableObject.Powerups
@@ -16,8 +15,8 @@ namespace SpawnableObject.Powerups
 		{
 			Rigidbody rb = GameObject.FindGameObjectWithTag(Tags.PLAYER).GetComponent<Rigidbody>();
 			rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-			PlayerHud.instance.ShowNotification(GetColour(), "Jump!");
-			AudioManager.instance.Play(SoundNames.JUMP);
+			this.GetPlayerHud().ShowNotification(GetColour(), "Jump!");
+			this.GetAudioManager().Play(SoundNames.JUMP);
 		}
 	}
 }

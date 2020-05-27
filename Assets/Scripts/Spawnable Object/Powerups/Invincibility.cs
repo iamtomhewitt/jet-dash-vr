@@ -1,8 +1,8 @@
-using UnityEngine;
-using System.Collections;
 using Achievements;
-using Player;
 using Manager;
+using Player;
+using System.Collections;
+using UnityEngine;
 
 namespace SpawnableObject.Powerups
 {
@@ -14,6 +14,8 @@ namespace SpawnableObject.Powerups
 		[SerializeField] private float invincibilityTime = 5f;
 
 		private Coroutine godModeRoutine;
+		private const int FLICKER_COUNT = 3;
+		private const float FLICKER_DURATION = 0.3f;
 
 		public override void ApplyPowerupEffect()
 		{
@@ -22,8 +24,8 @@ namespace SpawnableObject.Powerups
 				StopCoroutine(godModeRoutine);
 			}
 			godModeRoutine = StartCoroutine(ActivateGodMode());
-			AudioManager.instance.Play(SoundNames.INVINCIBILITY_POINTS);
-			PlayerHud.instance.ShowNotification(GetColour(), "Invincible!");
+			this.GetPlayerHud().ShowNotification(GetColour(), "Invincible!");
+			this.GetAudioManager().Play(SoundNames.INVINCIBILITY_POINTS);
 			AchievementManager.instance.UnlockAchievement(AchievementIds.BECOME_INVINCIBLE);
 		}
 
@@ -32,26 +34,26 @@ namespace SpawnableObject.Powerups
 		/// </summary>
 		private IEnumerator ActivateGodMode()
 		{
-			GameObject shield = PlayerCollision.instance.GetShield();
-			PlayerCollision.instance.SetInvincible(true);
+			PlayerCollision playerCollision = FindObjectOfType<PlayerCollision>();
+			playerCollision.SetInvincible(true);
 
+			GameObject shield = playerCollision.GetShield();
 			shield.SetActive(true);
 			shield.GetComponent<Animator>().Play("On");
 
 			yield return new WaitForSeconds(invincibilityTime);
 
 			// Now flicker
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < FLICKER_COUNT; i++)
 			{
 				shield.SetActive(false);
-				yield return new WaitForSeconds(.3f);
+				yield return new WaitForSeconds(FLICKER_DURATION);
 				shield.SetActive(true);
-				yield return new WaitForSeconds(.3f);
+				yield return new WaitForSeconds(FLICKER_DURATION);
 			}
 
 			shield.SetActive(false);
-
-			PlayerCollision.instance.SetInvincible(false);
+			playerCollision.SetInvincible(false);
 		}
 	}
 }

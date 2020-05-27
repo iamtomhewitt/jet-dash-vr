@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using Utility;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace SpawnableObject
 {

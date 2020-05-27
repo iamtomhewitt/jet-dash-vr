@@ -1,7 +1,7 @@
-using UnityEngine;
-using System.Collections;
-using Player;
 using Manager;
+using Player;
+using System.Collections;
+using UnityEngine;
 
 namespace SpawnableObject.Powerups
 {
@@ -20,13 +20,14 @@ namespace SpawnableObject.Powerups
 
 		private IEnumerator ApplyPowerupEffectRoutine()
 		{
-			PlayerControl playerControl = PlayerControl.instance;
-			PlayerCollision playerCollision = PlayerCollision.instance;
-			PlayerCamera playerCamera = PlayerCamera.instance;
+			PlayerControl playerControl = FindObjectOfType<PlayerControl>();
+			PlayerCollision playerCollision = FindObjectOfType<PlayerCollision>();
+			PlayerCamera playerCamera = FindObjectOfType<PlayerCamera>();
+
 			float originalSpeed = playerControl.GetSpeed();
 
-			PlayerHud.instance.ShowNotification(GetColour(), "Hyperdrive!");
-			AudioManager.instance.Play(SoundNames.HYPERDRIVE);
+			this.GetPlayerHud().ShowNotification(GetColour(), "Hyperdrive!");
+			this.GetAudioManager().Play(SoundNames.HYPERDRIVE);
 
 			playerControl.MaxSpeed();
 			playerCollision.SetHyperdriveEnabled(true);

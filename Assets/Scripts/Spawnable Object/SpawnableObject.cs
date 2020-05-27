@@ -18,7 +18,7 @@ namespace SpawnableObject
 		/// </summary>
 		public abstract void AfterRelocation();
 
-		private void Start()
+		public virtual void Start()
 		{
 			player = GameObject.FindGameObjectWithTag(Tags.PLAYER).transform;
 			InvokeRepeating("RelocateIfBehindPlayer", RELOCATE_CHECK_TIME, RELOCATE_CHECK_TIME);
