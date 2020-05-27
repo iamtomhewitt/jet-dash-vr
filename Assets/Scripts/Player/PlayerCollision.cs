@@ -31,7 +31,7 @@ namespace Player
 			highscoreManager = HighscoreManager.instance;
 			playerControl = GetComponent<PlayerControl>();
 			playerScore = GetComponent<PlayerScore>();
-			scoreboard = Scoreboard.instance;
+			scoreboard = FindObjectOfType<Scoreboard>();
 			shopManager = ShopManager.instance;
 		}
 

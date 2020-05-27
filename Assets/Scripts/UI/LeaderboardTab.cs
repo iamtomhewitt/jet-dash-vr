@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
+using UnityEngine;
 using Utility;
 
 namespace UI
@@ -23,9 +23,9 @@ namespace UI
 		{
 			HideAllLeaderboards();
 			DeactivateAllButtons();
-			ActivateButton(this.GetComponent<Button>());
+			ActivateButton(GetComponent<Button>());
 
-			scoreTitle.text = this.GetComponentInChildren<Text>().text;
+			scoreTitle.text = GetComponentInChildren<Text>().text;
 			leaderboard.SetActive(true);
 		}
 

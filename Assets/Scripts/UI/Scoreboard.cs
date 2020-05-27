@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
+﻿using LevelManagers;
 using Manager;
-using LevelManagers;
+using System.Collections;
+using UnityEngine.UI;
+using UnityEngine;
 using Utility;
 
 namespace Player
@@ -15,12 +15,7 @@ namespace Player
 		[SerializeField] private Text finalScore;
 		[SerializeField] private Text relaunchingText;
 
-		public static Scoreboard instance;
-
-		private void Awake()
-		{
-			instance = this;
-		}
+		private const float ANIMATION_TIME = 3f;
 
 		public void AnimateBonusScore(int score)
 		{
@@ -49,13 +44,15 @@ namespace Player
 
 		private IEnumerator Animate(int score, Text text)
 		{
+			AudioManager audioManager = AudioManager.instance;
 			int displayScore = 0;
 			int start = displayScore;
-			AudioManager.instance.Play(SoundNames.SCORE);
 
-			for (float timer = 0; timer < 3f; timer += Time.deltaTime)
+			audioManager.Play(SoundNames.SCORE);
+
+			for (float timer = 0; timer < ANIMATION_TIME; timer += Time.deltaTime)
 			{
-				float progress = timer / 3f;
+				float progress = timer / ANIMATION_TIME;
 				displayScore = (int)Mathf.Lerp(start, score, progress);
 				text.text = displayScore.ToString();
 				yield return null;
@@ -63,7 +60,7 @@ namespace Player
 
 			displayScore = score;
 			text.text = displayScore.ToString();
-			AudioManager.instance.Pause(SoundNames.SCORE);
+			audioManager.Pause(SoundNames.SCORE);
 
 			// Final score will take the longest to animate, so only reload the scene when animating final score,
 			// that way nothing gets cut off
