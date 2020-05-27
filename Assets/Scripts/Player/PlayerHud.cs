@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
 using UnityEngine.UI;
-using System.Collections;
+using UnityEngine;
 using Utility;
 
 namespace Player
@@ -9,8 +9,8 @@ namespace Player
 	/// The HUD for the player.
 	/// </summary>
 	public class PlayerHud : MonoBehaviour
-    {
-        [SerializeField] private Text speedText;
+	{
+		[SerializeField] private Text speedText;
 		[SerializeField] private Text distanceText;
 		[SerializeField] private Text scoreText;
 		[SerializeField] private Text powerupNotificationText;
@@ -18,13 +18,6 @@ namespace Player
 		[SerializeField] private float notificationShowTime = 1.5f;
 
 		private Animator notificationAnimator;
-
-		public static PlayerHud instance;
-
-		private void Awake()
-		{
-			instance = this;
-		}
 
 		private void Start()
 		{
@@ -35,40 +28,39 @@ namespace Player
 		/// Formats the distance text, F0 puts a 0 in front of single digits.
 		/// </summary>
 		public void SetDistanceText(float distance)
-        {
-            distanceText.text = distance.ToString("F0");
-        }
+		{
+			distanceText.text = distance.ToString("F0");
+		}
 
 		public void SetSpeedText(string message)
 		{
 			speedText.text = message;
 		}
 
-        public void SetScoreText(int score)
-        {
-            scoreText.text = score.ToString();
-        }
+		public void SetScoreText(int score)
+		{
+			scoreText.text = score.ToString();
+		}
 
 		/// <summary>
 		/// Shows a notification on the screen. Useful for showing speed streaks or power up messages.
 		/// </summary>
-        public void ShowNotification(Color32 color, string message)
-        {
-            StopAllCoroutines();
-            powerupNotificationText.color = color;
-            powerupNotificationText.text = message;
-            notificationAnimator.Play(Constants.POWERUP_NOTIFY_SHOW);
-            StartCoroutine(TurnOffNotification());
-        }
-
+		public void ShowNotification(Color32 color, string message)
+		{
+			StopAllCoroutines();
+			powerupNotificationText.color = color;
+			powerupNotificationText.text = message;
+			notificationAnimator.Play(Constants.POWERUP_NOTIFY_SHOW);
+			StartCoroutine(TurnOffNotification());
+		}
 
 		/// <summary>
 		/// Hides a notification after a set amount of time.
 		/// </summary>
-        private IEnumerator TurnOffNotification()
-        {
-            yield return new WaitForSeconds(notificationShowTime);
-            notificationAnimator.Play(Constants.POWERUP_NOTIFY_HIDE);
-        }
-    }
+		private IEnumerator TurnOffNotification()
+		{
+			yield return new WaitForSeconds(notificationShowTime);
+			notificationAnimator.Play(Constants.POWERUP_NOTIFY_HIDE);
+		}
+	}
 }

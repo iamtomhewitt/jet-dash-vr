@@ -53,6 +53,19 @@ namespace Manager
 		}
 
 		/// <summary>
+		/// Saves the players distance to the PlayerPrefs.
+		/// </summary>
+		public void SaveDistanceHighscore(int distance)
+		{
+			int currentDistance = PlayerPrefs.GetInt(Constants.DISTANCE_KEY);
+			if (distance > currentDistance)
+			{
+				Debug.Log("New distance of " + distance + "! Previous was " + currentDistance + ".");
+				PlayerPrefs.SetInt(Constants.DISTANCE_KEY, distance);
+			}
+		}
+
+		/// <summary>
 		/// Uploads a new highscore to Dreamlo.
 		/// </summary>
 		public void UploadHighscoreToDreamlo(string username)

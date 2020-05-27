@@ -1,7 +1,7 @@
-using UnityEngine;
 using Achievements;
 using Manager;
 using SpawnableObject;
+using UnityEngine;
 using Utility;
 
 namespace Player
@@ -24,20 +24,13 @@ namespace Player
 		private Scoreboard scoreboard;
 		private ShopManager shopManager;
 
-		public static PlayerCollision instance;
-
-		private void Awake()
-		{
-			instance = this;
-		}
-
 		private void Start()
 		{
 			achievementManager = AchievementManager.instance;
 			audioManager = AudioManager.instance;
 			highscoreManager = HighscoreManager.instance;
-			playerControl = PlayerControl.instance;
-			playerScore = PlayerScore.instance;
+			playerControl = GetComponent<PlayerControl>();
+			playerScore = GetComponent<PlayerScore>();
 			scoreboard = Scoreboard.instance;
 			shopManager = ShopManager.instance;
 		}
@@ -63,7 +56,7 @@ namespace Player
 					scoreboard.AnimateFinalScore(playerScore.GetFinalScore());
 
 					highscoreManager.SaveLocalHighscore(playerScore.GetFinalScore());
-					playerScore.SaveDistanceHighscore();
+					highscoreManager.SaveDistanceHighscore(playerScore.GetDistanceScore());
 
 					playerControl.StopMoving();
 					playerModel.SetActive(false);
@@ -75,13 +68,13 @@ namespace Player
 					shopManager.AddCash(playerScore.GetFinalScore());
 
 					// Now update achievements
-					achievementManager.UnlockAchievement(AchievementIds.DIE);
 					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_1000, 1000, playerScore.GetDistanceScore());
 					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_10000, 10000, playerScore.GetDistanceScore());
 					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_50000, 50000, playerScore.GetDistanceScore());
+					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_FIVE_MILLION, 5000000, playerScore.GetFinalScore());
 					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_HALF_MILLION, 500000, playerScore.GetFinalScore());
 					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_MILLION, 1000000, playerScore.GetFinalScore());
-					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_FIVE_MILLION, 5000000, playerScore.GetFinalScore());
+					achievementManager.UnlockAchievement(AchievementIds.DIE);
 					break;
 
 				default:
