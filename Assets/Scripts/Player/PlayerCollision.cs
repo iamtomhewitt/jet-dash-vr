@@ -47,16 +47,9 @@ namespace Player
 					}
 
 					GameObject e = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
+					int topSpeed = playerControl.GetSpeed();
+
 					Destroy(e, 3f);
-
-					scoreboard.Show();
-					scoreboard.AnimateDistanceScore(playerScore.GetDistanceScore());
-					scoreboard.AnimateBonusScore(playerScore.GetBonusScore());
-					scoreboard.AnimateTopSpeed(playerControl.GetSpeed());
-					scoreboard.AnimateFinalScore(playerScore.GetFinalScore());
-
-					highscoreManager.SaveLocalHighscore(playerScore.GetFinalScore());
-					highscoreManager.SaveDistanceHighscore(playerScore.GetDistanceScore());
 
 					playerControl.StopMoving();
 					playerModel.SetActive(false);
@@ -66,6 +59,15 @@ namespace Player
 					audioManager.Pause(SoundNames.SHIP_ENGINE);
 
 					shopManager.AddCash(playerScore.GetFinalScore());
+
+					scoreboard.Show();
+					scoreboard.AnimateDistanceScore(playerScore.GetDistanceScore());
+					scoreboard.AnimateBonusScore(playerScore.GetBonusScore());
+					scoreboard.AnimateTopSpeed(topSpeed);
+					scoreboard.AnimateFinalScore(playerScore.GetFinalScore());
+
+					highscoreManager.SaveLocalHighscore(playerScore.GetFinalScore());
+					highscoreManager.SaveDistanceHighscore(playerScore.GetDistanceScore());
 
 					// Now update achievements
 					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_1000, 1000, playerScore.GetDistanceScore());
