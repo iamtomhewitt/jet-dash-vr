@@ -23,7 +23,7 @@ namespace Highscore
 
 		public void Populate(int rank, string username, string score)
 		{
-			string formatted = Utilities.StripNonLatinLetters(username);
+			string formatted = username.StripNonLatinLetters();
 
 			rankText.text = rank + ".";
 			usernameText.text = string.IsNullOrEmpty(formatted) ? "<invalid name>" : formatted;

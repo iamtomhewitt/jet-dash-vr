@@ -63,7 +63,7 @@ namespace Highscore
 		public void UploadHighscore(InputField usernameInput)
 		{
 			Text placeholderText = usernameInput.placeholder.GetComponent<Text>();
-			string formatted = Utilities.StripNonLatinLetters(usernameInput.text);
+			string formatted = usernameInput.text.StripNonLatinLetters();
 
 			if (HighscoreManager.instance.GetLocalHighscore() <= 0)
 			{
@@ -75,7 +75,7 @@ namespace Highscore
 				usernameInput.text = "";
 				placeholderText.text = "Enter a nickname!";
 			}
-			else if (PlayerPrefs.GetInt(Constants.UPLOADED_KEY) != Constants.NO)
+			else if (PlayerPrefs.GetInt(PlayerPrefKeys.UPLOADED) != Constants.NO)
 			{
 				usernameInput.text = "";
 				placeholderText.text = "Already uploaded!";

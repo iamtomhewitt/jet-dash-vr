@@ -40,13 +40,13 @@ namespace Manager
 			if (score > currentHighscore)
 			{
 				Debug.Log("New highscore of " + score + "! Saving...");
-				PlayerPrefs.SetInt(Constants.HIGHSCORE_KEY, score);
+				PlayerPrefs.SetInt(PlayerPrefKeys.HIGHSCORE, score);
 
 				// Was the highscore achieved in VR mode?
-				PlayerPrefs.SetInt(Constants.WAS_VR_HIGHSCORE_KEY, GameSettingsManager.instance.vrMode() ? Constants.YES : Constants.NO);
+				PlayerPrefs.SetInt(PlayerPrefKeys.WAS_VR_HIGHSCORE, GameSettingsManager.instance.vrMode() ? Constants.YES : Constants.NO);
 
 				// Player has got a new highscore, which hasn't been uploaded yet, so set it to false (0)
-				PlayerPrefs.SetInt(Constants.UPLOADED_KEY, Constants.NO);
+				PlayerPrefs.SetInt(PlayerPrefKeys.UPLOADED, Constants.NO);
 
 				AchievementManager.instance.UnlockAchievement(AchievementIds.NEW_HIGHSCORE);
 			}
@@ -57,11 +57,11 @@ namespace Manager
 		/// </summary>
 		public void SaveDistanceHighscore(int distance)
 		{
-			int currentDistance = PlayerPrefs.GetInt(Constants.DISTANCE_KEY);
+			int currentDistance = PlayerPrefs.GetInt(PlayerPrefKeys.DISTANCE);
 			if (distance > currentDistance)
 			{
 				Debug.Log("New distance of " + distance + "! Previous was " + currentDistance + ".");
-				PlayerPrefs.SetInt(Constants.DISTANCE_KEY, distance);
+				PlayerPrefs.SetInt(PlayerPrefKeys.DISTANCE, distance);
 			}
 		}
 
@@ -70,8 +70,8 @@ namespace Manager
 		/// </summary>
 		public void UploadHighscoreToDreamlo(string username)
 		{
-			StartCoroutine(UploadHighscoreRoutine(username, Constants.LEADERBOARD_SCORE_KEY));
-			StartCoroutine(UploadHighscoreRoutine(username, Constants.LEADERBOARD_DISTANCE_KEY));
+			StartCoroutine(UploadHighscoreRoutine(username, PlayerPrefKeys.LEADERBOARD_SCORE));
+			StartCoroutine(UploadHighscoreRoutine(username, PlayerPrefKeys.LEADERBOARD_DISTANCE));
 		}
 
 		/// <summary>
@@ -79,8 +79,8 @@ namespace Manager
 		/// </summary>
 		private IEnumerator UploadHighscoreRoutine(string username, string leaderboard)
 		{
-			bool usedVR = PlayerPrefs.GetInt(Constants.WAS_VR_HIGHSCORE_KEY).Equals(Constants.YES) ? true : false;
-			int score = leaderboard.Equals(Constants.LEADERBOARD_SCORE_KEY) ? GetLocalHighscore() : GetBestDistance();
+			bool usedVR = PlayerPrefs.GetInt(PlayerPrefKeys.WAS_VR_HIGHSCORE).Equals(Constants.YES) ? true : false;
+			int score = leaderboard.Equals(PlayerPrefKeys.LEADERBOARD_SCORE) ? GetLocalHighscore() : GetBestDistance();
 			string shipName = ShopManager.instance.GetSelectedShipData().GetShipName();
 			string privateCode = Config.instance.GetConfig()["dreamlo"][leaderboard]["privateKey"];
 
@@ -101,7 +101,7 @@ namespace Manager
 			if (!request.downloadHandler.text.StartsWith("ERROR"))
 			{
 				Debug.Log("Upload successful! " + request.responseCode);
-				PlayerPrefs.SetInt(Constants.UPLOADED_KEY, Constants.YES);
+				PlayerPrefs.SetInt(PlayerPrefKeys.UPLOADED, Constants.YES);
 				AchievementManager.instance.UnlockAchievement(AchievementIds.UPLOAD_HIGHSCORE);
 			}
 			else
@@ -118,8 +118,8 @@ namespace Manager
 		/// </summary>
 		public void RequestDownloadOfHighscores()
 		{
-			StartCoroutine(DownloadScoreHighscores(Constants.LEADERBOARD_SCORE_KEY));
-			StartCoroutine(DownloadScoreHighscores(Constants.LEADERBOARD_DISTANCE_KEY));
+			StartCoroutine(DownloadScoreHighscores(PlayerPrefKeys.LEADERBOARD_SCORE));
+			StartCoroutine(DownloadScoreHighscores(PlayerPrefKeys.LEADERBOARD_DISTANCE));
 		}
 
 		private IEnumerator DownloadScoreHighscores(string leaderboard)
@@ -151,12 +151,12 @@ namespace Manager
 
 		public int GetLocalHighscore()
 		{
-			return PlayerPrefs.GetInt(Constants.HIGHSCORE_KEY);
+			return PlayerPrefs.GetInt(PlayerPrefKeys.HIGHSCORE);
 		}
 
 		public int GetBestDistance()
 		{
-			return PlayerPrefs.GetInt(Constants.DISTANCE_KEY);
+			return PlayerPrefs.GetInt(PlayerPrefKeys.DISTANCE);
 		}
 	}
 }

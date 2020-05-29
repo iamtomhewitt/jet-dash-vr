@@ -82,7 +82,7 @@ namespace Manager
 
 		public long GetCash()
 		{
-			string s = PlayerPrefs.GetString(Constants.CASH_KEY);
+			string s = PlayerPrefs.GetString(PlayerPrefKeys.CASH);
 
 			if (string.IsNullOrEmpty(s))
 			{
@@ -101,19 +101,19 @@ namespace Manager
 
 		private void SetCash(long cash)
 		{
-			PlayerPrefs.SetString(Constants.CASH_KEY, "" + cash);
+			PlayerPrefs.SetString(PlayerPrefKeys.CASH, "" + cash);
 		}
 
 		public void SetShipUnlocked(ShipData ship, bool unlocked)
 		{
 			string shipName = ship.GetShipName();
 			int unlockedAsInt = unlocked ? Constants.YES : Constants.NO;
-			PlayerPrefs.SetInt(shipName + Constants.UNLOCKED_KEY, unlockedAsInt);
+			PlayerPrefs.SetInt(shipName + PlayerPrefKeys.UNLOCKED, unlockedAsInt);
 		}
 
 		public bool IsShipUnlocked(ShipData ship)
 		{
-			int unlocked = PlayerPrefs.GetInt(ship.GetShipName() + Constants.UNLOCKED_KEY);
+			int unlocked = PlayerPrefs.GetInt(ship.GetShipName() + PlayerPrefKeys.UNLOCKED);
 			bool asBool = unlocked.Equals(Constants.YES);
 			return asBool;
 		}

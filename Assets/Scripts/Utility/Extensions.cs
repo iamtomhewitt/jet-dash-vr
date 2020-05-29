@@ -23,5 +23,26 @@ namespace Utility
 		{
 			t.position = new Vector3(t.position.x, y, t.position.z);
 		}
+
+		public static void SetPosition(this Transform t, Vector3 position)
+		{
+			t.position = position;
+		}
+
+		public static string StripNonLatinLetters(this string s)
+		{
+			string newName = "";
+			foreach (char c in s)
+			{
+				int code = (int)c;
+
+				// Only english numbers, letters, symbols
+				if ((code >= 32 && code <= 127))
+				{
+					newName += c;
+				}
+			}
+			return newName;
+		}
 	}
 }

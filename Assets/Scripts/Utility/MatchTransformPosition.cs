@@ -2,38 +2,38 @@
 
 namespace Utility
 {
-    public class MatchTransformPosition : MonoBehaviour
-    {
-        [SerializeField] private Transform target;
-        [SerializeField] private bool trackX;
-        [SerializeField] private bool trackY;
-        [SerializeField] private bool trackZ;
+	public class MatchTransformPosition : MonoBehaviour
+	{
+		[SerializeField] private Transform target;
+		[SerializeField] private bool trackX;
+		[SerializeField] private bool trackY;
+		[SerializeField] private bool trackZ;
 
-        [ConditionalField("trackX")]
-        [SerializeField] private float xOffset;
-        [ConditionalField("trackY")]
-        [SerializeField] private float yOffset;
-        [ConditionalField("trackZ")]
-        [SerializeField] private float zOffset;
+		[ConditionalField("trackX")]
+		[SerializeField] private float xOffset;
+		[ConditionalField("trackY")]
+		[SerializeField] private float yOffset;
+		[ConditionalField("trackZ")]
+		[SerializeField] private float zOffset;
 
-        private float x = 0f, y = 0f, z = 0f;
+		private float x = 0f, y = 0f, z = 0f;
 
-        private void Update()
-        {
-            if (trackX)
-            {
-                x = target.position.x;
-            }
-            if (trackY)
-            {
-                y = target.position.y;
-            }
-            if (trackZ)
-            {
-                z = target.position.z;
-            }
+		private void Update()
+		{
+			if (trackX)
+			{
+				x = target.position.x;
+			}
+			if (trackY)
+			{
+				y = target.position.y;
+			}
+			if (trackZ)
+			{
+				z = target.position.z;
+			}
 
-            transform.position = new Vector3(x, y, z) + new Vector3(xOffset, yOffset, zOffset);
-        }
-    }
+			transform.SetPosition(new Vector3(x, y, z) + new Vector3(xOffset, yOffset, zOffset));
+		}
+	}
 }
