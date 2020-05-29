@@ -2,6 +2,7 @@ using Achievements;
 using Manager;
 using Player;
 using UnityEngine;
+using Utility;
 
 namespace SpawnableObject.Powerups
 {
@@ -15,7 +16,7 @@ namespace SpawnableObject.Powerups
 		public override void ApplyPowerupEffect()
 		{
 			FindObjectOfType<PlayerScore>().AddBonusPoints(bonusAmount);
-			this.GetPlayerHud().ShowNotification(GetColour(), "+" + bonusAmount + "!");
+			this.GetPlayerHud().ShowNotification(GetColour(), Ui.POWERUP_BONUS_POINTS(bonusAmount));
 			this.GetAudioManager().Play(SoundNames.BONUS_POINTS);
 			AchievementManager.instance.UnlockAchievement(AchievementIds.FLY_THROUGH_BONUS_POINTS);
 		}

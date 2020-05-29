@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Utility
 {
 	public class Ui
@@ -8,8 +6,28 @@ namespace Utility
 		public const string DOWNLOADING_HIGHSCORES = "Downloading Highscores...";
 		public const string ENTER_NICKNAME = "Enter a nickname!";
 		public const string INVALID_NAME = "Invalid name!";
+		public const string NO_INTERNET = "No internet connection";
+		public const string POWERUP_DOUBLE_POINTS = "x2!";
+		public const string POWERUP_HYPERDRIVE = "Hyperdrive!";
+		public const string POWERUP_INVINCIBLE = "Invincible!";
+		public const string POWERUP_JUMP = "Jump!";
 		public const string SCORE_NOT_ZERO = "Score cannot be 0!";
 		public const string UPLOADED = "Uploaded!";
+
+		public static string HIGHSCORE_DOWNLOAD_ERROR(string error)
+		{
+			return string.Format("Could not download score. Please try again later.\n\n{0}", error);
+		}
+
+		public static string HIGHSCORE_UPLOAD_ERROR(string error)
+		{
+			return string.Format("Could not upload score. Please try again later.\n\n{0}", error);
+		}
+
+		public static string POWERUP_BONUS_POINTS(int i)
+		{
+			return string.Format("+{0}!", i);
+		}
 
 		public static string PUT_ON_HEADSET(int time)
 		{

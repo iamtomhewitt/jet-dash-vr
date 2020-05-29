@@ -1,6 +1,7 @@
 using Achievements;
 using Manager;
 using Player;
+using Utility;
 
 namespace SpawnableObject.Powerups
 {
@@ -12,7 +13,7 @@ namespace SpawnableObject.Powerups
 		public override void ApplyPowerupEffect()
 		{
 			FindObjectOfType<PlayerScore>().DoublePoints();
-			this.GetPlayerHud().ShowNotification(GetColour(), "x2!");
+			this.GetPlayerHud().ShowNotification(GetColour(), Ui.POWERUP_DOUBLE_POINTS);
 			this.GetAudioManager().Play(SoundNames.DOUBLE_POINTS);
 			AchievementManager.instance.UnlockAchievement(AchievementIds.FLY_THROUGH_DOUBLE_POINTS);
 		}

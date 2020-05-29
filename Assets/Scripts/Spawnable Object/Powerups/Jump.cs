@@ -15,7 +15,7 @@ namespace SpawnableObject.Powerups
 		{
 			Rigidbody rb = GameObject.FindGameObjectWithTag(Tags.PLAYER).GetComponent<Rigidbody>();
 			rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-			this.GetPlayerHud().ShowNotification(GetColour(), "Jump!");
+			this.GetPlayerHud().ShowNotification(GetColour(), Ui.POWERUP_JUMP);
 			this.GetAudioManager().Play(SoundNames.JUMP);
 		}
 	}

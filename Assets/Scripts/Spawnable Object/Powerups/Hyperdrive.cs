@@ -2,6 +2,7 @@ using Manager;
 using Player;
 using System.Collections;
 using UnityEngine;
+using Utility;
 
 namespace SpawnableObject.Powerups
 {
@@ -20,13 +21,13 @@ namespace SpawnableObject.Powerups
 
 		private IEnumerator ApplyPowerupEffectRoutine()
 		{
-			PlayerControl playerControl = FindObjectOfType<PlayerControl>();
-			PlayerCollision playerCollision = FindObjectOfType<PlayerCollision>();
 			PlayerCamera playerCamera = FindObjectOfType<PlayerCamera>();
+			PlayerCollision playerCollision = FindObjectOfType<PlayerCollision>();
+			PlayerControl playerControl = FindObjectOfType<PlayerControl>();
 
 			float originalSpeed = playerControl.GetSpeed();
 
-			this.GetPlayerHud().ShowNotification(GetColour(), "Hyperdrive!");
+			this.GetPlayerHud().ShowNotification(GetColour(), Ui.POWERUP_HYPERDRIVE);
 			this.GetAudioManager().Play(SoundNames.HYPERDRIVE);
 
 			playerControl.MaxSpeed();

@@ -3,6 +3,7 @@ using Manager;
 using Player;
 using System.Collections;
 using UnityEngine;
+using Utility;
 
 namespace SpawnableObject.Powerups
 {
@@ -24,7 +25,7 @@ namespace SpawnableObject.Powerups
 				StopCoroutine(godModeRoutine);
 			}
 			godModeRoutine = StartCoroutine(ActivateGodMode());
-			this.GetPlayerHud().ShowNotification(GetColour(), "Invincible!");
+			this.GetPlayerHud().ShowNotification(GetColour(), Ui.POWERUP_INVINCIBLE);
 			this.GetAudioManager().Play(SoundNames.INVINCIBILITY_POINTS);
 			AchievementManager.instance.UnlockAchievement(AchievementIds.BECOME_INVINCIBLE);
 		}

@@ -109,7 +109,7 @@ namespace Manager
 				Debug.Log("Error uploading: " + request.downloadHandler.text);
 				HighscoreDisplayHelper display = FindObjectOfType<HighscoreDisplayHelper>();
 				display.ClearEntries();
-				display.DisplayError("Could not upload score. Please try again later.\n\n" + request.downloadHandler.text);
+				display.DisplayError(Ui.HIGHSCORE_UPLOAD_ERROR(request.downloadHandler.text));
 			}
 		}
 
@@ -128,7 +128,7 @@ namespace Manager
 
 			if (Application.internetReachability == NetworkReachability.NotReachable)
 			{
-				displayHelper.DisplayError("No internet connection.");
+				displayHelper.DisplayError(Ui.NO_INTERNET);
 				yield break;
 			}
 
@@ -145,7 +145,7 @@ namespace Manager
 			else
 			{
 				Debug.Log("Error downloading: " + request.downloadHandler.text);
-				displayHelper.DisplayError("Could not download highscores. Please try again later.\n\n" + request.downloadHandler.text);
+				displayHelper.DisplayError(Ui.HIGHSCORE_DOWNLOAD_ERROR(request.downloadHandler.text));
 			}
 		}
 
