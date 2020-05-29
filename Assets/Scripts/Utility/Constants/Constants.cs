@@ -9,5 +9,7 @@
 
 		public const int YES = 1;
 		public const int NO = 0;
+
+		public const string DEVS = "Tom (The Developer),";
 	}
 }

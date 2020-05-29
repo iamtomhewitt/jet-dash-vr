@@ -29,8 +29,7 @@ namespace Highscore
 			usernameText.text = string.IsNullOrEmpty(formatted) ? "<invalid name>" : formatted;
 			scoreText.text = score;
 
-			// TODO if Constants array.Contains 
-			if (username.Equals("Tom (The Developer)"))
+			if (Constants.DEVS.Split(',').Contains(username))
 			{
 				usernameText.text = ApplyDevColours(username);
 			}
