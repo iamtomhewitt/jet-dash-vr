@@ -13,7 +13,6 @@ namespace Player
 		[SerializeField] private Text bonusScoreText;
 		[SerializeField] private Text topSpeed;
 		[SerializeField] private Text finalScore;
-		[SerializeField] private Text relaunchingText;
 
 		private const float ANIMATION_TIME = 3f;
 
@@ -61,25 +60,6 @@ namespace Player
 			displayScore = score;
 			text.SetText( displayScore.ToString());
 			audioManager.Pause(SoundNames.SCORE);
-
-			// Final score will take the longest to animate, so only reload the scene when animating final score,
-			// that way nothing gets cut off
-			if (text.Equals(finalScore))
-			{
-				StartCoroutine(WaitAndRestart());
-			}
-		}
-
-		private IEnumerator WaitAndRestart()
-		{
-			for (int i = 3; i >= 0; i--)
-			{
-				yield return new WaitForSeconds(1);
-				relaunchingText.SetText(Ui.RELAUNCHING(i));
-			}
-
-			relaunchingText.SetText(Ui.RELAUNCHING(-1));
-			FindObjectOfType<GameLevelManager>().RestartLevel();
 		}
 
 		public void Show()
@@ -100,6 +80,11 @@ namespace Player
 
 			cg.interactable = false;
 			yield return null;
+		}
+
+		public float GetAnimationTime()
+		{
+			return ANIMATION_TIME;
 		}
 	}
 }

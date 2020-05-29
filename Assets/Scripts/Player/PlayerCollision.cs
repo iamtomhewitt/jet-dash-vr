@@ -1,6 +1,8 @@
 using Achievements;
+using LevelManagers;
 using Manager;
 using SpawnableObject;
+using System.Collections;
 using UnityEngine;
 using Utility;
 
@@ -20,6 +22,7 @@ namespace Player
 		private AudioManager audioManager;
 		private HighscoreManager highscoreManager;
 		private PlayerControl playerControl;
+		private PlayerHud hud;
 		private PlayerScore playerScore;
 		private Scoreboard scoreboard;
 		private ShopManager shopManager;
@@ -29,6 +32,7 @@ namespace Player
 			achievementManager = AchievementManager.instance;
 			audioManager = AudioManager.instance;
 			highscoreManager = HighscoreManager.instance;
+			hud = GetComponent<PlayerHud>();
 			playerControl = GetComponent<PlayerControl>();
 			playerScore = GetComponent<PlayerScore>();
 			scoreboard = FindObjectOfType<Scoreboard>();
@@ -77,6 +81,8 @@ namespace Player
 					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_HALF_MILLION, 500000, playerScore.GetFinalScore());
 					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_MILLION, 1000000, playerScore.GetFinalScore());
 					achievementManager.UnlockAchievement(AchievementIds.DIE);
+
+					StartCoroutine(RestartLevel());
 					break;
 
 				default:
@@ -99,6 +105,20 @@ namespace Player
 					// Nothing to do!
 					break;
 			}
+		}
+
+		private IEnumerator RestartLevel()
+		{
+			yield return new WaitForSeconds(scoreboard.GetAnimationTime());
+
+			for (int i = 3; i >= 0; i--)
+			{
+				yield return new WaitForSeconds(1);
+				hud.GetRelaunchingText().SetText(Ui.RELAUNCHING(i));
+			}
+
+			hud.GetRelaunchingText().SetText(Ui.RELAUNCHING(-1));
+			FindObjectOfType<GameLevelManager>().RestartLevel();
 		}
 
 		public void SetInvincible(bool invincible)

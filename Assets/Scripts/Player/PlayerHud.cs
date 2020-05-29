@@ -14,6 +14,7 @@ namespace Player
 		[SerializeField] private Text distanceText;
 		[SerializeField] private Text scoreText;
 		[SerializeField] private Text powerupNotificationText;
+		[SerializeField] private Text relaunchingText;
 		[SerializeField] private Image invincibilityBar;
 		[SerializeField] private float notificationShowTime = 1.5f;
 
@@ -61,6 +62,11 @@ namespace Player
 		{
 			yield return new WaitForSeconds(notificationShowTime);
 			notificationAnimator.Play(Constants.POWERUP_NOTIFY_HIDE);
+		}
+
+		public Text GetRelaunchingText()
+		{
+			return relaunchingText;
 		}
 	}
 }
