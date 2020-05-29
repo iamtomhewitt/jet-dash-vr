@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Linq;
 using UnityEngine.UI;
-using System.Linq;
+using UnityEngine;
 using Utility;
 
 namespace Highscore
@@ -10,33 +10,28 @@ namespace Highscore
 	/// </summary>
 	public class HighscoreEntry : MonoBehaviour
 	{
-		/// <summary>
-		/// Used in the inspector to keep track of 2 text fields for displaying highscore information.
-		/// </summary>	
-		[SerializeField] private Text rankText;
-		[SerializeField] private Text usernameText;
-		[SerializeField] private Text scoreText;
-
 		[SerializeField] private Color first;
 		[SerializeField] private Color secondAndThird;
-
-		[SerializeField] private Image shipSprite;
 		[SerializeField] private GameObject vrIcon;
+		[SerializeField] private Image shipSprite;
 		[SerializeField] private Sprite[] shipSprites;
+		[SerializeField] private Text rankText;
+		[SerializeField] private Text scoreText;
+		[SerializeField] private Text usernameText;
 
 		private string[] devColours = new string[] { "#f33214", "#F35514" };
 
-		public void Populate(string rank, string username, string score)
+		public void Populate(int rank, string username, string score)
 		{
-			string formatted = Utilities.StripNonLatinLetters(username);
+			string formatted = username.StripNonLatinLetters();
 
-			rankText.text = rank;
-			usernameText.text = string.IsNullOrEmpty(formatted) ? "<invalid name>" : formatted;
-			scoreText.text = score;
+			rankText.SetText(rank + ".");
+			usernameText.SetText(string.IsNullOrEmpty(formatted) ? "<invalid name>" : formatted);
+			scoreText.SetText(score);
 
-			if (username.Equals("Tom (The Developer)"))
+			if (Constants.DEVS.Split(',').Contains(username))
 			{
-				usernameText.text = ApplyDevColours(username);
+				usernameText.SetText(ApplyDevColours(username));
 			}
 		}
 

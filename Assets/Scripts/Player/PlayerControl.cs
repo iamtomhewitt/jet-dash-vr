@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-using Achievements;
+﻿using Achievements;
 using Data;
 using Manager;
+using UnityEngine;
+using Utility;
 
 namespace Player
 {
@@ -16,27 +17,21 @@ namespace Player
 		[SerializeField] private float cameraRotationLimit;
 		[SerializeField] private float maxSpeed = 200f;
 
+		private AudioManager audioManager;
 		private GameObject cameraToUse;
-		private Transform shipModel;
-		private Quaternion originalRotation;
 		private PlayerHud hud;
-
-		private float speed;
-		private float acceleration;
-		private float turningSpeed;
-		private float sensitivity;
-		private float deadzone = 0.035f;
-		private float z = 0f;
-		private float yPositionCheckRate = 3f;
-		private float startingYPosition;
+		private Quaternion originalRotation;
+		private Transform shipModel;
 		private bool reachedMaxSpeed = false;
-
-		public static PlayerControl instance;
-
-		private void Awake()
-		{
-			instance = this;
-		}
+		private float acceleration;
+		private float deadzone = 0.035f;
+		private float sensitivity;
+		private float speed;
+		private float startingSpeed = 20f;
+		private float startingYPosition;
+		private float turningSpeed;
+		private float yPositionCheckRate = 3f;
+		private float z = 0f;
 
 		private void Start()
 		{
@@ -44,9 +39,35 @@ namespace Player
 
 			InvokeRepeating("IncreaseSpeed", acceleration, acceleration);
 			InvokeRepeating("CheckYPosition", yPositionCheckRate, yPositionCheckRate);
-			
-			AudioManager.instance.Play(SoundNames.SHIP_ENGINE);
-			AudioManager.instance.Play(SoundNames.SHIP_STARTUP);
+
+			audioManager = AudioManager.instance;
+			audioManager.Play(SoundNames.SHIP_ENGINE);
+			audioManager.Play(SoundNames.SHIP_STARTUP);
+		}
+
+		private void Initialise()
+		{
+			GameSettingsManager gs = GameSettingsManager.instance;
+			normalCamera.SetActive(!gs.vrMode());
+			VRCamera.SetActive(gs.vrMode());
+			cameraToUse = gs.vrMode() ? VRCamera : normalCamera;
+			sensitivity = gs.GetSensitivity();
+
+			ShipData shipData = ShopManager.instance.GetSelectedShipData();
+			shipModel = GameObject.FindGameObjectWithTag(shipData.GetShipName()).transform;
+			originalRotation = shipModel.rotation;
+			speed = shipData.GetSpeed();
+			acceleration = shipData.GetAcceleration();
+			turningSpeed = shipData.GetTurningSpeed();
+
+			foreach (Transform model in shipModels)
+			{
+				model.gameObject.SetActive((model.tag.Equals(shipData.GetShipName())));
+			}
+
+			hud = GetComponent<PlayerHud>();
+			hud.SetSpeedText(speed.ToString());
+			startingYPosition = transform.position.y;
 		}
 
 		private void Update()
@@ -57,66 +78,10 @@ namespace Player
 			// Move left and right based on accelerometer
 			transform.position += transform.right * Time.deltaTime * turningSpeed * sensitivity * Input.acceleration.x;
 
-			RotateUsingAccelerometer(shipModel, modelRotationLimit);
-			RotateUsingAccelerometer(cameraToUse.transform, cameraRotationLimit);
+			shipModel.RotateOnZAxisByAccelerometer(InputInDeadzone(), modelRotationLimit);
+			cameraToUse.transform.RotateOnZAxisByAccelerometer(InputInDeadzone(), cameraRotationLimit);
 
 			hud.SetDistanceText(transform.position.z);
-		}
-
-		private void Initialise()
-		{
-			GameSettingsManager gs = GameSettingsManager.instance;
-			if (gs == null)
-			{
-				normalCamera.SetActive(true);
-				VRCamera.SetActive(false);
-				cameraToUse = normalCamera;
-				sensitivity = 1f;
-			}
-			else if (gs.vrMode())
-			{
-				normalCamera.SetActive(false);
-				VRCamera.SetActive(true);
-				cameraToUse = VRCamera;
-				sensitivity = gs.GetSensitivity();
-			}
-			else
-			{
-				normalCamera.SetActive(true);
-				VRCamera.SetActive(false);
-				cameraToUse = normalCamera;
-				sensitivity = gs.GetSensitivity();
-			}
-
-			ShipData shipData	= ShopManager.instance.GetSelectedShipData();
-			shipModel			= GameObject.FindGameObjectWithTag(shipData.GetShipName()).transform;
-			originalRotation	= shipModel.rotation;
-			speed				= shipData.GetSpeed();
-			acceleration		= shipData.GetAcceleration();
-			turningSpeed		= shipData.GetTurningSpeed();
-
-			foreach (Transform model in shipModels)
-			{
-				model.gameObject.SetActive((model.tag.Equals(shipData.GetShipName())));
-			}
-
-			hud = PlayerHud.instance;
-			hud.SetSpeedText(speed.ToString());
-			startingYPosition = transform.position.y;
-		}
-
-		private void RotateUsingAccelerometer(Transform t, float limit)
-		{
-			if (!InputInDeadzone())
-			{
-				z = Input.acceleration.x * 30f;
-				z = Mathf.Clamp(z, -limit, limit);
-			}
-			else
-			{
-				z = 0f;
-			}
-			t.localEulerAngles = new Vector3(t.localEulerAngles.x, t.localEulerAngles.y, -z);
 		}
 
 		private bool InputInDeadzone()
@@ -126,6 +91,11 @@ namespace Player
 
 		private void IncreaseSpeed()
 		{
+			if (HasReachedMaxSpeed())
+			{
+				return;
+			}
+			
 			if (speed == maxSpeed)
 			{
 				reachedMaxSpeed = true;
@@ -135,10 +105,10 @@ namespace Player
 			if (speed < maxSpeed)
 			{
 				speed += speedIncrease;
-				PlayerHud.instance.SetSpeedText(speed.ToString());
+				hud.SetSpeedText(speed.ToString());
 
-				float p = (speed / 1000f) + 1f;
-				AudioManager.instance.GetSound(SoundNames.SHIP_ENGINE).pitch = p;
+				float pitch = (speed / 1000f) + 1f;
+				audioManager.GetSound(SoundNames.SHIP_ENGINE).pitch = pitch;
 			}
 		}
 
@@ -147,7 +117,7 @@ namespace Player
 			if (transform.position.y < (startingYPosition - 0.1f))
 			{
 				Debug.Log(string.Format("WARNING: Player Y position ({0}) has gone lower than expected ({1}), resetting", transform.position.y, startingYPosition));
-				transform.position = new Vector3(transform.position.x, startingYPosition, transform.position.z);
+				transform.SetYPosition(startingYPosition);
 			}
 		}
 
@@ -156,13 +126,6 @@ namespace Player
 			speed = 0f;
 			turningSpeed = 0f;
 			CancelInvoke("IncreaseSpeed");
-		}
-
-		public void StartMoving()
-		{
-			speed = 20f;
-			turningSpeed = 20f;
-			InvokeRepeating("IncreaseSpeed", acceleration, acceleration);
 		}
 
 		public int GetSpeed()

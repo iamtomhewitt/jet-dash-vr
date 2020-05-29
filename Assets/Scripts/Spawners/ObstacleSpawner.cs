@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using SpawnableObject;
+using UnityEngine;
 using Utility;
-using SpawnableObject;
 
 namespace Spawner
 {
@@ -10,13 +10,11 @@ namespace Spawner
 	/// we are reusing ones we have, saving on computing power on a mobile.
 	/// </summary>
 	public class ObstacleSpawner : MonoBehaviour
-    {
-        [SerializeField] private GameObject[] obstacles;
+	{
+		[SerializeField] private GameObject[] obstacles;
 		[SerializeField] private ObstacleSize obstacleSize;
 		[SerializeField] private Material[] colours;
-
 		[SerializeField] private int totalObstacles;
-
 		[Space()]
 		[SerializeField] private SpawnBoundary boundary;
 		[SerializeField] private SpawnBoundary initialBoundary;
@@ -25,46 +23,46 @@ namespace Spawner
 		private const float SPAWN_REDUCTION_TIME = 30f;
 
 		private void Start()
-        {
-            InitialiseObstacles();
-            InvokeRepeating("ReduceSpawnBoundary", SPAWN_REDUCTION_TIME, SPAWN_REDUCTION_TIME);
-        }
+		{
+			InitialiseObstacles();
+			InvokeRepeating("ReduceSpawnBoundary", SPAWN_REDUCTION_TIME, SPAWN_REDUCTION_TIME);
+		}
 
 		/// <summary>
 		/// Instantiates all the obstacles that will be used in the game.
 		/// </summary>
 		private void InitialiseObstacles()
-        {
-            for (int i = 0; i < totalObstacles; i++)
-            {
-                // Work out a scale and how high the cube has to be so it sits nicely on top of the floor
-                int scale = Random.Range(obstacleSize.minSize, obstacleSize.maxSize);
-                float y = (scale / 2) + 0.5f;
+		{
+			for (int i = 0; i < totalObstacles; i++)
+			{
+				// Work out a scale and how high the cube has to be so it sits nicely on top of the floor
+				int scale = Random.Range(obstacleSize.minSize, obstacleSize.maxSize);
+				float y = (scale / 2) + 0.5f;
 
-                GameObject o = Instantiate(obstacles[Random.Range(0, obstacles.Length)], GenerateObstaclePosition(initialBoundary, y), Quaternion.identity) as GameObject;
-                o.GetComponent<Obstacle>().Grow(scale);
+				GameObject o = Instantiate(obstacles[Random.Range(0, obstacles.Length)], GenerateObstaclePosition(initialBoundary, y), Quaternion.identity) as GameObject;
+				o.GetComponent<Obstacle>().Grow(scale);
 				o.GetComponent<Renderer>().material = colours[Random.Range(0, colours.Length)];
-                o.transform.localScale = new Vector3(scale, scale, scale);
-                o.transform.parent = GameObject.Find(OBSTACLE_PARENT).transform;
-            }
-        }
+				o.transform.localScale = new Vector3(scale, scale, scale);
+				o.transform.parent = GameObject.Find(OBSTACLE_PARENT).transform;
+			}
+		}
 
 		/// <summary>
 		/// Generates a position for the obstacle. The y value is calculated beforehand to get the height right.
 		/// </summary>
 		private Vector3 GenerateObstaclePosition(SpawnBoundary b, float y)
-        {
-            float x = Random.Range(b.xMin, b.xMax);
-            float z = Random.Range(b.zMin, b.zMax);
+		{
+			float x = Random.Range(b.xMin, b.xMax);
+			float z = Random.Range(b.zMin, b.zMax);
 
-            return new Vector3(transform.position.x + x, y, transform.position.z + z);
-        }
+			return new Vector3(transform.position.x + x, y, transform.position.z + z);
+		}
 
-        /// <summary>
-        /// Reduces the spawn boundary to make the cubes appear tighter, making the game harder.
-        /// </summary>
-        private void ReduceSpawnBoundary()
-        {
+		/// <summary>
+		/// Reduces the spawn boundary to make the cubes appear tighter, making the game harder.
+		/// </summary>
+		private void ReduceSpawnBoundary()
+		{
 			if (boundary.CanShrinkZMin())
 			{
 				boundary.ReduceZMin();
@@ -89,11 +87,11 @@ namespace Spawner
 					break;
 			}
 		}
-	}    
+	}
 
-    [System.Serializable]
-    public class ObstacleSize
-    {
-        public int minSize, maxSize;
-    }
+	[System.Serializable]
+	public class ObstacleSize
+	{
+		public int minSize, maxSize;
+	}
 }

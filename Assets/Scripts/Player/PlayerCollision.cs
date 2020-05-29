@@ -1,7 +1,9 @@
-using UnityEngine;
 using Achievements;
+using LevelManagers;
 using Manager;
 using SpawnableObject;
+using System.Collections;
+using UnityEngine;
 using Utility;
 
 namespace Player
@@ -20,25 +22,20 @@ namespace Player
 		private AudioManager audioManager;
 		private HighscoreManager highscoreManager;
 		private PlayerControl playerControl;
+		private PlayerHud hud;
 		private PlayerScore playerScore;
 		private Scoreboard scoreboard;
 		private ShopManager shopManager;
-
-		public static PlayerCollision instance;
-
-		private void Awake()
-		{
-			instance = this;
-		}
 
 		private void Start()
 		{
 			achievementManager = AchievementManager.instance;
 			audioManager = AudioManager.instance;
 			highscoreManager = HighscoreManager.instance;
-			playerControl = PlayerControl.instance;
-			playerScore = PlayerScore.instance;
-			scoreboard = Scoreboard.instance;
+			hud = GetComponent<PlayerHud>();
+			playerControl = GetComponent<PlayerControl>();
+			playerScore = GetComponent<PlayerScore>();
+			scoreboard = FindObjectOfType<Scoreboard>();
 			shopManager = ShopManager.instance;
 		}
 
@@ -54,16 +51,9 @@ namespace Player
 					}
 
 					GameObject e = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
+					int topSpeed = playerControl.GetSpeed();
+
 					Destroy(e, 3f);
-
-					scoreboard.Show();
-					scoreboard.AnimateDistanceScore(playerScore.GetDistanceScore());
-					scoreboard.AnimateBonusScore(playerScore.GetBonusScore());
-					scoreboard.AnimateTopSpeed(playerControl.GetSpeed());
-					scoreboard.AnimateFinalScore(playerScore.GetFinalScore());
-
-					highscoreManager.SaveLocalHighscore(playerScore.GetFinalScore());
-					playerScore.SaveDistanceHighscore();
 
 					playerControl.StopMoving();
 					playerModel.SetActive(false);
@@ -74,14 +64,25 @@ namespace Player
 
 					shopManager.AddCash(playerScore.GetFinalScore());
 
+					scoreboard.Show();
+					scoreboard.AnimateDistanceScore(playerScore.GetDistanceScore());
+					scoreboard.AnimateBonusScore(playerScore.GetBonusScore());
+					scoreboard.AnimateTopSpeed(topSpeed);
+					scoreboard.AnimateFinalScore(playerScore.GetFinalScore());
+
+					highscoreManager.SaveLocalHighscore(playerScore.GetFinalScore());
+					highscoreManager.SaveDistanceHighscore(playerScore.GetDistanceScore());
+
 					// Now update achievements
-					achievementManager.UnlockAchievement(AchievementIds.DIE);
 					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_1000, 1000, playerScore.GetDistanceScore());
 					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_10000, 10000, playerScore.GetDistanceScore());
 					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_50000, 50000, playerScore.GetDistanceScore());
+					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_FIVE_MILLION, 5000000, playerScore.GetFinalScore());
 					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_HALF_MILLION, 500000, playerScore.GetFinalScore());
 					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_MILLION, 1000000, playerScore.GetFinalScore());
-					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_FIVE_MILLION, 5000000, playerScore.GetFinalScore());
+					achievementManager.UnlockAchievement(AchievementIds.DIE);
+
+					StartCoroutine(RestartLevel());
 					break;
 
 				default:
@@ -104,6 +105,20 @@ namespace Player
 					// Nothing to do!
 					break;
 			}
+		}
+
+		private IEnumerator RestartLevel()
+		{
+			yield return new WaitForSeconds(scoreboard.GetAnimationTime());
+
+			for (int i = 3; i >= 0; i--)
+			{
+				yield return new WaitForSeconds(1);
+				hud.GetRelaunchingText().SetText(Ui.RELAUNCHING(i));
+			}
+
+			hud.GetRelaunchingText().SetText(Ui.RELAUNCHING(-1));
+			FindObjectOfType<GameLevelManager>().RestartLevel();
 		}
 
 		public void SetInvincible(bool invincible)

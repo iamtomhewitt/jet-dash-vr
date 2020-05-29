@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-using UnityEngine.Advertisements;
+﻿using Achievements;
 using System.Collections;
+using UnityEngine.Advertisements;
+using UnityEngine;
 using Utility;
-using Achievements;
 
 namespace Manager
 {
@@ -10,6 +10,9 @@ namespace Manager
 	{
 		private int advertCounter = 0;
 		private int advertsWatched = 0;
+
+		private const int ADVERTS_TO_WATCH_FOR_ACHIEVEMENT = 3;
+		private const int REPLAYS_UNTIL_ADVERT = 4;
 
 		public static AdvertManager instance;
 
@@ -52,7 +55,7 @@ namespace Manager
 
 			advertsWatched++;
 
-			AchievementManager.instance.ProgressAchievement(AchievementIds.WATCH_ADS, 3, advertsWatched);
+			AchievementManager.instance.ProgressAchievement(AchievementIds.WATCH_ADS, ADVERTS_TO_WATCH_FOR_ACHIEVEMENT, advertsWatched);
 		}
 
 		private IEnumerator WaitForAd()
@@ -86,7 +89,7 @@ namespace Manager
 
 		public bool CanShowAdvert()
 		{
-			return advertCounter >= 4;
+			return advertCounter >= REPLAYS_UNTIL_ADVERT;
 		}
 	}
 }

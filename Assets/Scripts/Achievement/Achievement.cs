@@ -44,7 +44,6 @@ namespace Achievements
 				return;
 			}
 
-			//Debug.Log("Achievement '" + this.achievementName + "' target: " + target + ", actual: " + actual);
 			float percentage = (actual / target) * 100;
 
 			// Don't want to set percentage lower than a previous value

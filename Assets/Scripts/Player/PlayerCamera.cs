@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 namespace Player
 {
@@ -11,22 +11,18 @@ namespace Player
 		[SerializeField] private float speedFieldOfView = 110f;
 		[SerializeField] private float brakeFieldOfView = 45f;
 
-		private float zoomSpeed;
+		private bool camerasFinishedZooming = true;
 		private float duration;
 		private float originalFov = 60f;
-		private bool camerasFinishedZooming = true;
+		private float zoomSpeed;
 
-		public static PlayerCamera instance;
-
-		private void Awake()
-		{
-			instance = this;
-		}
-
+		/// <summary>
+		/// Manipulates the field of view to emphasis speed boost.
+		/// </summary>
 		public void ZoomCameras(float zoomSpeed, float duration)
 		{
 			StopAllCoroutines();
-			
+
 			this.zoomSpeed = zoomSpeed;
 			this.duration = duration;
 
@@ -72,7 +68,7 @@ namespace Player
 
 			camera.fieldOfView = target;
 		}
-	
+
 		public bool HasCamerasFinishedZooming()
 		{
 			return camerasFinishedZooming;
