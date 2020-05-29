@@ -7,8 +7,8 @@ namespace LevelManagers
 {
 	public class SettingsLevelManager : LevelManager
 	{
-		[SerializeField] private Text toggleVrText;
 		[SerializeField] private Slider sensitivitySlider;
+		[SerializeField] private Text toggleVrText;
 
 		private GameSettingsManager gameSettings;
 

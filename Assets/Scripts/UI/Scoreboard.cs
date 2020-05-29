@@ -1,9 +1,8 @@
-﻿using LevelManagers;
-using Manager;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using Utility;
+using Manager;
 
 namespace Player
 {
@@ -53,12 +52,12 @@ namespace Player
 			{
 				float progress = timer / ANIMATION_TIME;
 				displayScore = (int)Mathf.Lerp(start, score, progress);
-				text.SetText( displayScore.ToString());
+				text.SetText(displayScore.ToString());
 				yield return null;
 			}
 
 			displayScore = score;
-			text.SetText( displayScore.ToString());
+			text.SetText(displayScore.ToString());
 			audioManager.Pause(SoundNames.SCORE);
 		}
 

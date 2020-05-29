@@ -12,8 +12,8 @@ namespace LevelManagers
 	/// </summary>
 	public class MainMenuLevelManager : LevelManager
 	{
-		[SerializeField] private Text vrCountdownText;
 		[SerializeField] private GameObject mainMenuUi;
+		[SerializeField] private Text vrCountdownText;
 
 		public string gameSceneName;
 

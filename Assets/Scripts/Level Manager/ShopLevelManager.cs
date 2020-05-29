@@ -13,15 +13,15 @@ namespace LevelManagers
 	public class ShopLevelManager : LevelManager
 	{
 		[SerializeField] private Image shipIcon;
-		[SerializeField] private Text shipName;
-		[SerializeField] private Text description;
-		[SerializeField] private Text speed;
 		[SerializeField] private Text acceleration;
-		[SerializeField] private Text turnSpeed;
+		[SerializeField] private Text cash;
 		[SerializeField] private Text cost;
+		[SerializeField] private Text description;
+		[SerializeField] private Text shipName;
 		[SerializeField] private Text specialAbility;
 		[SerializeField] private Text specialAbilityDescription;
-		[SerializeField] private Text cash;
+		[SerializeField] private Text speed;
+		[SerializeField] private Text turnSpeed;
 
 		private List<ShipData> ships;
 		private AudioManager audioManager;
