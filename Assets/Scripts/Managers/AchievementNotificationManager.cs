@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+using Utility;
 
 namespace Manager
 {
@@ -68,9 +69,9 @@ namespace Manager
 
 			// Get the next achievement in the queue
 			Achievement a = (Achievement)notificationQueue.Dequeue();
-			achievementName.text = a.achievementName;
-			achievementDescription.text = a.description;
-			achievementValue.text = a.awardValue.ToString() + "P";
+			achievementName.SetText(a.achievementName);
+			achievementDescription.SetText(a.description);
+			achievementValue.SetText(a.awardValue.ToString() + "P");
 
 			yield return new WaitForSeconds(SHOW_TIME);
 

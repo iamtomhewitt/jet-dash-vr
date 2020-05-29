@@ -3,6 +3,7 @@ using Manager;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+using Utility;
 
 namespace LevelManagers
 {
@@ -45,13 +46,12 @@ namespace LevelManagers
 			int timeRemaining = 10;
 			while (timeRemaining > 0)
 			{
-				// TODO UiConstants
-				vrCountdownText.text = "PUT ON YOUR VR HEADSET \n" + timeRemaining;
+				vrCountdownText.SetText(Ui.PUT_ON_HEADSET(timeRemaining));
 				timeRemaining--;
 				yield return new WaitForSeconds(1f);
 			}
 
-			vrCountdownText.text = "";
+			vrCountdownText.SetText("");
 
 			this.LoadLevel(gameSceneName);
 		}

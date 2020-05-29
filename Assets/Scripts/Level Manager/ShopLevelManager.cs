@@ -51,7 +51,7 @@ namespace LevelManagers
 
 		private void SetCashText()
 		{
-			cash.text = "CASH: " + shopManager.GetCash() + "P";
+			cash.SetText(Ui.SHOP_SHIP_CASH(shopManager.GetCash()));
 		}
 
 		/// <summary>
@@ -88,15 +88,15 @@ namespace LevelManagers
 			ShipData shipData = ships[currentShipIndex];
 			bool isUnlocked = shopManager.IsShipUnlocked(shipData);
 
-			shipName.text = shipData.GetShipName();
+			shipName.SetText(shipData.GetShipName());
 			shipName.color = shipData.GetShipName().Equals(shopManager.GetSelectedShipData().GetShipName()) ? Color.green : Color.white;
-			description.text = shipData.GetDescription();
-			speed.text = "Speed: " + shipData.GetSpeed().ToString();
-			acceleration.text = "Accelerates: Every " + shipData.GetAcceleration().ToString() + " seconds";
-			turnSpeed.text = "Turn Speed: " + shipData.GetTurningSpeed().ToString();
-			cost.text = "COST: " + shipData.GetCost().ToString() + "P";
-			specialAbility.text = shipData.GetSpecialAbility().ToString();
-			specialAbilityDescription.text = shipData.GetSpecialAbilityDescription();
+			description.SetText(shipData.GetDescription());
+			speed.SetText(Ui.SHOP_SHIP_SPEED(shipData.GetSpeed()));
+			acceleration.SetText(Ui.SHOP_SHIP_ACCELERATION(shipData.GetAcceleration()));
+			turnSpeed.SetText(Ui.SHOP_SHIP_TURN_SPEED(shipData.GetTurningSpeed()));
+			cost.SetText(Ui.SHOP_SHIP_COST(shipData.GetCost()));
+			specialAbility.SetText(shipData.GetSpecialAbility().ToString());
+			specialAbilityDescription.SetText(shipData.GetSpecialAbilityDescription());
 			shipIcon.sprite = shipData.GetSprite();
 			shipIcon.color = isUnlocked ? Color.white : Color.black;
 		}

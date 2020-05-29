@@ -25,7 +25,7 @@ namespace UI
 			DeactivateAllButtons();
 			ActivateButton(GetComponent<Button>());
 
-			scoreTitle.text = GetComponentInChildren<Text>().text;
+			scoreTitle.SetText(GetComponentInChildren<Text>().text);
 			leaderboard.SetActive(true);
 		}
 

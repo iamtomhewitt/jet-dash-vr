@@ -29,17 +29,17 @@ namespace Player
 		/// </summary>
 		public void SetDistanceText(float distance)
 		{
-			distanceText.text = distance.ToString("F0");
+			distanceText.SetText(distance.ToString("F0"));
 		}
 
 		public void SetSpeedText(string message)
 		{
-			speedText.text = message;
+			speedText.SetText(message);
 		}
 
 		public void SetScoreText(int score)
 		{
-			scoreText.text = score.ToString();
+			scoreText.SetText(score.ToString());
 		}
 
 		/// <summary>
@@ -49,7 +49,7 @@ namespace Player
 		{
 			StopAllCoroutines();
 			powerupNotificationText.color = color;
-			powerupNotificationText.text = message;
+			powerupNotificationText.SetText(message);
 			notificationAnimator.Play(Constants.POWERUP_NOTIFY_SHOW);
 			StartCoroutine(TurnOffNotification());
 		}

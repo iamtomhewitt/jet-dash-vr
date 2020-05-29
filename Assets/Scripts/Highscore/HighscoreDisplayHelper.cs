@@ -18,10 +18,10 @@ namespace Highscore
 
 		private void Start()
 		{
-			bestScoreText.text = HighscoreManager.instance.GetLocalHighscore().ToString();
-			bestDistanceText.text = HighscoreManager.instance.GetBestDistance().ToString();
+			bestScoreText.SetText(HighscoreManager.instance.GetLocalHighscore().ToString());
+			bestDistanceText.SetText(HighscoreManager.instance.GetBestDistance().ToString());
 
-			statusText.text = "Downloading Highscores...";
+			statusText.SetText(Ui.DOWNLOADING_HIGHSCORES);
 			statusText.color = Color.green;
 
 			HighscoreManager.instance.RequestDownloadOfHighscores();
@@ -31,9 +31,9 @@ namespace Highscore
 
 		public void DisplayHighscores(JSONArray entries, string leaderboard)
 		{
-			Transform parent = leaderboard.Equals("score") ? scoreLeaderboardContent : distanceLeaderboardContent;
+			Transform parent = leaderboard.Equals(PlayerPrefKeys.LEADERBOARD_SCORE) ? scoreLeaderboardContent : distanceLeaderboardContent;
 
-			statusText.text = "";
+			statusText.SetText("");
 
 			for (int i = 0; i < entries.Count; i++)
 			{
@@ -53,7 +53,7 @@ namespace Highscore
 		public void DisplayError(string message)
 		{
 			ClearEntries();
-			statusText.text = message;
+			statusText.SetText(message);
 			statusText.color = Color.red;
 		}
 
@@ -67,29 +67,29 @@ namespace Highscore
 
 			if (HighscoreManager.instance.GetLocalHighscore() <= 0)
 			{
-				usernameInput.text = "";
-				placeholderText.text = "Score cannot be 0!";
+				usernameInput.SetText("");
+				placeholderText.SetText(Ui.SCORE_NOT_ZERO);
 			}
 			else if (string.IsNullOrEmpty(usernameInput.text))
 			{
-				usernameInput.text = "";
-				placeholderText.text = "Enter a nickname!";
+				usernameInput.SetText("");
+				placeholderText.SetText(Ui.ENTER_NICKNAME);
 			}
 			else if (PlayerPrefs.GetInt(PlayerPrefKeys.UPLOADED) != Constants.NO)
 			{
-				usernameInput.text = "";
-				placeholderText.text = "Already uploaded!";
+				usernameInput.SetText("");
+				placeholderText.SetText(Ui.ALREADY_UPLOADED);
 			}
 			else if (string.IsNullOrEmpty(formatted))
 			{
-				usernameInput.text = "";
-				placeholderText.text = "Invalid name!";
+				usernameInput.SetText("");
+				placeholderText.SetText(Ui.INVALID_NAME);
 			}
 			else
 			{
 				HighscoreManager.instance.UploadHighscoreToDreamlo(formatted);
-				usernameInput.text = "";
-				placeholderText.text = "Uploaded!";
+				usernameInput.SetText("");
+				placeholderText.SetText(Ui.UPLOADED);
 			}
 		}
 

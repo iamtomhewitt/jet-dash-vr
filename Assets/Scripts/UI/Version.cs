@@ -1,5 +1,6 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
+using Utility;
 
 namespace UI
 {
@@ -7,7 +8,7 @@ namespace UI
 	{
 		private void Start()
 		{
-			GetComponent<Text>().text = "Version: " + Application.version;
+			GetComponent<Text>().SetText(Ui.VERSION(Application.version));
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using Manager;
 using UnityEngine.UI;
 using UnityEngine;
+using Utility;
 
 namespace LevelManagers
 {
@@ -38,7 +39,7 @@ namespace LevelManagers
 
 		private void SetVrToggleText()
 		{
-			toggleVrText.text = "VR Mode: " + (gameSettings.vrMode() ? "ON" : "OFF");
+			toggleVrText.SetText(Ui.VR_TOGGLE(gameSettings.vrMode()));
 		}
 	}
 }

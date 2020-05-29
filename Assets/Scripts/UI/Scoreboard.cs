@@ -54,12 +54,12 @@ namespace Player
 			{
 				float progress = timer / ANIMATION_TIME;
 				displayScore = (int)Mathf.Lerp(start, score, progress);
-				text.text = displayScore.ToString();
+				text.SetText( displayScore.ToString());
 				yield return null;
 			}
 
 			displayScore = score;
-			text.text = displayScore.ToString();
+			text.SetText( displayScore.ToString());
 			audioManager.Pause(SoundNames.SCORE);
 
 			// Final score will take the longest to animate, so only reload the scene when animating final score,
@@ -75,10 +75,10 @@ namespace Player
 			for (int i = 3; i >= 0; i--)
 			{
 				yield return new WaitForSeconds(1);
-				relaunchingText.text = "Relaunching in: " + i.ToString();
+				relaunchingText.SetText(Ui.RELAUNCHING(i));
 			}
 
-			relaunchingText.text = "Relaunching";
+			relaunchingText.SetText(Ui.RELAUNCHING(-1));
 			FindObjectOfType<GameLevelManager>().RestartLevel();
 		}
 

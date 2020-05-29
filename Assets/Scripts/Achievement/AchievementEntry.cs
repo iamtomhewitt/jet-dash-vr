@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Utility;
 
 namespace Achievements
 {
@@ -19,11 +20,11 @@ namespace Achievements
 
 		public void Populate(string name, string description, float progress, int awardValue)
 		{
-			nameText.text = name;
-			descriptionText.text = description;
-			percentageText.text = progress.ToString("F1") + "%";
+			nameText.SetText(name);
+			descriptionText.SetText(description);
+			percentageText.SetText(progress.ToString("F1") + "%");
 			progressSlider.value = progress;
-			awardValueText.text = awardValue.ToString() + "P";
+			awardValueText.SetText(awardValue.ToString() + "P");
 
 			// Trim the slight blue on a zero value
 			bool show = (progress <= 0f) ? false : true;

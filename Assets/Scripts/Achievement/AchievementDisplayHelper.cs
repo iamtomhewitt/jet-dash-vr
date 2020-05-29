@@ -1,6 +1,7 @@
 ﻿using Manager;
 using UnityEngine.UI;
 using UnityEngine;
+using Utility;
 
 namespace Achievements
 {
@@ -44,7 +45,7 @@ namespace Achievements
 				total += a.awardValue;
 			}
 
-			totalPointsText.text = achieved.ToString() + "P / " + total.ToString() + "P";
+			totalPointsText.SetText(Ui.TOTAL_ACHIEVEMENT_POINTS(achieved, total));
 		}
 	}
 }

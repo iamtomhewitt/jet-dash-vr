@@ -25,13 +25,13 @@ namespace Highscore
 		{
 			string formatted = username.StripNonLatinLetters();
 
-			rankText.text = rank + ".";
-			usernameText.text = string.IsNullOrEmpty(formatted) ? "<invalid name>" : formatted;
-			scoreText.text = score;
+			rankText.SetText(rank + ".");
+			usernameText.SetText(string.IsNullOrEmpty(formatted) ? "<invalid name>" : formatted);
+			scoreText.SetText(score);
 
 			if (Constants.DEVS.Split(',').Contains(username))
 			{
-				usernameText.text = ApplyDevColours(username);
+				usernameText.SetText(ApplyDevColours(username));
 			}
 		}
 

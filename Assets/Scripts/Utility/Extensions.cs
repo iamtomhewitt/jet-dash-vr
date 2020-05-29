@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Utility
 {
@@ -43,6 +44,16 @@ namespace Utility
 				}
 			}
 			return newName;
+		}
+
+		public static void SetText(this Text text, string str)
+		{
+			text.text = str;
+		}
+
+		public static void SetText(this InputField text, string str)
+		{
+			text.text = str;
 		}
 	}
 }
