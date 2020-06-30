@@ -89,7 +89,7 @@ namespace Player
 			return Input.acceleration.x > -deadzone && Input.acceleration.x < deadzone;
 		}
 
-		private void IncreaseSpeed()
+		public void IncreaseSpeed()
 		{
 			if (HasReachedMaxSpeed())
 			{
@@ -112,7 +112,7 @@ namespace Player
 			}
 		}
 
-		private void CheckYPosition()
+		public void CheckYPosition()
 		{
 			if (transform.position.y < (startingYPosition - 0.1f))
 			{
@@ -146,6 +146,11 @@ namespace Player
 		public float GetAcceleration()
 		{
 			return acceleration;
+		}
+
+		public float GetTurningSpeed()
+		{
+			return turningSpeed;
 		}
 
 		public bool HasReachedMaxSpeed()
