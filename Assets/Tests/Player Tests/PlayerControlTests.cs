@@ -1,4 +1,5 @@
-﻿using Manager;
+﻿using Data;
+using Manager;
 using NUnit.Framework;
 using Player;
 using System.Collections;
@@ -28,6 +29,7 @@ namespace Tests
 			sm = MonoBehaviour.Instantiate(GetResource("Managers/Shop Manager")).GetComponent<ShopManager>();
 			player = MonoBehaviour.Instantiate(GetResource("Player"));
 			pc = player.GetComponent<PlayerControl>();
+			sm.SetSelectedShipData(Resources.Load<ShipData>("Tests/Prefabs/Mock Ship"));
 		}
 
 		[TearDown]
@@ -45,7 +47,7 @@ namespace Tests
 		{
 			float z = player.transform.position.z;
 			yield return new WaitForSeconds(WAIT_TIME);
-			Assert.AreNotEqual(player.transform.position.z, z);
+			Assert.AreNotEqual(z, player.transform.position.z);
 		}
 
 		[UnityTest]
@@ -54,7 +56,7 @@ namespace Tests
 			int speed = pc.GetSpeed();
 			pc.IncreaseSpeed();
 			yield return new WaitForSeconds(WAIT_TIME);
-			Assert.AreNotEqual(pc.GetSpeed(), speed);
+			Assert.AreNotEqual(speed, pc.GetSpeed());
 		}
 
 		[UnityTest]
@@ -64,7 +66,7 @@ namespace Tests
 			int speed = pc.GetSpeed();
 			pc.IncreaseSpeed();
 			yield return new WaitForSeconds(WAIT_TIME);
-			Assert.AreEqual(pc.GetSpeed(), speed);
+			Assert.AreEqual(speed, pc.GetSpeed());
 			Assert.True(pc.HasReachedMaxSpeed());
 		}
 
@@ -73,8 +75,8 @@ namespace Tests
 		{
 			pc.StopMoving();
 			yield return new WaitForSeconds(WAIT_TIME);
-			Assert.AreEqual(pc.GetSpeed(), 0f);
-			Assert.AreEqual(pc.GetTurningSpeed(), 0f);
+			Assert.AreEqual(0f, pc.GetSpeed());
+			Assert.AreEqual(0f, pc.GetTurningSpeed());
 		}
 
 		[UnityTest]
@@ -82,8 +84,27 @@ namespace Tests
 		{
 			player.transform.SetYPosition(-100f);
 			pc.CheckYPosition();
-			Assert.GreaterOrEqual(player.transform.position.y, 0f);
+			Assert.LessOrEqual(0f, player.transform.position.y);
 			yield return new WaitForSeconds(WAIT_TIME);
+		}
+
+		[UnityTest]
+		public IEnumerator ShouldReadGameManagerSettingsCorrectly()
+		{
+			gs.SetVrMode(true);
+			pc.Start();
+			yield return new WaitForSeconds(WAIT_TIME);
+			Assert.AreEqual(GameObject.FindGameObjectWithTag("MainCamera"), null); // If VR mode, then main camera turned off
+		}
+
+		[UnityTest]
+		public IEnumerator ShouldReadShopManagerSettingsCorrectly()
+		{
+			yield return new WaitForSeconds(WAIT_TIME);
+			Assert.AreEqual(20, pc.GetSpeed());
+			Assert.AreEqual(2f, pc.GetAcceleration());
+			Assert.AreEqual(20f, pc.GetTurningSpeed());
+			Assert.NotNull(GameObject.FindGameObjectWithTag(sm.GetSelectedShipData().GetShipName()));
 		}
 
 		private GameObject GetResource(string path)

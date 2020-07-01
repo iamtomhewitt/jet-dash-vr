@@ -20,7 +20,6 @@ namespace Player
 		private AudioManager audioManager;
 		private GameObject cameraToUse;
 		private PlayerHud hud;
-		private Quaternion originalRotation;
 		private Transform shipModel;
 		private bool reachedMaxSpeed = false;
 		private float acceleration;
@@ -33,7 +32,7 @@ namespace Player
 		private float yPositionCheckRate = 3f;
 		private float z = 0f;
 
-		private void Start()
+		public void Start()
 		{
 			Initialise();
 
@@ -55,14 +54,13 @@ namespace Player
 
 			ShipData shipData = ShopManager.instance.GetSelectedShipData();
 			shipModel = GameObject.FindGameObjectWithTag(shipData.GetShipName()).transform;
-			originalRotation = shipModel.rotation;
 			speed = shipData.GetSpeed();
 			acceleration = shipData.GetAcceleration();
 			turningSpeed = shipData.GetTurningSpeed();
 
 			foreach (Transform model in shipModels)
 			{
-				model.gameObject.SetActive((model.tag.Equals(shipData.GetShipName())));
+				model.gameObject.SetActive(model.tag.Equals(shipData.GetShipName()));
 			}
 
 			hud = GetComponent<PlayerHud>();
