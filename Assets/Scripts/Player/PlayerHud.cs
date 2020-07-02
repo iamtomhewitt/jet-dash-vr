@@ -83,5 +83,10 @@ namespace Player
 		{
 			return scoreText;
 		}
+
+		public Text GetPowerupNotificationText()
+		{
+			return powerupNotificationText;
+		}
 	}
 }

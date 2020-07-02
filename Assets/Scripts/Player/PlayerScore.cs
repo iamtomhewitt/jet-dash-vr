@@ -21,20 +21,15 @@ namespace Player
 			InvokeRepeating("ShowNotificationIfOnSpeedStreak", acceleration, acceleration);
 		}
 
-		private void Update()
-		{
-			hud.SetScoreText(bonusScore);
-		}
-
 		/// <summary>
 		/// Shows a notification if we are on a speed streak (every 50).
 		/// </summary>
-		private void ShowNotificationIfOnSpeedStreak()
+		public void ShowNotificationIfOnSpeedStreak()
 		{
 			float speed = playerControl.GetSpeed();
 
 			if (speed % speedStreak == 0 && !playerControl.HasReachedMaxSpeed())
-			{
+			{			
 				hud.ShowNotification(Color.white, speed + " Speed Streak!");
 				AudioManager.instance.Play(SoundNames.SPEED_STREAK);
 			}
@@ -43,6 +38,7 @@ namespace Player
 		public void AddBonusPoints(int points)
 		{
 			bonusScore += points;
+			hud.SetScoreText(bonusScore);
 		}
 
 		public void DoublePoints()

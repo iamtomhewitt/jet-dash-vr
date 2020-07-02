@@ -139,6 +139,7 @@ namespace Player
 		public void MaxSpeed()
 		{
 			speed = maxSpeed;
+			reachedMaxSpeed = true;
 		}
 
 		public float GetAcceleration()
