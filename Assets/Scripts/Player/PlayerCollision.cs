@@ -26,6 +26,7 @@ namespace Player
 		private PlayerScore playerScore;
 		private Scoreboard scoreboard;
 		private ShopManager shopManager;
+		private bool dead = false;
 
 		private void Start()
 		{
@@ -40,7 +41,7 @@ namespace Player
 		}
 
 		private void OnCollisionEnter(Collision other)
-		{
+		{				
 			switch (other.gameObject.tag)
 			{
 				case Tags.OBSTACLE:
@@ -49,6 +50,8 @@ namespace Player
 						achievementManager.UnlockAchievement(AchievementIds.FLY_THROUGH_OBSTACLE_WHEN_INVINCIBLE);
 						return;
 					}
+
+					dead = true;
 
 					GameObject e = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
 					int topSpeed = playerControl.GetSpeed();
@@ -134,6 +137,11 @@ namespace Player
 		public bool IsGodMode()
 		{
 			return invincible || hyperdriveEnabled;
+		}
+
+		public bool IsDead()
+		{
+			return dead;
 		}
 
 		public GameObject GetShield()
