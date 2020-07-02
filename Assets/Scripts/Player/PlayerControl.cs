@@ -64,7 +64,7 @@ namespace Player
 			}
 
 			hud = GetComponent<PlayerHud>();
-			hud.SetSpeedText(speed.ToString());
+			hud.SetSpeedText(speed);
 			startingYPosition = transform.position.y;
 		}
 
@@ -103,7 +103,7 @@ namespace Player
 			if (speed < maxSpeed)
 			{
 				speed += speedIncrease;
-				hud.SetSpeedText(speed.ToString());
+				hud.SetSpeedText(speed);
 
 				float pitch = (speed / 1000f) + 1f;
 				audioManager.GetSound(SoundNames.SHIP_ENGINE).pitch = pitch;
