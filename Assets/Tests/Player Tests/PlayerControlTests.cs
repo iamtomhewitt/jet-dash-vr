@@ -11,8 +11,6 @@ namespace Tests
 {
 	public class PlayerControlTests
 	{
-		private float WAIT_TIME = 0.1f;
-
 		private AudioManager am;
 		private AchievementManager achm;
 		private GameObject player;
@@ -23,11 +21,11 @@ namespace Tests
 		[SetUp]
 		public void Setup()
 		{
-			am = MonoBehaviour.Instantiate(GetResource("Managers/Audio Manager")).GetComponent<AudioManager>();
-			achm = MonoBehaviour.Instantiate(GetResource("Managers/Achievement Manager")).GetComponent<AchievementManager>();
-			gs = MonoBehaviour.Instantiate(GetResource("Managers/Game Settings")).GetComponent<GameSettingsManager>();
-			sm = MonoBehaviour.Instantiate(GetResource("Managers/Shop Manager")).GetComponent<ShopManager>();
-			player = MonoBehaviour.Instantiate(GetResource("Player"));
+			am = MonoBehaviour.Instantiate(TestConstants.GetResource("Managers/Audio Manager")).GetComponent<AudioManager>();
+			achm = MonoBehaviour.Instantiate(TestConstants.GetResource("Managers/Achievement Manager")).GetComponent<AchievementManager>();
+			gs = MonoBehaviour.Instantiate(TestConstants.GetResource("Managers/Game Settings")).GetComponent<GameSettingsManager>();
+			sm = MonoBehaviour.Instantiate(TestConstants.GetResource("Managers/Shop Manager")).GetComponent<ShopManager>();
+			player = MonoBehaviour.Instantiate(TestConstants.GetResource("Player"));
 			pc = player.GetComponent<PlayerControl>();
 			sm.SetSelectedShipData(Resources.Load<ShipData>("Tests/Prefabs/Mock Ship"));
 		}
@@ -46,7 +44,7 @@ namespace Tests
 		public IEnumerator ShouldMoveForward()
 		{
 			float z = player.transform.position.z;
-			yield return new WaitForSeconds(WAIT_TIME);
+			yield return new WaitForSeconds(TestConstants.WAIT_TIME);
 			Assert.AreNotEqual(z, player.transform.position.z);
 		}
 
@@ -55,7 +53,7 @@ namespace Tests
 		{
 			int speed = pc.GetSpeed();
 			pc.IncreaseSpeed();
-			yield return new WaitForSeconds(WAIT_TIME);
+			yield return new WaitForSeconds(TestConstants.WAIT_TIME);
 			Assert.AreNotEqual(speed, pc.GetSpeed());
 		}
 
@@ -65,7 +63,7 @@ namespace Tests
 			pc.MaxSpeed();
 			int speed = pc.GetSpeed();
 			pc.IncreaseSpeed();
-			yield return new WaitForSeconds(WAIT_TIME);
+			yield return new WaitForSeconds(TestConstants.WAIT_TIME);
 			Assert.AreEqual(speed, pc.GetSpeed());
 			Assert.True(pc.HasReachedMaxSpeed());
 		}
@@ -74,7 +72,7 @@ namespace Tests
 		public IEnumerator ShouldStopMoving()
 		{
 			pc.StopMoving();
-			yield return new WaitForSeconds(WAIT_TIME);
+			yield return new WaitForSeconds(TestConstants.WAIT_TIME);
 			Assert.AreEqual(0f, pc.GetSpeed());
 			Assert.AreEqual(0f, pc.GetTurningSpeed());
 		}
@@ -85,7 +83,7 @@ namespace Tests
 			player.transform.SetYPosition(-100f);
 			pc.CheckYPosition();
 			Assert.LessOrEqual(0f, player.transform.position.y);
-			yield return new WaitForSeconds(WAIT_TIME);
+			yield return new WaitForSeconds(TestConstants.WAIT_TIME);
 		}
 
 		[UnityTest]
@@ -93,23 +91,18 @@ namespace Tests
 		{
 			gs.SetVrMode(true);
 			pc.Start();
-			yield return new WaitForSeconds(WAIT_TIME);
+			yield return new WaitForSeconds(TestConstants.WAIT_TIME);
 			Assert.AreEqual(GameObject.FindGameObjectWithTag("MainCamera"), null); // If VR mode, then main camera turned off
 		}
 
 		[UnityTest]
 		public IEnumerator ShouldReadShopManagerSettingsCorrectly()
 		{
-			yield return new WaitForSeconds(WAIT_TIME);
+			yield return new WaitForSeconds(TestConstants.WAIT_TIME);
 			Assert.AreEqual(20, pc.GetSpeed());
 			Assert.AreEqual(2f, pc.GetAcceleration());
 			Assert.AreEqual(20f, pc.GetTurningSpeed());
 			Assert.NotNull(GameObject.FindGameObjectWithTag(sm.GetSelectedShipData().GetShipName()));
-		}
-
-		private GameObject GetResource(string path)
-		{
-			return Resources.Load<GameObject>("Tests/Prefabs/" + path);
 		}
 	}
 }
