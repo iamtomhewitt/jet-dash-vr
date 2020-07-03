@@ -4,7 +4,7 @@ namespace Tests
 {
 	public class TestConstants
 	{
-		public const float WAIT_TIME = 0.01f;
+		public const float WAIT_TIME = 0.05f;
 
 		public static GameObject GetResource(string path)
 		{
