@@ -8,7 +8,7 @@ namespace Tests
 
 		public static GameObject GetResource(string path)
 		{
-			return Resources.Load<GameObject>("Tests/Prefabs/" + path);
+			return Resources.Load<GameObject>("Tests/" + path);
 		}
 	}
 }

@@ -22,7 +22,7 @@ namespace Tests
             player = MonoBehaviour.Instantiate(new GameObject("Player"));
 
             obstacleSpawner.GetComponent<MatchTransformPosition>().SetTarget(player.transform);
-            player.tag = "Player";
+            player.tag = Tags.PLAYER;
         }
 
         [TearDown]

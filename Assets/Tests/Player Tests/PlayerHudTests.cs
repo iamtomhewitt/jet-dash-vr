@@ -26,7 +26,7 @@ namespace Tests
 			sm = MonoBehaviour.Instantiate(TestConstants.GetResource("Managers/Shop Manager")).GetComponent<ShopManager>();
 			player = MonoBehaviour.Instantiate(TestConstants.GetResource("Player"));
 			ph = player.GetComponent<PlayerHud>();
-			sm.SetSelectedShipData(Resources.Load<ShipData>("Tests/Prefabs/Mock Ship"));
+			sm.SetSelectedShipData(Resources.Load<ShipData>("Tests/Mock Ship"));
 		}
 
 		[TearDown]

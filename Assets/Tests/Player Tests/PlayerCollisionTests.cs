@@ -33,7 +33,7 @@ namespace Tests
 			sm = MonoBehaviour.Instantiate(TestConstants.GetResource("Managers/Shop Manager")).GetComponent<ShopManager>();
 
 			pc = player.GetComponent<PlayerCollision>();
-			sm.SetSelectedShipData(Resources.Load<ShipData>("Tests/Prefabs/Mock Ship"));
+			sm.SetSelectedShipData(Resources.Load<ShipData>("Tests/Mock Ship"));
 		}
 
 		[TearDown]

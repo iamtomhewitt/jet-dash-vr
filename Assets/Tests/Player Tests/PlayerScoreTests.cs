@@ -31,7 +31,7 @@ namespace Tests
 			pc = player.GetComponent<PlayerControl>();
 			ps = player.GetComponent<PlayerScore>();
 			ph = player.GetComponent<PlayerHud>();
-			sm.SetSelectedShipData(Resources.Load<ShipData>("Tests/Prefabs/Mock Ship"));
+			sm.SetSelectedShipData(Resources.Load<ShipData>("Tests/Mock Ship"));
 		}
 
 		[TearDown]

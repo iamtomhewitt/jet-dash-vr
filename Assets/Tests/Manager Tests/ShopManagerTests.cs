@@ -31,29 +31,29 @@ namespace Tests
         public IEnumerator ShouldPurchaseShip()
         {
             sm.AddCash(100000000);
-            sm.PurchaseShip("Cellex");
+            sm.PurchaseShip(Tags.CELLEX);
             yield return new WaitForSeconds(TestConstants.WAIT_TIME);
-            Assert.AreEqual("Cellex", sm.GetSelectedShipData().GetShipName());
+            Assert.AreEqual(Tags.CELLEX, sm.GetSelectedShipData().GetShipName());
             Assert.True(sm.IsShipUnlocked(sm.GetSelectedShipData()));
         }
 
         [UnityTest]
         public IEnumerator ShouldNotPurchaseShipIfAlreadyUnlocked()
         {
-            PlayerPrefs.SetInt("Cellex" + PlayerPrefKeys.UNLOCKED, Constants.YES);
+            PlayerPrefs.SetInt(Tags.CELLEX + PlayerPrefKeys.UNLOCKED, Constants.YES);
             sm.AddCash(100000000);
-            sm.PurchaseShip("Cellex");
+            sm.PurchaseShip(Tags.CELLEX);
             yield return new WaitForSeconds(TestConstants.WAIT_TIME);
-            Assert.AreEqual("Rescate", sm.GetSelectedShipData().GetShipName());
+            Assert.AreEqual(Tags.RESCATE, sm.GetSelectedShipData().GetShipName());
         }
 
         [UnityTest]
         public IEnumerator ShouldNotPurchaseShipIfNotEnoughCash()
         {
             sm.AddCash(10);
-            sm.PurchaseShip("Cellex");
+            sm.PurchaseShip(Tags.CELLEX);
             yield return new WaitForSeconds(TestConstants.WAIT_TIME);
-            Assert.AreEqual("Rescate", sm.GetSelectedShipData().GetShipName());
+            Assert.AreEqual(Tags.RESCATE, sm.GetSelectedShipData().GetShipName());
         }
 
         [UnityTest]
@@ -71,7 +71,7 @@ namespace Tests
         public IEnumerator ShouldGetShip()
         {
             yield return new WaitForSeconds(TestConstants.WAIT_TIME);
-            Assert.NotNull(sm.GetShip("Cellex"));
+            Assert.NotNull(sm.GetShip(Tags.CELLEX));
         }
     }
 }

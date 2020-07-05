@@ -15,7 +15,7 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            am = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Tests/Prefabs/Managers/Audio Manager")).GetComponent<AudioManager>();
+            am = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Tests/Managers/Audio Manager")).GetComponent<AudioManager>();
             s = am.GetSound(SoundNames.MUSIC);
         }
 
