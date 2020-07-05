@@ -33,9 +33,9 @@ namespace Player
 			distanceText.SetText(distance.ToString("F0"));
 		}
 
-		public void SetSpeedText(string message)
+		public void SetSpeedText(float speed)
 		{
-			speedText.SetText(message);
+			speedText.SetText(speed.ToString());
 		}
 
 		public void SetScoreText(int score)
@@ -67,6 +67,26 @@ namespace Player
 		public Text GetRelaunchingText()
 		{
 			return relaunchingText;
+		}
+
+		public Text GetDistanceText()
+		{
+			return distanceText;
+		}
+
+		public Text GetSpeedText()
+		{
+			return speedText;
+		}
+
+		public Text GetScoreText()
+		{
+			return scoreText;
+		}
+
+		public Text GetPowerupNotificationText()
+		{
+			return powerupNotificationText;
 		}
 	}
 }

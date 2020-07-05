@@ -20,7 +20,6 @@ namespace Player
 		private AudioManager audioManager;
 		private GameObject cameraToUse;
 		private PlayerHud hud;
-		private Quaternion originalRotation;
 		private Transform shipModel;
 		private bool reachedMaxSpeed = false;
 		private float acceleration;
@@ -33,7 +32,7 @@ namespace Player
 		private float yPositionCheckRate = 3f;
 		private float z = 0f;
 
-		private void Start()
+		public void Start()
 		{
 			Initialise();
 
@@ -55,18 +54,17 @@ namespace Player
 
 			ShipData shipData = ShopManager.instance.GetSelectedShipData();
 			shipModel = GameObject.FindGameObjectWithTag(shipData.GetShipName()).transform;
-			originalRotation = shipModel.rotation;
 			speed = shipData.GetSpeed();
 			acceleration = shipData.GetAcceleration();
 			turningSpeed = shipData.GetTurningSpeed();
 
 			foreach (Transform model in shipModels)
 			{
-				model.gameObject.SetActive((model.tag.Equals(shipData.GetShipName())));
+				model.gameObject.SetActive(model.tag.Equals(shipData.GetShipName()));
 			}
 
 			hud = GetComponent<PlayerHud>();
-			hud.SetSpeedText(speed.ToString());
+			hud.SetSpeedText(speed);
 			startingYPosition = transform.position.y;
 		}
 
@@ -89,7 +87,7 @@ namespace Player
 			return Input.acceleration.x > -deadzone && Input.acceleration.x < deadzone;
 		}
 
-		private void IncreaseSpeed()
+		public void IncreaseSpeed()
 		{
 			if (HasReachedMaxSpeed())
 			{
@@ -105,14 +103,14 @@ namespace Player
 			if (speed < maxSpeed)
 			{
 				speed += speedIncrease;
-				hud.SetSpeedText(speed.ToString());
+				hud.SetSpeedText(speed);
 
 				float pitch = (speed / 1000f) + 1f;
 				audioManager.GetSound(SoundNames.SHIP_ENGINE).pitch = pitch;
 			}
 		}
 
-		private void CheckYPosition()
+		public void CheckYPosition()
 		{
 			if (transform.position.y < (startingYPosition - 0.1f))
 			{
@@ -141,11 +139,17 @@ namespace Player
 		public void MaxSpeed()
 		{
 			speed = maxSpeed;
+			reachedMaxSpeed = true;
 		}
 
 		public float GetAcceleration()
 		{
 			return acceleration;
+		}
+
+		public float GetTurningSpeed()
+		{
+			return turningSpeed;
 		}
 
 		public bool HasReachedMaxSpeed()
