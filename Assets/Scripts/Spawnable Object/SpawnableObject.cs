@@ -27,7 +27,7 @@ namespace SpawnableObject
 		/// <summary>
 		/// Relocates the object if it falls behind the player.
 		/// </summary>
-		private void RelocateIfBehindPlayer()
+		public void RelocateIfBehindPlayer()
 		{
 			if (transform.position.z < player.transform.position.z - spawnOffset)
 			{
