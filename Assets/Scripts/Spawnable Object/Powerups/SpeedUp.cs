@@ -5,13 +5,15 @@ using Utility;
 
 namespace SpawnableObject.Powerups
 {
-	/// <summary>
-	/// Gives the player some bonus points when flown through.!
-	/// <summary>
 	public class SpeedUp : Powerup
 	{
+		[SerializeField] private int speedIncrease = 20;
+
 		public override void ApplyPowerupEffect()
 		{
+			PlayerControl pc = FindObjectOfType<PlayerControl>();
+			pc.SetSpeed(pc.GetSpeed() + speedIncrease);
+			this.GetPlayerHud().SetSpeedText(pc.GetSpeed());
 			this.GetPlayerHud().ShowNotification(GetColour(), Ui.POWERUP_SPEED_UP);
 			this.GetAudioManager().Play(SoundNames.SPEED_UP);
 		}
