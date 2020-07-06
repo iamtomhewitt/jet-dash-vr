@@ -18,10 +18,11 @@ namespace Tests
 		private GameObject ip;
 		private GameObject jp;
 		private GameObject player;
+		private GameObject sdp;
 		private GameObject sup;
 		private GameSettingsManager gs;
-		private PlayerControl pcn;
 		private PlayerCollision pc;
+		private PlayerControl pcn;
 		private PlayerScore ps;
 		private ShopManager sm;
 
@@ -39,6 +40,7 @@ namespace Tests
 			hp = MonoBehaviour.Instantiate(TestConstants.GetResource("Powerups/Hyperdrive"));
 			ip = MonoBehaviour.Instantiate(TestConstants.GetResource("Powerups/Invincibility"));
 			jp = MonoBehaviour.Instantiate(TestConstants.GetResource("Powerups/Jump"));
+			sdp = MonoBehaviour.Instantiate(TestConstants.GetResource("Powerups/Slow Down"));
 			sm = MonoBehaviour.Instantiate(TestConstants.GetResource("Managers/Shop Manager")).GetComponent<ShopManager>();
 			sup = MonoBehaviour.Instantiate(TestConstants.GetResource("Powerups/Speed Up"));
 
@@ -59,6 +61,7 @@ namespace Tests
 			Object.Destroy(ip);
 			Object.Destroy(jp);
 			Object.Destroy(player);
+			Object.Destroy(sdp);
 			Object.Destroy(sm);
 			Object.Destroy(sup);
 		}
@@ -100,10 +103,39 @@ namespace Tests
 		[UnityTest]
 		public IEnumerator ShouldIncreaseSpeed()
 		{
+			pcn.SetSpeed(50f);
 			float s = pcn.GetSpeed();
 			MakePlayerCollideWith(sup);
 			yield return new WaitForSeconds(TestConstants.WAIT_TIME);
-			Assert.AreEqual(s + 20f, pcn.GetSpeed());
+			Assert.AreEqual(70f, pcn.GetSpeed());
+		}
+
+		[UnityTest]
+		public IEnumerator ShouldNotIncreaseSpeedIfReachedMaxSpeed()
+		{
+			pcn.MaxSpeed();
+			MakePlayerCollideWith(sup);
+			yield return new WaitForSeconds(TestConstants.WAIT_TIME);
+			Assert.AreEqual(200f, pcn.GetSpeed());
+		}
+
+		[UnityTest]
+		public IEnumerator ShouldNotDecreaseSpeedIfZeroSpeed()
+		{
+			pcn.SetSpeed(0f);
+			MakePlayerCollideWith(sdp);
+			yield return new WaitForSeconds(TestConstants.WAIT_TIME);
+			Assert.AreEqual(0f, pcn.GetSpeed());
+		}
+
+		[UnityTest]
+		public IEnumerator ShouldDecreaseSpeed()
+		{
+			pcn.SetSpeed(50f);
+			float s = pcn.GetSpeed();
+			MakePlayerCollideWith(sdp);
+			yield return new WaitForSeconds(TestConstants.WAIT_TIME);
+			Assert.AreEqual(30f, pcn.GetSpeed());
 		}
 
 		[UnityTest]
