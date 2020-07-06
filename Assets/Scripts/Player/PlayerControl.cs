@@ -142,6 +142,11 @@ namespace Player
 			reachedMaxSpeed = true;
 		}
 
+		public float GetMaxSpeed()
+		{
+			return maxSpeed;
+		}
+
 		public float GetAcceleration()
 		{
 			return acceleration;

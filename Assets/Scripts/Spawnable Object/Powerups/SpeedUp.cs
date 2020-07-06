@@ -12,7 +12,12 @@ namespace SpawnableObject.Powerups
 		public override void ApplyPowerupEffect()
 		{
 			PlayerControl pc = FindObjectOfType<PlayerControl>();
-			pc.SetSpeed(pc.GetSpeed() + speedIncrease);
+			float newSpeed = pc.GetSpeed() + speedIncrease;
+			if (!pc.HasReachedMaxSpeed() && newSpeed <= pc.GetMaxSpeed())
+			{
+				pc.SetSpeed(newSpeed);
+			}
+
 			this.GetPlayerHud().SetSpeedText(pc.GetSpeed());
 			this.GetPlayerHud().ShowNotification(GetColour(), Ui.POWERUP_SPEED_UP);
 			this.GetAudioManager().Play(SoundNames.SPEED_UP);
