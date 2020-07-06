@@ -11,6 +11,7 @@ namespace Utility
 		public const string POWERUP_HYPERDRIVE = "Hyperdrive!";
 		public const string POWERUP_INVINCIBLE = "Invincible!";
 		public const string POWERUP_JUMP = "Jump!";
+		public const string POWERUP_SLOW_DOWN = "Slow Down!";
 		public const string POWERUP_SPEED_UP = "Speed Up!";
 		public const string SCORE_NOT_ZERO = "Score cannot be 0!";
 		public const string UPLOADED = "Uploaded!";

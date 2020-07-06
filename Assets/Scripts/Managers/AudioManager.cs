@@ -113,6 +113,7 @@ namespace Manager
 		public const string SHOP_REJECT_PURCHASE = "Shop Reject Purchase";
 		public const string SHOP_SELECT_SHIP = "Shop Select Ship";
 		public const string SHOP_SPEND_CASH = "Shop Spend Cash";
+		public const string SLOW_DOWN = "Powerup Slow Down";
 		public const string SPEED_STREAK = "Speed Streak";
 		public const string SPEED_UP = "Powerup Speed Up";
 	}

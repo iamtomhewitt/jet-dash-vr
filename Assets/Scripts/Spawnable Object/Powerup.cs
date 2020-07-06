@@ -77,6 +77,7 @@ namespace SpawnableObject
 		Invincibility,
 		Jump,
 		Hyperdrive,
-		SpeedUp
+		SpeedUp,
+		SlowDown
 	};
 }

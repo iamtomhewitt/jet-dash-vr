@@ -17,6 +17,7 @@ namespace Spawner
 		[SerializeField] private int maxInvincibilityPowerups = 4;
 		[SerializeField] private int maxBonusPointsPowerups = 4;
 		[SerializeField] private int maxSpeedUpPowerups = 2;
+		[SerializeField] private int maxSlowDownPowerups = 2;
 		[SerializeField] private int maxShipPowerups = 3;
 
 		private List<Powerup> powerupsInPlay = new List<Powerup>();
@@ -57,6 +58,7 @@ namespace Spawner
 				int totalDoublePointPowerups = GetTotalPowerupsByType(PowerupType.DoublePoints);
 				int totalInvincibilityPowerups = GetTotalPowerupsByType(PowerupType.Invincibility);
 				int totalSpeedUpPowerups = GetTotalPowerupsByType(PowerupType.SpeedUp);
+				int totalSlowDownPowerups = GetTotalPowerupsByType(PowerupType.SlowDown);
 				int totalShipPowerups = GetTotalPowerupsByType(PowerupType.Hyperdrive) + GetTotalPowerupsByType(PowerupType.Jump);
 
 				switch (powerup.GetPowerupType())
@@ -72,6 +74,9 @@ namespace Spawner
 						break;
 					case PowerupType.SpeedUp:
 						canSpawnPowerup = totalSpeedUpPowerups < maxSpeedUpPowerups;
+						break;
+					case PowerupType.SlowDown:
+						canSpawnPowerup = totalSlowDownPowerups < maxSlowDownPowerups;
 						break;
 					case PowerupType.Hyperdrive:
 						canSpawnPowerup = totalShipPowerups < maxShipPowerups;
