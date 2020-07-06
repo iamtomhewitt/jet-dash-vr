@@ -47,6 +47,7 @@ MonoBehaviour:
   - {fileID: 114472191319320604, guid: 2b400766506f441acafc5403e96f7d6c, type: 3}
   - {fileID: 114497482017515738, guid: 7fbbfec3b25d65f4ebcd3260acb09218, type: 3}
   - {fileID: 9007267230434263194, guid: 0f2553cdb29fa734aa7d6fda3c1f3fcf, type: 3}
+  - {fileID: -7225483355776995673, guid: 4ca508160dd5243e09656de794afc985, type: 3}
   boundary:
     xMin: -200
     xMax: 200
