@@ -84,7 +84,7 @@ MonoBehaviour:
   colour:
     serializedVersion: 2
     rgba: 4294471523
-  speedDecrease: 20
+  speedDecrease: 10
 --- !u!1 &2260420365265395462
 GameObject:
   m_ObjectHideFlags: 0

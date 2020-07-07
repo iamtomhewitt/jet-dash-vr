@@ -135,7 +135,7 @@ namespace Tests
 			float s = pcn.GetSpeed();
 			MakePlayerCollideWith(sdp);
 			yield return new WaitForSeconds(TestConstants.WAIT_TIME);
-			Assert.AreEqual(30f, pcn.GetSpeed());
+			Assert.AreEqual(40f, pcn.GetSpeed());
 		}
 
 		[UnityTest]
