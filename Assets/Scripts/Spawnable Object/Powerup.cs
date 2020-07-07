@@ -76,6 +76,8 @@ namespace SpawnableObject
 		DoublePoints,
 		Invincibility,
 		Jump,
-		Hyperdrive
+		Hyperdrive,
+		SpeedUp,
+		SlowDown
 	};
 }

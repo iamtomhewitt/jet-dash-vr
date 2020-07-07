@@ -146,3 +146,15 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Powerup Slow Down
+    clip: {fileID: 8300000, guid: 0341b3a060f68408c9a20786c2cf7f00, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Powerup Speed Up
+    clip: {fileID: 8300000, guid: a5188ee75a9b74493a72b2cef6d28633, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
