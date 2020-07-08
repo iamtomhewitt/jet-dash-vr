@@ -46,5 +46,16 @@ namespace Manager
 				showCount = 0;
 			}
 		}
+
+		public void GoToGooglePlayPage()
+		{
+			Application.OpenURL("https://play.google.com/store/apps/details?id=com.BlueRobotGames.JetDashVR");
+		}
+
+		public void HidePopup()
+		{
+			popupHorizontal.SetActive(false);
+			popupVertical.SetActive(false);
+		}
 	}
 }
