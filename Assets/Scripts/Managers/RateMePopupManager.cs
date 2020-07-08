@@ -40,7 +40,7 @@ namespace Manager
 		{
 			if (showCount > NUMBER_OF_TIMES_BEFORE_POPUP_SHOW)
 			{
-				bool isHorizontal = (Screen.orientation == ScreenOrientation.Landscape) ? true : false;
+				bool isHorizontal = ScreenManager.IsLandScape() ? true : false;
 				popupHorizontal.SetActive(isHorizontal);
 				popupVertical.SetActive(!isHorizontal);
 				showCount = 0;
