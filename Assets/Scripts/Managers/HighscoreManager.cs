@@ -103,6 +103,13 @@ namespace Manager
 				Debug.Log("Upload successful! " + request.responseCode);
 				PlayerPrefs.SetInt(PlayerPrefKeys.UPLOADED, Constants.YES);
 				AchievementManager.instance.UnlockAchievement(AchievementIds.UPLOAD_HIGHSCORE);
+
+				int hasBeenShownRateMeOnFirstHighscore = PlayerPrefs.GetInt(PlayerPrefKeys.SHOWN_POPUP_ON_FIRST_HIGHSCORE);
+				if (hasBeenShownRateMeOnFirstHighscore.Equals(Constants.NO))
+				{
+					RateMePopupManager.instance.ShowRateMePopup();
+					PlayerPrefs.SetInt(PlayerPrefKeys.SHOWN_POPUP_ON_FIRST_HIGHSCORE, Constants.YES);
+				}
 			}
 			else
 			{

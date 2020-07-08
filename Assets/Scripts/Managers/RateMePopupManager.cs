@@ -38,22 +38,21 @@ namespace Manager
 
 		public bool CanShowRateMePopup()
 		{
-			if (showCount > NUMBER_OF_TIMES_BEFORE_POPUP_SHOW)
+			return showCount > NUMBER_OF_TIMES_BEFORE_POPUP_SHOW;
 		}
 
 		public void ShowRateMePopup()
-			{
-				bool isHorizontal = ScreenManager.IsLandScape() ? true : false;
-				popupHorizontal.SetActive(isHorizontal);
-				popupVertical.SetActive(!isHorizontal);
-				showCount = 0;
-			}
+		{
+			bool isHorizontal = ScreenManager.IsLandScape() ? true : false;
+			popupHorizontal.SetActive(isHorizontal);
+			popupVertical.SetActive(!isHorizontal);
+			showCount = 0;
+		}
 
 		public void GoToGooglePlayPage()
 		{
 			Application.OpenURL("https://play.google.com/store/apps/details?id=com.BlueRobotGames.JetDashVR");
 			HidePopup();
-			Time.timeScale = 1f;
 		}
 
 		public void HidePopup()
