@@ -8,12 +8,3 @@
 * [#86](https://github.com/iamtomhewitt/jet-dash-vr/issues/86) - Add a rate me pop up
 * [#82](https://github.com/iamtomhewitt/jet-dash-vr/issues/82) - Speed up and slow down boosts
 * [#67](https://github.com/iamtomhewitt/jet-dash-vr/issues/67) - Add unit tests
-
-
-
-# Changelog
-
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
-
-### 5.1.0 (2020-06-19)
-Changelog generated.
