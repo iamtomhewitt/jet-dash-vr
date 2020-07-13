@@ -61,5 +61,10 @@ namespace Manager
 			popupVertical.SetActive(false);
 			Time.timeScale = 1f;
 		}
+
+		public int GetShowCount()
+		{
+			return showCount;
+		}
 	}
 }
