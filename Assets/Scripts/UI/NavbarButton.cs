@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using LevelManagers;
+﻿using LevelManagers;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine;
 
 namespace UI
 {

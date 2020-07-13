@@ -10,10 +10,9 @@ namespace Highscore
 	public class HighscoreMarker : MonoBehaviour
 	{
 		private Transform player;
-
+		private float slerpSpeed = 1.75f;
 		private int currentDistanceHighscore;
 		private int zPosition = -100;
-		private float slerpSpeed = 1.75f;
 
 		private void Start()
 		{

@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Manager;
 using UnityEngine.UI;
-using Manager;
+using UnityEngine;
+using Utility;
 
 namespace Achievements
 {
@@ -21,9 +22,8 @@ namespace Achievements
 
 		private void DisplayAchievements(Achievement[] achievements)
 		{
-			for (int i = 0; i < achievements.Length; i++)
+			foreach (Achievement a in achievements)
 			{
-				Achievement a = achievements[i];
 				AchievementEntry entry = Instantiate(entryPrefab, entryParent).GetComponent<AchievementEntry>();
 				entry.Populate(a.achievementName, a.description, a.progressPercentage, a.awardValue);
 			}
@@ -45,7 +45,7 @@ namespace Achievements
 				total += a.awardValue;
 			}
 
-			totalPointsText.text = achieved.ToString() + "P / " + total.ToString() + "P";
+			totalPointsText.SetText(Ui.TOTAL_ACHIEVEMENT_POINTS(achieved, total));
 		}
 	}
 }

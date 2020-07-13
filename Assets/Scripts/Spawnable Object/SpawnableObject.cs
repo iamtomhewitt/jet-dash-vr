@@ -18,7 +18,7 @@ namespace SpawnableObject
 		/// </summary>
 		public abstract void AfterRelocation();
 
-		private void Start()
+		public virtual void Start()
 		{
 			player = GameObject.FindGameObjectWithTag(Tags.PLAYER).transform;
 			InvokeRepeating("RelocateIfBehindPlayer", RELOCATE_CHECK_TIME, RELOCATE_CHECK_TIME);
@@ -27,7 +27,7 @@ namespace SpawnableObject
 		/// <summary>
 		/// Relocates the object if it falls behind the player.
 		/// </summary>
-		private void RelocateIfBehindPlayer()
+		public void RelocateIfBehindPlayer()
 		{
 			if (transform.position.z < player.transform.position.z - spawnOffset)
 			{

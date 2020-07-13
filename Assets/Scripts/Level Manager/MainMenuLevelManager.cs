@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
-using Achievements;
+﻿using Achievements;
 using Manager;
+using System.Collections;
+using UnityEngine.UI;
+using UnityEngine;
 using Utility;
 
 namespace LevelManagers
@@ -12,8 +12,8 @@ namespace LevelManagers
 	/// </summary>
 	public class MainMenuLevelManager : LevelManager
 	{
-		[SerializeField] private Text vrCountdownText;
 		[SerializeField] private GameObject mainMenuUi;
+		[SerializeField] private Text vrCountdownText;
 
 		public string gameSceneName;
 
@@ -46,12 +46,12 @@ namespace LevelManagers
 			int timeRemaining = 10;
 			while (timeRemaining > 0)
 			{
-				vrCountdownText.text = "PUT ON YOUR VR HEADSET \n" + timeRemaining;
+				vrCountdownText.SetText(Ui.PUT_ON_HEADSET(timeRemaining));
 				timeRemaining--;
 				yield return new WaitForSeconds(1f);
 			}
 
-			vrCountdownText.text = "";
+			vrCountdownText.SetText("");
 
 			this.LoadLevel(gameSceneName);
 		}

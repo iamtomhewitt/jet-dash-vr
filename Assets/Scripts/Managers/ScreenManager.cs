@@ -16,5 +16,12 @@ namespace Manager
 		{
 			Screen.orientation = ScreenOrientation.LandscapeLeft;
 		}
+
+		public static bool IsLandScape()
+		{
+			return (Screen.orientation == ScreenOrientation.Landscape ||
+			Screen.orientation == ScreenOrientation.LandscapeLeft ||
+			Screen.orientation == ScreenOrientation.LandscapeRight);
+		}
 	}
 }

@@ -3,30 +3,30 @@
 namespace Manager
 {
 	public class GameSettingsManager : MonoBehaviour
-    {
-        private bool isVrMode;
-        private float sensitivity = 4f;
+	{
+		private bool isVrMode;
+		private float sensitivity = 4f;
 
-        public static GameSettingsManager instance;		
+		public static GameSettingsManager instance;
 
 		private void Awake()
-        {
-            if (instance)
-            {
-                DestroyImmediate(gameObject);
-            }
-            else
-            {
-                DontDestroyOnLoad(gameObject);
-                instance = this;
-            }
-        }
+		{
+			if (instance)
+			{
+				DestroyImmediate(gameObject);
+			}
+			else
+			{
+				DontDestroyOnLoad(gameObject);
+				instance = this;
+			}
+		}
 
-        private void Start()
-        {
-            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+		private void Start()
+		{
+			Screen.sleepTimeout = SleepTimeout.NeverSleep;
 			SetSensitivity(sensitivity);
-        }
+		}
 
 		public bool vrMode()
 		{
@@ -47,5 +47,5 @@ namespace Manager
 		{
 			sensitivity = s;
 		}
-    }
+	}
 }

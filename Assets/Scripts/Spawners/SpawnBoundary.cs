@@ -8,7 +8,6 @@
 
 		private float zMinLimit = 150f;
 		private float zMaxLimit = 400f;
-
 		private float reductionStep = 50f;
 
 		public bool CanShrinkZMin()

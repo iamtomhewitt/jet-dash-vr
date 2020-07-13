@@ -1,27 +1,27 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using Manager;
-using Utility;
+﻿using Manager;
 using SimpleJSON;
+using UnityEngine.UI;
+using UnityEngine;
+using Utility;
 
 namespace Highscore
 {
 	public class HighscoreDisplayHelper : MonoBehaviour
 	{
-		[SerializeField] private HighscoreEntry entryPrefab;
-		[SerializeField] private Transform scoreLeaderboardContent;
-		[SerializeField] private Transform distanceLeaderboardContent;
 		[SerializeField] private GameObject uploadModal;
-		[SerializeField] private Text bestScoreText;
+		[SerializeField] private HighscoreEntry entryPrefab;
 		[SerializeField] private Text bestDistanceText;
+		[SerializeField] private Text bestScoreText;
 		[SerializeField] private Text statusText;
+		[SerializeField] private Transform distanceLeaderboardContent;
+		[SerializeField] private Transform scoreLeaderboardContent;
 
 		private void Start()
 		{
-			bestScoreText.text = HighscoreManager.instance.GetLocalHighscore().ToString();
-			bestDistanceText.text = HighscoreManager.instance.GetBestDistance().ToString();
+			bestScoreText.SetText(HighscoreManager.instance.GetLocalHighscore().ToString());
+			bestDistanceText.SetText(HighscoreManager.instance.GetBestDistance().ToString());
 
-			statusText.text = "Downloading Highscores...";
+			statusText.SetText(Ui.DOWNLOADING_HIGHSCORES);
 			statusText.color = Color.green;
 
 			HighscoreManager.instance.RequestDownloadOfHighscores();
@@ -31,19 +31,19 @@ namespace Highscore
 
 		public void DisplayHighscores(JSONArray entries, string leaderboard)
 		{
-			Transform parent = leaderboard.Equals("score") ? scoreLeaderboardContent : distanceLeaderboardContent;
+			Transform parent = leaderboard.Equals(PlayerPrefKeys.LEADERBOARD_SCORE) ? scoreLeaderboardContent : distanceLeaderboardContent;
 
-			statusText.text = "";
+			statusText.SetText("");
 
 			for (int i = 0; i < entries.Count; i++)
 			{
 				int rank = i + 1;
 				HighscoreEntry entry = Instantiate(entryPrefab, parent).GetComponent<HighscoreEntry>();
-				entry.Populate(rank + ".", "", "");
+				entry.Populate(rank, "", "");
 
 				if (entries.Count > i)
 				{
-					entry.Populate(rank + ".", entries[i]["name"], entries[i]["score"]);
+					entry.Populate(rank, entries[i]["name"], entries[i]["score"]);
 					entry.SetIcons(entries[i]["text"]);
 					entry.SetTextColourBasedOnRank(rank);
 				}
@@ -53,7 +53,7 @@ namespace Highscore
 		public void DisplayError(string message)
 		{
 			ClearEntries();
-			statusText.text = message;
+			statusText.SetText(message);
 			statusText.color = Color.red;
 		}
 
@@ -63,33 +63,33 @@ namespace Highscore
 		public void UploadHighscore(InputField usernameInput)
 		{
 			Text placeholderText = usernameInput.placeholder.GetComponent<Text>();
-			string formatted = Utilities.StripNonLatinLetters(usernameInput.text);
+			string formatted = usernameInput.text.StripNonLatinLetters();
 
 			if (HighscoreManager.instance.GetLocalHighscore() <= 0)
 			{
-				usernameInput.text = "";
-				placeholderText.text = "Score cannot be 0!";
+				usernameInput.SetText("");
+				placeholderText.SetText(Ui.SCORE_NOT_ZERO);
 			}
 			else if (string.IsNullOrEmpty(usernameInput.text))
 			{
-				usernameInput.text = "";
-				placeholderText.text = "Enter a nickname!";
+				usernameInput.SetText("");
+				placeholderText.SetText(Ui.ENTER_NICKNAME);
 			}
-			else if (PlayerPrefs.GetInt(Constants.UPLOADED_KEY) != Constants.NO)
+			else if (PlayerPrefs.GetInt(PlayerPrefKeys.UPLOADED) != Constants.NO)
 			{
-				usernameInput.text = "";
-				placeholderText.text = "Already uploaded!";
+				usernameInput.SetText("");
+				placeholderText.SetText(Ui.ALREADY_UPLOADED);
 			}
 			else if (string.IsNullOrEmpty(formatted))
 			{
-				usernameInput.text = "";
-				placeholderText.text = "Invalid name!";
+				usernameInput.SetText("");
+				placeholderText.SetText(Ui.INVALID_NAME);
 			}
 			else
 			{
 				HighscoreManager.instance.UploadHighscoreToDreamlo(formatted);
-				usernameInput.text = "";
-				placeholderText.text = "Uploaded!";
+				usernameInput.SetText("");
+				placeholderText.SetText(Ui.UPLOADED);
 			}
 		}
 

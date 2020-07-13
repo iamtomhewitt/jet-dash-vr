@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using Achievements;
 using System.Collections;
-using Achievements;
+using UnityEngine.UI;
+using UnityEngine;
+using Utility;
 
 namespace Manager
 {
@@ -10,14 +11,13 @@ namespace Manager
 	/// </summary>
 	public class AchievementNotificationManager : MonoBehaviour
 	{
-		[SerializeField] private GameObject notification;
-		[SerializeField] private Text achievementName;
-		[SerializeField] private Text achievementDescription;
-		[SerializeField] private Text achievementValue;
 		[SerializeField] private Animator animator;
+		[SerializeField] private GameObject notification;
+		[SerializeField] private Text achievementDescription;
+		[SerializeField] private Text achievementName;
+		[SerializeField] private Text achievementValue;
 
 		private Queue notificationQueue = new Queue();
-
 		private bool showingAchievement = false;
 
 		private const string ACHIEVEMENT_HIDE = "Achievement Hide";
@@ -69,9 +69,9 @@ namespace Manager
 
 			// Get the next achievement in the queue
 			Achievement a = (Achievement)notificationQueue.Dequeue();
-			achievementName.text = a.achievementName;
-			achievementDescription.text = a.description;
-			achievementValue.text = a.awardValue.ToString() + "P";
+			achievementName.SetText(a.achievementName);
+			achievementDescription.SetText(a.description);
+			achievementValue.SetText(a.awardValue.ToString() + "P");
 
 			yield return new WaitForSeconds(SHOW_TIME);
 

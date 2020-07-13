@@ -18,7 +18,7 @@ namespace Data
 		[SerializeField] private string abilityDescription;
 		[SerializeField] private Sprite sprite;
 		[SerializeField] private bool hasPowerup;
-		
+
 		[ConditionalField("hasPowerup")]
 		[SerializeField] private GameObject powerup;
 
@@ -36,7 +36,7 @@ namespace Data
 		{
 			return speed;
 		}
-		
+
 		public float GetAcceleration()
 		{
 			return acceleration;
