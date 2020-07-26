@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Manager;
+using Player;
+using UnityEngine;
 using Utility;
 
 namespace SpawnableObject
@@ -11,6 +13,16 @@ namespace SpawnableObject
 		[SerializeField] private PowerupType powerupType;
 		[SerializeField] private Color32 colour;
 
+		private AudioManager audioManager;
+		private PlayerHud playerHud;
+
+		public override void Start()
+		{
+			base.Start();
+			audioManager = AudioManager.instance;
+			playerHud = FindObjectOfType<PlayerHud>();
+		}
+
 		/// <summary>
 		/// For example, hitting the double points powerup doubles the players points.
 		/// </summary>
@@ -21,8 +33,9 @@ namespace SpawnableObject
 			switch (other.gameObject.tag)
 			{
 				case Tags.OBSTACLE:
-					Debug.Log(string.Format("A powerup has spawned inside an obstacle, moving from {0} to {1}", transform.position, (transform.position -= Vector3.forward * 100f)));
-					transform.position -= Vector3.forward * 100f;
+					Vector3 newPosition = transform.position -= Vector3.forward * 100f;
+					Debug.Log(string.Format("A powerup has spawned inside an obstacle, moving from {0} to {1}", transform.position, newPosition));
+					transform.position = newPosition;
 					break;
 
 				default:
@@ -41,6 +54,16 @@ namespace SpawnableObject
 			return colour;
 		}
 
+		public AudioManager GetAudioManager()
+		{
+			return audioManager;
+		}
+
+		public PlayerHud GetPlayerHud()
+		{
+			return playerHud;
+		}
+
 		public override void AfterRelocation()
 		{
 			// Nothing to do!
@@ -53,6 +76,8 @@ namespace SpawnableObject
 		DoublePoints,
 		Invincibility,
 		Jump,
-		Hyperdrive
+		Hyperdrive,
+		SpeedUp,
+		SlowDown
 	};
 }

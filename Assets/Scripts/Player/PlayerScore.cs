@@ -12,59 +12,33 @@ namespace Player
 		private int bonusScore = 0;
 		private int speedStreak = 50;
 
-		public static PlayerScore instance;
-
-		private void Awake()
-		{
-			instance = this;
-		}
-
 		private void Start()
 		{
-			playerControl = PlayerControl.instance;
-			hud = PlayerHud.instance;
+			playerControl = GetComponent<PlayerControl>();
+			hud = GetComponent<PlayerHud>();
 
 			float acceleration = playerControl.GetAcceleration();
 			InvokeRepeating("ShowNotificationIfOnSpeedStreak", acceleration, acceleration);
 		}
 
-		private void Update()
-		{
-			hud.SetScoreText(bonusScore);
-		}
-
 		/// <summary>
 		/// Shows a notification if we are on a speed streak (every 50).
 		/// </summary>
-		private void ShowNotificationIfOnSpeedStreak()
+		public void ShowNotificationIfOnSpeedStreak()
 		{
 			float speed = playerControl.GetSpeed();
 
 			if (speed % speedStreak == 0 && !playerControl.HasReachedMaxSpeed())
-			{
+			{			
 				hud.ShowNotification(Color.white, speed + " Speed Streak!");
 				AudioManager.instance.Play(SoundNames.SPEED_STREAK);
-			}
-		}
-
-		/// <summary>
-		/// Saves the players distance to the PlayerPrefs.
-		/// </summary>
-		public void SaveDistanceHighscore()
-		{
-			int currentDistance = PlayerPrefs.GetInt(Constants.DISTANCE_KEY);
-			int distance = GetDistanceScore();
-
-			if (distance > currentDistance)
-			{
-				Debug.Log("New distance of " + distance + "! Previous was " + currentDistance + ".");
-				PlayerPrefs.SetInt(Constants.DISTANCE_KEY, distance);
 			}
 		}
 
 		public void AddBonusPoints(int points)
 		{
 			bonusScore += points;
+			hud.SetScoreText(bonusScore);
 		}
 
 		public void DoublePoints()
@@ -91,9 +65,9 @@ namespace Player
 
 		public int GetFinalScore()
 		{
-			bool doubleScore = ShopManager.instance.GetSelectedShipData().GetShipName().Equals(Tags.CELLEX);
+			bool shouldDoubleScore = ShopManager.instance.GetSelectedShipData().GetShipName().Equals(Tags.CELLEX);
 			int finalScore = GetBonusScore() + GetDistanceScore() + playerControl.GetSpeed();
-			return doubleScore ? finalScore * 2 : finalScore;
+			return shouldDoubleScore ? finalScore * 2 : finalScore;
 		}
 	}
 }

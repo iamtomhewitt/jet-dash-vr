@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using SimpleJSON;
+﻿using SimpleJSON;
+using UnityEngine;
 
 namespace Utility
 {
@@ -25,14 +25,14 @@ namespace Utility
 				DontDestroyOnLoad(gameObject);
 				instance = this;
 			}
-			
+
 			TextAsset configFile = Resources.Load<TextAsset>("config");
 
 			if (configFile == null)
 			{
-				Debug.Log("ERROR: Could not load config from Resources/config.json");
+				Debug.LogError("ERROR: Could not load config from Resources/config.json");
 			}
-			
+
 			root = JSON.Parse(configFile.text);
 		}
 

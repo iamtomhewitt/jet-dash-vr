@@ -1,0 +1,45 @@
+{
+    "name": "jet-dash-vr",
+    "version": "5.2.0-BETA",
+    "description": "🚀 My Android game on Google Play that has both VR and non-VR play modes",
+    "scripts": {
+        "release": "github-releaser"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/iamtomhewitt/jet-dash-vr.git",
+        "apiUrl": "https://api.github.com/repos/iamtomhewitt/jet-dash-vr"
+    },
+    "keywords": [
+        "unity",
+        "unity3d",
+        "csharp",
+        "game"
+    ],
+    "author": "Tom Hewitt",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/iamtomhewitt/jet-dash-vr/issues"
+    },
+    "homepage": "https://github.com/iamtomhewitt/jet-dash-vr#readme",
+    "devDependencies": {
+        "@commitlint/cli": "^8.3.5",
+        "@commitlint/config-conventional": "^8.3.4",
+        "cz-conventional-changelog": "^2.1.0",
+        "husky": "^1.1.2",
+        "validate-commit-msg": "^2.14.0"
+    },
+    "husky": {
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
+    },
+    "dependencies": {
+        "github-releaser": "^1.1.2"
+    }
+}

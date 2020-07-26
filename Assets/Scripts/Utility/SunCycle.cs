@@ -11,8 +11,9 @@ namespace Utility
 		[SerializeField] private Vector3 nightSpeed;
 
 		private Vector3 speed;
-
 		private float angle;
+		private int maxAngle = 270;
+		private int minAngle = 90;
 
 		private void Update()
 		{
@@ -20,14 +21,7 @@ namespace Utility
 
 			angle = transform.localEulerAngles.z;
 
-			if (angle < 270 && angle > 90)
-			{
-				speed = nightSpeed;
-			}
-			else
-			{
-				speed = daySpeed;
-			}
+			speed = (angle < maxAngle && angle > minAngle) ? nightSpeed : daySpeed;
 		}
 	}
 }

@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using Manager;
 using UnityEngine.SceneManagement;
-using Manager;
+using UnityEngine;
 
 namespace LevelManagers
 {

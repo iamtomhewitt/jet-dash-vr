@@ -1,18 +1,22 @@
-﻿using UnityEngine;
+﻿using Manager;
 using UnityEngine.UI;
-using Manager;
+using UnityEngine;
+using Utility;
 
 namespace LevelManagers
 {
 	public class SettingsLevelManager : LevelManager
 	{
-		[SerializeField] private Text toggleVrText;
 		[SerializeField] private Slider sensitivitySlider;
+		[SerializeField] private Text toggleVrText;
+
+		private GameSettingsManager gameSettings;
 
 		private void Start()
 		{
-			toggleVrText.text = "VR Mode: " + (GameSettingsManager.instance.vrMode() ? "ON" : "OFF");
-			sensitivitySlider.value = GameSettingsManager.instance.GetSensitivity();
+			gameSettings = GameSettingsManager.instance;
+			SetVrToggleText();
+			sensitivitySlider.value = gameSettings.GetSensitivity();
 		}
 
 		/// <summary>
@@ -20,10 +24,9 @@ namespace LevelManagers
 		/// </summary>
 		public void ToggleVR()
 		{
-			bool isVrMode = GameSettingsManager.instance.vrMode();
-			GameSettingsManager.instance.SetVrMode(!isVrMode);
-
-			toggleVrText.text = "VR Mode: " + (GameSettingsManager.instance.vrMode() ? "ON" : "OFF");
+			bool isVrMode = gameSettings.vrMode();
+			gameSettings.SetVrMode(!isVrMode);
+			SetVrToggleText();
 		}
 
 		/// <summary>
@@ -31,7 +34,12 @@ namespace LevelManagers
 		/// </summary>
 		public void UpdateSensitivity()
 		{
-			GameSettingsManager.instance.SetSensitivity(sensitivitySlider.value);
+			gameSettings.SetSensitivity(sensitivitySlider.value);
+		}
+
+		private void SetVrToggleText()
+		{
+			toggleVrText.SetText(Ui.VR_TOGGLE(gameSettings.vrMode()));
 		}
 	}
 }

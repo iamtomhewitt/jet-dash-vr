@@ -20,20 +20,28 @@ namespace Utility
 
         private void Update()
         {
-            if (trackX)
+            if (target)
             {
-                x = target.position.x;
-            }
-            if (trackY)
-            {
-                y = target.position.y;
-            }
-            if (trackZ)
-            {
-                z = target.position.z;
-            }
+                if (trackX)
+                {
+                    x = target.position.x;
+                }
+                if (trackY)
+                {
+                    y = target.position.y;
+                }
+                if (trackZ)
+                {
+                    z = target.position.z;
+                }
 
-            transform.position = new Vector3(x, y, z) + new Vector3(xOffset, yOffset, zOffset);
+                transform.SetPosition(new Vector3(x, y, z) + new Vector3(xOffset, yOffset, zOffset));
+            }
+        }
+
+        public void SetTarget(Transform target)
+        {
+            this.target = target;
         }
     }
 }

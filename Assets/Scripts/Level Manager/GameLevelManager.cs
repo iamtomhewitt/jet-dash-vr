@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using Manager;
 using System.Collections;
-using Manager;
+using UnityEngine.SceneManagement;
+using UnityEngine;
 
 namespace LevelManagers
 {
@@ -13,9 +13,17 @@ namespace LevelManagers
 		[SerializeField] private GameObject pauseMenu;
 		[SerializeField] private float levelRestartDelay = 1.5f;
 
+		private AdvertManager advertManager;
+		private AudioManager audioManager;
+
+		private const float TIME_NORMAL = 1f;
+		private const float TIME_STOPPED = 0f;
+
 		private void Start()
 		{
-			Time.timeScale = 1f;
+			advertManager = AdvertManager.instance;
+			audioManager = AudioManager.instance;
+			Time.timeScale = TIME_NORMAL;
 		}
 
 		/// <summary>
@@ -29,25 +37,25 @@ namespace LevelManagers
 		public void ShowPauseMenu()
 		{
 			pauseMenu.SetActive(true);
-			Time.timeScale = 0f;
+			Time.timeScale = TIME_STOPPED;
 		}
 
 		public void HidePauseMenu()
 		{
 			pauseMenu.SetActive(false);
-			Time.timeScale = 1f;
+			Time.timeScale = TIME_NORMAL;
 		}
 
 		private IEnumerator RestartLevelRoutine()
 		{
 			yield return new WaitForSeconds(levelRestartDelay);
 
-			AdvertManager.instance.IncreaseAdvertCounter();
+			advertManager.IncreaseAdvertCounter();
 
-			if (AdvertManager.instance.CanShowAdvert())
+			if (advertManager.CanShowAdvert())
 			{
-				AdvertManager.instance.ShowAdvert();
-				AdvertManager.instance.ResetAdvertCounter();
+				advertManager.ShowAdvert();
+				advertManager.ResetAdvertCounter();
 			}
 
 			this.LoadLevel(SceneManager.GetActiveScene().name);
@@ -55,10 +63,10 @@ namespace LevelManagers
 
 		public void ReturnToMenu(string sceneName)
 		{
-			Time.timeScale = 1f;
+			Time.timeScale = TIME_NORMAL;
 			ScreenManager.MakePortrait();
-			AudioManager.instance.Pause(SoundNames.SCORE);
-			AudioManager.instance.Pause(SoundNames.SHIP_ENGINE);
+			audioManager.Pause(SoundNames.SCORE);
+			audioManager.Pause(SoundNames.SHIP_ENGINE);
 			this.LoadLevel(sceneName);
 		}
 	}

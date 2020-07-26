@@ -1,9 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections;
 using UnityEngine.UI;
-using System.Collections;
-using Manager;
-using LevelManagers;
+using UnityEngine;
 using Utility;
+using Manager;
 
 namespace Player
 {
@@ -13,14 +12,8 @@ namespace Player
 		[SerializeField] private Text bonusScoreText;
 		[SerializeField] private Text topSpeed;
 		[SerializeField] private Text finalScore;
-		[SerializeField] private Text relaunchingText;
 
-		public static Scoreboard instance;
-
-		private void Awake()
-		{
-			instance = this;
-		}
+		private const float ANIMATION_TIME = 3f;
 
 		public void AnimateBonusScore(int score)
 		{
@@ -49,40 +42,23 @@ namespace Player
 
 		private IEnumerator Animate(int score, Text text)
 		{
+			AudioManager audioManager = AudioManager.instance;
 			int displayScore = 0;
 			int start = displayScore;
-			AudioManager.instance.Play(SoundNames.SCORE);
 
-			for (float timer = 0; timer < 3f; timer += Time.deltaTime)
+			audioManager.Play(SoundNames.SCORE);
+
+			for (float timer = 0; timer < ANIMATION_TIME; timer += Time.deltaTime)
 			{
-				float progress = timer / 3f;
+				float progress = timer / ANIMATION_TIME;
 				displayScore = (int)Mathf.Lerp(start, score, progress);
-				text.text = displayScore.ToString();
+				text.SetText(displayScore.ToString());
 				yield return null;
 			}
 
 			displayScore = score;
-			text.text = displayScore.ToString();
-			AudioManager.instance.Pause(SoundNames.SCORE);
-
-			// Final score will take the longest to animate, so only reload the scene when animating final score,
-			// that way nothing gets cut off
-			if (text.Equals(finalScore))
-			{
-				StartCoroutine(WaitAndRestart());
-			}
-		}
-
-		private IEnumerator WaitAndRestart()
-		{
-			for (int i = 3; i >= 0; i--)
-			{
-				yield return new WaitForSeconds(1);
-				relaunchingText.text = "Relaunching in: " + i.ToString();
-			}
-
-			relaunchingText.text = "Relaunching";
-			FindObjectOfType<GameLevelManager>().RestartLevel();
+			text.SetText(displayScore.ToString());
+			audioManager.Pause(SoundNames.SCORE);
 		}
 
 		public void Show()
@@ -103,6 +79,11 @@ namespace Player
 
 			cg.interactable = false;
 			yield return null;
+		}
+
+		public float GetAnimationTime()
+		{
+			return ANIMATION_TIME;
 		}
 	}
 }
