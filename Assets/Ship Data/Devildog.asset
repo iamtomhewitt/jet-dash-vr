@@ -17,7 +17,7 @@ MonoBehaviour:
   speed: 20
   acceleration: 2
   turnSpeed: 20
-  cost: 1500000
+  cost: 150000
   ability: 3
   abilityDescription: This ship comes with an additional powerup, that when flown
     through, launches your ship into the air.
