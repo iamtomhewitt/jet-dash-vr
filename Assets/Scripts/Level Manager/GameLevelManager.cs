@@ -13,7 +13,6 @@ namespace LevelManagers
 		[SerializeField] private GameObject pauseMenu;
 		[SerializeField] private float levelRestartDelay = 1.5f;
 
-		private AdvertManager advertManager;
 		private AudioManager audioManager;
 
 		private const float TIME_NORMAL = 1f;
@@ -21,7 +20,6 @@ namespace LevelManagers
 
 		private void Start()
 		{
-			advertManager = AdvertManager.instance;
 			audioManager = AudioManager.instance;
 			Time.timeScale = TIME_NORMAL;
 		}
@@ -49,15 +47,6 @@ namespace LevelManagers
 		private IEnumerator RestartLevelRoutine()
 		{
 			yield return new WaitForSeconds(levelRestartDelay);
-
-			advertManager.IncreaseAdvertCounter();
-
-			if (advertManager.CanShowAdvert())
-			{
-				advertManager.ShowAdvert();
-				advertManager.ResetAdvertCounter();
-			}
-
 			this.LoadLevel(SceneManager.GetActiveScene().name);
 		}
 
