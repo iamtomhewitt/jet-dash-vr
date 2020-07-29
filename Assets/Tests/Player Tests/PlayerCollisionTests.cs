@@ -18,7 +18,6 @@ namespace Tests
 		private GameSettingsManager gs;
 		private HighscoreManager hm;
 		private PlayerCollision pc;
-		private RateMePopupManager rmm;
 		private ShopManager sm;
 
 		[SetUp]
@@ -31,7 +30,6 @@ namespace Tests
 			obstacle = MonoBehaviour.Instantiate(TestConstants.GetResource("Obstacle"));
 			player = MonoBehaviour.Instantiate(TestConstants.GetResource("Player"));
 			powerup = MonoBehaviour.Instantiate(TestConstants.GetResource("Powerup"));
-			rmm = MonoBehaviour.Instantiate(TestConstants.GetResource("Managers/Rate Me Popup Manager")).GetComponent<RateMePopupManager>();
 			sm = MonoBehaviour.Instantiate(TestConstants.GetResource("Managers/Shop Manager")).GetComponent<ShopManager>();
 
 			pc = player.GetComponent<PlayerCollision>();
@@ -48,7 +46,6 @@ namespace Tests
 			Object.Destroy(obstacle);
 			Object.Destroy(player);
 			Object.Destroy(powerup);
-			Object.Destroy(rmm);
 			Object.Destroy(sm);
 		}
 

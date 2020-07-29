@@ -10,6 +10,5 @@ namespace Utility
 		public const string UNLOCKED = "Unlocked";
 		public const string UPLOADED = "hasUploadedHighscore";
 		public const string WAS_VR_HIGHSCORE = "wasVrHighscore";
-		public const string SHOWN_POPUP_ON_FIRST_HIGHSCORE = "shownPopupOnFirstHighscore";
 	}
 }
