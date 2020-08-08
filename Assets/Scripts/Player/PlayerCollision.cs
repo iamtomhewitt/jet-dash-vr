@@ -24,7 +24,6 @@ namespace Player
 		private PlayerControl playerControl;
 		private PlayerHud hud;
 		private PlayerScore playerScore;
-		private RateMePopupManager rateMePopupManager;
 		private Scoreboard scoreboard;
 		private ShopManager shopManager;
 		private bool dead = false;
@@ -37,7 +36,6 @@ namespace Player
 			hud = GetComponent<PlayerHud>();
 			playerControl = GetComponent<PlayerControl>();
 			playerScore = GetComponent<PlayerScore>();
-			rateMePopupManager = RateMePopupManager.instance;
 			scoreboard = FindObjectOfType<Scoreboard>();
 			shopManager = ShopManager.instance;
 		}
@@ -87,8 +85,6 @@ namespace Player
 					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_MILLION, 1000000, playerScore.GetFinalScore());
 					achievementManager.UnlockAchievement(AchievementIds.DIE);
 
-					rateMePopupManager.IncreaseShowCount();
-
 					StartCoroutine(RestartLevelRoutine());
 					break;
 
@@ -117,12 +113,6 @@ namespace Player
 		private IEnumerator RestartLevelRoutine()
 		{
 			yield return new WaitForSeconds(scoreboard.GetAnimationTime());
-
-			if (rateMePopupManager.CanShowRateMePopup())
-			{
-				Time.timeScale = 0f; // Time is set back to normal once a button is pressed on the dialog
-				rateMePopupManager.ShowRateMePopup();
-			}
 
 			for (int i = 3; i >= 0; i--)
 			{

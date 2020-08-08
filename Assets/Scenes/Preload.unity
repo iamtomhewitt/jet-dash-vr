@@ -43,7 +43,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 11
+  serializedVersion: 12
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -118,6 +118,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
@@ -158,7 +160,6 @@ MonoBehaviour:
   - {fileID: 1410269707171468, guid: 25a850694f0e1944586ac8ecf2e97f2d, type: 3}
   - {fileID: 7990422994654488730, guid: b2ea9cda1b232aa4cba18a1b1a91b6ee, type: 3}
   - {fileID: 5614327820969191101, guid: acd7a28bf63768b449c5fd839c9bc068, type: 3}
-  - {fileID: 3634085967929530062, guid: a02a0947b4e5246f0ab8dbc997c68367, type: 3}
 --- !u!4 &616118682
 Transform:
   m_ObjectHideFlags: 0
