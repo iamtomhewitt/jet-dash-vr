@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1867310552}
-  m_IndirectSpecularColor: {r: 0.44679654, g: 0.49666584, b: 0.57495046, a: 1}
+  m_IndirectSpecularColor: {r: 0.44679648, g: 0.49666554, b: 0.5749501, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -324,7 +324,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -10.12}
+  m_AnchoredPosition: {x: 0, y: -10.119999}
   m_SizeDelta: {x: 0, y: -20.24713}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &275181670
@@ -1425,7 +1425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensitivitySlider: {fileID: 1022405366}
-  toggleVrText: {fileID: 0}
+  toggleVrText: {fileID: 8146931458729085774}
 --- !u!4 &1537249600
 Transform:
   m_ObjectHideFlags: 0
