@@ -8,7 +8,11 @@ namespace UI
 	{
 		[SerializeField] private GameObject[] leaderboards;
 		[SerializeField] private Color activeButtonColour;
+		[SerializeField] private Color inactiveButtonColour;
+		[SerializeField] private Color activeUnderlineColour;
+		[SerializeField] private Color inactiveUnderlineColour;
 		[SerializeField] private Color activeTextColour;
+		[SerializeField] private Color inactiveTextColour;
 		[SerializeField] private Text scoreTitle;
 
 		private GameObject[] tabButtons;
@@ -41,6 +45,7 @@ namespace UI
 		{
 			button.GetComponent<Image>().color = activeButtonColour;
 			button.GetComponentInChildren<Text>().color = activeTextColour;
+			button.transform.GetChild(1).GetComponentInChildren<Image>().color = activeUnderlineColour;
 		}
 
 		private void DeactivateAllButtons()
@@ -53,9 +58,9 @@ namespace UI
 
 		private void DeactivateButton(Button button)
 		{
-			// All we do is invert the colours
-			button.GetComponent<Image>().color = activeTextColour;
-			button.GetComponentInChildren<Text>().color = activeButtonColour;
+			button.GetComponent<Image>().color = inactiveButtonColour;
+			button.GetComponentInChildren<Text>().color = inactiveTextColour;
+			button.transform.GetChild(1).GetComponentInChildren<Image>().color = inactiveUnderlineColour;
 		}
 	}
 }
