@@ -31,9 +31,9 @@ namespace Manager
 		}
 
 		/// <summary>
-		/// Saves the highscore to PlayerPrefs.
+		/// Saves the highscore to PlayerPrefs. Returns true or false if there was a new highscore.
 		/// </summary>
-		public void SaveLocalHighscore(int score)
+		public bool SaveLocalHighscore(int score)
 		{
 			int currentHighscore = GetLocalHighscore();
 
@@ -49,20 +49,24 @@ namespace Manager
 				PlayerPrefs.SetInt(PlayerPrefKeys.UPLOADED, Constants.NO);
 
 				AchievementManager.instance.UnlockAchievement(AchievementIds.NEW_HIGHSCORE);
+				return true;
 			}
+			return false;
 		}
 
 		/// <summary>
-		/// Saves the players distance to the PlayerPrefs.
+		/// Saves the players distance to the PlayerPrefs. Returns true or false if there was a new highscore.
 		/// </summary>
-		public void SaveDistanceHighscore(int distance)
+		public bool SaveDistanceHighscore(int distance)
 		{
 			int currentDistance = PlayerPrefs.GetInt(PlayerPrefKeys.DISTANCE);
 			if (distance > currentDistance)
 			{
 				Debug.Log("New distance of " + distance + "! Previous was " + currentDistance + ".");
 				PlayerPrefs.SetInt(PlayerPrefKeys.DISTANCE, distance);
+				return true;
 			}
+			return false;
 		}
 
 		/// <summary>

@@ -73,8 +73,13 @@ namespace Player
 					scoreboard.AnimateTopSpeed(topSpeed);
 					scoreboard.AnimateFinalScore(playerScore.GetFinalScore());
 
-					highscoreManager.SaveLocalHighscore(playerScore.GetFinalScore());
-					highscoreManager.SaveDistanceHighscore(playerScore.GetDistanceScore());
+					bool newScore = highscoreManager.SaveLocalHighscore(playerScore.GetFinalScore());
+					bool newDistance = highscoreManager.SaveDistanceHighscore(playerScore.GetDistanceScore());
+
+					if (newScore || newDistance) 
+					{
+						hud.SetNewHighscoreText("New highscore!");
+					}
 
 					// Now update achievements
 					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_1000, 1000, playerScore.GetDistanceScore());
