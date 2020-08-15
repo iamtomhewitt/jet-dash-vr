@@ -5,7 +5,7 @@ namespace UI
 {
 	public class NotificationIcon : MonoBehaviour
 	{
-		private void Start()
+		public void Start()
 		{
 			gameObject.SetActive(IsNewHighscore());
 		}
