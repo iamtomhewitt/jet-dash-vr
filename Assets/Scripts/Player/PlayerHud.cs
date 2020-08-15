@@ -15,6 +15,7 @@ namespace Player
 		[SerializeField] private Text scoreText;
 		[SerializeField] private Text powerupNotificationText;
 		[SerializeField] private Text relaunchingText;
+		[SerializeField] private Text newHighscoreText;
 		[SerializeField] private Image invincibilityBar;
 		[SerializeField] private float notificationShowTime = 1.5f;
 
@@ -41,6 +42,11 @@ namespace Player
 		public void SetScoreText(int score)
 		{
 			scoreText.SetText(score.ToString());
+		}
+
+		public void SetNewHighscoreText(string message)
+		{
+			newHighscoreText.text = message;
 		}
 
 		/// <summary>

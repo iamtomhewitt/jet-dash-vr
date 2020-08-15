@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using Manager;
+using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using Utility;
-using Manager;
 
 namespace Player
 {
