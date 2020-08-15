@@ -5,6 +5,7 @@ using System.Collections;
 using UnityEngine.Networking;
 using UnityEngine;
 using Utility;
+using UI;
 
 namespace Manager
 {
@@ -47,6 +48,7 @@ namespace Manager
 
 				// Player has got a new highscore, which hasn't been uploaded yet, so set it to false (0)
 				PlayerPrefs.SetInt(PlayerPrefKeys.UPLOADED, Constants.NO);
+				PlayerPrefs.SetInt(PlayerPrefKeys.NEW_HIGHSCORE, Constants.YES);
 
 				AchievementManager.instance.UnlockAchievement(AchievementIds.NEW_HIGHSCORE);
 				return true;
@@ -64,6 +66,7 @@ namespace Manager
 			{
 				Debug.Log("New distance of " + distance + "! Previous was " + currentDistance + ".");
 				PlayerPrefs.SetInt(PlayerPrefKeys.DISTANCE, distance);
+				PlayerPrefs.SetInt(PlayerPrefKeys.NEW_DISTANCE, Constants.YES);
 				return true;
 			}
 			return false;
@@ -106,7 +109,13 @@ namespace Manager
 			{
 				Debug.Log("Upload successful! " + request.responseCode);
 				PlayerPrefs.SetInt(PlayerPrefKeys.UPLOADED, Constants.YES);
+				PlayerPrefs.SetInt(leaderboard.Equals(PlayerPrefKeys.LEADERBOARD_SCORE) ? PlayerPrefKeys.NEW_HIGHSCORE : PlayerPrefKeys.NEW_DISTANCE, Constants.NO);
 				AchievementManager.instance.UnlockAchievement(AchievementIds.UPLOAD_HIGHSCORE);
+				NotificationIcon icon = FindObjectOfType<NotificationIcon>();
+				if (icon != null)
+				{
+					icon.TurnOff();
+				}
 			}
 			else
 			{
