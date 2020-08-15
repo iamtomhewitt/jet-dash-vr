@@ -63,6 +63,7 @@ namespace Player
 
 					playerControl.StopMoving();
 					playerModel.SetActive(false);
+					hud.SetNewHighscoreText("");
 					gameHUD.SetActive(false);
 
 					audioManager.Play(SoundNames.PLAYER_DEATH);
