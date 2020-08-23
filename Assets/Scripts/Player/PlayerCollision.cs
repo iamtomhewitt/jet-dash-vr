@@ -53,7 +53,9 @@ namespace Player
 
 					dead = true;
 
-					GameObject e = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
+					GameObject e = Instantiate(explosion) as GameObject;
+					e.transform.SetPosition(new Vector3(transform.position.x, 0.6f, transform.position.z));
+					
 					int topSpeed = playerControl.GetSpeed();
 					int finalScore = playerScore.GetFinalScore();
 					int bonusScore = playerScore.GetBonusScore();
