@@ -10477,7 +10477,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b80b0692e5a146bdc848988c39ac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosion: {fileID: 1917559466996130, guid: af47cc549d94cb14693a54a4808d3e49, type: 3}
+  explosion: {fileID: 3796784344133294190, guid: af47cc549d94cb14693a54a4808d3e49,
+    type: 3}
   gameHUD: {fileID: 727388017924175205}
   playerModel: {fileID: 727388016764917708}
   shield: {fileID: 727388017270941837}
