@@ -1,3 +1,15 @@
+## 5.3.0-BETA (28/08/2020) 
+
+
+### Issues in this release:
+
+* [#111](https://github.com/iamtomhewitt/jet-dash-vr/issues/111) - Add particle effects to powerups
+* [#106](https://github.com/iamtomhewitt/jet-dash-vr/issues/106) - Better buttons
+* [#104](https://github.com/iamtomhewitt/jet-dash-vr/issues/104) - No notification of new highscore
+* [#3](https://github.com/iamtomhewitt/jet-dash-vr/issues/3) - Improve player explosion
+
+
+
 ## 5.2.1 (08/08/2020) 
 
 
