@@ -6,6 +6,7 @@ namespace Utility
 		public const string DOWNLOADING_HIGHSCORES = "Downloading Highscores...";
 		public const string ENTER_NICKNAME = "Enter a nickname!";
 		public const string INVALID_NAME = "Invalid name!";
+		public const string NEW_HIGHSCORE = "New Highscore!";
 		public const string NO_INTERNET = "No internet connection";
 		public const string POWERUP_DOUBLE_POINTS = "x2!";
 		public const string POWERUP_HYPERDRIVE = "Hyperdrive!";
