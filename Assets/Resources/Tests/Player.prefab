@@ -10477,7 +10477,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2b80b0692e5a146bdc848988c39ac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosion: {fileID: 1917559466996130, guid: af47cc549d94cb14693a54a4808d3e49, type: 3}
+  explosion: {fileID: 3796784344133294190, guid: af47cc549d94cb14693a54a4808d3e49,
+    type: 3}
   gameHUD: {fileID: 727388017924175205}
   playerModel: {fileID: 727388016764917708}
   shield: {fileID: 727388017270941837}
@@ -72063,7 +72064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 3b5db0d9ef2fb3b4197952172f3183db, type: 2}
-  m_Color: {r: 1, g: 0.69411767, b: 0, a: 1}
+  m_Color: {r: 0.54901963, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
