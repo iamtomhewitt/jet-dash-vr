@@ -1,6 +1,6 @@
 {
     "name": "jet-dash-vr",
-    "version": "5.2.1",
+    "version": "5.3.0-BETA",
     "description": "🚀 My Android game on Google Play that has both VR and non-VR play modes",
     "scripts": {
         "release": "github-releaser"
@@ -23,7 +23,7 @@
     },
     "homepage": "https://github.com/iamtomhewitt/jet-dash-vr#readme",
     "devDependencies": {
-        "@commitlint/cli": "^8.3.5",
+        "@commitlint/cli": "^9.1.2",
         "@commitlint/config-conventional": "^8.3.4",
         "cz-conventional-changelog": "^2.1.0",
         "dot-prop": ">=5.1.1",
@@ -41,6 +41,6 @@
         }
     },
     "dependencies": {
-        "github-releaser": "^1.2.0"
+        "github-releaser": "^1.2.1"
     }
 }

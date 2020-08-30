@@ -53,36 +53,47 @@ namespace Player
 
 					dead = true;
 
-					GameObject e = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
+					GameObject e = Instantiate(explosion) as GameObject;
+					e.transform.SetPosition(new Vector3(transform.position.x, 0.6f, transform.position.z));
+					
 					int topSpeed = playerControl.GetSpeed();
+					int finalScore = playerScore.GetFinalScore();
+					int bonusScore = playerScore.GetBonusScore();
+					int distanceScore = playerScore.GetDistanceScore();
 
 					Destroy(e, 3f);
 
 					playerControl.StopMoving();
 					playerModel.SetActive(false);
+					hud.SetNewHighscoreText("");
 					gameHUD.SetActive(false);
 
 					audioManager.Play(SoundNames.PLAYER_DEATH);
 					audioManager.Pause(SoundNames.SHIP_ENGINE);
 
-					shopManager.AddCash(playerScore.GetFinalScore());
+					shopManager.AddCash(finalScore);
 
 					scoreboard.Show();
-					scoreboard.AnimateDistanceScore(playerScore.GetDistanceScore());
-					scoreboard.AnimateBonusScore(playerScore.GetBonusScore());
+					scoreboard.AnimateDistanceScore(distanceScore);
+					scoreboard.AnimateBonusScore(bonusScore);
 					scoreboard.AnimateTopSpeed(topSpeed);
-					scoreboard.AnimateFinalScore(playerScore.GetFinalScore());
+					scoreboard.AnimateFinalScore(finalScore);
 
-					highscoreManager.SaveLocalHighscore(playerScore.GetFinalScore());
-					highscoreManager.SaveDistanceHighscore(playerScore.GetDistanceScore());
+					bool newScore = highscoreManager.SaveLocalHighscore(finalScore);
+					bool newDistance = highscoreManager.SaveDistanceHighscore(distanceScore);
+
+					if (newScore || newDistance)
+					{
+						hud.SetNewHighscoreText(Ui.NEW_HIGHSCORE);
+					}
 
 					// Now update achievements
-					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_1000, 1000, playerScore.GetDistanceScore());
-					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_10000, 10000, playerScore.GetDistanceScore());
-					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_50000, 50000, playerScore.GetDistanceScore());
-					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_FIVE_MILLION, 5000000, playerScore.GetFinalScore());
-					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_HALF_MILLION, 500000, playerScore.GetFinalScore());
-					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_MILLION, 1000000, playerScore.GetFinalScore());
+					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_1000, 1000, distanceScore);
+					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_10000, 10000, distanceScore);
+					achievementManager.ProgressAchievement(AchievementIds.DISTANCE_FURTHER_THAN_50000, 50000, distanceScore);
+					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_FIVE_MILLION, 5000000, finalScore);
+					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_HALF_MILLION, 500000, finalScore);
+					achievementManager.ProgressAchievement(AchievementIds.POINTS_OVER_MILLION, 1000000, finalScore);
 					achievementManager.UnlockAchievement(AchievementIds.DIE);
 
 					StartCoroutine(RestartLevelRoutine());
