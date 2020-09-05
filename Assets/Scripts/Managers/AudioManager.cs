@@ -109,7 +109,6 @@ namespace Manager
 		public const string PLAYER_DEATH = "Player Death";
 		public const string SCORE = "Score";
 		public const string SHIP_ENGINE = "Ship Hum";
-		public const string SHIP_STARTUP = "Starting Bass";
 		public const string SHOP_REJECT_PURCHASE = "Shop Reject Purchase";
 		public const string SHOP_SELECT_SHIP = "Shop Select Ship";
 		public const string SHOP_SPEND_CASH = "Shop Spend Cash";

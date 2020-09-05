@@ -57,28 +57,16 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Player Death
-    clip: {fileID: 8300000, guid: ebd8812527d4a1e4f91cfa4672094767, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Explosion
-    clip: {fileID: 8300000, guid: d9b909710f9442d4395f01fdca503826, type: 3}
+    clip: {fileID: 8300000, guid: c458c1c8579ff7d44b86703f664af13e, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Ship Hum
     clip: {fileID: 8300000, guid: ad9f1927a624b461292de652c3954813, type: 3}
-    volume: 1
+    volume: 0.69
     pitch: 1
     loop: 1
-    source: {fileID: 0}
-  - name: Starting Bass
-    clip: {fileID: 8300000, guid: 6ed3a8d2592de47b09ade6a36074ae8c, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
     source: {fileID: 0}
   - name: Speed Streak
     clip: {fileID: 8300000, guid: 626a2244ef0269a43b21d8fae3c24bb9, type: 3}
@@ -123,7 +111,7 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Achievement Unlocked
-    clip: {fileID: 8300000, guid: 3aa3ab3c3d5f24f4da6be38fa605a5e2, type: 3}
+    clip: {fileID: 8300000, guid: 17ae52ac96e90774c97086c41c1414b5, type: 3}
     volume: 1
     pitch: 1
     loop: 0
