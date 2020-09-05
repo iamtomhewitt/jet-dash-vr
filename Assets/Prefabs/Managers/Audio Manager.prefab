@@ -69,8 +69,8 @@ MonoBehaviour:
     loop: 1
     source: {fileID: 0}
   - name: Speed Streak
-    clip: {fileID: 8300000, guid: 626a2244ef0269a43b21d8fae3c24bb9, type: 3}
-    volume: 0
+    clip: {fileID: 8300000, guid: ebbb3d5d75648ba45a9f55c3aeb070aa, type: 3}
+    volume: 1
     pitch: 0
     loop: 0
     source: {fileID: 0}
