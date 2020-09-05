@@ -49,5 +49,20 @@ namespace Tests
             yield return new WaitForSeconds(TestConstants.WAIT_TIME);
             Assert.NotNull(s);
         }
+
+        [UnityTest]
+        public IEnumerator AllSoundsShouldHaveAnAudioSource()
+        {
+            Sound[] s = am.GetSounds();
+            yield return new WaitForSeconds(TestConstants.WAIT_TIME);
+            Assert.NotNull(s);
+            foreach (Sound sound in s)
+            {
+                if (sound.source == null || sound.source.clip == null)
+                {
+                    Assert.Fail(sound.name + " has a missing AudioSource or audio clip");
+                }
+            }
+        }
     }
 }

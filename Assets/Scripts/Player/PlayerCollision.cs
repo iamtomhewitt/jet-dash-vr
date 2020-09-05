@@ -85,6 +85,7 @@ namespace Player
 					if (newScore || newDistance)
 					{
 						hud.SetNewHighscoreText(Ui.NEW_HIGHSCORE);
+						audioManager.Play(SoundNames.NEW_HIGHSCORE);
 					}
 
 					// Now update achievements

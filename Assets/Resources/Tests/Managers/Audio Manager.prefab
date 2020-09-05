@@ -45,45 +45,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Music
-    clip: {fileID: 8300000, guid: f2bb7988bdbdc8d4eb01842f335d9d42, type: 3}
+    clip: {fileID: 8300000, guid: bab072975ee7e7148b7575f7e52f2103, type: 3}
     volume: 1
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: UI Select
-    clip: {fileID: 8300000, guid: 19e11c8cc39c64095b9945f6492fd1d9, type: 3}
+    clip: {fileID: 8300000, guid: 199938d2e20c30a4e95ecd33721642a3, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Player Death
-    clip: {fileID: 8300000, guid: ebd8812527d4a1e4f91cfa4672094767, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Explosion
-    clip: {fileID: 8300000, guid: d9b909710f9442d4395f01fdca503826, type: 3}
+    clip: {fileID: 8300000, guid: c458c1c8579ff7d44b86703f664af13e, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Ship Hum
     clip: {fileID: 8300000, guid: ad9f1927a624b461292de652c3954813, type: 3}
-    volume: 1
+    volume: 0.69
     pitch: 1
     loop: 1
     source: {fileID: 0}
-  - name: Starting Bass
-    clip: {fileID: 8300000, guid: 6ed3a8d2592de47b09ade6a36074ae8c, type: 3}
+  - name: Speed Streak
+    clip: {fileID: 8300000, guid: ebbb3d5d75648ba45a9f55c3aeb070aa, type: 3}
     volume: 1
     pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Speed Streak
-    clip: {fileID: 8300000, guid: 626a2244ef0269a43b21d8fae3c24bb9, type: 3}
-    volume: 0
-    pitch: 0
     loop: 0
     source: {fileID: 0}
   - name: Score
@@ -93,19 +81,19 @@ MonoBehaviour:
     loop: 1
     source: {fileID: 0}
   - name: Powerup Bonus Points
-    clip: {fileID: 8300000, guid: cdfb87f324485ba43bf5c2695f9d3fa4, type: 3}
+    clip: {fileID: 8300000, guid: 5c9f93a291f5ba04eb60b2ab4e2dd7dd, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Powerup Double Points
-    clip: {fileID: 8300000, guid: 98f0b87b283f8a840b0076f3835ba1f6, type: 3}
+    clip: {fileID: 8300000, guid: 11a23999af730a249871211226503ee9, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Powerup Invincibility
-    clip: {fileID: 8300000, guid: b338c4d3c6a3c3e4486c704a3fb7a186, type: 3}
+    clip: {fileID: 8300000, guid: 8c5f82b2b24d21c40af67dba1034956c, type: 3}
     volume: 1
     pitch: 1
     loop: 0
@@ -123,7 +111,7 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Achievement Unlocked
-    clip: {fileID: 8300000, guid: 3aa3ab3c3d5f24f4da6be38fa605a5e2, type: 3}
+    clip: {fileID: 8300000, guid: 17ae52ac96e90774c97086c41c1414b5, type: 3}
     volume: 1
     pitch: 1
     loop: 0
@@ -147,13 +135,19 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Powerup Slow Down
-    clip: {fileID: 8300000, guid: 0341b3a060f68408c9a20786c2cf7f00, type: 3}
+    clip: {fileID: 8300000, guid: 86f54efaaa9dc3d4f9f113aca2662f35, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Powerup Speed Up
-    clip: {fileID: 8300000, guid: a5188ee75a9b74493a72b2cef6d28633, type: 3}
+    clip: {fileID: 8300000, guid: cdfce85e27aa7f54f86d383c6f0a5f41, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: New Highscore
+    clip: {fileID: 8300000, guid: 04c3b9ce4002a274ea12ca8e8f91cf4c, type: 3}
     volume: 1
     pitch: 1
     loop: 0

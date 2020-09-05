@@ -41,7 +41,6 @@ namespace Player
 
 			audioManager = AudioManager.instance;
 			audioManager.Play(SoundNames.SHIP_ENGINE);
-			audioManager.Play(SoundNames.SHIP_STARTUP);
 		}
 
 		private void Initialise()
