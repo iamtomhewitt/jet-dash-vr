@@ -71,7 +71,7 @@ MonoBehaviour:
   - name: Speed Streak
     clip: {fileID: 8300000, guid: ebbb3d5d75648ba45a9f55c3aeb070aa, type: 3}
     volume: 1
-    pitch: 0
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Score
