@@ -51,7 +51,7 @@ MonoBehaviour:
     loop: 1
     source: {fileID: 0}
   - name: UI Select
-    clip: {fileID: 8300000, guid: 19e11c8cc39c64095b9945f6492fd1d9, type: 3}
+    clip: {fileID: 8300000, guid: 199938d2e20c30a4e95ecd33721642a3, type: 3}
     volume: 1
     pitch: 1
     loop: 0
