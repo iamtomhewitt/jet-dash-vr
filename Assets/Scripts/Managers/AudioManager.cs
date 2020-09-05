@@ -73,6 +73,11 @@ namespace Manager
 			return s;
 		}
 
+		public Sound[] GetSounds()
+		{
+			return sounds;
+		}
+
 		/// <summary>
 		/// A data class to hold information about sounds.
 		/// </summary>
