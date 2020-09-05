@@ -81,19 +81,19 @@ MonoBehaviour:
     loop: 1
     source: {fileID: 0}
   - name: Powerup Bonus Points
-    clip: {fileID: 8300000, guid: cdfb87f324485ba43bf5c2695f9d3fa4, type: 3}
+    clip: {fileID: 8300000, guid: 5c9f93a291f5ba04eb60b2ab4e2dd7dd, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Powerup Double Points
-    clip: {fileID: 8300000, guid: 98f0b87b283f8a840b0076f3835ba1f6, type: 3}
+    clip: {fileID: 8300000, guid: 11a23999af730a249871211226503ee9, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Powerup Invincibility
-    clip: {fileID: 8300000, guid: b338c4d3c6a3c3e4486c704a3fb7a186, type: 3}
+    clip: {fileID: 8300000, guid: 8c5f82b2b24d21c40af67dba1034956c, type: 3}
     volume: 1
     pitch: 1
     loop: 0
@@ -135,13 +135,13 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Powerup Slow Down
-    clip: {fileID: 8300000, guid: 0341b3a060f68408c9a20786c2cf7f00, type: 3}
+    clip: {fileID: 8300000, guid: 86f54efaaa9dc3d4f9f113aca2662f35, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Powerup Speed Up
-    clip: {fileID: 8300000, guid: a5188ee75a9b74493a72b2cef6d28633, type: 3}
+    clip: {fileID: 8300000, guid: cdfce85e27aa7f54f86d383c6f0a5f41, type: 3}
     volume: 1
     pitch: 1
     loop: 0
