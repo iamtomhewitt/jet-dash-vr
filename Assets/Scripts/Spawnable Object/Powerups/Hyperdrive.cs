@@ -40,6 +40,7 @@ namespace SpawnableObject.Powerups
 			}
 
 			playerControl.SetSpeed(originalSpeed);
+			playerControl.SetReachedMaxSpeed(false);
 			playerCollision.SetHyperdriveEnabled(false);
 		}
 	}
