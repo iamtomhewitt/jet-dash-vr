@@ -160,5 +160,10 @@ namespace Player
 		{
 			return reachedMaxSpeed;
 		}
+
+		public void SetReachedMaxSpeed(bool reached)
+		{
+			reachedMaxSpeed = reached;
+		}
 	}
 }
