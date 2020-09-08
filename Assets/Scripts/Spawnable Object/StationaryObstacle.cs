@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+// TODO make this class abstract, and have derived classes called StationaryObstacle, AnimatedObstacle
 namespace SpawnableObject
 {
 	/// <summary>
 	/// An obstacle that the player has to dodge.
 	/// </summary>
-	public class Obstacle : SpawnableObject
+	public class StationaryObstacle : SpawnableObject
 	{
 		private const float GROW_SPEED = 0.75f;
 
