@@ -7,13 +7,13 @@ namespace SpawnableObject
 	public class AnimatedObstacle : SpawnableObject
 	{
 		[SerializeField] private Animator animator;
+		[SerializeField] private AnimatedObstacleType type;
 
 		private PlayerControl playerControl;
 		private SphereCollider activationCollider;
 		private float activationRadius = 20f;
 
-		private const string ANIMATION_EMTPY = "Empty";
-		private const string ANIMATION_NAME = "Animating";
+		private const string ANIMATION_EMPTY = "Empty";
 
 		public override void Start()
 		{
@@ -31,7 +31,7 @@ namespace SpawnableObject
 
 		public override void AfterRelocation()
 		{
-			animator.Play(ANIMATION_EMTPY);
+			animator.Play(ANIMATION_EMPTY);
 		}
 
 		private void OnTriggerEnter(Collider other)
@@ -39,13 +39,18 @@ namespace SpawnableObject
 			switch (other.gameObject.tag)
 			{
 				case Tags.PLAYER:
-					animator.Play(ANIMATION_NAME);
+					animator.Play(type.ToString());
 					break;
 
 				default:
 					// Nothing to do!
 					break;
 			}
+		}
+
+		public enum AnimatedObstacleType
+		{
+			Rising, Closing
 		}
 	}
 }
