@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 5202236319239455136}
   m_Layer: 0
   m_Name: Closing Obstacle
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

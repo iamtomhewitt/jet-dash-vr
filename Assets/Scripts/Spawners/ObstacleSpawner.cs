@@ -63,7 +63,6 @@ namespace Spawner
 		{
 			float x = Random.Range(b.xMin, b.xMax);
 			float z = Random.Range(b.zMin, b.zMax);
-
 			return new Vector3(transform.position.x + x, y, transform.position.z + z);
 		}
 

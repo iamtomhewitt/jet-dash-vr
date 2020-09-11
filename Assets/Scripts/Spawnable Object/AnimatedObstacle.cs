@@ -50,7 +50,7 @@ namespace SpawnableObject
 
 		public enum AnimatedObstacleType
 		{
-			Rising, Closing
+			Popup, Closing, Rising
 		}
 	}
 }
