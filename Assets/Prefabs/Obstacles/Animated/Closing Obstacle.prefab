@@ -200,7 +200,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5202236319239455167}
   - component: {fileID: 5202236319239455166}
-  - component: {fileID: 5202236319239455160}
   - component: {fileID: 5202236319239455136}
   m_Layer: 0
   m_Name: Closing Obstacle
@@ -240,19 +239,6 @@ MonoBehaviour:
   spawnOffset: 0
   animator: {fileID: 5202236319239455136}
   type: 1
---- !u!135 &5202236319239455160
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5202236319239455165}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 20
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &5202236319239455136
 Animator:
   serializedVersion: 3

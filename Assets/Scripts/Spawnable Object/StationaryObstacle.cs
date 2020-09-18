@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-// TODO make this class abstract, and have derived classes called StationaryObstacle, AnimatedObstacle
 namespace SpawnableObject
 {
 	/// <summary>

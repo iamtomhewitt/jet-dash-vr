@@ -59,7 +59,7 @@ namespace Utility
 		public static Component GetInParentIfNotOnThisComponent(this Component c, string behaviour)
 		{
 			return c.GetComponent(behaviour) == null ?
-			c.GetComponentInParent(System.Type.GetType(behaviour)) :
+							c.GetComponentInParent(System.Type.GetType(behaviour)) :
 							c.GetComponent(behaviour);
 		}
 

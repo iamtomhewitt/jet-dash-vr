@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4149810683719241547}
   - component: {fileID: 4149810683719241546}
-  - component: {fileID: 4149810683719241548}
   - component: {fileID: 7066441717794898173}
   m_Layer: 0
   m_Name: Popup Obstacle
@@ -49,19 +48,6 @@ MonoBehaviour:
   spawnOffset: 0
   animator: {fileID: 7066441717794898173}
   type: 0
---- !u!135 &4149810683719241548
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4149810683719241545}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 20
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &7066441717794898173
 Animator:
   serializedVersion: 3
