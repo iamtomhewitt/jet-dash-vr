@@ -21,8 +21,8 @@ namespace Tests
             obstacleParent = MonoBehaviour.Instantiate(new GameObject("Obstacles"));
             player = MonoBehaviour.Instantiate(new GameObject("Player"));
 
-            obstacleSpawner.GetComponent<MatchTransformPosition>().SetTarget(player.transform);
             player.tag = Tags.PLAYER;
+            obstacleSpawner.GetComponent<MatchTransformPosition>().SetTarget(player.transform);
         }
 
         [TearDown]
