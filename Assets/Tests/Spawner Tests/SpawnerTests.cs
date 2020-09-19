@@ -8,18 +8,20 @@ namespace Tests
 {
     public class SpawnerTests
     {
-        private GameObject obstacle;
-        private GameObject obstacleSpawner;
+        private GameObject animatedObstacle;
         private GameObject obstacleParent;
+        private GameObject obstacleSpawner;
         private GameObject player;
+        private GameObject stationaryObstacle;
 
         [SetUp]
         public void Setup()
         {
-            obstacle = MonoBehaviour.Instantiate(TestConstants.GetResource("Obstacle"));
-            obstacleSpawner = MonoBehaviour.Instantiate(TestConstants.GetResource("Spawners/Obstacle Spawner"));
+            animatedObstacle = MonoBehaviour.Instantiate(TestConstants.GetResource("Animated Obstacle"));
             obstacleParent = MonoBehaviour.Instantiate(new GameObject("Obstacles"));
+            obstacleSpawner = MonoBehaviour.Instantiate(TestConstants.GetResource("Spawners/Obstacle Spawner"));
             player = MonoBehaviour.Instantiate(new GameObject("Player"));
+            stationaryObstacle = MonoBehaviour.Instantiate(TestConstants.GetResource("Stationary Obstacle"));
 
             player.tag = Tags.PLAYER;
             obstacleSpawner.GetComponent<MatchTransformPosition>().SetTarget(player.transform);
@@ -28,19 +30,29 @@ namespace Tests
         [TearDown]
         public void Teardown()
         {
-            Object.Destroy(obstacle);
-            Object.Destroy(obstacleSpawner.gameObject);
+            Object.Destroy(animatedObstacle);
             Object.Destroy(obstacleParent);
+            Object.Destroy(obstacleSpawner.gameObject);
             Object.Destroy(player);
+            Object.Destroy(stationaryObstacle);
         }
 
         [UnityTest]
-        public IEnumerator ShouldRelocateObstacle()
+        public IEnumerator ShouldRelocateStationaryObstacle()
         {
-            Vector3 pos = obstacle.transform.position;
-            obstacle.transform.position = obstacleSpawner.transform.position;
+            Vector3 pos = stationaryObstacle.transform.position;
+            stationaryObstacle.transform.position = obstacleSpawner.transform.position;
             yield return new WaitForSeconds(TestConstants.WAIT_TIME);
-            Assert.AreNotEqual(pos, obstacle.transform.position);
+            Assert.AreNotEqual(pos, stationaryObstacle.transform.position);
+        }
+
+        [UnityTest]
+        public IEnumerator ShouldRelocateAnimatedObstacle()
+        {
+            Vector3 pos = animatedObstacle.transform.position;
+            animatedObstacle.transform.position = obstacleSpawner.transform.position;
+            yield return new WaitForSeconds(TestConstants.WAIT_TIME);
+            Assert.AreNotEqual(pos, animatedObstacle.transform.position);
         }
     }
 }
