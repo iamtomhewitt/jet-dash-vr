@@ -124,4 +124,4 @@ MonoBehaviour:
   trackZ: 1
   xOffset: 0
   yOffset: 0
-  zOffset: 0
+  zOffset: -10

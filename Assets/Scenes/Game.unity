@@ -2488,11 +2488,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 727388016605435899, guid: f39806afa6e7be244bdbf26f6eb8dd86,
-        type: 3}
-      propertyPath: animatedObstacleActivator
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 727388016605435900, guid: f39806afa6e7be244bdbf26f6eb8dd86,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2587,34 +2582,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obstacle Spawner
       objectReference: {fileID: 0}
-    - target: {fileID: 6611509503495166403, guid: 3207d1741b582cb44ba84cbec8194515,
-        type: 3}
-      propertyPath: obstacles.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6611509503495166403, guid: 3207d1741b582cb44ba84cbec8194515,
-        type: 3}
-      propertyPath: obstacles.Array.data[4]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6611509503495166403, guid: 3207d1741b582cb44ba84cbec8194515,
-        type: 3}
-      propertyPath: obstacles.Array.data[0]
-      value: 
-      objectReference: {fileID: 4149810683719241545, guid: 6d3e62f3207215748a99ff3d9fd5f964,
-        type: 3}
-    - target: {fileID: 6611509503495166403, guid: 3207d1741b582cb44ba84cbec8194515,
-        type: 3}
-      propertyPath: obstacles.Array.data[1]
-      value: 
-      objectReference: {fileID: 5202236319239455165, guid: 646d6c3919a683645a6e25f91d8233cb,
-        type: 3}
-    - target: {fileID: 6611509503495166403, guid: 3207d1741b582cb44ba84cbec8194515,
-        type: 3}
-      propertyPath: obstacles.Array.data[2]
-      value: 
-      objectReference: {fileID: 6007017558314247529, guid: 70370f41b64094ed4af384fed87704a8,
-        type: 3}
     - target: {fileID: 6611509503495166460, guid: 3207d1741b582cb44ba84cbec8194515,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2669,11 +2636,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6611509503495166462, guid: 3207d1741b582cb44ba84cbec8194515,
-        type: 3}
-      propertyPath: zOffset
-      value: -10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3207d1741b582cb44ba84cbec8194515, type: 3}
