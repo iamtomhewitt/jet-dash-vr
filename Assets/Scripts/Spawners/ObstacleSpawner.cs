@@ -18,6 +18,7 @@ namespace Spawner
 		[Space()]
 		[SerializeField] private SpawnBoundary boundary;
 		[SerializeField] private SpawnBoundary initialBoundary;
+		[SerializeField] private SpawnBoundary animatedObstaclesInitialBoundary;
 
 		private const string OBSTACLE_PARENT = "Obstacles";
 		private const float SPAWN_REDUCTION_TIME = 30f;
@@ -51,7 +52,7 @@ namespace Spawner
 				}
 				if (o.GetComponent<AnimatedObstacle>())
 				{
-					o.transform.SetPosition(GenerateObstaclePosition(initialBoundary, o.transform.position.y));
+					o.transform.SetPosition(GenerateObstaclePosition(animatedObstaclesInitialBoundary, o.transform.position.y));
 				}
 			}
 		}

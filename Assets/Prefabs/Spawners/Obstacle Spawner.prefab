@@ -101,6 +101,11 @@ MonoBehaviour:
     xMax: 300
     zMin: 50
     zMax: 800
+  animatedObstaclesInitialBoundary:
+    xMin: -300
+    xMax: 300
+    zMin: 10000
+    zMax: 15000
 --- !u!114 &6611509503495166462
 MonoBehaviour:
   m_ObjectHideFlags: 0
