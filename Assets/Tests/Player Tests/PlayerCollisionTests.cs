@@ -12,7 +12,8 @@ namespace Tests
 	{
 		private AchievementManager achm;
 		private AudioManager am;
-		private GameObject obstacle;
+		private GameObject stationaryObstacle;
+		private GameObject animatedObstacle;
 		private GameObject player;
 		private GameObject powerup;
 		private GameSettingsManager gs;
@@ -27,7 +28,8 @@ namespace Tests
 			am = MonoBehaviour.Instantiate(TestConstants.GetResource("Managers/Audio Manager")).GetComponent<AudioManager>();
 			gs = MonoBehaviour.Instantiate(TestConstants.GetResource("Managers/Game Settings")).GetComponent<GameSettingsManager>();
 			hm = MonoBehaviour.Instantiate(TestConstants.GetResource("Managers/Highscore Manager").GetComponent<HighscoreManager>());
-			obstacle = MonoBehaviour.Instantiate(TestConstants.GetResource("Obstacle"));
+			stationaryObstacle = MonoBehaviour.Instantiate(TestConstants.GetResource("Stationary Obstacle"));
+			animatedObstacle = MonoBehaviour.Instantiate(TestConstants.GetResource("Animated Obstacle"));
 			player = MonoBehaviour.Instantiate(TestConstants.GetResource("Player"));
 			powerup = MonoBehaviour.Instantiate(TestConstants.GetResource("Powerup"));
 			sm = MonoBehaviour.Instantiate(TestConstants.GetResource("Managers/Shop Manager")).GetComponent<ShopManager>();
@@ -43,7 +45,8 @@ namespace Tests
 			Object.Destroy(am);
 			Object.Destroy(gs);
 			Object.Destroy(hm);
-			Object.Destroy(obstacle);
+			Object.Destroy(stationaryObstacle);
+			Object.Destroy(animatedObstacle);
 			Object.Destroy(player);
 			Object.Destroy(powerup);
 			Object.Destroy(sm);
@@ -53,7 +56,7 @@ namespace Tests
 		public IEnumerator ShouldNotDieIfInvincible()
 		{
 			pc.SetInvincible(true);
-			MakePlayerCollideWith(obstacle);
+			MakePlayerCollideWith(stationaryObstacle);
 			yield return new WaitForSeconds(TestConstants.WAIT_TIME);
 			Assert.IsFalse(pc.IsDead());
 		}
@@ -62,15 +65,23 @@ namespace Tests
 		public IEnumerator ShouldNotDieIfInHyperdrive()
 		{
 			pc.SetHyperdriveEnabled(true);
-			MakePlayerCollideWith(obstacle);
+			MakePlayerCollideWith(stationaryObstacle);
 			yield return new WaitForSeconds(TestConstants.WAIT_TIME);
 			Assert.IsFalse(pc.IsDead());
 		}
 
 		[UnityTest]
-		public IEnumerator ShouldDieWhenCollidingWithObstacle()
+		public IEnumerator ShouldDieWhenCollidingWithStationaryObstacle()
 		{
-			MakePlayerCollideWith(obstacle);
+			MakePlayerCollideWith(stationaryObstacle);
+			yield return new WaitForSeconds(TestConstants.WAIT_TIME);
+			Assert.IsTrue(pc.IsDead());
+		}
+
+		[UnityTest]
+		public IEnumerator ShouldDieWhenCollidingWithAnimatedObstacle()
+		{
+			MakePlayerCollideWith(animatedObstacle, new Vector3(5f, 0f, 0f));
 			yield return new WaitForSeconds(TestConstants.WAIT_TIME);
 			Assert.IsTrue(pc.IsDead());
 		}
@@ -95,6 +106,11 @@ namespace Tests
 		private void MakePlayerCollideWith(GameObject gameObject)
 		{
 			player.transform.position = gameObject.transform.position;
+		}
+
+		private void MakePlayerCollideWith(GameObject gameObject, Vector3 offset)
+		{
+			player.transform.position = gameObject.transform.position + offset;
 		}
 	}
 }

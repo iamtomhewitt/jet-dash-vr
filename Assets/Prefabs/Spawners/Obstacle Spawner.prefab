@@ -80,6 +80,9 @@ MonoBehaviour:
   - {fileID: 1678239070065306, guid: b955f2a3556eccc409f4f732dd87d49e, type: 3}
   - {fileID: 1240672622309598, guid: 8151d1bf9be3e764aa78b106eb8ac9cd, type: 3}
   - {fileID: 5319135855430854563, guid: dcb91a0f94c58bf4aa312be3ffb81746, type: 3}
+  - {fileID: 5202236319239455165, guid: 646d6c3919a683645a6e25f91d8233cb, type: 3}
+  - {fileID: 4149810683719241545, guid: 6d3e62f3207215748a99ff3d9fd5f964, type: 3}
+  - {fileID: 6007017558314247529, guid: 70370f41b64094ed4af384fed87704a8, type: 3}
   obstacleSize:
     minSize: 2
     maxSize: 13
@@ -98,6 +101,11 @@ MonoBehaviour:
     xMax: 300
     zMin: 50
     zMax: 800
+  animatedObstaclesInitialBoundary:
+    xMin: -300
+    xMax: 300
+    zMin: 10000
+    zMax: 15000
 --- !u!114 &6611509503495166462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,10 +118,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3750eb356801164f999178a71defc6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  targetTag: Player
   trackX: 1
   trackY: 0
   trackZ: 1
   xOffset: 0
   yOffset: 0
-  zOffset: 0
+  zOffset: -10
