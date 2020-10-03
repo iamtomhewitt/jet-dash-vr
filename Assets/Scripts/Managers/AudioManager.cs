@@ -73,6 +73,11 @@ namespace Manager
 			return s;
 		}
 
+		public Sound[] GetSounds()
+		{
+			return sounds;
+		}
+
 		/// <summary>
 		/// A data class to hold information about sounds.
 		/// </summary>
@@ -106,10 +111,10 @@ namespace Manager
 		public const string INVINCIBILITY_POINTS = "Powerup Invincibility";
 		public const string JUMP = "Powerup Jump";
 		public const string MUSIC = "Music";
+		public const string NEW_HIGHSCORE = "New Highscore";
 		public const string PLAYER_DEATH = "Player Death";
 		public const string SCORE = "Score";
 		public const string SHIP_ENGINE = "Ship Hum";
-		public const string SHIP_STARTUP = "Starting Bass";
 		public const string SHOP_REJECT_PURCHASE = "Shop Reject Purchase";
 		public const string SHOP_SELECT_SHIP = "Shop Select Ship";
 		public const string SHOP_SPEND_CASH = "Shop Spend Cash";

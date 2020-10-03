@@ -18,6 +18,7 @@ namespace Spawner
 		[Space()]
 		[SerializeField] private SpawnBoundary boundary;
 		[SerializeField] private SpawnBoundary initialBoundary;
+		[SerializeField] private SpawnBoundary animatedObstaclesInitialBoundary;
 
 		private const string OBSTACLE_PARENT = "Obstacles";
 		private const float SPAWN_REDUCTION_TIME = 30f;
@@ -35,15 +36,24 @@ namespace Spawner
 		{
 			for (int i = 0; i < totalObstacles; i++)
 			{
-				// Work out a scale and how high the cube has to be so it sits nicely on top of the floor
-				int scale = Random.Range(obstacleSize.minSize, obstacleSize.maxSize);
-				float y = (scale / 2) + 0.5f;
+				GameObject o = Instantiate(obstacles[Random.Range(0, obstacles.Length)], GameObject.Find(OBSTACLE_PARENT).transform) as GameObject;
+				Renderer r = (Renderer)o.GetInChildIfNotOnThisComponent("UnityEngine.Renderer, UnityEngine");
+				r.material = colours[Random.Range(0, colours.Length)];
 
-				GameObject o = Instantiate(obstacles[Random.Range(0, obstacles.Length)], GenerateObstaclePosition(initialBoundary, y), Quaternion.identity) as GameObject;
-				o.GetComponent<Obstacle>().Grow(scale);
-				o.GetComponent<Renderer>().material = colours[Random.Range(0, colours.Length)];
-				o.transform.localScale = new Vector3(scale, scale, scale);
-				o.transform.parent = GameObject.Find(OBSTACLE_PARENT).transform;
+				if (o.GetComponent<StationaryObstacle>())
+				{
+					// Work out a scale and how high the cube has to be so it sits nicely on top of the floor
+					int scale = Random.Range(obstacleSize.minSize, obstacleSize.maxSize);
+					float y = (scale / 2) + 0.5f;
+
+					o.transform.SetPosition(GenerateObstaclePosition(initialBoundary, y));
+					o.GetComponent<StationaryObstacle>().Grow(scale);
+					o.transform.localScale = new Vector3(scale, scale, scale);
+				}
+				if (o.GetComponent<AnimatedObstacle>())
+				{
+					o.transform.SetPosition(GenerateObstaclePosition(animatedObstaclesInitialBoundary, o.transform.position.y));
+				}
 			}
 		}
 
@@ -54,7 +64,6 @@ namespace Spawner
 		{
 			float x = Random.Range(b.xMin, b.xMax);
 			float z = Random.Range(b.zMin, b.zMax);
-
 			return new Vector3(transform.position.x + x, y, transform.position.z + z);
 		}
 
@@ -79,7 +88,9 @@ namespace Spawner
 			switch (other.gameObject.tag)
 			{
 				case Tags.OBSTACLE:
-					other.GetComponent<Obstacle>().Relocate();
+					SpawnableObject.SpawnableObject o = (SpawnableObject.SpawnableObject)other.GetInParentIfNotOnThisComponent("SpawnableObject.SpawnableObject");
+					o.Relocate();
+					o.AfterRelocation();
 					break;
 
 				default:

@@ -55,5 +55,19 @@ namespace Utility
 		{
 			text.text = str;
 		}
+
+		public static Component GetInParentIfNotOnThisComponent(this Component c, string behaviour)
+		{
+			return c.GetComponent(behaviour) == null ?
+							c.GetComponentInParent(System.Type.GetType(behaviour)) :
+							c.GetComponent(behaviour);
+		}
+
+		public static Object GetInChildIfNotOnThisComponent(this GameObject c, string behaviour)
+		{
+			return c.GetComponent(behaviour) == null ?
+						c.GetComponentInChildren(System.Type.GetType(behaviour)) :
+						c.GetComponent(behaviour);
+		}
 	}
 }
