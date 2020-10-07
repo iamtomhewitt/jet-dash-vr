@@ -1,3 +1,16 @@
+## 5.4.0 (07/10/2020) 
+
+
+### Issues in this release:
+
+* [#118](https://github.com/iamtomhewitt/jet-dash-vr/issues/118) - Flying through hyperdrive causes acceleration to stop working
+* [#117](https://github.com/iamtomhewitt/jet-dash-vr/issues/117) - Make obstacles start closer
+* [#116](https://github.com/iamtomhewitt/jet-dash-vr/issues/116) - Update README
+* [#81](https://github.com/iamtomhewitt/jet-dash-vr/issues/81) - New animated obstacles
+* [#2](https://github.com/iamtomhewitt/jet-dash-vr/issues/2) - Update music and sounds
+
+
+
 ## 5.4.0-BETA (03/10/2020) 
 
 
