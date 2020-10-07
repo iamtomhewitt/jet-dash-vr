@@ -28,7 +28,7 @@ namespace Player
 		{
 			float speed = playerControl.GetSpeed();
 
-			if (speed % speedStreak == 0 && !playerControl.HasReachedMaxSpeed())
+			if (speed % speedStreak == 0 && !playerControl.HasReachedMaxSpeed() && speed != 0f)
 			{			
 				hud.ShowNotification(Color.white, speed + " Speed Streak!");
 				AudioManager.instance.Play(SoundNames.SPEED_STREAK);

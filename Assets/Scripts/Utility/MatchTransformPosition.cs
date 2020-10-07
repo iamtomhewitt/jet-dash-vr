@@ -4,7 +4,7 @@ namespace Utility
 {
     public class MatchTransformPosition : MonoBehaviour
     {
-        [SerializeField] private Transform target;
+		[SerializeField] private string targetTag;
         [SerializeField] private bool trackX;
         [SerializeField] private bool trackY;
         [SerializeField] private bool trackZ;
@@ -16,7 +16,13 @@ namespace Utility
         [ConditionalField("trackZ")]
         [SerializeField] private float zOffset;
 
+        private Transform target;
         private float x = 0f, y = 0f, z = 0f;
+
+		private void Start()
+		{
+			target = GameObject.FindWithTag(targetTag).transform;
+		}
 
         private void Update()
         {
@@ -43,5 +49,10 @@ namespace Utility
         {
             this.target = target;
         }
+
+		public void SetZOffset(float offset)
+		{
+			this.zOffset = offset;
+		}
     }
 }
