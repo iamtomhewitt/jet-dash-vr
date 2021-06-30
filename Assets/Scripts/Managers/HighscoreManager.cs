@@ -1,11 +1,12 @@
 ﻿using Achievements;
 using Highscore;
 using SimpleJSON;
+using System.Collections.Generic;
 using System.Collections;
+using UI;
 using UnityEngine.Networking;
 using UnityEngine;
 using Utility;
-using UI;
 
 namespace Manager
 {
@@ -131,11 +132,10 @@ namespace Manager
 		/// </summary>
 		public void RequestDownloadOfHighscores()
 		{
-			StartCoroutine(DownloadScoreHighscores(PlayerPrefKeys.LEADERBOARD_SCORE));
-			StartCoroutine(DownloadScoreHighscores(PlayerPrefKeys.LEADERBOARD_DISTANCE));
+			StartCoroutine(DownloadAndDisplayHighscores());
 		}
 
-		private IEnumerator DownloadScoreHighscores(string leaderboard)
+		private IEnumerator DownloadAndDisplayHighscores()
 		{
 			HighscoreDisplayHelper displayHelper = FindObjectOfType<HighscoreDisplayHelper>();
 
@@ -145,20 +145,40 @@ namespace Manager
 				yield break;
 			}
 
-			string publicCode = Config.instance.GetConfig()["dreamlo"][leaderboard]["publicKey"];
-			UnityWebRequest request = UnityWebRequest.Get(Constants.DREAMLO_URL + publicCode + "/json");
+			string url = Config.instance.GetConfig()["firebase"];
+
+			UnityWebRequest request = UnityWebRequest.Get(url);
 			yield return request.SendWebRequest();
 
-			if (!request.downloadHandler.text.StartsWith("ERROR"))
-			{
-				JSONNode json = JSON.Parse(request.downloadHandler.text);
-				JSONArray entries = json["dreamlo"]["leaderboard"]["entry"].AsArray;
-				displayHelper.DisplayHighscores(entries, leaderboard);
-			}
-			else
+			if (request.result == UnityWebRequest.Result.ConnectionError)
 			{
 				Debug.Log("Error downloading: " + request.downloadHandler.text);
 				displayHelper.DisplayError(Ui.HIGHSCORE_DOWNLOAD_ERROR(request.downloadHandler.text));
+			}
+			else
+			{
+				JSONNode json = JSON.Parse(request.downloadHandler.text);
+				List<Highscore> highscores = new List<Highscore>();
+
+				foreach (JSONNode i in json)
+				{
+					highscores.Add(new Highscore(i["name"], i["score"]));
+				}
+
+				foreach (Highscore x in highscores)
+				{
+					Debug.Log(x.ToString());
+				}
+
+				highscores.Sort((p1, p2) => p2.GetScore().CompareTo(p1.GetScore()));
+				print("Sorted:");
+
+				foreach (Highscore x in highscores)
+				{
+					Debug.Log(x.ToString());
+				}
+
+				displayHelper.DisplayHighscores(highscores);
 			}
 		}
 
@@ -170,6 +190,33 @@ namespace Manager
 		public int GetBestDistance()
 		{
 			return PlayerPrefs.GetInt(PlayerPrefKeys.DISTANCE);
+		}
+	}
+
+	public class Highscore
+	{
+		private string name;
+		private int score;
+
+		public Highscore(string name, int score)
+		{
+			this.name = name;
+			this.score = score;
+		}
+
+		public override string ToString()
+		{
+			return this.name + " | " + this.score;
+		}
+
+		public int GetScore()
+		{
+			return score;
+		}
+
+		public string GetName()
+		{
+			return name;
 		}
 	}
 }

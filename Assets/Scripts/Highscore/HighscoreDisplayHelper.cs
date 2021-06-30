@@ -1,5 +1,6 @@
 ﻿using Manager;
 using SimpleJSON;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using Utility;
@@ -29,22 +30,25 @@ namespace Highscore
 			HideUploadModal();
 		}
 
-		public void DisplayHighscores(JSONArray entries, string leaderboard)
+		public void DisplayHighscores(List<Manager.Highscore> highscores)
 		{
-			Transform parent = leaderboard.Equals(PlayerPrefKeys.LEADERBOARD_SCORE) ? scoreLeaderboardContent : distanceLeaderboardContent;
+			// TODO instead of switching out the parent, should just reorder the list based on what button was pressed
+			// Transform parent = leaderboard.Equals(PlayerPrefKeys.LEADERBOARD_SCORE) ? scoreLeaderboardContent : distanceLeaderboardContent;
+			Transform parent = scoreLeaderboardContent;
 
 			statusText.SetText("");
 
-			for (int i = 0; i < entries.Count; i++)
+			for (int i = 0; i < highscores.Count; i++)
 			{
 				int rank = i + 1;
 				HighscoreEntry entry = Instantiate(entryPrefab, parent).GetComponent<HighscoreEntry>();
 				entry.Populate(rank, "", "");
 
-				if (entries.Count > i)
+				if (highscores.Count > i)
 				{
-					entry.Populate(rank, entries[i]["name"], entries[i]["score"]);
-					entry.SetIcons(entries[i]["text"]);
+					entry.Populate(rank, highscores[i].GetName(), highscores[i].GetScore().ToString());
+					// TODO
+					// entry.SetIcons(highscores[i]["text"]);
 					entry.SetTextColourBasedOnRank(rank);
 				}
 			}
