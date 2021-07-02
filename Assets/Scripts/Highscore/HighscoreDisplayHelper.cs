@@ -8,15 +8,17 @@ namespace Highscores
 {
 	public class HighscoreDisplayHelper : MonoBehaviour
 	{
+		[SerializeField] private Button toggleButton;
 		[SerializeField] private GameObject uploadModal;
 		[SerializeField] private HighscoreEntry entryPrefab;
 		[SerializeField] private Text bestDistanceText;
 		[SerializeField] private Text bestScoreText;
 		[SerializeField] private Text statusText;
+		[SerializeField] private Text scoreHeadingText;
 		[SerializeField] private Transform leaderboardContent;
 
 		private List<Highscore> highscores;
-		public bool sortByScore = true;
+		private bool sortByScore = true;
 
 		private void Start()
 		{
@@ -29,6 +31,7 @@ namespace Highscores
 			HighscoreManager.instance.RequestDownloadOfHighscores();
 
 			HideUploadModal();
+			UpdateScoreTypeTexts();
 		}
 
 		public void DisplayHighscores(List<Highscore> highscores)
@@ -117,25 +120,39 @@ namespace Highscores
 			uploadModal.SetActive(false);
 		}
 
-
-		/// <summary>
-		/// Called from a Unity button.
-		/// </summary>
-		public void SortByScore()
+		private void SortByScore()
 		{
 			this.highscores.Sort((p1, p2) => p2.GetScore().CompareTo(p1.GetScore()));
 			this.sortByScore = true;
 			this.DisplayHighscores(this.highscores);
 		}
 
-		/// <summary>
-		/// Called from a Unity button.
-		/// </summary>
-		public void SortByDistance()
+		private void SortByDistance()
 		{
 			this.highscores.Sort((p1, p2) => p2.GetDistance().CompareTo(p1.GetDistance()));
 			this.sortByScore = false;
 			this.DisplayHighscores(this.highscores);
+		}
+
+		public void ToggleScoreType()
+		{
+			this.sortByScore = !this.sortByScore;
+			UpdateScoreTypeTexts();
+
+			if (this.sortByScore == true)
+			{
+				SortByScore();
+			}
+			else
+			{
+				SortByDistance();
+			}
+		}
+
+		private void UpdateScoreTypeTexts()
+		{
+			this.toggleButton.GetComponentInChildren<Text>().SetText(this.sortByScore ? "Show Distance" : "Show Score");
+			this.scoreHeadingText.SetText(this.sortByScore ? "Score" : "Distance");
 		}
 	}
 }
