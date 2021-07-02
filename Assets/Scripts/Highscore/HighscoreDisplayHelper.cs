@@ -1,11 +1,10 @@
 ﻿using Manager;
-using SimpleJSON;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using Utility;
 
-namespace Highscore
+namespace Highscores
 {
 	public class HighscoreDisplayHelper : MonoBehaviour
 	{
@@ -14,8 +13,10 @@ namespace Highscore
 		[SerializeField] private Text bestDistanceText;
 		[SerializeField] private Text bestScoreText;
 		[SerializeField] private Text statusText;
-		[SerializeField] private Transform distanceLeaderboardContent;
-		[SerializeField] private Transform scoreLeaderboardContent;
+		[SerializeField] private Transform leaderboardContent;
+
+		private List<Highscore> highscores;
+		public bool sortByScore = true;
 
 		private void Start()
 		{
@@ -30,25 +31,26 @@ namespace Highscore
 			HideUploadModal();
 		}
 
-		public void DisplayHighscores(List<Manager.Highscore> highscores)
+		public void DisplayHighscores(List<Highscore> highscores)
 		{
-			// TODO instead of switching out the parent, should just reorder the list based on what button was pressed
-			// Transform parent = leaderboard.Equals(PlayerPrefKeys.LEADERBOARD_SCORE) ? scoreLeaderboardContent : distanceLeaderboardContent;
-			Transform parent = scoreLeaderboardContent;
+			this.highscores = highscores;
 
 			statusText.SetText("");
+			ClearEntries();
 
 			for (int i = 0; i < highscores.Count; i++)
 			{
 				int rank = i + 1;
-				HighscoreEntry entry = Instantiate(entryPrefab, parent).GetComponent<HighscoreEntry>();
+				HighscoreEntry entry = Instantiate(entryPrefab, leaderboardContent).GetComponent<HighscoreEntry>();
 				entry.Populate(rank, "", "");
 
-				if (highscores.Count > i)
+				if (this.highscores.Count > i)
 				{
-					entry.Populate(rank, highscores[i].GetName(), highscores[i].GetScore().ToString());
-					// TODO
-					// entry.SetIcons(highscores[i]["text"]);
+					Highscore highscore = this.highscores[i];
+					string value = this.sortByScore ? highscore.GetScore().ToString() : highscore.GetDistance().ToString();
+
+					entry.Populate(rank, highscore.GetName(), value);
+					entry.SetIcons(highscore.GetShip(), highscore.isVrMode());
 					entry.SetTextColourBasedOnRank(rank);
 				}
 			}
@@ -99,9 +101,9 @@ namespace Highscore
 
 		public void ClearEntries()
 		{
-			foreach (Transform child in scoreLeaderboardContent)
+			foreach (Transform child in leaderboardContent)
 			{
-				Destroy(child);
+				Destroy(child.gameObject);
 			}
 		}
 
@@ -113,6 +115,27 @@ namespace Highscore
 		public void HideUploadModal()
 		{
 			uploadModal.SetActive(false);
+		}
+
+
+		/// <summary>
+		/// Called from a Unity button.
+		/// </summary>
+		public void SortByScore()
+		{
+			this.highscores.Sort((p1, p2) => p2.GetScore().CompareTo(p1.GetScore()));
+			this.sortByScore = true;
+			this.DisplayHighscores(this.highscores);
+		}
+
+		/// <summary>
+		/// Called from a Unity button.
+		/// </summary>
+		public void SortByDistance()
+		{
+			this.highscores.Sort((p1, p2) => p2.GetDistance().CompareTo(p1.GetDistance()));
+			this.sortByScore = false;
+			this.DisplayHighscores(this.highscores);
 		}
 	}
 }

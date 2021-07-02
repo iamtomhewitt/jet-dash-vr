@@ -19,7 +19,7 @@ namespace Utility
 
 		public static string HIGHSCORE_DOWNLOAD_ERROR(string error)
 		{
-			return string.Format("Could not download score. Please try again later.\n\n{0}", error);
+			return string.Format("Could not download scores. Please try again later.\n\nError: {0}", error);
 		}
 
 		public static string HIGHSCORE_UPLOAD_ERROR(string error)

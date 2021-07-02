@@ -1,5 +1,5 @@
 ﻿using Achievements;
-using Highscore;
+using Highscores;
 using SimpleJSON;
 using System.Collections.Generic;
 using System.Collections;
@@ -150,7 +150,7 @@ namespace Manager
 			UnityWebRequest request = UnityWebRequest.Get(url);
 			yield return request.SendWebRequest();
 
-			if (request.result == UnityWebRequest.Result.ConnectionError)
+			if (request.result != UnityWebRequest.Result.Success)
 			{
 				Debug.Log("Error downloading: " + request.downloadHandler.text);
 				displayHelper.DisplayError(Ui.HIGHSCORE_DOWNLOAD_ERROR(request.downloadHandler.text));
@@ -162,21 +162,10 @@ namespace Manager
 
 				foreach (JSONNode i in json)
 				{
-					highscores.Add(new Highscore(i["name"], i["score"]));
-				}
-
-				foreach (Highscore x in highscores)
-				{
-					Debug.Log(x.ToString());
+					highscores.Add(new Highscore(i["name"], i["score"], i["distance"], i["ship"], i["vrMode"], i["date"]));
 				}
 
 				highscores.Sort((p1, p2) => p2.GetScore().CompareTo(p1.GetScore()));
-				print("Sorted:");
-
-				foreach (Highscore x in highscores)
-				{
-					Debug.Log(x.ToString());
-				}
 
 				displayHelper.DisplayHighscores(highscores);
 			}
@@ -190,33 +179,6 @@ namespace Manager
 		public int GetBestDistance()
 		{
 			return PlayerPrefs.GetInt(PlayerPrefKeys.DISTANCE);
-		}
-	}
-
-	public class Highscore
-	{
-		private string name;
-		private int score;
-
-		public Highscore(string name, int score)
-		{
-			this.name = name;
-			this.score = score;
-		}
-
-		public override string ToString()
-		{
-			return this.name + " | " + this.score;
-		}
-
-		public int GetScore()
-		{
-			return score;
-		}
-
-		public string GetName()
-		{
-			return name;
 		}
 	}
 }
