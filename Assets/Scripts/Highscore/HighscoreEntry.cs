@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using Utility;
 
-namespace Highscore
+namespace Highscores
 {
 	/// <summary>
 	/// A UI representation of a highscore.
@@ -26,7 +26,7 @@ namespace Highscore
 			string formatted = username.StripNonLatinLetters();
 
 			rankText.SetText(rank + ".");
-			usernameText.SetText(string.IsNullOrEmpty(formatted) ? "<invalid name>" : formatted);
+			usernameText.SetText(string.IsNullOrEmpty(formatted) ? "Player" : formatted);
 			scoreText.SetText(score);
 
 			if (Constants.DEVS.Split(',').Contains(username))
@@ -52,13 +52,9 @@ namespace Highscore
 			return "<color=" + colour + ">" + s + "</color>";
 		}
 
-		public void SetIcons(string additonalInfo)
+		public void SetIcons(string ship, bool vrMode)
 		{
-			string[] parts = additonalInfo.Split('|');
-			string shipName = parts[0];
-			bool vrMode = bool.Parse(parts[1]);
-
-			shipSprite.sprite = shipSprites.Where(s => s.name.Equals(shipName)).First();
+			shipSprite.sprite = shipSprites.Where(s => s.name.Equals(ship)).First();
 			vrIcon.SetActive(vrMode);
 		}
 

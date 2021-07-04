@@ -1,12 +1,3 @@
 {
-	"dreamlo": {
-		"score": {
-			"publicKey": "",
-			"privateKey": ""
-		},
-		"distance": {
-			"publicKey": "",
-			"privateKey": ""
-		}
-	}
+	"firebase": ""
 }

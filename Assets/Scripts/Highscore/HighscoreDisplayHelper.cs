@@ -1,20 +1,24 @@
 ﻿using Manager;
-using SimpleJSON;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using Utility;
 
-namespace Highscore
+namespace Highscores
 {
 	public class HighscoreDisplayHelper : MonoBehaviour
 	{
+		[SerializeField] private Button toggleButton;
 		[SerializeField] private GameObject uploadModal;
 		[SerializeField] private HighscoreEntry entryPrefab;
 		[SerializeField] private Text bestDistanceText;
 		[SerializeField] private Text bestScoreText;
 		[SerializeField] private Text statusText;
-		[SerializeField] private Transform distanceLeaderboardContent;
-		[SerializeField] private Transform scoreLeaderboardContent;
+		[SerializeField] private Text scoreHeadingText;
+		[SerializeField] private Transform leaderboardContent;
+
+		private List<Highscore> highscores;
+		private bool sortByScore = true;
 
 		private void Start()
 		{
@@ -24,27 +28,32 @@ namespace Highscore
 			statusText.SetText(Ui.DOWNLOADING_HIGHSCORES);
 			statusText.color = Color.green;
 
-			HighscoreManager.instance.RequestDownloadOfHighscores();
+			HighscoreManager.instance.DownloadHighscores();
 
 			HideUploadModal();
+			UpdateScoreTypeTexts();
 		}
 
-		public void DisplayHighscores(JSONArray entries, string leaderboard)
+		public void DisplayHighscores(List<Highscore> highscores)
 		{
-			Transform parent = leaderboard.Equals(PlayerPrefKeys.LEADERBOARD_SCORE) ? scoreLeaderboardContent : distanceLeaderboardContent;
+			this.highscores = highscores;
 
 			statusText.SetText("");
+			ClearEntries();
 
-			for (int i = 0; i < entries.Count; i++)
+			for (int i = 0; i < highscores.Count; i++)
 			{
 				int rank = i + 1;
-				HighscoreEntry entry = Instantiate(entryPrefab, parent).GetComponent<HighscoreEntry>();
+				HighscoreEntry entry = Instantiate(entryPrefab, leaderboardContent).GetComponent<HighscoreEntry>();
 				entry.Populate(rank, "", "");
 
-				if (entries.Count > i)
+				if (this.highscores.Count > i)
 				{
-					entry.Populate(rank, entries[i]["name"], entries[i]["score"]);
-					entry.SetIcons(entries[i]["text"]);
+					Highscore highscore = this.highscores[i];
+					string value = this.sortByScore ? highscore.GetScore().ToString() : highscore.GetDistance().ToString();
+
+					entry.Populate(rank, highscore.GetName(), value);
+					entry.SetIcons(highscore.GetShip(), highscore.isVrMode());
 					entry.SetTextColourBasedOnRank(rank);
 				}
 			}
@@ -58,7 +67,7 @@ namespace Highscore
 		}
 
 		/// <summary>
-		/// Called from a Unity button, uploads the highscore to Dreamlo.
+		/// Called from a Unity button, uploads the highscore to Firebase.
 		/// </summary>
 		public void UploadHighscore(InputField usernameInput)
 		{
@@ -87,7 +96,7 @@ namespace Highscore
 			}
 			else
 			{
-				HighscoreManager.instance.UploadHighscoreToDreamlo(formatted);
+				HighscoreManager.instance.UploadHighscore(formatted);
 				usernameInput.SetText("");
 				placeholderText.SetText(Ui.UPLOADED);
 			}
@@ -95,9 +104,9 @@ namespace Highscore
 
 		public void ClearEntries()
 		{
-			foreach (Transform child in scoreLeaderboardContent)
+			foreach (Transform child in leaderboardContent)
 			{
-				Destroy(child);
+				Destroy(child.gameObject);
 			}
 		}
 
@@ -109,6 +118,41 @@ namespace Highscore
 		public void HideUploadModal()
 		{
 			uploadModal.SetActive(false);
+		}
+
+		private void SortByScore()
+		{
+			this.highscores.Sort((p1, p2) => p2.GetScore().CompareTo(p1.GetScore()));
+			this.sortByScore = true;
+			this.DisplayHighscores(this.highscores);
+		}
+
+		private void SortByDistance()
+		{
+			this.highscores.Sort((p1, p2) => p2.GetDistance().CompareTo(p1.GetDistance()));
+			this.sortByScore = false;
+			this.DisplayHighscores(this.highscores);
+		}
+
+		public void ToggleScoreType()
+		{
+			this.sortByScore = !this.sortByScore;
+			UpdateScoreTypeTexts();
+
+			if (this.sortByScore == true)
+			{
+				SortByScore();
+			}
+			else
+			{
+				SortByDistance();
+			}
+		}
+
+		private void UpdateScoreTypeTexts()
+		{
+			this.toggleButton.GetComponentInChildren<Text>().SetText(this.sortByScore ? "Show Distance" : "Show Score");
+			this.scoreHeadingText.SetText(this.sortByScore ? "Score" : "Distance");
 		}
 	}
 }
