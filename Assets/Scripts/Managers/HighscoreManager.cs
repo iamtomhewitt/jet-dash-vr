@@ -3,6 +3,7 @@ using Highscores;
 using SimpleJSON;
 using System.Collections.Generic;
 using System.Collections;
+using System.Text;
 using UI;
 using UnityEngine.Networking;
 using UnityEngine;
@@ -76,54 +77,56 @@ namespace Manager
 		/// <summary>
 		/// Uploads a new highscore to Dreamlo.
 		/// </summary>
-		public void UploadHighscoreToDreamlo(string username)
+		public void UploadHighscore(string username)
 		{
-			StartCoroutine(UploadHighscoreRoutine(username, PlayerPrefKeys.LEADERBOARD_SCORE));
-			StartCoroutine(UploadHighscoreRoutine(username, PlayerPrefKeys.LEADERBOARD_DISTANCE));
+			StartCoroutine(UploadHighscoreRoutine(username));
 		}
 
 		/// <summary>
 		/// Routine for uploading a highscore to Dreamlo.
 		/// </summary>
-		private IEnumerator UploadHighscoreRoutine(string username, string leaderboard)
+		private IEnumerator UploadHighscoreRoutine(string username)
 		{
-			bool usedVR = PlayerPrefs.GetInt(PlayerPrefKeys.WAS_VR_HIGHSCORE).Equals(Constants.YES) ? true : false;
-			int score = leaderboard.Equals(PlayerPrefKeys.LEADERBOARD_SCORE) ? GetLocalHighscore() : GetBestDistance();
+			bool usedVR = PlayerPrefs.GetInt(PlayerPrefKeys.WAS_VR_HIGHSCORE).Equals(Constants.YES);
 			string shipName = ShopManager.instance.GetSelectedShipData().GetShipName();
-			string privateCode = Config.instance.GetConfig()["dreamlo"][leaderboard]["privateKey"];
+			string url = Config.instance.GetConfig()["firebase"];
 
-			string url = Constants.DREAMLO_URL +
-						privateCode +
-						"/add/" +
-						username +
-						"/" +
-						score +
-						"/0/" +
-						shipName +
-						"|" +
-						usedVR;
+			JSONObject body = new JSONObject();
+			body.Add("date", System.DateTime.Now.ToString());
+			body.Add("distance", GetBestDistance());
+			body.Add("name", username);
+			body.Add("score", GetLocalHighscore());
+			body.Add("ship", shipName);
+			body.Add("vrMode", usedVR);
 
-			UnityWebRequest request = UnityWebRequest.Get(url);
+			UnityWebRequest request = UnityWebRequest.Post(url, "POST");
+			byte[] bytes = Encoding.UTF8.GetBytes(body.ToString());
+
+			request.uploadHandler = new UploadHandlerRaw(bytes);
+			request.downloadHandler = new DownloadHandlerBuffer();
+			request.SetRequestHeader("Content-Type", "application/json");
+
 			yield return request.SendWebRequest();
 
-			if (!request.downloadHandler.text.StartsWith("ERROR"))
-			{
-				Debug.Log("Upload successful! " + request.responseCode);
-				PlayerPrefs.SetInt(PlayerPrefKeys.UPLOADED, Constants.YES);
-				PlayerPrefs.SetInt(leaderboard.Equals(PlayerPrefKeys.LEADERBOARD_SCORE) ? PlayerPrefKeys.NEW_HIGHSCORE : PlayerPrefKeys.NEW_DISTANCE, Constants.NO);
-				AchievementManager.instance.UnlockAchievement(AchievementIds.UPLOAD_HIGHSCORE);
-				NotificationIcon icon = FindObjectOfType<NotificationIcon>();
-				if (icon != null)
-				{
-					icon.TurnOff();
-				}
-			}
-			else
+			if (request.result != UnityWebRequest.Result.Success)
 			{
 				Debug.Log("Error uploading: " + request.downloadHandler.text);
 				HighscoreDisplayHelper display = FindObjectOfType<HighscoreDisplayHelper>();
 				display.ClearEntries();
 				display.DisplayError(Ui.HIGHSCORE_UPLOAD_ERROR(request.downloadHandler.text));
+			}
+			else
+			{
+				Debug.Log("Upload successful! " + request.result);
+				PlayerPrefs.SetInt(PlayerPrefKeys.UPLOADED, Constants.YES);
+				PlayerPrefs.SetInt(PlayerPrefKeys.NEW_HIGHSCORE, Constants.NO);
+				PlayerPrefs.SetInt(PlayerPrefKeys.NEW_DISTANCE, Constants.NO);
+				AchievementManager.instance.UnlockAchievement(AchievementIds.UPLOAD_HIGHSCORE);
+				NotificationIcon[] icons = FindObjectsOfType<NotificationIcon>();
+				foreach (NotificationIcon icon in icons)
+				{
+					icon.TurnOff();
+				}
 			}
 		}
 
@@ -144,7 +147,6 @@ namespace Manager
 				displayHelper.DisplayError(Ui.NO_INTERNET);
 				yield break;
 			}
-
 			string url = Config.instance.GetConfig()["firebase"];
 
 			UnityWebRequest request = UnityWebRequest.Get(url);

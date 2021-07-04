@@ -96,7 +96,7 @@ namespace Highscores
 			}
 			else
 			{
-				HighscoreManager.instance.UploadHighscoreToDreamlo(formatted);
+				HighscoreManager.instance.UploadHighscore(formatted);
 				usernameInput.SetText("");
 				placeholderText.SetText(Ui.UPLOADED);
 			}
