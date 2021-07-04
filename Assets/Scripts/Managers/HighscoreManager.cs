@@ -42,7 +42,7 @@ namespace Manager
 
 			if (score > currentHighscore)
 			{
-				Debug.Log("New highscore of " + score + "! Saving...");
+				Debug.Log("New highscore of " + score + ", previous highscore was: " + currentHighscore);
 				PlayerPrefs.SetInt(PlayerPrefKeys.HIGHSCORE, score);
 
 				// Was the highscore achieved in VR mode?
@@ -66,7 +66,7 @@ namespace Manager
 			int currentDistance = PlayerPrefs.GetInt(PlayerPrefKeys.DISTANCE);
 			if (distance > currentDistance)
 			{
-				Debug.Log("New distance of " + distance + "! Previous was " + currentDistance + ".");
+				Debug.Log("New distance of " + distance + ", previous distance was: " + currentDistance);
 				PlayerPrefs.SetInt(PlayerPrefKeys.DISTANCE, distance);
 				PlayerPrefs.SetInt(PlayerPrefKeys.NEW_DISTANCE, Constants.YES);
 				return true;
@@ -74,17 +74,11 @@ namespace Manager
 			return false;
 		}
 
-		/// <summary>
-		/// Uploads a new highscore to Dreamlo.
-		/// </summary>
 		public void UploadHighscore(string username)
 		{
 			StartCoroutine(UploadHighscoreRoutine(username));
 		}
 
-		/// <summary>
-		/// Routine for uploading a highscore to Dreamlo.
-		/// </summary>
 		private IEnumerator UploadHighscoreRoutine(string username)
 		{
 			bool usedVR = PlayerPrefs.GetInt(PlayerPrefKeys.WAS_VR_HIGHSCORE).Equals(Constants.YES);
@@ -130,10 +124,7 @@ namespace Manager
 			}
 		}
 
-		/// <summary>
-		/// Downloads the highscores from Dreamlo.
-		/// </summary>
-		public void RequestDownloadOfHighscores()
+		public void DownloadHighscores()
 		{
 			StartCoroutine(DownloadAndDisplayHighscores());
 		}

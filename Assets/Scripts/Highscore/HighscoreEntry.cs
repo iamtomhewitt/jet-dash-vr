@@ -26,7 +26,7 @@ namespace Highscores
 			string formatted = username.StripNonLatinLetters();
 
 			rankText.SetText(rank + ".");
-			usernameText.SetText(string.IsNullOrEmpty(formatted) ? "<invalid name>" : formatted);
+			usernameText.SetText(string.IsNullOrEmpty(formatted) ? "Player" : formatted);
 			scoreText.SetText(score);
 
 			if (Constants.DEVS.Split(',').Contains(username))

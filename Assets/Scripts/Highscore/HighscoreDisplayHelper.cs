@@ -28,7 +28,7 @@ namespace Highscores
 			statusText.SetText(Ui.DOWNLOADING_HIGHSCORES);
 			statusText.color = Color.green;
 
-			HighscoreManager.instance.RequestDownloadOfHighscores();
+			HighscoreManager.instance.DownloadHighscores();
 
 			HideUploadModal();
 			UpdateScoreTypeTexts();
@@ -67,7 +67,7 @@ namespace Highscores
 		}
 
 		/// <summary>
-		/// Called from a Unity button, uploads the highscore to Dreamlo.
+		/// Called from a Unity button, uploads the highscore to Firebase.
 		/// </summary>
 		public void UploadHighscore(InputField usernameInput)
 		{
