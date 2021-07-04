@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipName: Devildog
   description: It may be a small ship, but it sure packs a punch.
-  speed: 20
+  speed: 30
   acceleration: 2
   turnSpeed: 20
   cost: 100000
