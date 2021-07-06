@@ -15,16 +15,14 @@ namespace LevelManagers
 		[SerializeField] private GameObject mainMenuUi;
 		[SerializeField] private Text vrCountdownText;
 
-		public string gameSceneName;
-
 		/// <summary>
 		/// Loads the game scene. Shows the headset countdown if in VR mode.
 		/// </summary>
-		public void LoadGame()
+		public void LoadGame(string gameSceneName)
 		{
 			if (GameSettingsManager.instance.vrMode())
 			{
-				StartCoroutine(HeadsetCountdown());
+				StartCoroutine(HeadsetCountdown(gameSceneName));
 				AchievementManager.instance.UnlockAchievement(AchievementIds.PLAY_IN_VR);
 			}
 			else
@@ -37,7 +35,7 @@ namespace LevelManagers
 		/// <summary>
 		/// Shows the headset message whilst counting down to the game start.
 		/// </summary>
-		private IEnumerator HeadsetCountdown()
+		private IEnumerator HeadsetCountdown(string gameSceneName)
 		{
 			ScreenManager.MakeLandscape();
 

@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Help.unity
     guid: a3fa7d85431e7de40b306c121c8b8eaf
   - enabled: 1
-    path: Assets/Scenes/Online Highscores.unity
+    path: Assets/Scenes/Highscores.unity
     guid: 05b2d4c5dc5c2e94484d57c7aeadde81
   - enabled: 1
     path: Assets/Scenes/Settings.unity
