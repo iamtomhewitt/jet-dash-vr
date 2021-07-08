@@ -6,16 +6,16 @@ EditorUserSettings:
   serializedVersion: 4
   m_ConfigSettings:
     RecentlyUsedScenePath-0:
-      value: 22424703114646680e0b0227036c78111b12563f22213229
-      flags: 0
-    RecentlyUsedScenePath-1:
       value: 224247031146467c1f0f1c2a19204c5f3018163e3f6712382c251832eadf0431fae23acfe8342b730d0aee30013f0900d60f0404b81e04020517
       flags: 0
-    RecentlyUsedScenePath-2:
+    RecentlyUsedScenePath-1:
       value: 22424703114646680e0b0227036c701e1a1e162f6c002f37253a1e3cf0e52776f7e93ffdfe
       flags: 0
-    RecentlyUsedScenePath-3:
+    RecentlyUsedScenePath-2:
       value: 22424703114646680e0b0227036c6c181907563f22213229
+      flags: 0
+    RecentlyUsedScenePath-3:
+      value: 22424703114646680e0b0227036c7e131e1e1d3c2925233e393a5326ece92021
       flags: 0
     RecentlyUsedScenePath-4:
       value: 22424703114646680e0b0227036c6f02131b172b2866333e243d04
@@ -24,7 +24,7 @@ EditorUserSettings:
       value: 22424703114646680e0b0227036c72111f1958072926337e38271427fb
       flags: 0
     RecentlyUsedScenePath-6:
-      value: 22424703114646680e0b0227036c7e131e1e1d3c2925233e393a5326ece92021
+      value: 22424703114646680e0b0227036c78111b12563f22213229
       flags: 0
     lightmappingDeviceAndPlatform:
       value: 53
