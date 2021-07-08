@@ -151,7 +151,7 @@ namespace Highscores
 
 		private void UpdateScoreTypeTexts()
 		{
-			this.toggleButton.GetComponentInChildren<Text>().SetText(this.sortByScore ? "Show Distance" : "Show Score");
+			this.toggleButton.GetComponentInChildren<Text>().SetText(this.sortByScore ? "Show\nDistance" : "Show\nScore");
 			this.scoreHeadingText.SetText(this.sortByScore ? "Score" : "Distance");
 		}
 	}
