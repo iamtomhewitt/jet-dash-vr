@@ -7,16 +7,21 @@ namespace LevelManagers
 {
 	public class SettingsLevelManager : LevelManager
 	{
-		[SerializeField] private Slider sensitivitySlider;
 		[SerializeField] private Text toggleVrText;
+		[SerializeField] private Text sensitivityText;
+		[SerializeField] private int maxSensitivity;
+		[SerializeField] private int minSensitivity;
+		[SerializeField] private float sensitivityStep;
 
 		private GameSettingsManager gameSettings;
+		private float sensitivity;
 
 		private void Start()
 		{
 			gameSettings = GameSettingsManager.instance;
 			SetVrToggleText();
-			sensitivitySlider.value = gameSettings.GetSensitivity();
+			sensitivity = gameSettings.GetSensitivity();
+			SetSensitivityText();
 		}
 
 		/// <summary>
@@ -29,17 +34,36 @@ namespace LevelManagers
 			SetVrToggleText();
 		}
 
-		/// <summary>
-		/// Called from the slider when the value is changed.
-		/// </summary>
-		public void UpdateSensitivity()
+		public void IncreaseSensitivity()
 		{
-			gameSettings.SetSensitivity(sensitivitySlider.value);
+			sensitivity += sensitivityStep;
+			if (sensitivity > maxSensitivity)
+			{
+				sensitivity = maxSensitivity;
+			}
+			gameSettings.SetSensitivity(sensitivity);
+			SetSensitivityText();
+		}
+
+		public void DecreaseSensitivity()
+		{
+			sensitivity -= sensitivityStep;
+			if (sensitivity < minSensitivity)
+			{
+				sensitivity = minSensitivity;
+			}
+			gameSettings.SetSensitivity(sensitivity);
+			SetSensitivityText();
 		}
 
 		private void SetVrToggleText()
 		{
 			toggleVrText.SetText(Ui.VR_TOGGLE(gameSettings.vrMode()));
+		}
+
+		private void SetSensitivityText()
+		{
+			sensitivityText.SetText(sensitivity.ToString());
 		}
 	}
 }
