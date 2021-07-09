@@ -709,8 +709,9 @@ GameObject:
   - component: {fileID: 491706793}
   - component: {fileID: 491706795}
   - component: {fileID: 491706794}
+  - component: {fileID: 491706796}
   m_Layer: 5
-  m_Name: TODO
+  m_Name: Version
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -732,8 +733,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 196, y: -682.436}
-  m_SizeDelta: {x: 350.101, y: 58.515}
+  m_AnchoredPosition: {x: 0, y: -643}
+  m_SizeDelta: {x: 800, y: 58.515}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &491706794
 MonoBehaviour:
@@ -756,19 +757,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
+    m_FontSize: 47
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
+    m_MaxSize: 50
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: TODO CASH SNAPSHOT HERE
+  m_Text: Version
 --- !u!222 &491706795
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -777,6 +778,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 491706792}
   m_CullTransparentMesh: 1
+--- !u!114 &491706796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491706792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8dbc0e3693553f4eba7c1cc0776b5b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &521405405
 GameObject:
   m_ObjectHideFlags: 0
