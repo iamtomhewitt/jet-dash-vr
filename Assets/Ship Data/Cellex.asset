@@ -19,7 +19,7 @@ MonoBehaviour:
   turnSpeed: 20
   cost: 500000
   ability: 2
-  abilityDescription: Your final score is doubled when you crash.
+  abilityDescription: Double score!
   sprite: {fileID: 21300000, guid: aedaabbe2f815a5469c53a03d02ded79, type: 3}
   hasPowerup: 0
   powerup: {fileID: 0}

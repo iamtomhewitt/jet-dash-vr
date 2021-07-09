@@ -20,7 +20,7 @@ MonoBehaviour:
   turnSpeed: 3
   cost: 25000
   ability: 1
-  abilityDescription: Although extremely fast, this ship is harder to turn.
+  abilityDescription: Super Speed
   sprite: {fileID: 21300000, guid: b925e0167aa50704ea54efe2fd75a79a, type: 3}
   hasPowerup: 0
   powerup: {fileID: 0}

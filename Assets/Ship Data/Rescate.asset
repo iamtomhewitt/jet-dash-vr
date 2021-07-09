@@ -20,7 +20,7 @@ MonoBehaviour:
   turnSpeed: 10
   cost: 0
   ability: 0
-  abilityDescription: This ship is slow moving, making it easier to dodge obstacles.
+  abilityDescription: None
   sprite: {fileID: 21300000, guid: 6b960b22deb9708449a96fa43c6f6da1, type: 3}
   hasPowerup: 0
   powerup: {fileID: 0}
