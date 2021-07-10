@@ -19,7 +19,7 @@ namespace Utility
 
 		public static string HIGHSCORE_DOWNLOAD_ERROR(string error)
 		{
-			return string.Format("Could not download score. Please try again later.\n\n{0}", error);
+			return string.Format("Could not download scores. Please try again later.\n\nError: {0}", error);
 		}
 
 		public static string HIGHSCORE_UPLOAD_ERROR(string error)
@@ -42,11 +42,6 @@ namespace Utility
 			return time < 0 ? "Relaunching" : string.Format("Relaunching in: {0}", time);
 		}
 
-		public static string SHOP_SHIP_ACCELERATION(float s)
-		{
-			return string.Format("Accelerates: Every {0} seconds", s);
-		}
-
 		public static string SHOP_SHIP_CASH(long c)
 		{
 			return string.Format("Cash: {0}P", c);
@@ -55,16 +50,6 @@ namespace Utility
 		public static string SHOP_SHIP_COST(long c)
 		{
 			return string.Format("Cost: {0}P", c);
-		}
-
-		public static string SHOP_SHIP_SPEED(float s)
-		{
-			return string.Format("Speed: {0}", s);
-		}
-
-		public static string SHOP_SHIP_TURN_SPEED(float s)
-		{
-			return string.Format("Turn Speed: {0}", s);
 		}
 
 		public static string TOTAL_ACHIEVEMENT_POINTS(int achieved, int total)

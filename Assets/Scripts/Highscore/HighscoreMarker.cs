@@ -2,7 +2,7 @@
 using UnityEngine;
 using Utility;
 
-namespace Highscore
+namespace Highscores
 {
 	/// <summary>
 	/// A GameObject at the distance highscore of the player. Matches the x position of the player so they dont lose it when moving.
