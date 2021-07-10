@@ -19,8 +19,7 @@ MonoBehaviour:
   turnSpeed: 20
   cost: 100000
   ability: 3
-  abilityDescription: This ship comes with an additional powerup, that when flown
-    through, launches your ship into the air.
+  abilityDescription: Jump Powerup
   sprite: {fileID: 21300000, guid: 626ec0b714f7635448ff025f12c6aa24, type: 3}
   hasPowerup: 1
   powerup: {fileID: 8977179043665752550, guid: 671a4a27f61ee4b85a9ae75ab8d34c33, type: 3}

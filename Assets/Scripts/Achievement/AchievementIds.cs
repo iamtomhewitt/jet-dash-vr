@@ -5,7 +5,6 @@
 		public const int DIE = 1;
 		public const int PLAY_IN_VR = 2;
 		public const int GET_MAX_SPEED = 3;
-		public const int WATCH_ADS = 4;
 		public const int NEW_HIGHSCORE = 5;
 		public const int UPLOAD_HIGHSCORE = 6;
 		public const int DISTANCE_FURTHER_THAN_1000 = 7;

@@ -13,15 +13,14 @@ namespace LevelManagers
 	public class ShopLevelManager : LevelManager
 	{
 		[SerializeField] private Image shipIcon;
-		[SerializeField] private Text acceleration;
+		[SerializeField] private Slider acceleration;
+		[SerializeField] private Slider speed;
+		[SerializeField] private Slider turnSpeed;
 		[SerializeField] private Text cash;
 		[SerializeField] private Text cost;
-		[SerializeField] private Text description;
 		[SerializeField] private Text shipName;
-		[SerializeField] private Text specialAbility;
 		[SerializeField] private Text specialAbilityDescription;
-		[SerializeField] private Text speed;
-		[SerializeField] private Text turnSpeed;
+		[SerializeField] private Text yourShip;
 
 		private List<ShipData> ships;
 		private AudioManager audioManager;
@@ -88,17 +87,15 @@ namespace LevelManagers
 			ShipData shipData = ships[currentShipIndex];
 			bool isUnlocked = shopManager.IsShipUnlocked(shipData);
 
-			shipName.SetText(shipData.GetShipName());
-			shipName.color = shipData.GetShipName().Equals(shopManager.GetSelectedShipData().GetShipName()) ? Color.green : Color.white;
-			description.SetText(shipData.GetDescription());
-			speed.SetText(Ui.SHOP_SHIP_SPEED(shipData.GetSpeed()));
-			acceleration.SetText(Ui.SHOP_SHIP_ACCELERATION(shipData.GetAcceleration()));
-			turnSpeed.SetText(Ui.SHOP_SHIP_TURN_SPEED(shipData.GetTurningSpeed()));
+			acceleration.value = shipData.GetAcceleration();
 			cost.SetText(Ui.SHOP_SHIP_COST(shipData.GetCost()));
-			specialAbility.SetText(shipData.GetSpecialAbility().ToString());
-			specialAbilityDescription.SetText(shipData.GetSpecialAbilityDescription());
-			shipIcon.sprite = shipData.GetSprite();
 			shipIcon.color = isUnlocked ? Color.white : Color.black;
+			shipIcon.sprite = shipData.GetSprite();
+			shipName.SetText(shipData.GetShipName());
+			specialAbilityDescription.SetText(shipData.GetSpecialAbilityDescription());
+			speed.value = shipData.GetSpeed();
+			turnSpeed.value = shipData.GetTurningSpeed();
+			yourShip.text = shopManager.GetSelectedShipData().GetShipName().Equals(shipData.GetShipName()) ? "Your Ship" : "";
 		}
 
 		/// <summary>
@@ -112,11 +109,12 @@ namespace LevelManagers
 			if (isUnlocked)
 			{
 				shopManager.SetSelectedShipData(shipData);
-				shipName.color = Color.green;
 				audioManager.Play(SoundNames.SHOP_SELECT_SHIP);
+				yourShip.text = "Your ship";
 			}
 			else
 			{
+				print("cannot select");
 				audioManager.Play(SoundNames.SHOP_REJECT_PURCHASE);
 			}
 		}
