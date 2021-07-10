@@ -15,8 +15,8 @@ MonoBehaviour:
   shipName: Devildog
   description: It may be a small ship, but it sure packs a punch.
   speed: 30
-  acceleration: 2
-  turnSpeed: 20
+  acceleration: 1.8
+  turnSpeed: 22
   cost: 100000
   ability: 3
   abilityDescription: Jump Powerup
