@@ -2297,6 +2297,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obstacle Spawner
       objectReference: {fileID: 0}
+    - target: {fileID: 6611509503495166403, guid: 3207d1741b582cb44ba84cbec8194515,
+        type: 3}
+      propertyPath: initialBoundary.zMin
+      value: 125
+      objectReference: {fileID: 0}
     - target: {fileID: 6611509503495166460, guid: 3207d1741b582cb44ba84cbec8194515,
         type: 3}
       propertyPath: m_RootOrder
