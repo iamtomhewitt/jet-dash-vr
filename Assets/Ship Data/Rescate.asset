@@ -15,7 +15,7 @@ MonoBehaviour:
   shipName: Rescate
   description: The most common ship in the galaxy, was originally designed to be
     a civilian transporation ship.
-  speed: 2
+  speed: 15
   acceleration: 2.5
   turnSpeed: 10
   cost: 0

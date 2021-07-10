@@ -12,6 +12,10 @@ namespace Player
 		private int bonusScore = 0;
 		private int speedStreak = 50;
 
+		private bool shown50Streak = false;
+		private bool shown100Streak = false;
+		private bool shownMaxSpeedStreak = false;
+
 		private void Start()
 		{
 			playerControl = GetComponent<PlayerControl>();
@@ -22,16 +26,31 @@ namespace Player
 		}
 
 		/// <summary>
-		/// Shows a notification if we are on a speed streak (every 50).
+		/// Shows a notification if we are on a speed streak.
 		/// </summary>
 		public void ShowNotificationIfOnSpeedStreak()
 		{
 			float speed = playerControl.GetSpeed();
 
-			if (speed % speedStreak == 0 && !playerControl.HasReachedMaxSpeed() && speed != 0f)
-			{			
-				hud.ShowNotification(Color.white, speed + " Speed Streak!");
+			if (speed > 50f && !shown50Streak)
+			{
+				hud.ShowNotification(Color.white, "50 Speed Streak!");
 				AudioManager.instance.Play(SoundNames.SPEED_STREAK);
+				shown50Streak = true;
+			}
+
+			if (speed > 100f && !shown100Streak)
+			{
+				hud.ShowNotification(Color.white, "100 Speed Streak!");
+				AudioManager.instance.Play(SoundNames.SPEED_STREAK);
+				shown100Streak = true;
+			}
+
+			if (playerControl.HasReachedMaxSpeed() && !shownMaxSpeedStreak)
+			{
+				hud.ShowNotification(Color.white, "Max Speed!");
+				AudioManager.instance.Play(SoundNames.SPEED_STREAK);
+				shownMaxSpeedStreak = true;
 			}
 		}
 

@@ -87,7 +87,7 @@ namespace LevelManagers
 			ShipData shipData = ships[currentShipIndex];
 			bool isUnlocked = shopManager.IsShipUnlocked(shipData);
 
-			acceleration.value = shipData.GetAcceleration();
+			acceleration.value = acceleration.maxValue - shipData.GetAcceleration();
 			cost.SetText(Ui.SHOP_SHIP_COST(shipData.GetCost()));
 			shipIcon.color = isUnlocked ? Color.white : Color.black;
 			shipIcon.sprite = shipData.GetSprite();
@@ -114,7 +114,6 @@ namespace LevelManagers
 			}
 			else
 			{
-				print("cannot select");
 				audioManager.Play(SoundNames.SHOP_REJECT_PURCHASE);
 			}
 		}

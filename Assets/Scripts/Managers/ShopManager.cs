@@ -17,8 +17,7 @@ namespace Manager
 		public static ShopManager instance;
 
 		private void Awake()
-		{			AddCash(1000);
-
+		{
 			if (instance)
 			{
 				DestroyImmediate(gameObject);

@@ -15,9 +15,9 @@ MonoBehaviour:
   shipName: Equinox
   description: The only ship in the galaxy that has the most advanced fusion engine
     tech.
-  speed: 20
-  acceleration: 2
-  turnSpeed: 20
+  speed: 25
+  acceleration: 1.85
+  turnSpeed: 22
   cost: 250000
   ability: 4
   abilityDescription: Hyperdrive Powerup
