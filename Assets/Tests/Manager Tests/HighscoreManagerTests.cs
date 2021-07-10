@@ -1,4 +1,4 @@
-using Highscore;
+using Highscores;
 using Manager;
 using NUnit.Framework;
 using System.Collections;
