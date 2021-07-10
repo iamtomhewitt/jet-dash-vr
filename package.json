@@ -1,6 +1,6 @@
 {
     "name": "jet-dash-vr",
-    "version": "5.4.1-BETA",
+    "version": "5.4.1",
     "description": "🚀 My Android game on Google Play that has both VR and non-VR play modes",
     "scripts": {
         "release": "github-releaser"
