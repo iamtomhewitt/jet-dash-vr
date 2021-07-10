@@ -1,3 +1,15 @@
+## 5.4.1 (10/07/2021) 
+
+
+### Issues in this release:
+
+* [#134](https://github.com/iamtomhewitt/jet-dash-vr/issues/134) - Make top ships slightly cheaper
+* [#133](https://github.com/iamtomhewitt/jet-dash-vr/issues/133) - Make the starting and slower ships faster
+* [#132](https://github.com/iamtomhewitt/jet-dash-vr/issues/132) - New design
+* [#128](https://github.com/iamtomhewitt/jet-dash-vr/issues/128) - Use Firebase for highscores
+
+
+
 ## 5.4.1-BETA (10/07/2021) 
 
 
