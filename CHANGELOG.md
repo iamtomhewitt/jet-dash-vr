@@ -1,3 +1,12 @@
+## 5.5.0 (28/11/2021) 
+
+
+### Issues in this release:
+
+* [#142](https://github.com/iamtomhewitt/jet-dash-vr/issues/142) - New sounds using VoiceMod
+
+
+
 ## 5.4.1 (10/07/2021) 
 
 
