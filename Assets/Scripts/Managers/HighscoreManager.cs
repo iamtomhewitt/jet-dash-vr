@@ -17,6 +17,7 @@ namespace Manager
 	public class HighscoreManager : MonoBehaviour
 	{
 		public static HighscoreManager instance;
+		private string datetime;
 
 		private void Awake()
 		{
@@ -81,12 +82,14 @@ namespace Manager
 
 		private IEnumerator UploadHighscoreRoutine(string username)
 		{
+			yield return GetDateFromInternet();
+
 			bool usedVR = PlayerPrefs.GetInt(PlayerPrefKeys.WAS_VR_HIGHSCORE).Equals(Constants.YES);
 			string shipName = ShopManager.instance.GetSelectedShipData().GetShipName();
 			string url = Config.instance.GetConfig()["firebase"];
 
 			JSONObject body = new JSONObject();
-			body.Add("date", System.DateTime.Now.ToString());
+			body.Add("date", this.datetime);
 			body.Add("distance", GetBestDistance());
 			body.Add("name", username);
 			body.Add("score", GetLocalHighscore());
@@ -172,6 +175,14 @@ namespace Manager
 		public int GetBestDistance()
 		{
 			return PlayerPrefs.GetInt(PlayerPrefKeys.DISTANCE);
+		}
+
+		private IEnumerator GetDateFromInternet() 
+		{
+			UnityWebRequest request = UnityWebRequest.Get("https://worldtimeapi.org/api/timezone/Europe/London");
+			yield return request.SendWebRequest();
+			JSONNode json = JSON.Parse(request.downloadHandler.text);
+			this.datetime = json["datetime"];
 		}
 	}
 }
