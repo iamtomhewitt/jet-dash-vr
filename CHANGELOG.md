@@ -1,3 +1,12 @@
+## 5.5.1 (02/06/2022) 
+
+
+### Issues in this release:
+
+* [#149](https://github.com/iamtomhewitt/jet-dash-vr/issues/149) - Fix dates when sending highscores
+
+
+
 ## 5.5.0 (28/11/2021) 
 
 
