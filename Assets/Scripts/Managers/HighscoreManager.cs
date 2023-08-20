@@ -96,7 +96,7 @@ namespace Manager
 			body.Add("ship", shipName);
 			body.Add("vrMode", usedVR);
 
-			UnityWebRequest request = UnityWebRequest.Post(url, "POST");
+			UnityWebRequest request = UnityWebRequest.PostWwwForm(url, "POST");
 			byte[] bytes = Encoding.UTF8.GetBytes(body.ToString());
 
 			request.uploadHandler = new UploadHandlerRaw(bytes);
